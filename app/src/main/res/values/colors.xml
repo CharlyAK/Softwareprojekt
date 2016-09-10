@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#ff4040</color>
+    <color name="MainBackground">#b71c1c</color>
+
+    Background colors for GameActivity
+    <color name="tag">#FFFFC107</color>
+    <color name="dieb">#FF1A237E</color>
+    <color name="amor">#FFE91E63</color>
+    <color name="werwoelfe">#FFB71C1C</color>
+    <color name="seherin">#FF1B5E20</color>
+    <color name="hexe">#FF8E24AA</color>
+</resources>
