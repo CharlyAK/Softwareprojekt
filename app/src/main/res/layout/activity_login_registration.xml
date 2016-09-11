@@ -13,6 +13,16 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Tippe zum fortfahren..."
+        android:visibility="visible"
+        android:id="@+id/textOpenGame"
+        android:layout_below="@+id/buttonLogin"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/Welcome"
         android:textSize="20sp"
         android:id="@+id/textView" />
@@ -104,12 +114,5 @@
         android:layout_alignRight="@+id/buttonRegistration"
         android:layout_alignEnd="@+id/buttonRegistration" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Tippe zum fortfahren..."
-        android:id="@+id/textOpenGame"
-        android:layout_below="@+id/buttonLogin"
-        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

@@ -21,7 +21,7 @@ public class loginDB extends AsyncTask<String, String, String> {
 
     JSONParser jsonParser = new JSONParser();
     GlobalVariables globalVariables = GlobalVariables.getInstance();
-    private static final String url_login = "http://192.168.0.158/SoPro/db_test/login.php";
+    private static final String url_login = "http://192.168.0.67/SoPro/db_test/login.php";
     @Override
     protected String doInBackground(String... params) {
 

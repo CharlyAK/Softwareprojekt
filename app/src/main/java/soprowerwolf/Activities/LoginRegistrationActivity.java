@@ -104,6 +104,7 @@ public class LoginRegistrationActivity extends AppCompatActivity {
 
     public void login (Activity context)
     {
+
         //ToDo: Datenbankabfrage
 
         if(globalVariables.getOwnPlayerID() != -1)
@@ -118,6 +119,7 @@ public class LoginRegistrationActivity extends AppCompatActivity {
             textEMail.setVisibility(View.VISIBLE);
             textEMail.setBackgroundColor(Color.RED);
         }
+
     }
 
     public void registration (Activity context)
