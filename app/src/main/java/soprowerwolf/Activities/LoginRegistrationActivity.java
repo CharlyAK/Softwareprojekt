@@ -1,7 +1,9 @@
 package soprowerwolf.Activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -11,9 +13,10 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import soprowerwolf.R;
-
+import soprowerwolf.Classes.GlobalVariables;
 import soprowerwolf.Classes.databaseCon;
+import soprowerwolf.Database.loginDB;
+import soprowerwolf.R;
 
 
 public class LoginRegistrationActivity extends AppCompatActivity {
@@ -22,10 +25,14 @@ public class LoginRegistrationActivity extends AppCompatActivity {
     EditText textUsername, textEMail, textPassword;
     databaseCon Con = new databaseCon();
 
+    GlobalVariables globalVariables = GlobalVariables.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_registration);
+
+        globalVariables.setOwnPlayerID(0);
 
         final ImageButton bStartScreen = (ImageButton)findViewById(R.id.imageButtonStart);
         final TextView openGame = (TextView)findViewById(R.id.textOpenGame);
@@ -74,16 +81,36 @@ public class LoginRegistrationActivity extends AppCompatActivity {
 
             }
         });
+
+        bLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String[] params = {textEMail.getText().toString(), textPassword.getText().toString()};
+                AsyncTask login = new loginDB();
+                login.execute(params);
+
+                while(true)
+                {
+                    if(globalVariables.getOwnPlayerID() != 0)
+                    {
+                        login(LoginRegistrationActivity.this);
+                        break;
+                    }
+                }
+
+            }
+        });
     }
 
-    public void login (View view)
+    public void login (Activity context)
     {
         //ToDo: Datenbankabfrage
-        if(Con.login(textEMail.getText().toString(), textPassword.getText().toString()))
+
+        if(globalVariables.getOwnPlayerID() != -1)
         {
             Toast.makeText(getApplicationContext(), "Redirecting...", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, MenuActivity.class);
-            startActivity(intent);
+            Intent intent = new Intent(context, MenuActivity.class);
+            context.startActivity(intent);
         }
         else
         {
@@ -93,7 +120,7 @@ public class LoginRegistrationActivity extends AppCompatActivity {
         }
     }
 
-    public void registration (View view)
+    public void registration (Activity context)
     {
         //ToDo: Registrierung
         String name = textUsername.getText().toString();
