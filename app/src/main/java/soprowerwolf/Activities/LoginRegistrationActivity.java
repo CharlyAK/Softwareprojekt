@@ -1,9 +1,7 @@
 package soprowerwolf.Activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -15,7 +13,6 @@ import android.widget.Toast;
 
 import soprowerwolf.Classes.GlobalVariables;
 import soprowerwolf.Classes.databaseCon;
-import soprowerwolf.Database.loginDB;
 import soprowerwolf.R;
 
 
@@ -82,36 +79,15 @@ public class LoginRegistrationActivity extends AppCompatActivity {
             }
         });
 
-        bLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String[] params = {textEMail.getText().toString(), textPassword.getText().toString()};
-                AsyncTask login = new loginDB();
-                login.execute(params);
-
-                while(true)
-                {
-                    if(globalVariables.getOwnPlayerID() != 0)
-                    {
-                        login(LoginRegistrationActivity.this);
-                        break;
-                    }
-                }
-
-            }
-        });
     }
 
-    public void login (Activity context)
+    public void login (View view)
     {
-
-        //ToDo: Datenbankabfrage
-
-        if(globalVariables.getOwnPlayerID() != -1)
+        if(Con.login(textEMail.getText().toString(), textPassword.getText().toString()))
         {
             Toast.makeText(getApplicationContext(), "Redirecting...", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(context, MenuActivity.class);
-            context.startActivity(intent);
+            Intent intent = new Intent(this, MenuActivity.class);
+            startActivity(intent);
         }
         else
         {
@@ -119,10 +95,9 @@ public class LoginRegistrationActivity extends AppCompatActivity {
             textEMail.setVisibility(View.VISIBLE);
             textEMail.setBackgroundColor(Color.RED);
         }
-
     }
 
-    public void registration (Activity context)
+    public void registration (View view)
     {
         //ToDo: Registrierung
         String name = textUsername.getText().toString();

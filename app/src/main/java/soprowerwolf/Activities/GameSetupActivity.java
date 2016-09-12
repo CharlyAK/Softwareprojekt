@@ -14,7 +14,7 @@ import android.widget.TextView;
 import java.util.Random;
 
 import soprowerwolf.Classes.GlobalVariables;
-import soprowerwolf.Classes.databaseCon;
+import soprowerwolf.Database.createGameDB;
 import soprowerwolf.R;
 
 public class GameSetupActivity extends AppCompatActivity {
@@ -208,11 +208,11 @@ public class GameSetupActivity extends AppCompatActivity {
 
                 // TODO: Spieler, der Spiel erstellt hat in player_game hinzufügen
                 //new initializeDatabase().execute();
-                databaseCon Con = new databaseCon();
-                Con.createGame();
 
                 globalVariables.setNumPlayers(((NumberPicker) findViewById(R.id.numberPicker)).getValue());
                 globalVariables.setCards(cardsShuffled);
+
+                new createGameDB().execute();
 
                 Intent intent = new Intent(GameSetupActivity.this, waitForAllActivity.class);
                 startActivity(intent);

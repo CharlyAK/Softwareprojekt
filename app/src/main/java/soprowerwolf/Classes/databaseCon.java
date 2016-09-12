@@ -28,17 +28,17 @@ public class databaseCon {
     }
     GlobalVariables globalVariables = GlobalVariables.getInstance();
 
-    private static final String url_create_new_player = "http://192.168.0.158/SoPro/db_test/create_new_player.php";
-    private static final String url_login = "http://192.168.0.158/SoPro/db_test/loginDB.php";
-    private static final String url_create_game = "http://192.168.0.158/SoPro/db_test/create_new_game.php";
+    private static final String url_create_new_player = "http://192.168.0.13/SoPro/db_test/create_new_player.php";
+    private static final String url_login = "http://192.168.0.13/SoPro/db_test/login.php";
+    private static final String url_create_game = "http://192.168.0.13/SoPro/db_test/create_new_game.php";
     private static final String url_get_all_players = "";
-    private static final String url_get_game_details = "http://192.168.0.158/SoPro/db_test/get_game_details.php";
-    private static final String url_get_player_details = "http://192.168.0.158/SoPro/db_test/get_player_details.php";
-    private static final String url_get_player_game_details = "http://192.168.0.158/SoPro/db_test/get_player_game_details.php";
-    private static final String url_change_role = "http://192.168.0.158/SoPro/db_test/changeRole.php";
-    private static final String url_set_lovers = "http://192.168.0.158/SoPro/db_test/setLovers.php";
+    private static final String url_get_game_details = "http://192.168.0.13/SoPro/db_test/get_game_details.php";
+    private static final String url_get_player_details = "http://192.168.0.13/SoPro/db_test/get_player_details.php";
+    private static final String url_get_player_game_details = "http://192.168.0.13/SoPro/db_test/get_player_game_details.php";
+    private static final String url_change_role = "http://192.168.0.13/SoPro/db_test/changeRole.php";
+    private static final String url_set_lovers = "http://192.168.0.13/SoPro/db_test/setLovers.php";
     private static final String url_set_victims = "";
-    private static final String url_update_hexe = "http://192.168.0.158/SoPro/db_test/updateHexe.php";
+    private static final String url_update_hexe = "http://192.168.0.13/SoPro/db_test/updateHexe.php";
     private static final String url_change_alive = "";
 
     public void registration(String name, String email, String pw)
@@ -92,45 +92,23 @@ public class databaseCon {
 
     public void createGame()
     {
+        String playerID = String.valueOf(globalVariables.getOwnPlayerID());
         List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("game", "game"));
 
-        JSONObject jsonObject = jsonParser.makeHttpRequest(url_create_game, "GET", params);
+        params.add(new BasicNameValuePair("playerID", playerID));
+
+        jsonParser.makeHttpRequest(url_create_game, "POST", params);
+
+        JSONObject newPlayer = jsonParser.makeHttpRequest(url_create_game, "GET", params);
+
         try {
-            JSONArray array = jsonObject.getJSONArray("games");
-
-            for(int i = 1; i < array.length()+1; i++)
-            {
-                JSONObject JgID = array.getJSONObject(i);
-                int gID = JgID.getInt("gameID");
-                if(gID != i)
-                {
-                    params.add(new BasicNameValuePair("gameID", String.valueOf(i)));
-                    jsonParser.makeHttpRequest(url_create_game, "POST", params);
-
-                    globalVariables.setGameID(i);
-                }
-            }
+            JSONArray JID = newPlayer.getJSONArray("gameID");
+            globalVariables.setGameID(JID.getJSONObject(JID.length()-1).getInt("gameID"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    public void Dieb(String newRole)
-    {
-        List<NameValuePair> params = new ArrayList<NameValuePair>();
-
-        //ToDo: playerID und gameID können über die globalen Variablen abgefragt werden
-        int gameID = 1;
-        int playerID = 1;
-
-        params.add(new BasicNameValuePair("gameID", String.valueOf(gameID)));
-        params.add(new BasicNameValuePair("playerID", String.valueOf(playerID)));
-        params.add(new BasicNameValuePair("newRole", newRole));
-
-        jsonParser.makeHttpRequest(url_change_role, "POST", params);
-        //ToDO: check for success
-    }
 
     public void Amor (int Lover1ID, int Lover2ID)
     {

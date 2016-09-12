@@ -7,12 +7,11 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 
-import soprowerwolf.R;
-
 import soprowerwolf.Activities.GameActivity;
 import soprowerwolf.Classes.GlobalVariables;
-import soprowerwolf.Classes.databaseCon;
 import soprowerwolf.Classes.popup;
+import soprowerwolf.Database.DiebDB;
+import soprowerwolf.R;
 
 public class DiebActivity extends AppCompatActivity {
 
@@ -74,8 +73,7 @@ public class DiebActivity extends AppCompatActivity {
     public void changeRole(String choice, Activity context)
     {
         //ToDo: update database: change Role
-        databaseCon Con = new databaseCon();
-        Con.Dieb(choice);
+        new DiebDB().execute(choice);
 
         String[]phases = globalVariables.getPhases();
         int currentPhase = globalVariables.getCurrentPhaseID();
