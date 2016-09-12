@@ -33,7 +33,7 @@
             android:name=".Activities.SettingsActivity"
             android:label="@string/settings" />
         <activity
-            android:name=".Activities.waitForAllActivity"
+            android:name=".Activities.QRCodeActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <!--
  ATTENTION: This was auto-generated to add Google Play services to your project for
@@ -45,12 +45,12 @@
 
         <activity
             android:name=".Activities.GameActivity"
-            android:parentActivityName=".Activities.waitForAllActivity"
+            android:parentActivityName=".Activities.QRCodeActivity"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activities.waitForAllActivity" />
+                android:value=".Activities.QRCodeActivity" />
         </activity>
         <activity
             android:name=".Activities.PhasesActivity.DiebActivity"
@@ -76,6 +76,9 @@
             android:name=".Activities.PhasesActivity.WerwolfActivity"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".Activities.GetRole"
+            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
     </application>
 
 </manifest>

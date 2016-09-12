@@ -14,6 +14,7 @@ import android.widget.TextView;
 import java.util.Random;
 
 import soprowerwolf.Classes.GlobalVariables;
+import soprowerwolf.Classes.databaseCon;
 import soprowerwolf.Database.createGameDB;
 import soprowerwolf.R;
 
@@ -214,7 +215,7 @@ public class GameSetupActivity extends AppCompatActivity {
 
                 new createGameDB().execute();
 
-                Intent intent = new Intent(GameSetupActivity.this, waitForAllActivity.class);
+                Intent intent = new Intent(GameSetupActivity.this, QRCodeActivity.class);
                 startActivity(intent);
             }
 

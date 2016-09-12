@@ -12,4 +12,8 @@
     <color name="werwoelfe">#FFB71C1C</color>
     <color name="seherin">#FF1B5E20</color>
     <color name="hexe">#FF8E24AA</color>
+
+    Colors for QR-Code
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
 </resources>

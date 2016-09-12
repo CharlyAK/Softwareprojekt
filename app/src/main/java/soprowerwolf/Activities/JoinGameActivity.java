@@ -1,5 +1,6 @@
 package soprowerwolf.Activities;
 
+import android.content.Intent;
 import android.graphics.Camera;
 import android.graphics.PointF;
 import android.os.Bundle;
@@ -34,6 +35,9 @@ public class JoinGameActivity extends AppCompatActivity implements QRCodeReaderV
         Toast.makeText(getApplicationContext()," scanned text: " + scanningURL, Toast.LENGTH_LONG).show();
 
         //TODO: add player to game where id = scanningURL
+
+        Intent intent = new Intent(this, GetRole.class);
+        startActivity(intent);
     }
 
     @Override
