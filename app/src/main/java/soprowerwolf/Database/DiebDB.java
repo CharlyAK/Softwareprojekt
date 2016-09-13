@@ -18,7 +18,7 @@ public class DiebDB extends AsyncTask<String, String, String> {
 
     JSONParser jsonParser = new JSONParser();
     GlobalVariables globalVariables = GlobalVariables.getInstance();
-    private static final String url_change_role = "http://192.168.0.13/SoPro/db_test/changeRole.php";
+    private static final String url_change_role = "http://www-e.uni-magdeburg.de/jkloss/changeRole.php";
 
     @Override
     protected String doInBackground(String... params) {
