@@ -7,10 +7,10 @@
  */
 
 // Verbindung aufbauen, auswählen einer Datenbank
-$link = mysql_connect("localhost", "root", "werwolf")
+$link = mysql_connect("localhost", "jkloss", "werwolf")
     or die("Keine Verbindung möglich!");
 
-mysql_select_db("SoPro_db_test")
+mysql_select_db("jkloss_db")
     or die("Auswahl der Datenbank fehlgeschlagen");
 
 
@@ -26,11 +26,11 @@ $response = array();
 	
 	$i = 1;
 	$insert = 0;
-	$size = mysql_query("SELECT * FROM _game");
+	$size = mysql_query("SELECT * FROM _GAME");
 	$DatabaseSize = mysql_num_rows($size);
 	while($i <= $DatabaseSize+1 && $insert == 0)
 	{
-		$currentRow = mysql_query("SELECT count(*) FROM _game WHERE gameID = '$i'");
+		$currentRow = mysql_query("SELECT count(*) FROM _GAME WHERE gameID = '$i'");
 		if(mysql_result($currentRow, 0) == 1)
 		{
 			$i++;
@@ -38,24 +38,24 @@ $response = array();
 		else
 		{
 			//set new game in free row
-			mysql_query("INSERT INTO _game (gameID) VALUES ('$i')")
+			mysql_query("INSERT INTO _GAME (gameID) VALUES ('$i')")
 			or die("Spiel in Datenbank einfügen fehlgeschlagen");
 			
-			mysql_query("SELECT gameID FROM _game ORDER BY gameID DESC")
-			or die("Sortieren der _game - Tabelle fehlgeschlagen");
+			mysql_query("SELECT gameID FROM _GAME ORDER BY gameID DESC")
+			or die("Sortieren der _GAME - Tabelle fehlgeschlagen");
 			
-			mysql_query("INSERT INTO player_game (gameID, playerID, role) VALUES ('$i', '$player', '$role')")
-			or die("Spieler und Spiel in player_game hinzufügen fehlgeschlagen");
+			mysql_query("INSERT INTO player_GAME (gameID, playerID, role) VALUES ('$i', '$player', '$role')")
+			or die("Spieler und Spiel in player_GAME hinzufügen fehlgeschlagen");
 			
-			mysql_query("SELECT gameID FROM player_game ORDER BY gameID DESC")
-			or die("Sortieren der player_game - Tabelle fehlgeschlagen");
+			mysql_query("SELECT gameID FROM player_GAME ORDER BY gameID DESC")
+			or die("Sortieren der player_GAME - Tabelle fehlgeschlagen");
 			
 			$insert = 1;
 			$response["ID"] = '$i';
 			
 			// check if game has been inserted 
 	
-			$resultGame = mysql_query("SELECT gameID FROM _game WHERE gameID = '$i'");
+			$resultGame = mysql_query("SELECT gameID FROM _GAME WHERE gameID = '$i'");
 			$resultPlayer_Game = mysql_query("SELECT gameID FROM player_game WHERE playerID = '$player'");
 			if ($resultGame == $resultPlayer_Game) 
 			{

@@ -7,10 +7,10 @@
  */
 
 // Verbindung aufbauen, auswählen einer Datenbank
-$link = mysql_connect("localhost", "root", "werwolf")
+$link = mysql_connect("localhost", "jkloss", "werwolf")
     or die("Keine Verbindung möglich!");
 
-mysql_select_db("SoPro_db_test")
+mysql_select_db("jkloss_db")
     or die("Auswahl der Datenbank fehlgeschlagen");
 
 
@@ -24,12 +24,12 @@ if (isset($_POST['gameID']) && !empty($_POST['gameID']) && isset($_POST['victimW
     $victimWer = $_POST['victimWer'];
 
     // set victimWer
-    mysql_query("UPDATE _game SET victimWer='$victimWer' WHERE gameID = '$gameID'")
+    mysql_query("UPDATE _GAME SET victimWer='$victimWer' WHERE gameID = '$gameID'")
 	or die("Die Änderung des Werwolfopfers ist fehlgeschlagen");
 
     // check if victimWer has been changed
 
-    $result = mysql_query("SELECT victimWer FROM _game WHERE gameID = '$gameID'");
+    $result = mysql_query("SELECT victimWer FROM _GAME WHERE gameID = '$gameID'");
     if ($result == $victimWer) {
         // successfully updated
         $response["success"] = 1;
@@ -45,12 +45,12 @@ if (isset($_POST['gameID']) && !empty($_POST['gameID']) && isset($_POST['victimW
      $victimDor = $_POST['victimDor'];
 
      // set victimDor
-     mysql_query("UPDATE _game SET victimDor='$victimDor' WHERE gameID = '$gameID'")
+     mysql_query("UPDATE _GAME SET victimDor='$victimDor' WHERE gameID = '$gameID'")
  	or die("Die Änderung des Bauernopfers ist fehlgeschlagen");
 
      // check if victimDor has been changed
 
-     $result = mysql_query("SELECT victimDor FROM _game WHERE gameID = '$gameID'");
+     $result = mysql_query("SELECT victimDor FROM _GAME WHERE gameID = '$gameID'");
      if ($result == $victimDor) {
          // successfully updated
          $response["success"] = 1;

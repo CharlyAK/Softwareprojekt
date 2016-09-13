@@ -8,10 +8,10 @@
 $response = array();
 
 // connect to db
-$link = mysql_connect("localhost", "root", "werwolf")
+$link = mysql_connect("localhost", "jkloss", "werwolf")
     or die("Keine Verbindung möglich!");
 
-mysql_select_db("SoPro_db_test")
+mysql_select_db("jkloss_db")
     or die("Auswahl der Datenbank fehlgeschlagen");
 
 if (isset($_GET["gameID"])) {

@@ -7,10 +7,10 @@
  */
 
 // Verbindung aufbauen, auswählen einer Datenbank
-$link = mysql_connect("localhost", "root", "werwolf")
+$link = mysql_connect("localhost", "jkloss", "werwolf")
     or die("Keine Verbindung möglich!");
 
-mysql_select_db("SoPro_db_test")
+mysql_select_db("jkloss_db")
     or die("Auswahl der Datenbank fehlgeschlagen");
 
 
@@ -50,7 +50,7 @@ $response = array();
   
     // check if player has been inserted 
 	
-    $result = mysql_query("SELECT email FROM _player WHERE name = '$name' AND password = '$password'");
+    $result = mysql_query("SELECT email FROM _PLAYER WHERE name = '$name' AND password = '$password'");
     if ($result == $email) 
 	{
         // successfully updated

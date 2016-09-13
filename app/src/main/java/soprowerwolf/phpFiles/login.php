@@ -9,10 +9,10 @@
 $response = array();
 
 // connecting to db
-$link = mysql_connect("localhost", "root", "werwolf")
+$link = mysql_connect("localhost", "jkloss", "werwolf")
 or die("Keine Verbindung möglich!");
 
-mysql_select_db("SoPro_db_test")
+mysql_select_db("jkloss_db")
 or die("Auswahl der Datenbank fehlgeschlagen");
 
 if(!empty($_GET['email']) && isset($_GET['email']) && !empty($_GET['password']) && isset ($_GET['password']))
@@ -20,7 +20,7 @@ if(!empty($_GET['email']) && isset($_GET['email']) && !empty($_GET['password']) 
 		$email = $_GET['email'];
 		$password = $_GET['password'];
 		
-		$result = mysql_query("SELECT playerID FROM _player WHERE email = '$email' AND password = '$password'");
+		$result = mysql_query("SELECT playerID FROM _PLAYER WHERE email = '$email' AND password = '$password'");
 		
 		if (!empty($result)) 
 		{
