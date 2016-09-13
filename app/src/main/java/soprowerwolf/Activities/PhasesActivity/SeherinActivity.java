@@ -47,4 +47,9 @@ public class SeherinActivity extends AppCompatActivity {
             globalVariables.getPopUpSeherinIdentity().show();
         }
     }
+
+    @Override
+    public void onBackPressed() {
+
+    }
 }

@@ -103,4 +103,9 @@ public class DiebActivity extends AppCompatActivity {
         GameActivity create = new GameActivity();
         create.nextPhase();
     }
+
+    @Override
+    public void onBackPressed() {
+
+    }
 }
