@@ -15,7 +15,6 @@ import soprowerwolf.Classes.GlobalVariables;
 import soprowerwolf.Classes.databaseCon;
 import soprowerwolf.R;
 
-
 public class LoginRegistrationActivity extends AppCompatActivity {
 
     Button bStartLogin, bStartRegistration, bLogin, bRegistration;
@@ -83,6 +82,9 @@ public class LoginRegistrationActivity extends AppCompatActivity {
 
     public void login (View view)
     {
+        Intent intent = new Intent(this, MenuActivity.class);
+        startActivity(intent);
+        /*
         if(Con.login(textEMail.getText().toString(), textPassword.getText().toString()))
         {
             Toast.makeText(getApplicationContext(), "Redirecting...", Toast.LENGTH_SHORT).show();
@@ -95,6 +97,7 @@ public class LoginRegistrationActivity extends AppCompatActivity {
             textEMail.setVisibility(View.VISIBLE);
             textEMail.setBackgroundColor(Color.RED);
         }
+        */
     }
 
     public void registration (View view)

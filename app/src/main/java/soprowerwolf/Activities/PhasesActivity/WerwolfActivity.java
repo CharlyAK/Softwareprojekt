@@ -28,4 +28,8 @@ public class WerwolfActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+
+    }
 }

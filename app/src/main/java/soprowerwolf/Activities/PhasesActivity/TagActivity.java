@@ -25,4 +25,9 @@ public class TagActivity extends AppCompatActivity {
         GameActivity create = new GameActivity();
         create.createObjects();
     }
+
+    @Override
+    public void onBackPressed() {
+
+    }
 }

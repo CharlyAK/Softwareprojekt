@@ -78,7 +78,11 @@
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".Activities.GetRole"
-            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".Activities.LetsPlayActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>

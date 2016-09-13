@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import soprowerwolf.Classes.GlobalVariables;
 import soprowerwolf.R;
 
 public class SettingsActivity extends AppCompatActivity {

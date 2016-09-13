@@ -114,4 +114,9 @@ public class HexeActivity extends AppCompatActivity {
         }
 
     }
+
+    @Override
+    public void onBackPressed() {
+
+    }
 }

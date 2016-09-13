@@ -108,5 +108,9 @@ public class QRCodeActivity extends AppCompatActivity {
         return bitmap;
     } /// end of this method
 
+    @Override
+    public void onBackPressed() {
+        //TODO: game wieder löschen
+    }
 
 }

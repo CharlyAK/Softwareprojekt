@@ -71,4 +71,9 @@ public class AmorActivity extends AppCompatActivity {
         String[] phases = globalVariables.getPhases();
         phases[globalVariables.getCurrentPhaseID()] = null;
     }
+
+    @Override
+    public void onBackPressed() {
+
+    }
 }

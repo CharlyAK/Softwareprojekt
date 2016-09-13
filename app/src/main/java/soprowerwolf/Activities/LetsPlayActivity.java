@@ -7,21 +7,16 @@ import android.view.View;
 
 import soprowerwolf.R;
 
-public class GetRole extends AppCompatActivity {
+public class LetsPlayActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_get_role);
+        setContentView(R.layout.activity_lets_play);
     }
 
-    public void ready(View view){
-        Intent intent = new Intent(GetRole.this, LetsPlayActivity.class);
+    public void letsPlay(View view){
+        Intent intent = new Intent(LetsPlayActivity.this, GameActivity.class);
         startActivity(intent);
-    }
-
-    @Override
-    public void onBackPressed() {
-
     }
 }
