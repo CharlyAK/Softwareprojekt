@@ -54,6 +54,7 @@ public class databaseCon {
 
         List<NameValuePair> paramsID = new ArrayList<NameValuePair>();
         paramsID.add(new BasicNameValuePair("email", email));
+        paramsID.add(new BasicNameValuePair("password", pw));
         JSONObject newPlayer = jsonParser.makeHttpRequest(url_login, "GET", paramsID);
 
         try {

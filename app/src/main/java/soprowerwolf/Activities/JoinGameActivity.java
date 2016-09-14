@@ -9,6 +9,8 @@ import android.widget.Toast;
 
 import com.dlazaro66.qrcodereaderview.QRCodeReaderView;
 
+import soprowerwolf.Classes.GlobalVariables;
+import soprowerwolf.Database.joinGameDB;
 import soprowerwolf.R;
 
 // Scanner benötigt Kamerazugriff (evtl. im Smartphone erlauben)
@@ -17,6 +19,7 @@ public class JoinGameActivity extends AppCompatActivity implements QRCodeReaderV
 
     String scanningURL;
     private QRCodeReaderView mydecoderview;
+    GlobalVariables globalVariables = GlobalVariables.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,9 @@ public class JoinGameActivity extends AppCompatActivity implements QRCodeReaderV
         Toast.makeText(getApplicationContext()," scanned text: " + scanningURL, Toast.LENGTH_LONG).show();
 
         //TODO: add player to game where id = scanningURL
+        globalVariables.setGameID(Integer.parseInt(scanningURL));
+
+        new joinGameDB().execute();
 
         Intent intent = new Intent(this, GetRole.class);
         startActivity(intent);

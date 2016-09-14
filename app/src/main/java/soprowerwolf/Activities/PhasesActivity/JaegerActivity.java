@@ -33,7 +33,7 @@ public class JaegerActivity extends AppCompatActivity {
         create.createObjects();
 
         final TextView InfoJaeger = (TextView) findViewById(R.id.TextJaeger);
-        Button ok = (Button) findViewById(R.id.buttonJaegerContinue);
-        Button info = (Button) findViewById(R.id.buttonJaegerInfo);
+        //Button ok = (Button) findViewById(R.id.buttonJaegerContinue);
+        //Button info = (Button) findViewById(R.id.buttonJaegerInfo);
     }
 }

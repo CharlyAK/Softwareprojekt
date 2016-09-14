@@ -13,6 +13,7 @@ public class GlobalVariables extends Application {
 
     // Global variables: Game
     private int ownPlayerID;
+    private String ownRole;
     private int gameID;
     private int numPlayers;
     private String[] cards;
@@ -53,6 +54,15 @@ public class GlobalVariables extends Application {
     public int getOwnPlayerID()
     {
         return this.ownPlayerID;
+    }
+
+    public void setOwnRole(String ownRole)
+    {
+        this.ownRole = ownRole;
+    }
+    public String getOwnRole()
+    {
+        return this.ownRole;
     }
 
     public void setGameID(int gameID)

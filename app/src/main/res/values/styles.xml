@@ -9,7 +9,7 @@
     </style>
 
     <style name="Werwolf" parent="Theme.AppCompat.NoActionBar" >
-        <item name="colorAccent">@color/common_signin_btn_default_background</item>
+        <item name="colorAccent">@color/colorPrimaryDark</item>
     </style>
 
 

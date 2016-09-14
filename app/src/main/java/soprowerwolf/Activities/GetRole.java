@@ -16,7 +16,7 @@ public class GetRole extends AppCompatActivity {
     }
 
     public void ready(View view){
-        Intent intent = new Intent(GetRole.this, LetsPlayActivity.class);
+        Intent intent = new Intent(this, LetsPlayActivity.class);
         startActivity(intent);
     }
 
