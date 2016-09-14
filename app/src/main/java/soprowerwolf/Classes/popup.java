@@ -3,9 +3,12 @@ package soprowerwolf.Classes;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.widget.TextView;
 
 import soprowerwolf.Activities.GameActivity;
 import soprowerwolf.Activities.PhasesActivity.DiebActivity;
+import soprowerwolf.Activities.PhasesActivity.HexeActivity;
+import soprowerwolf.R;
 
 /**
  * Created by Alex on 29.08.2016.
@@ -16,6 +19,7 @@ public class popup {
     databaseCon Con = new databaseCon();
     GlobalVariables globalVariables = GlobalVariables.getInstance();
 
+
     public popup(Activity context){
         this.context = context;
 
@@ -24,6 +28,7 @@ public class popup {
     /* creates a popup containing information */
     public AlertDialog PopUpInfo(String infotext, final String titel) {
 
+        final String victimWer = Con.Hexe("getVictimWer");
         AlertDialog.Builder helpBuilder = new AlertDialog.Builder(context);
         helpBuilder.setTitle(titel);
         helpBuilder.setMessage(infotext);
@@ -33,10 +38,21 @@ public class popup {
                     public void onClick(DialogInterface dialog, int which) {
                         if((globalVariables.getCurrentPhaseID() == 3 && globalVariables.getCurrentlySelectedPlayer() != null)
                                 || (globalVariables.getCurrentPhaseID() == 1 && titel != "Info")
-                                || (globalVariables.getCurrentPhaseID() == 4 && !globalVariables.getDiebChoosen() && Con.Hexe("ableToPoison").equals("1")))
+                                ////this is called after the info screen for the hexe if heal and poison are unavailable
+                                || (globalVariables.getCurrentPhaseID() == 4 && Con.Hexe("ableToSave").equals("1") && Con.Hexe("ableToPoison").equals("1")))
                         {
                             GameActivity create = new GameActivity();
                             create.nextPhase();
+                        }
+                        //this is called after the info screen for the hexe if the heal is available
+                        else if(globalVariables.getCurrentPhaseID() == 4 && Con.Hexe("ableToSave").equals("0")){
+                            popup popup = new popup(context);
+                            popup.PopUpChoice("Möchtest du " + victimWer + " retten?", "HexeH", "safe").show();
+                        }
+                        //this is called after the info screen for the hexe if heal isn't available and poison is available
+                        else if(globalVariables.getCurrentPhaseID() == 4 && Con.Hexe("ableToSave").equals("1") && Con.Hexe("ableToPoison").equals("0")){
+                            popup popup = new popup(context);
+                            popup.PopUpChoice("Möchtest du deinen Gifttrank verwenden?", "HexeP", "poison").show();
                         }
                     }
                 });
@@ -83,7 +99,38 @@ public class popup {
                     dieb.changeRole(toBeDecided, context);
                 }
                 break;
+
+            case "HexeH":
+                if(choice){
+                    Con.Hexe("saveVictim");
+                    popup popup = new popup(context);
+                    popup.PopUpInfo(Con.Hexe("getVictimWer")+ " wurde gerettet", "Hexe - Heiltrank").show();
+                }
+                else {
+                    //if no heal selected and poison is available
+                    if (Con.Hexe("ableToPoison").equals("0")) {
+                        popup popup = new popup(context);
+                        popup.PopUpChoice("Möchtest du deinen Gifttrank verwenden?", "HexeP", "poison").show();
+                    }
+                    //if no heal selected and poison is unavailable
+                    else{
+                        GameActivity create = new GameActivity();
+                        create.nextPhase();
+                    }
+                }
+
+                break;
+
+            case "HexeP":
+                //if no poison is used the next phase starts
+                if(!choice){
+                    GameActivity create = new GameActivity();
+                    create.nextPhase();
+                }
+                break;
         }
+
+
 
     }
 

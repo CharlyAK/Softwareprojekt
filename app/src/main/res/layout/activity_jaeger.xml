@@ -23,7 +23,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Fertig!"
-        android:id="@+id/buttonHexeContinue"
+        android:id="@+id/buttonJaegerContinue"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:text="i"
+        android:id="@+id/buttonJaegerInfo"
+        android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 

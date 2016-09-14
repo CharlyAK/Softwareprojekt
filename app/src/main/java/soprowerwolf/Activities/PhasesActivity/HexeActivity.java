@@ -36,31 +36,12 @@ public class HexeActivity extends AppCompatActivity {
         final String victimWer = Con.Hexe("getVictimWer");
 
         final TextView InfoHexe = (TextView)findViewById(R.id.TextHexe);
-        Button poison = (Button)findViewById(R.id.buttonGift);
-        Button heal = (Button)findViewById(R.id.buttonHeil);
         Button info = (Button) findViewById(R.id.buttonHexeInfo);
         Button ok = (Button)findViewById(R.id.buttonHexeContinue);
 
         assert InfoHexe != null;
-        assert poison != null;
-        assert heal != null;
         assert info != null;
         assert ok != null;
-
-        poison.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                InfoHexe.setText("So wähle dein Opfer");
-            }
-        });
-
-        heal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                InfoHexe.setText("Du hast " + victimWer + " gerettet");
-                magic("heal");
-            }
-        });
 
         info.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,36 +53,18 @@ public class HexeActivity extends AppCompatActivity {
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //if a player is selected it will be killed (this can't happen if no poison is available)
+                if (globalVariables.getCurrentlySelectedPlayer() != null)
+                    Con.Hexe("kill");
                 create.nextPhase();
             }
         });
 
-        if(Con.Hexe("ableToSave").equals("0"))
-        {
-            heal.setEnabled(true);
-            InfoHexe.setText("Das Opfer der Werwölfe ist diese Nacht " + victimWer + " - Möchtest du es retten?");
-        }
-        else
-        {
-            heal.setEnabled(false);
-        }
-
-        if(Con.Hexe("ableToPoison").equals("0")) //ToDo: Frage: bekommt die Hexe das Opfer auch zu sehen, wenn sie keinen Heiltrank mehr hat?
-        {
-            poison.setEnabled(true);
-        }
-        else
-        {
-            poison.setEnabled(false);
-        }
-
-        if(Con.Hexe("ableToSave").equals("0") && Con.Hexe("ableToPoison").equals("0"))
-        {
-            InfoHexe.setText("Du hast alle deine Tränke aufgebraucht");
-        }
+        popup.PopUpInfo("Das Opfer der Werwölfe ist diese Nacht " + victimWer, "Hexe").show();
 
     }
 
+    //just kept this for GameActivity - actually not needed
     public void magic(String magic)
     {
         switch(magic){

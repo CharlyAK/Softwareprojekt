@@ -17,11 +17,10 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/TextHexe"
+        android:text="Wähle dein Opfer"
+        android:textColor="#000000"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_toLeftOf="@+id/buttonHexeContinue"
-        android:layout_toRightOf="@+id/buttonGift"
-        android:textColor="#000000"/>
+        android:layout_centerHorizontal="true" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -33,32 +32,14 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Heiltrank"
-        android:id="@+id/buttonHeil"
-        android:layout_above="@+id/buttonGift"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Gift"
-        android:id="@+id/buttonGift"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Fertig!"
+        android:text="Töten"
         android:id="@+id/buttonHexeContinue"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
