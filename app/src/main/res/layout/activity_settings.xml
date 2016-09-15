@@ -16,18 +16,17 @@
         android:ems="10"
         android:id="@+id/SettingsUsername"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="speichern"
         android:id="@+id/SettingsSaveUsername"
-        android:layout_below="@+id/SettingsUsername"
+        android:onClick="saveSettings"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:onClick="saveSettings"/>
+        android:layout_alignParentEnd="true" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -50,12 +49,13 @@
         android:layout_marginBottom="68dp" />
 
     <Button
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Account löschen"
-        android:id="@+id/button3"
+        android:text="@string/button_deleteAccount"
+        android:id="@+id/deleteAccount"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:onClick="deleteAccount"/>
+        android:layout_alignParentStart="true" />
+
 </RelativeLayout>

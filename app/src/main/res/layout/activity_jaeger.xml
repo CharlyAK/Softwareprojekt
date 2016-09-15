@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="soprowerwolf.Activities.PhasesActivity.JaegerActivity">
+    tools:context=".Activities.PhasesActivity.JaegerActivity">
 
     <TextView
         android:layout_width="wrap_content"

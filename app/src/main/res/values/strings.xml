@@ -2,10 +2,39 @@
     <string name="app_name">Werwölfe von Düsterwald</string>
     <string name="Welcome">Willkommen! Bist du neu im Düsterwald?</string>
 
+    <string name="game_setup">Spieleinstellungen</string>
+
+    Menu
     <string name="start_game">Spiel starten</string>
     <string name="join_game">Spiel beitreten</string>
     <string name="settings">Einstellungen</string>
-    <string name="game_setup">Spieleinstellungen</string>
+    <string name="logout">Logout</string>
+    <string name="button_rules">Spielregeln</string>
+
+    Settings
+    <string name="button_deleteAccount">Account löschen</string>
+
+    Rules
+    <string name="headline_rules">Spielprinzip</string>
+    <string name="text_rules">\nDas kleine Dörfchen Düsterwald wird von Werwölfen heimgesucht. Bei Nacht sind sie blutrünstige Bestien - bei Tag
+         tarnen sie sich als einfache Bürger. Die Bewohner von Düsterwald fürchten um ihr Leben und so muss entschieden werden, wer ein
+         Werwolf sein könnte und zum Wohle der Gemeinschaft hingerichtet werden soll. Doch nicht immer trifft es einen Schuldigen und
+          bis nicht alle Werwölfe aufgespührt und ausgelöscht wurden, wird jede Nacht ein weiterer Unschuldiger Bürger sterben - doch
+          vorsicht: Manche im Dorf verfolgen ihre eigenen Ziele.</string>
+
+    <string name="headline_characters">Charaktere\n</string>
+
+    <string name="description_hexe">
+        Die Hexe erwacht immer direkt nachdem die Werwölfe ihr Opfer ausgesucht haben.
+        Sie hat im Verlauf des gesamten Spiels einen Gift- und einen Heiltrank.
+        Der Spielleiter zeigt auf die Person, die von den Werwölfen als Mordopfer gewählt wurde
+        und die Hexe kann diese mit ihrem Heiltrank heilen (auch sich selbst),
+        so dass es am nächsten Morgen keinen Toten gibt. Sie kann aber auch den Gifttrank
+        auf einen anderen Spieler anwenden; dann gibt es mehrere Tote.\n</string>
+    <string name="description_jaeger">
+        Scheidet der Jäger aus dem Spiel aus, feuert er in seinem letzten Atemzug noch einen Schuss ab,
+        mit dem er einen Spieler seiner Wahl mit in den Tod reißt,
+        d.h. er bestimmt einen Spieler, der mit ihm aus dem Spiel ausscheidet.\n</string>
 
     Game Setup
     <string name="game_settings">Spieleinstellungen</string>
