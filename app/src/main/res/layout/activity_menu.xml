@@ -54,14 +54,6 @@
         android:layout_alignLeft="@+id/joinGame"
         android:layout_alignStart="@+id/joinGame" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Account löschen"
-        android:id="@+id/button3"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:onClick="deleteAccount"/>
+
 
 </RelativeLayout>

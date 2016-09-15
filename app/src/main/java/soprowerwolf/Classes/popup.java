@@ -95,7 +95,7 @@ public class popup {
     /* action based on chosen value in popup */
     public void popup_callback(Boolean choice, String toBeDecided, String Role){
         switch (Role){
-            case "deleteAccount":
+            case "Account":
                 if(choice)
                 {
                     if(Con.deleteAccount())

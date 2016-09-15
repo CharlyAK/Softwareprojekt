@@ -33,7 +33,5 @@ public class MenuActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void deleteAccount(View view){
-        popup.PopUpChoice("Möchtest du deinen Account wirklich löschen?", "deleteAccount", null).show();
-    }
+
 }

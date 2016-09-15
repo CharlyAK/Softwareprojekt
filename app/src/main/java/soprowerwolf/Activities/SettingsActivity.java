@@ -17,6 +17,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import soprowerwolf.Classes.GlobalVariables;
+import soprowerwolf.Classes.popup;
 import soprowerwolf.R;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -94,6 +95,11 @@ public class SettingsActivity extends AppCompatActivity {
         editor.commit();
 
         Snackbar.make(view, "Dein Name wurde gespeichert", Snackbar.LENGTH_LONG).show();
+    }
+
+    public void deleteAccount(View view){
+        popup popup = new popup(this);
+        popup.PopUpChoice("Möchtest du deinen Account wirklich löschen?", "Account", null).show();
     }
 
 }
