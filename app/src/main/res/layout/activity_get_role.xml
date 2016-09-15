@@ -7,6 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/MainBackground"
     tools:context="soprowerwolf.Activities.GetRole">
 
     <Button
@@ -19,12 +20,27 @@
         android:layout_alignParentEnd="true"
         android:onClick="ready"/>
 
-    <TextView
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="von Spiel beitreten -> Absturz"
-        android:id="@+id/textView12"
+        android:id="@+id/imageButtonRole"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/ready"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:visibility="invisible"
+        android:onClick="Roledescription"/>
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:text="Deine Rolle ist..."
+        android:textSize="20dp"
+        android:gravity="center_vertical"
+        android:id="@+id/buttonShowRole"
+        android:onClick="showRole"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 

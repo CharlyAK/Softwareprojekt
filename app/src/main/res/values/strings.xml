@@ -24,6 +24,11 @@
 
     <string name="headline_characters">Charaktere\n</string>
 
+    <string name="description_dorfbewohner">Ich bin ein Dorfbewohner. Ich kann nix</string>
+    <string name="description_werwolf">Ich bin ein Werwolf. Ich kann töten!</string>
+    <string name="description_dieb">Ich bin der Dieb. Ich kann stehlen.</string>
+    <string name="description_amor">Ich bin Amor. Ich schieß mit Pfeilen.</string>
+    <string name="description_seherin">Ich bin die Seherin. Ich hab gute Augen.</string>
     <string name="description_hexe">
         Die Hexe erwacht immer direkt nachdem die Werwölfe ihr Opfer ausgesucht haben.
         Sie hat im Verlauf des gesamten Spiels einen Gift- und einen Heiltrank.
@@ -31,6 +36,7 @@
         und die Hexe kann diese mit ihrem Heiltrank heilen (auch sich selbst),
         so dass es am nächsten Morgen keinen Toten gibt. Sie kann aber auch den Gifttrank
         auf einen anderen Spieler anwenden; dann gibt es mehrere Tote.\n</string>
+    <string name="description_maedchen">Ich bin das Mädchen. Ich darf schmulen.</string>
     <string name="description_jaeger">
         Scheidet der Jäger aus dem Spiel aus, feuert er in seinem letzten Atemzug noch einen Schuss ab,
         mit dem er einen Spieler seiner Wahl mit in den Tod reißt,
