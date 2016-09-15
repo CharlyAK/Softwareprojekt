@@ -31,7 +31,7 @@ public class databaseCon {
     private static final String url_create_new_player = "http://www-e.uni-magdeburg.de/jkloss/create_new_player.php";
     private static final String url_login = "http://www-e.uni-magdeburg.de/jkloss/login.php";
     private static final String url_create_game = "http://www-e.uni-magdeburg.de/jkloss/create_new_game.php";
-    private static final String url_get_all_players = "";
+    private static final String url_get_all_players = "http://www-e.uni-magdeburg.de/jkloss/get_all_player.php";
     private static final String url_get_game_details = "http://www-e.uni-magdeburg.de/jkloss/get_game_details.php";
     private static final String url_get_player_details = "http://www-e.uni-magdeburg.de/jkloss/get_player_details.php";
     private static final String url_get_player_game_details = "http://www-e.uni-magdeburg.de/jkloss/get_player_game_details.php";
@@ -91,23 +91,32 @@ public class databaseCon {
         return false;
     }
 
-    public void createGame()
+    public int[] getPlayerIDs()
     {
-        String playerID = String.valueOf(globalVariables.getOwnPlayerID());
+        int[] playerIDs = new int[20];
         List<NameValuePair> params = new ArrayList<NameValuePair>();
 
-        params.add(new BasicNameValuePair("playerID", playerID));
+        params.add(new BasicNameValuePair("gameID", String.valueOf(globalVariables.getGameID())));
 
-        jsonParser.makeHttpRequest(url_create_game, "POST", params);
-
-        JSONObject newPlayer = jsonParser.makeHttpRequest(url_create_game, "GET", params);
-
+        JSONObject login = jsonParser.makeHttpRequest(url_get_all_players, "GET", params);
         try {
-            JSONArray JID = newPlayer.getJSONArray("gameID");
-            globalVariables.setGameID(JID.getJSONObject(JID.length()-1).getInt("gameID"));
+            if (login.getInt("success") == 1)
+            {
+                JSONArray JID = login.getJSONArray("players");
+                for(int i = 0; i < JID.length(); i++)
+                {
+                    if(JID.getJSONObject(i).getInt("alive") == 0) //there are no playerID 0 -> if the playerID is 0, the player is dead
+                    {
+                        playerIDs[i] = 0;
+                    }
+                    else
+                        playerIDs[i] = JID.getJSONObject(i).getInt("playerID");
+                }
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        return playerIDs;
     }
 
 
@@ -136,9 +145,8 @@ public class databaseCon {
     {
         String GoodOrBad = null;
 
-        //ToDo: id vom currentlyselctedplayer herausfinden - diese und gameID global abfragen
-        int playerID = 1;
-        int gameID = 1;
+        int playerID = globalVariables.getCurrentlySelectedPlayer().getId();
+        int gameID = globalVariables.getGameID();
 
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("playerID", String.valueOf(playerID)));

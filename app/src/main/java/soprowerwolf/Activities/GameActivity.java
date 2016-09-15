@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import soprowerwolf.Classes.databaseCon;
 import soprowerwolf.R;
 
 import soprowerwolf.Activities.PhasesActivity.AmorActivity;
@@ -26,6 +27,7 @@ public class GameActivity extends AppCompatActivity {
     //string contains phases, counter keeps track of current phase
 
     GlobalVariables globalVariables = GlobalVariables.getInstance();
+    databaseCon Con = new databaseCon();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +98,8 @@ public class GameActivity extends AppCompatActivity {
     public void createObjects() {
         int numOfPlayers = globalVariables.getNumPlayers();
         Activity context = globalVariables.getCurrentContext();
+        int[]playerIDs = Con.getPlayerIDs();
+
         //create Linear Layouts in gameView
         LinearLayout row1 = (LinearLayout) context.findViewById(R.id.row1);
         LinearLayout row2 = (LinearLayout) context.findViewById(R.id.row2);
@@ -106,6 +110,13 @@ public class GameActivity extends AppCompatActivity {
         for (int i = 0; i < numOfPlayers; i++) {
             Button button = new Button(context);
             button.setText("player" + i);
+            /* ==> funktioniert, ist aber hinderlich, wenn man nur mit einem gerät spielt //ToDo: wieder einbinden
+            if(playerIDs[i] == 0) // if playerID = 0 -> player is dead and cannot be selected anymore
+            {
+                button.setEnabled(false);
+            }
+            else*/
+                button.setId(playerIDs[i]);
             button.setBackgroundColor(0);
             // TODO: JSON - getAllPlayer.php
             //button.setText(player[i]);
