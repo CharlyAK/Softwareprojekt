@@ -30,6 +30,7 @@ public class databaseCon {
 
     private static final String url_create_new_player = "http://www-e.uni-magdeburg.de/jkloss/create_new_player.php";
     private static final String url_login = "http://www-e.uni-magdeburg.de/jkloss/login.php";
+    private static final String url_delete_Account = "http://www-e.uni-magdeburg.de/jkloss/deleteAccount.php";
     private static final String url_create_game = "http://www-e.uni-magdeburg.de/jkloss/create_new_game.php";
     private static final String url_get_all_players = "http://www-e.uni-magdeburg.de/jkloss/get_all_player.php";
     private static final String url_get_game_details = "http://www-e.uni-magdeburg.de/jkloss/get_game_details.php";
@@ -91,6 +92,27 @@ public class databaseCon {
         return false;
     }
 
+    public boolean deleteAccount()
+    {
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+
+        params.add(new BasicNameValuePair("playerID", String.valueOf(globalVariables.getOwnPlayerID())));
+
+        jsonParser.makeHttpRequest(url_delete_Account, "POST", params);
+
+        JSONObject delete = jsonParser.makeHttpRequest(url_get_player_details, "GET", params);
+        try {
+            if(delete.getInt("success") == 0)
+            {
+                return true;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
     public int[] getPlayerIDs()
     {
         int[] playerIDs = new int[20];
@@ -98,11 +120,11 @@ public class databaseCon {
 
         params.add(new BasicNameValuePair("gameID", String.valueOf(globalVariables.getGameID())));
 
-        JSONObject login = jsonParser.makeHttpRequest(url_get_all_players, "GET", params);
+        JSONObject ID = jsonParser.makeHttpRequest(url_get_all_players, "GET", params);
         try {
-            if (login.getInt("success") == 1)
+            if (ID.getInt("success") == 1)
             {
-                JSONArray JID = login.getJSONArray("players");
+                JSONArray JID = ID.getJSONArray("players");
                 for(int i = 0; i < JID.length(); i++)
                 {
                     if(JID.getJSONObject(i).getInt("alive") == 0) //there are no playerID 0 -> if the playerID is 0, the player is dead

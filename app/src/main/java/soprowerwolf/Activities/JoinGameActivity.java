@@ -37,7 +37,6 @@ public class JoinGameActivity extends AppCompatActivity implements QRCodeReaderV
 
         Toast.makeText(getApplicationContext()," scanned text: " + scanningURL, Toast.LENGTH_LONG).show();
 
-        //TODO: add player to game where id = scanningURL
         globalVariables.setGameID(Integer.parseInt(scanningURL));
 
         new joinGameDB().execute();

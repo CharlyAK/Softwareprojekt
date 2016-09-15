@@ -21,7 +21,7 @@ public class joinGameDB extends AsyncTask<String, String, String> {
 
     JSONParser jsonParser = new JSONParser();
     GlobalVariables globalVariables = GlobalVariables.getInstance();
-    private static final String url_join_game = "http://192.168.0.158/SoPro/db_test/insert_player.php";
+    private static final String url_join_game = "http://www-e.uni-magdeburg.de/jkloss/insert_player.php";
 
     @Override
     protected String doInBackground(String... params) {

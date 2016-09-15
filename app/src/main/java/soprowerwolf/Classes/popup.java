@@ -3,9 +3,12 @@ package soprowerwolf.Classes;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import soprowerwolf.Activities.GameActivity;
+import soprowerwolf.Activities.LoginRegistrationActivity;
 import soprowerwolf.Activities.PhasesActivity.DiebActivity;
 import soprowerwolf.Activities.PhasesActivity.HexeActivity;
 import soprowerwolf.R;
@@ -92,6 +95,19 @@ public class popup {
     /* action based on chosen value in popup */
     public void popup_callback(Boolean choice, String toBeDecided, String Role){
         switch (Role){
+            case "deleteAccount":
+                if(choice)
+                {
+                    if(Con.deleteAccount())
+                    {
+                        Toast.makeText(context.getApplicationContext(), "Account deleted", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(context, LoginRegistrationActivity.class);
+                        context.startActivity(intent);
+                    }
+                    else
+                        Toast.makeText(context.getApplicationContext(), "delete Account failed", Toast.LENGTH_SHORT).show();
+                }
+                break;
             case "Dieb":
                 if(choice)
                 {

@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import soprowerwolf.Classes.popup;
 import soprowerwolf.R;
 
 
 public class MenuActivity extends AppCompatActivity {
+    popup popup = new popup(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,5 +31,9 @@ public class MenuActivity extends AppCompatActivity {
     public void startSettings(View view){
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
+    }
+
+    public void deleteAccount(View view){
+        popup.PopUpChoice("Möchtest du deinen Account wirklich löschen?", "deleteAccount", null).show();
     }
 }
