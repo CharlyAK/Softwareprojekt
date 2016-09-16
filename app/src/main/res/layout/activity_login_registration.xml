@@ -14,10 +14,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Tippe zum fortfahren..."
+        android:text="@string/clickToContinue"
+        android:elevation="100dp"
         android:visibility="visible"
         android:id="@+id/textOpenGame"
-        android:layout_below="@+id/buttonLogin"
+        android:layout_alignTop="@+id/buttonLogin"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -112,6 +113,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/imageButtonStart"
-        android:layout_marginTop="0dp"/>
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/buttonRegistration"
+        android:layout_alignEnd="@+id/buttonRegistration"
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

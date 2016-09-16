@@ -32,7 +32,7 @@ public class SeherinActivity extends AppCompatActivity {
 
         globalVariables.setPopUpSeherinIdentity(popup.PopUpInfo(null, "Seherin"));
 
-        popup.PopUpInfo("Wähle eine Person deren Identität du erfaheren möchtest", "Seherin").show();
+        popup.PopUpInfo(getString(R.string.AufforderungSeherin), "Seherin").show();
     }
 
     public void getIdentity()

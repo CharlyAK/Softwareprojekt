@@ -13,7 +13,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="bereit"
+        android:text="@string/ready"
         android:id="@+id/ready"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
@@ -36,7 +36,7 @@
     <Button
         android:layout_width="200dp"
         android:layout_height="100dp"
-        android:text="Deine Rolle ist..."
+        android:text="@string/yourRole"
         android:textSize="20dp"
         android:gravity="center_vertical"
         android:id="@+id/buttonShowRole"

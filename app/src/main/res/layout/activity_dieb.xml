@@ -34,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Dieb - Wähle deine neue Rolle!"
+        android:text="@string/newRole"
         android:id="@+id/textView11"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
@@ -42,7 +42,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/changeToDorfbewohner"
+        android:text="@string/stayDorfbewohner"
         android:id="@+id/ChangeToDorfbewohner"
         android:gravity="center_horizontal"
         android:layout_centerVertical="true"

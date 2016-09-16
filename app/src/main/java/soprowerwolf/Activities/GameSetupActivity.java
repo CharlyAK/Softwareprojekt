@@ -80,7 +80,8 @@ public class GameSetupActivity extends AppCompatActivity {
 
     public void calculateGame(View view)
     {
-        i = 0;
+        i = 1;
+        cards[0] = "Seherin"; //always a part of the game
         fillDor = ((NumberPicker) findViewById(R.id.numberPicker)).getValue();
         Button startGame = (Button)findViewById(R.id.startGame);
         final Spinner spinnerWer = (Spinner) findViewById(R.id.spinnerWer);
@@ -130,9 +131,9 @@ public class GameSetupActivity extends AppCompatActivity {
             numberDor--;
             cards[i++] = "Maedchen";
         }
-        if (((CheckBox) (findViewById(R.id.checkBoxSeh))).isChecked()) {
+        if (((CheckBox) (findViewById(R.id.checkBoxJaeg))).isChecked()) {
             numberDor--;
-            cards[i++] = "Seherin";
+            cards[i++] = "Jaeger";
         }
 
         ((TextView) findViewById(R.id.numberDor)).setText(" " + numberDor);

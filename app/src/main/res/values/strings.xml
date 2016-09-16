@@ -72,13 +72,20 @@
     StartGame
     <string name="explanation_QRCode">
         Bitte deine Mitspieler, folgenden Code zu scannen, um dem Spiel beizutreten.\n
-        Wenn alle den Code gescannt haben, geht's weiter.
+        Wenn alle den Code gescannt haben, geht es weiter.
     </string>
 
 
     Join Game
     <string name="scanCode">Scanne den Code, um dem Spiel beizutreten.</string>
 
+    <string-array name="numbers">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
 
     GetRole
     <string name="ready">bereit</string>

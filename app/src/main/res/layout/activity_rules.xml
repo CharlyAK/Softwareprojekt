@@ -64,7 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Jäger"
+            android:text="@string/cardJaeg"
             android:id="@+id/_jaeger"
             android:layout_marginTop="20dp"
             android:layout_below="@+id/des_hexe"

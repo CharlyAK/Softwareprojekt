@@ -28,4 +28,14 @@
         android:layout_centerHorizontal="true"
         android:onClick="weiter"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/explanation_QRCode"
+        android:id="@+id/textView12"
+        android:layout_above="@+id/buttonAllJoined"
+        android:layout_centerHorizontal="true" />
+
+
 </RelativeLayout>

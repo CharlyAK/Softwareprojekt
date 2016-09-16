@@ -21,7 +21,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="speichern"
+        android:text="@string/save"
         android:id="@+id/SettingsSaveUsername"
         android:onClick="saveSettings"
         android:layout_alignParentBottom="true"
@@ -42,7 +42,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bild auswählen"
+        android:text="@string/chooseImage"
         android:id="@+id/button"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"

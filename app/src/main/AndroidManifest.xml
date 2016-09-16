@@ -28,13 +28,23 @@
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".Activities.JoinGameActivity"
-            android:label="@string/join_game" />
+            android:label="@string/scanCode" />
         <activity
             android:name=".Activities.SettingsActivity"
             android:label="@string/settings" />
         <activity
             android:name=".Activities.QRCodeActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".Activities.GetRole"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".Activities.LetsPlayActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".Activities.RulesActivity"
+            android:label="@string/rules"></activity>
         <!--
  ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -76,14 +86,7 @@
             android:name=".Activities.PhasesActivity.WerwolfActivity"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity
-            android:name=".Activities.GetRole"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity
-            android:name=".Activities.LetsPlayActivity"
-            android:screenOrientation="landscape"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".Activities.RulesActivity"></activity>
+
     </application>
 
 </manifest>
