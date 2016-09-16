@@ -16,13 +16,39 @@ mysql_select_db("jkloss_db")
 
 // array for JSON response
 $response = array();
+	
+  if(!empty($_GET['email']) && isset($_GET['email']))
+  {
+	$email = $_GET['email'];
+	$search = mysql_query("SELECT * FROM _PLAYER WHERE email = '$email'");
+	
+	if(mysql_num_rows($search) == 0)
+	{
+		// player doesn't exist
+        $response["success"] = 1;
+        $response["message"] = "Player doesn't exist.";
 
+        // echoing JSON response
+        echo json_encode($response); 	
+	}
+	else
+	{
+		// player already exists
+        $response["success"] = 0;
+        $response["message"] = "Player already exists.";
+
+        // echoing JSON response
+        echo json_encode($response);		
+	}
+	
+  }
+
+ else if (!empty($_POST['name']) && isset($_POST['name']) && !empty($_POST['email']) && isset($_POST['email']) && !empty($_POST['password']) && isset ($_POST['password']))
+  { 
 	$name = $_POST['name'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-// check for required fields
-  if (!empty($name) && isset($name) && !empty($email) && isset($email) && !empty($password) && isset ($password))
-  { 
+	
 	$i = 1;
 	$insert = 0;
 	$size = mysql_query("SELECT * FROM _PLAYER");
@@ -50,7 +76,7 @@ $response = array();
   
     // check if player has been inserted 
 	
-    $result = mysql_query("SELECT email FROM _PLAYER WHERE name = '$name' AND password = '$password'");
+    $result = mysql_query("SELECT email FROM _player WHERE name = '$name' AND password = '$password'");
     if ($result == $email) 
 	{
         // successfully updated

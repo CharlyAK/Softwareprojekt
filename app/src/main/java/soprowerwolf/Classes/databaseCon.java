@@ -1,5 +1,6 @@
 package soprowerwolf.Classes;
 
+import android.graphics.Matrix;
 import android.os.StrictMode;
 
 import org.apache.http.NameValuePair;
@@ -42,28 +43,44 @@ public class databaseCon {
     private static final String url_update_hexe = "http://www-e.uni-magdeburg.de/jkloss/updateHexe.php";
     private static final String url_change_alive = "";
 
-    public void registration(String name, String email, String pw)
+    public boolean registration(String name, String email, String pw, Matrix image)
     {
         //ToDo: HashWerte für passwörter
-        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        //ToDo: Bild in DB laden
+        List<NameValuePair> paramsCheck = new ArrayList<NameValuePair>();
 
-        params.add(new BasicNameValuePair("name", name));
-        params.add(new BasicNameValuePair("email", email));
-        params.add(new BasicNameValuePair("password", pw));
+        paramsCheck.add(new BasicNameValuePair("email", email));
 
-        jsonParser.makeHttpRequest(url_create_new_player, "POST", params);
-
-        List<NameValuePair> paramsID = new ArrayList<NameValuePair>();
-        paramsID.add(new BasicNameValuePair("email", email));
-        paramsID.add(new BasicNameValuePair("password", pw));
-        JSONObject newPlayer = jsonParser.makeHttpRequest(url_login, "GET", paramsID);
+        JSONObject registration = jsonParser.makeHttpRequest(url_create_new_player, "GET", paramsCheck);
 
         try {
-            JSONArray JID = newPlayer.getJSONArray("playerID");
-            globalVariables.setOwnPlayerID(JID.getJSONObject(JID.length()-1).getInt("playerID"));
+            if(registration.getInt("success") == 1)
+            {
+                List<NameValuePair> params = new ArrayList<NameValuePair>();
+
+                params.add(new BasicNameValuePair("name", name));
+                params.add(new BasicNameValuePair("email", email));
+                params.add(new BasicNameValuePair("password", pw));
+
+                jsonParser.makeHttpRequest(url_create_new_player, "POST", params);
+
+                List<NameValuePair> paramsID = new ArrayList<NameValuePair>();
+                paramsID.add(new BasicNameValuePair("email", email));
+                paramsID.add(new BasicNameValuePair("password", pw));
+                JSONObject newPlayer = jsonParser.makeHttpRequest(url_login, "GET", paramsID);
+
+                JSONArray JID = newPlayer.getJSONArray("playerID");
+                globalVariables.setOwnPlayerID(JID.getJSONObject(JID.length()-1).getInt("playerID"));
+
+                return true;
+            }
+            else return false;
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+     return false;
     }
 
     public boolean login(String email, String pw)

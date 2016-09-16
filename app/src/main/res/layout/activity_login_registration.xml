@@ -7,6 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:id="@+id/login_registration"
     tools:context=".Activities.LoginRegistrationActivity"
     android:background="@color/MainBackground">
 
@@ -25,29 +26,33 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Welcome"
-        android:textSize="20sp"
-        android:id="@+id/textView" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="JA!"
-        android:id="@+id/buttonStartRegistration"
-        android:layout_marginTop="46dp"
-        android:layout_below="@+id/textView"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:id="@+id/textViewWelcome"
         android:visibility="invisible"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="JA!"
+        android:id="@+id/buttonStartRegistration"
+        android:visibility="invisible"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/textOpenGame"
+        android:layout_alignStart="@+id/textOpenGame" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Nein"
         android:id="@+id/buttonStartLogin"
-        android:layout_alignTop="@+id/buttonStartRegistration"
         android:visibility="invisible"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignBottom="@+id/TextEMail"
+        android:layout_toRightOf="@+id/TextUsername"
+        android:layout_toEndOf="@+id/TextUsername" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -56,11 +61,10 @@
         android:hint="Name"
         android:ems="10"
         android:id="@+id/TextUsername"
-        android:layout_below="@+id/buttonStartRegistration"
+        android:visibility="invisible"
+        android:layout_above="@+id/buttonStartRegistration"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="50dp"
-        android:visibility="invisible"/>
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -91,23 +95,22 @@
         android:layout_height="wrap_content"
         android:text="Login"
         android:id="@+id/buttonLogin"
-        android:layout_below="@+id/TextPassword"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="60dp"
         android:visibility="invisible"
-        android:onClick="login"/>
+        android:onClick="login"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Registrieren"
         android:id="@+id/buttonRegistration"
-        android:layout_alignBottom="@+id/buttonLogin"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:visibility="invisible"
-        android:onClick="registration"/>
+        android:onClick="registration"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <ImageButton
         android:layout_width="match_parent"
@@ -116,6 +119,29 @@
         android:layout_alignParentTop="true"
         android:layout_alignRight="@+id/buttonRegistration"
         android:layout_alignEnd="@+id/buttonRegistration"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        android:visibility="visible"/>
+
+    <ImageView
+        android:layout_width="230dp"
+        android:layout_height="230dp"
+        android:id="@+id/imageViewPlayerImage"
+        android:layout_toEndOf="@+id/TextPassword"
+        android:layout_below="@+id/TextPassword"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toRightOf="@+id/TextPassword"
+        android:visibility="invisible"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/chooseImage"
+        android:textSize="11dp"
+        android:id="@+id/buttonSelectImageStart"
+        android:layout_alignTop="@+id/imageViewPlayerImage"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:visibility="invisible" />
 
 </RelativeLayout>
