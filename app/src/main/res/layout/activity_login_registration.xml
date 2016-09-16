@@ -112,8 +112,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/imageButtonStart"
-        android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/buttonRegistration"
-        android:layout_alignEnd="@+id/buttonRegistration" />
+        android:layout_marginTop="0dp"/>
 
 </RelativeLayout>

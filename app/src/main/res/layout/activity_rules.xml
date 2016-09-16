@@ -57,7 +57,8 @@
             android:text="@string/description_hexe"
             android:id="@+id/des_hexe"
             android:layout_below="@+id/_hexe"
-            android:layout_centerHorizontal="true" />
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
         <TextView
             android:layout_width="wrap_content"

@@ -242,6 +242,8 @@ public class GameActivity extends AppCompatActivity {
         while(phases[currentPhaseID] == null)
             currentPhaseID = (currentPhaseID+1) % phases.length;
 
+
+
         switch (currentPhaseID){
             case 0:
                 globalVariables.setCurrentPhaseID(currentPhaseID);
@@ -280,6 +282,5 @@ public class GameActivity extends AppCompatActivity {
                 break;
         }
     }
-
 
 }

@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import soprowerwolf.Classes.GlobalVariables;
 import soprowerwolf.R;
 
-
 public class MenuActivity extends AppCompatActivity {
+
+    GlobalVariables var = GlobalVariables.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,5 +41,6 @@ public class MenuActivity extends AppCompatActivity {
     public void logout(View view){
         Intent intent = new Intent(this, LoginRegistrationActivity.class);
         startActivity(intent);
+        var.setOwnPlayerID(0);
     }
 }

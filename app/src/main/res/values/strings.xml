@@ -1,8 +1,12 @@
 <resources>
+
     <string name="app_name">Werwölfe von Düsterwald</string>
+
+
+    LoginRegistration
+    <string name="clickToContinue">Tippe zum Fortfahren...</string>
     <string name="Welcome">Willkommen! Bist du neu im Düsterwald?</string>
 
-    <string name="game_setup">Spieleinstellungen</string>
 
     Menu
     <string name="start_game">Spiel starten</string>
@@ -11,10 +15,16 @@
     <string name="logout">Logout</string>
     <string name="button_rules">Spielregeln</string>
 
+
     Settings
     <string name="button_deleteAccount">Account löschen</string>
+    <string name="save">Speichern</string>
+    <string name="chooseImage">Bild auswählen</string>
+
 
     Rules
+    <string name="rules">Spielregeln</string>
+
     <string name="headline_rules">Spielprinzip</string>
     <string name="text_rules">\nDas kleine Dörfchen Düsterwald wird von Werwölfen heimgesucht. Bei Nacht sind sie blutrünstige Bestien - bei Tag
          tarnen sie sich als einfache Bürger. Die Bewohner von Düsterwald fürchten um ihr Leben und so muss entschieden werden, wer ein
@@ -42,11 +52,14 @@
         mit dem er einen Spieler seiner Wahl mit in den Tod reißt,
         d.h. er bestimmt einen Spieler, der mit ihm aus dem Spiel ausscheidet.\n</string>
 
+
     Game Setup
+    <string name="game_setup">Spieleinstellungen</string>
     <string name="game_settings">Spieleinstellungen</string>
     <string name="num_players">Spielerzahl</string>
     <string name="cardSelection">Kartenauswahl</string>
     <string name="cardWer">Werwölfe</string>
+    <string name="cardJaeg">Jäger</string>
     <string name="cardSeh">Seherin</string>
     <string name="cardMaed">Mädchen</string>
     <string name="cardDie">Dieb</string>
@@ -55,33 +68,40 @@
     <string name="cardDor">Dorfbewohner</string>
     <string name="spinnerPrompt">Wähle die Anzahl der Werwölfe</string>
 
-    Join Game
-    <string name="enterGameID">Bitte gib die ID des Spiels ein, dem du beitreten möchtest.</string>
 
-    <string-array name="numbers">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-    </string-array>
-    <string name="title_activity_test_show_database">testShowDatabase</string>
-    <string name="title_activity_join_game">joinGameActivity</string>
+    StartGame
+    <string name="explanation_QRCode">
+        Bitte deine Mitspieler, folgenden Code zu scannen, um dem Spiel beizutreten.\n
+        Wenn alle den Code gescannt haben, geht's weiter.
+    </string>
+
+
+    Join Game
+    <string name="scanCode">Scanne den Code, um dem Spiel beizutreten.</string>
+
+
+    GetRole
+    <string name="ready">bereit</string>
+    <string name="yourRole">Deine Rolle ist...</string>
+
 
     Game
-    <string name="introduction">Das kleine Dörfchen Düsterwald wird von Werwölfen heimgesucht. Bei Nacht sind sie blutrünstige Bestien - bei Tag
-         tarnen sie sich als einfache Bürger. Die Bewohner von Düsterwald fürchten um ihr Leben und so muss entschieden werden, wer ein
-          Werwolf sein könnte und zum Wohle der Gemeinschaft hingerichtet werden soll. Doch nicht immer trifft es einen Schuldigen und
-          bis nicht alle Werwölfe aufgespührt und ausgelöscht wurden, wird jede Nacht ein weiterer Unschuldiger Bürger sterben - doch
-          vorsicht: Manche im Dorf verfolgen ihre eigenen Ziele.</string>
-    <string name="firstNight">Und die erste Nacht bricht herein...</string>
+    <string name="ok">ok</string>
+    <string name="info">[?]</string>
 
-    <string name="changeToDorfbewohner">Ich möchte Dorfbewohner bleiben!</string>
+    <string name="stayDorfbewohner">Ich möchte Dorfbewohner bleiben!</string>
+    <string name="newRole">Dieb, klaue dir eine Rolle ;)</string>
+
+    <string name="chooseLovers">Amor, wähle ein Liebespaar.</string>
+
+    <string name="AufforderungSeherin">Seherin, wessen Identität möchtest du erfahren?</string>
+
+
+
     <string name="ExplanationTag">Diskutiert nun, wer nominiert werden soll. Wenn die meisten Spieler eine Person nomiert und ihre Wahl mit Betätigung
         des Bestätigen - Buttons bestätigt haben, bleibt den übrigen noch etwas Zeit um sich zu entscheiden. Wer nach Ablauf dieser Zeit keine Wahl getroffen
         hat, enthält sich somit automatisch. Anschließend werden die 3 Spieler mit den meisten Nominierungen zur Wahl gestellt. Der mit den
         meisten Stimmen nach dieser Wahl wird gehängt.</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

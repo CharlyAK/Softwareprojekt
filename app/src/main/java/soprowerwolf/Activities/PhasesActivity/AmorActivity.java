@@ -72,6 +72,10 @@ public class AmorActivity extends AppCompatActivity {
         phases[globalVariables.getCurrentPhaseID()] = null;
     }
 
+    public void showInfo(View view){
+        popup.PopUpInfo(getString(R.string.description_amor), "Info").show();
+    }
+
     @Override
     public void onBackPressed() {
 

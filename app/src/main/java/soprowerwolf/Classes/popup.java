@@ -108,6 +108,7 @@ public class popup {
                         Toast.makeText(context.getApplicationContext(), "delete Account failed", Toast.LENGTH_SHORT).show();
                 }
                 break;
+
             case "Dieb":
                 if(choice)
                 {
