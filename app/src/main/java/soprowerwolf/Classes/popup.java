@@ -113,7 +113,7 @@ public class popup {
                 if(choice)
                 {
                     DiebActivity dieb = new DiebActivity();
-                    dieb.changeRole(toBeDecided, context);
+                    dieb.changeRole(toBeDecided);
                 }
                 break;
 

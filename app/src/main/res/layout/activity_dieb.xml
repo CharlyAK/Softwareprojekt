@@ -12,19 +12,21 @@
     tools:context=".Activities.PhasesActivity.DiebActivity">
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="300dp"
         android:id="@+id/diebDecisionLeft"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:foregroundGravity="left"/>
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="300dp"
         android:id="@+id/diebDecisionRight"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:foregroundGravity="right"/>
 
 
 
@@ -46,8 +48,9 @@
         android:id="@+id/ChangeToDorfbewohner"
         android:gravity="center_horizontal"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:layout_alignRight="@+id/textView11"
-        android:layout_alignEnd="@+id/textView11" />
+        android:layout_toLeftOf="@+id/diebDecisionRight"
+        android:layout_toRightOf="@+id/diebDecisionLeft"
+        android:layout_toStartOf="@+id/diebDecisionRight"
+        android:layout_toEndOf="@+id/diebDecisionLeft" />
 
 </RelativeLayout>

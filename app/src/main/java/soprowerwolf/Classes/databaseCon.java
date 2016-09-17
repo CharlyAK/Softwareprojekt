@@ -158,6 +158,30 @@ public class databaseCon {
         return playerIDs;
     }
 
+    public String[] DiebGetRoles()
+    {
+        String[] roles = new String[2];
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+
+        params.add(new BasicNameValuePair("gameID", String.valueOf(globalVariables.getGameID())));
+
+        JSONObject allPlayers = jsonParser.makeHttpRequest(url_get_all_players, "GET", params);
+
+        try {
+            if (allPlayers.getInt("success") == 1)
+            {
+                JSONArray JRoles = allPlayers.getJSONArray("players");
+
+                // last two Roles are the selectable Roles of the "Dieb"
+                roles[0] = JRoles.getJSONObject(JRoles.length()-1).getString("role");
+                roles[1] = JRoles.getJSONObject(JRoles.length()-2).getString("role");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return roles;
+    }
 
     public void Amor (int Lover1ID, int Lover2ID)
     {

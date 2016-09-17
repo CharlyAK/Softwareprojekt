@@ -18,6 +18,34 @@ public class GetRole extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_role);
+
+        ImageButton role = (ImageButton)findViewById(R.id.imageButtonRole);
+
+        switch(globalVariables.getOwnRole()){
+            case "Dieb":
+                role.setBackgroundResource(R.drawable.dieb);
+                break;
+            case "Amor":
+                role.setBackgroundResource(R.drawable.amor);
+                break;
+            case "Werwolf":
+                role.setBackgroundResource(R.drawable.werwolf);
+                break;
+            case "Seherin":
+                role.setBackgroundResource(R.drawable.seherin);
+                break;
+            case "Hexe":
+                role.setBackgroundResource(R.drawable.hexe);
+                break;
+            case "Dorfbewohner":
+                role.setBackgroundResource(R.drawable.dorfbewohner);
+                break;
+            case "Maedchen":
+                role.setBackgroundResource(R.drawable.maedchen);
+                break;
+            case "Jaeger":
+                role.setBackgroundResource(R.drawable.jaeger);
+        }
     }
 
     public void Roledescription(View view)
