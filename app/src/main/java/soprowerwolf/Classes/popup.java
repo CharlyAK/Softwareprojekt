@@ -50,12 +50,12 @@ public class popup {
                         //this is called after the info screen for the hexe if the heal is available
                         else if(globalVariables.getCurrentPhaseID() == 4 && Con.Hexe("ableToSave").equals("0")){
                             popup popup = new popup(context);
-                            popup.PopUpChoice("Möchtest du " + victimWer + " retten?", "HexeH", "safe").show();
+                            popup.PopUpChoice("Möchtest du " + victimWer + " retten?", "Hexe", "HexeH", "safe").show();
                         }
                         //this is called after the info screen for the hexe if heal isn't available and poison is available
                         else if(globalVariables.getCurrentPhaseID() == 4 && Con.Hexe("ableToSave").equals("1") && Con.Hexe("ableToPoison").equals("0")){
                             popup popup = new popup(context);
-                            popup.PopUpChoice("Möchtest du deinen Gifttrank verwenden?", "HexeP", "poison").show();
+                            popup.PopUpChoice("Möchtest du deinen Gifttrank verwenden?", "Hexe", "HexeP", "poison").show();
                         }
                     }
                 });
@@ -65,10 +65,10 @@ public class popup {
     }
 
     /* creates a popup offering you a choice */
-    public AlertDialog PopUpChoice(String infotext, final String Role, final String toBeDecided) {
+    public AlertDialog PopUpChoice(String infotext, String title, final String Role, final String toBeDecided) {
 
         AlertDialog.Builder helpBuilder = new AlertDialog.Builder(context);
-        helpBuilder.setTitle(Role);
+        helpBuilder.setTitle(title);
         helpBuilder.setMessage(infotext);
         helpBuilder.setPositiveButton("Ja",
                 new DialogInterface.OnClickListener() {
@@ -127,7 +127,7 @@ public class popup {
                     //if no heal selected and poison is available
                     if (Con.Hexe("ableToPoison").equals("0")) {
                         popup popup = new popup(context);
-                        popup.PopUpChoice("Möchtest du deinen Gifttrank verwenden?", "HexeP", "poison").show();
+                        popup.PopUpChoice("Möchtest du deinen Gifttrank verwenden?", "Hexe", "HexeP", "poison").show();
                     }
                     //if no heal selected and poison is unavailable
                     else{
