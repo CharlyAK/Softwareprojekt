@@ -40,7 +40,7 @@ public class joinGameDB extends AsyncTask<String, String, String> {
 
         try {
             JSONArray J = Join.getJSONArray("role");
-            globalVariables.setOwnRole(J.getJSONObject(J.length()-1).getString("role"));
+            globalVariables.setOwnRole(J.getJSONObject(J.length() - 1).getString("role"));
 
         } catch (JSONException e) {
             e.printStackTrace();

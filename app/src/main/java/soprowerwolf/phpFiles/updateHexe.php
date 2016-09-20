@@ -18,17 +18,25 @@ mysql_select_db("jkloss_db")
 $response = array();
 
 // check for required fields
-if(isset($_POST['poison']) && !empty($_POST['poison']) && isset($_POST['gameID']) && !empty($_POST['gameID']))
+if(isset($_POST['poison']) && !empty($_POST['poison']) && isset($_POST['gameID']) && !empty($_POST['gameID']) && isset($_POST['victimHex']) && !empty($_POST['victimHex']))
 {
 	$gameID = $_POST['gameID'];
+	$victimHex = $_POST['victimHex'];
 	
 	// change poison 
     mysql_query("UPDATE _GAME SET poison=1 WHERE gameID = '$gameID'")
 	or die("Die Änderung des Gifttranks ist fehlgeschlagen");
 	
+	// set victimHex
+    mysql_query("UPDATE _GAME SET victimHex='$victimHex' WHERE gameID = '$gameID'")
+	or die("Die Änderung des Hexenopfers ist fehlgeschlagen");
+	
 	// check if poison has been changed
 	$resultP = mysql_query("SELECT poison FROM _GAME WHERE gameID = '$gameID'");
-    if ($resultP == 1) 
+	// check if victimHex has been changed
+    $resultVH = mysql_query("SELECT victimHex FROM _GAME WHERE gameID = '$gameID'");
+	
+    if ($resultP == 1 && $resultVH == $victimHex) 
 	{
         // successfully updated
         $response["success"] = 1;
@@ -39,29 +47,7 @@ if(isset($_POST['poison']) && !empty($_POST['poison']) && isset($_POST['gameID']
 	}
 }
 
-else if (isset($_POST['gameID']) && !empty($_POST['gameID']) && isset($_POST['victimHex']) && !empty($_POST['victimHex'])) 
-{
-    $gameID = $_POST['gameID'];
-    $victimHex = $_POST['victimHex'];
-
-    // set victimHex
-    mysql_query("UPDATE _GAME SET victimHex='$victimHex' WHERE gameID = '$gameID'")
-	or die("Die Änderung des Hexenopfers ist fehlgeschlagen");
-
-
-    // check if victimHex has been changed
-    $resultVH = mysql_query("SELECT victimHex FROM game WHERE gameID = '$gameID'");
-    if ($resultVH == $victimHex) 
-	{
-        // successfully updated
-        $response["success"] = 1;
-        $response["message"] = "VictimHex and poison successfully updated.";
-
-        // echoing JSON response
-        echo json_encode($response);
-    }
-
- }else if (isset($_POST['gameID']) && !empty($_POST['gameID']) && isset($_POST['heal']) && !empty($_POST['heal'])) {
+else if (isset($_POST['gameID']) && !empty($_POST['gameID']) && isset($_POST['heal']) && !empty($_POST['heal'])) {
 
         $gameID = $_POST['gameID'];
 

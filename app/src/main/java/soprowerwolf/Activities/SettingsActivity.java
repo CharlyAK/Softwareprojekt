@@ -42,9 +42,9 @@ public class SettingsActivity extends AppCompatActivity {
         //Bild auswählen
         playerImage = (ImageView) findViewById(R.id.imageView);
         Image_button = (Button) findViewById(R.id.button);
-        Image_button.setOnClickListener(new View.OnClickListener(){
+        Image_button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 chooseImage = new Intent(Intent.ACTION_GET_CONTENT);
                 chooseImage.setType("image/*"); // Bilder aller Formate können ausgewählt werden
                 startActivityForResult(chooseImage, requode);
@@ -63,8 +63,8 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if(resultCode == RESULT_OK){
-            if(requestCode == requode){
+        if (resultCode == RESULT_OK) {
+            if (requestCode == requode) {
                 //Dateipfad auslesen
                 image_uri = data.getData();
                 try {
@@ -80,7 +80,7 @@ public class SettingsActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    public void saveSettings(View view){
+    public void saveSettings(View view) {
 
         //Open SharedPref-File
         SharedPreferences mySPR = getSharedPreferences("MySPFile", 0);
@@ -97,7 +97,7 @@ public class SettingsActivity extends AppCompatActivity {
         Snackbar.make(view, "Dein Name wurde gespeichert", Snackbar.LENGTH_LONG).show();
     }
 
-    public void deleteAccount(View view){
+    public void deleteAccount(View view) {
         popup popup = new popup(this);
         popup.PopUpChoice("Möchtest du deinen Account wirklich löschen?", "Account löschen?", "Account", null).show();
     }

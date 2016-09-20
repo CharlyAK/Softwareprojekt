@@ -19,9 +19,9 @@ import soprowerwolf.Classes.JSONParser;
  */
 public class createGameDB extends AsyncTask<String, String, String> {
 
-    JSONParser jsonParser = new JSONParser();
-    GlobalVariables globalVariables = GlobalVariables.getInstance();
-    private static final String url_create_game = "http://www-e.uni-magdeburg.de/jkloss/create_new_game.php";
+    private JSONParser jsonParser = new JSONParser();
+    private GlobalVariables globalVariables = GlobalVariables.getInstance();
+    private static final String url_create_game = "http://192.168.0.13/SoPro/db_test/create_new_game.php";//"http://www-e.uni-magdeburg.de/jkloss/create_new_game.php";
 
     @Override
     protected String doInBackground(String... params) {
@@ -40,7 +40,7 @@ public class createGameDB extends AsyncTask<String, String, String> {
 
         try {
             JSONArray JID = newGame.getJSONArray("gameID");
-            globalVariables.setGameID(JID.getJSONObject(JID.length()-1).getInt("gameID"));
+            globalVariables.setGameID(JID.getJSONObject(JID.length() - 1).getInt("gameID"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -48,13 +48,46 @@ public class createGameDB extends AsyncTask<String, String, String> {
         List<NameValuePair> paramsRoles = new ArrayList<NameValuePair>();
 
         String gameID = String.valueOf(globalVariables.getGameID());
-        for(int i = 1; i < cards.length; i++)
-        {
+        for (int i = 1; i < cards.length; i++) {
             paramsRoles.clear();
             paramsRoles.add(new BasicNameValuePair("role", cards[i]));
             paramsRoles.add(new BasicNameValuePair("gameID", gameID));
             jsonParser.makeHttpRequest(url_create_game, "POST", paramsRoles);
         }
+
+        List<NameValuePair> paramsPhases = new ArrayList<NameValuePair>();
+        paramsPhases.add(new BasicNameValuePair("firstPhase", "true"));
+
+        // if some roles aren't selected -> there would be an error without this
+        String[] phases = new String[6];
+        int j = 0;
+        for (int i = 0; i < globalVariables.getPhases().length; i++) {
+            if (!globalVariables.getPhases()[i].equals("")) {
+                phases[j] = globalVariables.getPhases()[i];
+                j++;
+            }
+
+        }
+
+        for (int i = 0; i < phases.length - 1; i++) {
+            paramsPhases.add(new BasicNameValuePair("phase", phases[i]));
+            paramsPhases.add(new BasicNameValuePair("nextPhase", phases[i + 1]));
+            paramsPhases.add(new BasicNameValuePair("gameID", gameID));
+            jsonParser.makeHttpRequest(url_create_game, "POST", paramsPhases);
+            paramsPhases.clear();
+        }
+
+        paramsPhases.clear();
+        paramsPhases.add(new BasicNameValuePair("phase", "Tag"));
+        paramsPhases.add(new BasicNameValuePair("nextPhase", "Werwolf"));
+        paramsPhases.add(new BasicNameValuePair("gameID", gameID));
+        jsonParser.makeHttpRequest(url_create_game, "POST", paramsPhases);
+
+        paramsPhases.clear();
+        paramsPhases.add(new BasicNameValuePair("phase", "Jaeger"));
+        paramsPhases.add(new BasicNameValuePair("nextPhase", "Jaeger"));
+        paramsPhases.add(new BasicNameValuePair("gameID", gameID));
+        jsonParser.makeHttpRequest(url_create_game, "POST", paramsPhases);
 
         return null;
     }

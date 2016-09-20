@@ -42,13 +42,13 @@ $response = array();
 			or die("Spiel in Datenbank einfügen fehlgeschlagen");
 			
 			mysql_query("SELECT gameID FROM _GAME ORDER BY gameID DESC")
-			or die("Sortieren der _GAME - Tabelle fehlgeschlagen");
+			or die("Sortieren der _game - Tabelle fehlgeschlagen");
 			
-			mysql_query("INSERT INTO player_GAME (gameID, playerID, role) VALUES ('$i', '$player', '$role')")
-			or die("Spieler und Spiel in player_GAME hinzufügen fehlgeschlagen");
+			mysql_query("INSERT INTO player_game (gameID, playerID, role) VALUES ('$i', '$player', '$role')")
+			or die("Spieler und Spiel in player_game hinzufügen fehlgeschlagen");
 			
-			mysql_query("SELECT gameID FROM player_GAME ORDER BY gameID DESC")
-			or die("Sortieren der player_GAME - Tabelle fehlgeschlagen");
+			mysql_query("SELECT gameID FROM player_game ORDER BY gameID DESC")
+			or die("Sortieren der player_game - Tabelle fehlgeschlagen");
 			
 			$insert = 1;
 			$response["ID"] = '$i';
@@ -105,7 +105,7 @@ $response = array();
         }
     }
  }
- // 3. insert the Roles into player_game
+ // 3. insert the Roles into player_game AND insert phases and nextPhase into Phases
  else  if (!empty($_POST['role']) && isset($_POST['role']) && !empty($_POST['gameID']) && isset($_POST['gameID']))
  {
 	$role = $_POST['role'];
@@ -121,7 +121,37 @@ $response = array();
 			{
 				// successfully updated
 				$response["success"] = 1;
-				$response["message"] = "Role successfully inserted.";
+				$response["message"] = "Role '$role' successfully inserted.";
+
+				// echoing JSON response
+				echo json_encode($response); 
+			}
+ }
+ // 4. insert phases and nextPhase into Phases
+ else if(!empty($_POST['gameID']) && isset($_POST['gameID']) && !empty($_POST['phase']) && isset($_POST['phase']) && !empty($_POST['nextPhase']) && isset($_POST['nextPhase']))
+ {
+	$phase = $_POST['phase'];
+	$nextPhase = $_POST['nextPhase'];
+	$gameID = $_POST['gameID'];
+	
+	mysql_query("INSERT INTO _PHASES (gameID, phases, nextPhase) VALUES ('$gameID','$phase', '$nextPhase')")
+	or die("Einfügen der Phase '$phase' fehlgeschlagen");
+	
+	// set first Phase
+	if(!empty($_POST['firstPhase']) && isset($_POST['firstPhase']))
+	{
+		mysql_query("UPDATE _PHASES SET currentPhase = 1 WHERE gameID = $gameID")
+		or die("Setzen der ersten Phase fehlgeschlagen");
+	}
+	
+	// check if role has been inserted 
+	
+			$result = mysql_query("SELECT phases FROM _PHASES WHERE gameID = '$gameID' AND phases = '$phase' AND nextPhase = '$nextPhase'");
+			if ($result = $phase) 
+			{
+				// successfully updated
+				$response["success"] = 1;
+				$response["message"] = "Phase '$phase' successfully inserted.";
 
 				// echoing JSON response
 				echo json_encode($response); 

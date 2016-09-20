@@ -1,12 +1,16 @@
 package soprowerwolf.Activities.PhasesActivity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import soprowerwolf.Database.HexeDB;
+import soprowerwolf.Database.getCurrentPhase;
+import soprowerwolf.Database.setNextPhase;
 import soprowerwolf.R;
 
 import soprowerwolf.Activities.GameActivity;
@@ -20,60 +24,77 @@ public class HexeActivity extends AppCompatActivity {
     databaseCon Con = new databaseCon();
     popup popup = new popup(this);
 
+    private Handler timerHandler = new Handler();
+    private Runnable timerRunnable = new Runnable() {
+        @Override
+        public void run() {
+            new getCurrentPhase().execute();
+            timerHandler.postDelayed(this, 2000);
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hexe);
-        globalVariables.setCurrentContext(this);
 
-        //View settings: Fullscreen
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //check, if own Role equals Phase -> yes: Activity is shown; no: black screen is shown (activity_wait)
+        if (globalVariables.getOwnRole().equals("Hexe")) {
+            setContentView(R.layout.activity_hexe);
+            globalVariables.setCurrentContext(this);
 
-        final GameActivity create = new GameActivity();
-        create.createObjects();
+            //View settings: Fullscreen
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        final String victimWer = Con.Hexe("getVictimWer");
+            final GameActivity create = new GameActivity();
+            create.createObjects();
 
-        final TextView InfoHexe = (TextView)findViewById(R.id.TextHexe);
-        Button info = (Button) findViewById(R.id.buttonHexeInfo);
-        Button ok = (Button)findViewById(R.id.buttonHexeContinue);
+            final String victimWer = Con.Hexe("getVictimWer");
 
-        assert InfoHexe != null;
-        assert info != null;
-        assert ok != null;
+            final TextView InfoHexe = (TextView) findViewById(R.id.TextHexe);
+            Button info = (Button) findViewById(R.id.buttonHexeInfo);
+            Button ok = (Button) findViewById(R.id.buttonHexeContinue);
 
-        info.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popup.PopUpInfo(">Erklärung, was in Phase getan werden soll<", "Info").show();
-            }
-        });
+            assert InfoHexe != null;
+            assert info != null;
+            assert ok != null;
 
-        ok.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //if a player is selected it will be killed (this can't happen if no poison is available)
-                if (globalVariables.getCurrentlySelectedPlayer() != null)
-                    Con.Hexe("kill");
-                create.nextPhase();
-            }
-        });
+            info.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    popup.PopUpInfo(">Erklärung, was in Phase getan werden soll<", "Info").show();
+                }
+            });
 
-        popup.PopUpInfo("Das Opfer der Werwölfe ist diese Nacht " + victimWer, "Hexe").show();
+            ok.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //if a player is selected it will be killed (this can't happen if no poison is available)
+                    if (globalVariables.getCurrentlySelectedPlayer() != null)
+                        new HexeDB().execute("kill", String.valueOf(globalVariables.getCurrentlySelectedPlayer().getId()));
+                    new setNextPhase().execute("");
+                }
+            });
 
+            popup.PopUpInfo("Das Opfer der Werwölfe ist diese Nacht " + victimWer, "Hexe").show();
+
+        } else {
+            setContentView(R.layout.activity_wait);
+
+            //check frequently if phase has been changed
+            timerHandler.postDelayed(timerRunnable, 0);
+        }
     }
 
     //just kept this for GameActivity - actually not needed
-    public void magic(String magic)
-    {
-        switch(magic){
+    public void magic(String magic) {
+        switch (magic) {
             case "heal":
-                Con.Hexe("saveVictim");
+                new HexeDB().execute("saveVictim");
                 break;
 
             case "poison":
-                Con.Hexe("kill");
+                new HexeDB().execute("kill", String.valueOf(globalVariables.getCurrentlySelectedPlayer().getId()));
                 break;
         }
 

@@ -78,12 +78,11 @@ public class GameSetupActivity extends AppCompatActivity {
             ((Spinner) findViewById(R.id.spinnerWer)).setSelection(3, true);
     }
 
-    public void calculateGame(View view)
-    {
+    public void calculateGame(View view) {
         i = 1;
         cards[0] = "Seherin"; //always a part of the game
         fillDor = ((NumberPicker) findViewById(R.id.numberPicker)).getValue();
-        Button startGame = (Button)findViewById(R.id.startGame);
+        Button startGame = (Button) findViewById(R.id.startGame);
         final Spinner spinnerWer = (Spinner) findViewById(R.id.spinnerWer);
 
         int numberDor = ((NumberPicker) findViewById(R.id.numberPicker)).getValue();
@@ -110,7 +109,7 @@ public class GameSetupActivity extends AppCompatActivity {
         }
 
         //calculate number of extra roles
-        if (((CheckBox) (findViewById(R.id.checkBoxDie))).isChecked()){
+        if (((CheckBox) (findViewById(R.id.checkBoxDie))).isChecked()) {
             numberDor--;
             cards[i++] = "Dieb";
             cards[i++] = "Dorfbewohner";
@@ -145,8 +144,7 @@ public class GameSetupActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //insert werewolves
 
-                switch((String)spinnerWer.getSelectedItem())
-                {
+                switch ((String) spinnerWer.getSelectedItem()) {
                     case "1":
                         numberWer = 1;
                         break;
@@ -165,51 +163,68 @@ public class GameSetupActivity extends AppCompatActivity {
                 }
 
                 int k = i;
-                for (i = k; i < k + numberWer; i++)
-                {
+                for (i = k; i < k + numberWer; i++) {
                     cards[i] = "Werwolf";
                 }
 
                 //fill with "dorfbewohnern"
-                for(i = i; i < fillDor; i++)
-                {
+                for (i = i; i < fillDor; i++) {
                     cards[i] = "Dorfbewohner";
                 }
 
                 String[] cardsShuffled = new String[i];
                 //shuffle roles
-                for (int j = 0; j<i ; j++){
+                for (int j = 0; j < i; j++) {
                     //the last two roles are for the decision of the thief - non of them has to be the "Dieb" itself
                     // + if there is only one "Werwolf" and the Role "Dieb" contains to the game - non of the decisionCards for the "Dieb" has to be a "Werwolf"
                     // -> otherwise it could be possible to have no "Werwolf" in the game
-                    if(cards[j] == "Dieb" || (cards[j] == "Werwolf" && numberWer == 1 && globalVariables.getDiebChoosen()))
-                    {
-                        int h = i-2;
+                    if (cards[j] == "Dieb" || (cards[j] == "Werwolf" && numberWer == 1 && globalVariables.getDiebChoosen())) {
+                        int h = i - 2;
                         //pick a random number in array
                         Random random = new Random();
                         int value = random.nextInt(h);
                         //move on until an empty slot is found
-                        while(cardsShuffled[value]!=null)
-                            value=(value+1)%h;
+                        while (cardsShuffled[value] != null)
+                            value = (value + 1) % h;
 
                         cardsShuffled[value] = cards[j];
-                    }
-                    else
-                    {
+                    } else {
                         //pick a random number in array
                         Random random = new Random();
                         int value = random.nextInt(i);
                         //move on until an empty slot is found
-                        while(cardsShuffled[value]!=null)
-                            value=(value+1)%i;
+                        while (cardsShuffled[value] != null)
+                            value = (value + 1) % i;
 
                         cardsShuffled[value] = cards[j];
                     }
 
                 }
 
-                // TODO: Spieler, der Spiel erstellt hat in player_game hinzufügen
-                //new initializeDatabase().execute();
+                //set up the phases
+                String[] searchFor = {"Dieb", "Amor", "Werwolf", "Seherin", "Hexe"};
+                String[] phase = {"Dieb", "Amor", "Werwolf", "Seherin", "Hexe", "Tag"};
+
+                int j;
+                for (j = 0; j < searchFor.length; j++) {
+                    boolean inGame = false;
+                    for (int i = 0; i < cardsShuffled.length; i++) {
+                        if (cardsShuffled[i].equals(searchFor[j])) {
+                            inGame = true;
+                        }
+                    }
+
+                    if (!inGame) {
+                        int i = phase.length - 1;
+                        while (!phase[i].equals(searchFor[j])) {
+                            i--;
+                        }
+
+                        phase[i] = "";
+                    }
+                }
+
+                globalVariables.setPhases(phase);
 
                 globalVariables.setNumPlayers(((NumberPicker) findViewById(R.id.numberPicker)).getValue());
                 globalVariables.setCards(cardsShuffled);

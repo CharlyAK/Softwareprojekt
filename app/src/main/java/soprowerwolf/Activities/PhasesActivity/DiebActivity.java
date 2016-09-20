@@ -1,21 +1,19 @@
 package soprowerwolf.Activities.PhasesActivity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageButton;
 
 import soprowerwolf.Activities.GameActivity;
 import soprowerwolf.Classes.GlobalVariables;
 import soprowerwolf.Classes.databaseCon;
 import soprowerwolf.Classes.popup;
 import soprowerwolf.Database.DiebDB;
-import soprowerwolf.Database.checkingForUpdate;
+import soprowerwolf.Database.getCurrentPhase;
+import soprowerwolf.Database.setNextPhase;
 import soprowerwolf.R;
 
 public class DiebActivity extends AppCompatActivity {
@@ -24,11 +22,11 @@ public class DiebActivity extends AppCompatActivity {
     GlobalVariables globalVariables = GlobalVariables.getInstance();
     databaseCon Con = new databaseCon();
 
-    Handler timerHandler = new Handler();
-    Runnable timerRunnable= new Runnable() {
+    private Handler timerHandler = new Handler();
+    private Runnable timerRunnable = new Runnable() {
         @Override
         public void run() {
-            new checkingForUpdate().execute();
+            new getCurrentPhase().execute();
             timerHandler.postDelayed(this, 2000);
         }
     };
@@ -37,8 +35,8 @@ public class DiebActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //ToDo: wieder einbinden - nur hinderlich, wenn man mit nur einem gerät arbeitet
-        //if(globalVariables.getOwnRole().equals("Dieb")) {
+        //check, if own Role equals Phase -> yes: Activity is shown; no: black screen is shown (activity_wait)
+        if (globalVariables.getOwnRole().equals("Dieb")) {
             setContentView(R.layout.activity_dieb);
             globalVariables.setCurrentContext(this);
 
@@ -46,8 +44,9 @@ public class DiebActivity extends AppCompatActivity {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-            choice1 = Con.DiebGetRoles()[0];
-            choice2 = Con.DiebGetRoles()[1];
+            String[] choices = Con.DiebGetRoles();
+            choice1 = choices[0];
+            choice2 = choices[1];
 
             final popup popUp = new popup(this);
 
@@ -63,7 +62,7 @@ public class DiebActivity extends AppCompatActivity {
                     choiceLeft.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            popUp.PopUpChoice(getString(R.string.description_amor) + "\n\n" + "Möchtest du von nun an als " + choice1 + " spielen?", choice1, "Dieb", choice1).show();
+                            popUp.PopUpChoice(getString(R.string.description_amor) + "\n\n" + "Möchtest du von nun an als " + choice1 + " spielen?", choice1, "Dieb", "0").show();
                         }
                     });
                     break;
@@ -72,7 +71,7 @@ public class DiebActivity extends AppCompatActivity {
                     choiceLeft.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            popUp.PopUpChoice(getString(R.string.description_werwolf) + "\n\n" + "Möchtest du von nun an als " + choice1 + " spielen?", choice1, "Dieb", choice1).show();
+                            popUp.PopUpChoice(getString(R.string.description_werwolf) + "\n\n" + "Möchtest du von nun an als " + choice1 + " spielen?", choice1, "Dieb", "0").show();
                         }
                     });
                     break;
@@ -81,7 +80,7 @@ public class DiebActivity extends AppCompatActivity {
                     choiceLeft.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            popUp.PopUpChoice(getString(R.string.description_seherin) + "\n\n" + "Möchtest du von nun an als " + choice1 + " spielen?", choice1, "Dieb", choice1).show();
+                            popUp.PopUpChoice(getString(R.string.description_seherin) + "\n\n" + "Möchtest du von nun an als " + choice1 + " spielen?", choice1, "Dieb", "0").show();
                         }
                     });
                     break;
@@ -90,7 +89,7 @@ public class DiebActivity extends AppCompatActivity {
                     choiceLeft.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            popUp.PopUpChoice(getString(R.string.description_hexe) + "\n\n" + "Möchtest du von nun an als " + choice1 + " spielen?", choice1, "Dieb",choice1).show();
+                            popUp.PopUpChoice(getString(R.string.description_hexe) + "\n\n" + "Möchtest du von nun an als " + choice1 + " spielen?", choice1, "Dieb", "0").show();
                         }
                     });
                     break;
@@ -99,7 +98,7 @@ public class DiebActivity extends AppCompatActivity {
                     choiceLeft.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            popUp.PopUpChoice(getString(R.string.description_maedchen) + "\n\n" + "Möchtest du von nun an als " + choice1 + " spielen?", choice1, "Dieb",choice1).show();
+                            popUp.PopUpChoice(getString(R.string.description_maedchen) + "\n\n" + "Möchtest du von nun an als " + choice1 + " spielen?", choice1, "Dieb", "0").show();
                         }
                     });
                     break;
@@ -108,7 +107,7 @@ public class DiebActivity extends AppCompatActivity {
                     choiceLeft.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            popUp.PopUpChoice(getString(R.string.description_jaeger) + "\n\n" + "Möchtest du von nun an als " + choice1 + " spielen?", choice1,"Dieb", choice1).show();
+                            popUp.PopUpChoice(getString(R.string.description_jaeger) + "\n\n" + "Möchtest du von nun an als " + choice1 + " spielen?", choice1, "Dieb", "0").show();
                         }
                     });
                     break;
@@ -117,7 +116,7 @@ public class DiebActivity extends AppCompatActivity {
                     choiceLeft.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            popUp.PopUpChoice(getString(R.string.description_dorfbewohner) + "\n\n" + "Möchtest du von nun an als " + choice1 + " spielen?", choice1,"Dieb", choice1).show();
+                            popUp.PopUpChoice(getString(R.string.description_dorfbewohner) + "\n\n" + "Möchtest du von nun an als " + choice1 + " spielen?", choice1, "Dieb", "0").show();
                         }
                     });
                     break;
@@ -132,7 +131,7 @@ public class DiebActivity extends AppCompatActivity {
                     choiceRight.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            popUp.PopUpChoice(getString(R.string.description_amor) + "\n\n" + "Möchtest du von nun an als " + choice2 + " spielen?", choice2, "Dieb",choice2).show();
+                            popUp.PopUpChoice(getString(R.string.description_amor) + "\n\n" + "Möchtest du von nun an als " + choice2 + " spielen?", choice2, "Dieb", "1").show();
                         }
                     });
                     break;
@@ -141,7 +140,7 @@ public class DiebActivity extends AppCompatActivity {
                     choiceRight.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            popUp.PopUpChoice(getString(R.string.description_werwolf) + "\n\n" + "Möchtest du von nun an als " + choice2 + " spielen?", choice2, "Dieb",choice2).show();
+                            popUp.PopUpChoice(getString(R.string.description_werwolf) + "\n\n" + "Möchtest du von nun an als " + choice2 + " spielen?", choice2, "Dieb", "1").show();
                         }
                     });
                     break;
@@ -150,7 +149,7 @@ public class DiebActivity extends AppCompatActivity {
                     choiceRight.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            popUp.PopUpChoice(getString(R.string.description_seherin) + "\n\n" + "Möchtest du von nun an als " + choice2 + " spielen?", choice2,"Dieb", choice2).show();
+                            popUp.PopUpChoice(getString(R.string.description_seherin) + "\n\n" + "Möchtest du von nun an als " + choice2 + " spielen?", choice2, "Dieb", "1").show();
                         }
                     });
                     break;
@@ -159,7 +158,7 @@ public class DiebActivity extends AppCompatActivity {
                     choiceRight.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            popUp.PopUpChoice(getString(R.string.description_hexe) + "\n\n" + "Möchtest du von nun an als " + choice2 + " spielen?", choice2,"Dieb", choice2).show();
+                            popUp.PopUpChoice(getString(R.string.description_hexe) + "\n\n" + "Möchtest du von nun an als " + choice2 + " spielen?", choice2, "Dieb", "1").show();
                         }
                     });
                     break;
@@ -168,7 +167,7 @@ public class DiebActivity extends AppCompatActivity {
                     choiceRight.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            popUp.PopUpChoice(getString(R.string.description_maedchen) + "\n\n" + "Möchtest du von nun an als " + choice2 + " spielen?", choice2,"Dieb", choice2).show();
+                            popUp.PopUpChoice(getString(R.string.description_maedchen) + "\n\n" + "Möchtest du von nun an als " + choice2 + " spielen?", choice2, "Dieb", "1").show();
                         }
                     });
                     break;
@@ -177,7 +176,7 @@ public class DiebActivity extends AppCompatActivity {
                     choiceRight.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            popUp.PopUpChoice(getString(R.string.description_jaeger) + "\n\n" + "Möchtest du von nun an als " + choice2 + " spielen?", choice2, "Dieb",choice2).show();
+                            popUp.PopUpChoice(getString(R.string.description_jaeger) + "\n\n" + "Möchtest du von nun an als " + choice2 + " spielen?", choice2, "Dieb", "1").show();
                         }
                     });
                     break;
@@ -186,7 +185,7 @@ public class DiebActivity extends AppCompatActivity {
                     choiceRight.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            popUp.PopUpChoice(getString(R.string.description_dorfbewohner) + "\n\n" + "Möchtest du von nun an als " + choice2 + " spielen?", choice2, "Dieb",choice2).show();
+                            popUp.PopUpChoice(getString(R.string.description_dorfbewohner) + "\n\n" + "Möchtest du von nun an als " + choice2 + " spielen?", choice2, "Dieb", "1").show();
                         }
                     });
                     break;
@@ -201,26 +200,33 @@ public class DiebActivity extends AppCompatActivity {
             stayDor.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    popUp.PopUpChoice(getString(R.string.description_dorfbewohner) + "\n\n" + "Möchtest du Dorfbewohner bleiben?", "Dorfbewohner","Dieb", "Dorfbewohner").show();
+                    popUp.PopUpChoice(getString(R.string.description_dorfbewohner) + "\n\n" + "Möchtest du Dorfbewohner bleiben?", "Dorfbewohner", "Dieb", "2").show();
 
                 }
             });
-       /* }
 
-        else
-        {
+        } else {
             setContentView(R.layout.activity_wait);
 
             //check frequently if phase has been changed
             timerHandler.postDelayed(timerRunnable, 0);
-        }*/
+        }
     }
 
-    public void changeRole(String choice)
-    {
+    public void changeRole(String choice) {
         //ToDo: update database: change Role
-        new DiebDB().execute(choice);
+        switch (choice) {
+            case "0": //first choice was choosen
+                new DiebDB().execute(Con.DiebGetRoles()[0], Con.DiebGetRoles()[1], "");
+                break;
+            case "1": // second choice was choosen
+                new DiebDB().execute(Con.DiebGetRoles()[1], Con.DiebGetRoles()[0], "");
+                break;
+            case "2": // non of the roles were choosen
+                new DiebDB().execute("Dorfbewohner", Con.DiebGetRoles()[0], Con.DiebGetRoles()[1]);
+        }
 
+        /*
         String[]phases = globalVariables.getPhases();
         int currentPhase = globalVariables.getCurrentPhaseID();
         phases[currentPhase] = null;
@@ -244,10 +250,16 @@ public class DiebActivity extends AppCompatActivity {
         }
 
         globalVariables.setPhases(phases);
+        */
 
-
+        /*
         GameActivity create = new GameActivity();
         create.nextPhase();
+        */
+    }
+
+    public void showInfoDieb(View view) {
+        popup.PopUpInfo(getString(R.string.description_dieb), "Info").show();
     }
 
     @Override

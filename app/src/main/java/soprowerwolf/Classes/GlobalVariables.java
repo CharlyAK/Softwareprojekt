@@ -19,7 +19,7 @@ public class GlobalVariables extends Application {
     private String[] cards;
     private Button currentlySelectedPlayer;
     private String[] Phases;
-    private int currentPhaseID; //0: Dieb; 1: Amor; 2: Werwolf; 3: Seherin; 4: Hexe; 5: Tag => easier to get the next Phase
+    private String currentPhase; // currentPhaseID isn't needed anymore when getCurrentPhase works
     private Activity currentContext;
 
     // Global variables: Dieb
@@ -34,12 +34,12 @@ public class GlobalVariables extends Application {
 
 
     // Restrict the constructor from being instantiated
-    private GlobalVariables(){}
+    private GlobalVariables() {
+    }
 
-    public static synchronized GlobalVariables getInstance()
-    {
-        if(instance==null){
-            instance=new GlobalVariables();
+    public static synchronized GlobalVariables getInstance() {
+        if (instance == null) {
+            instance = new GlobalVariables();
         }
         return instance;
     }
@@ -47,106 +47,145 @@ public class GlobalVariables extends Application {
     /*
      * getter and setter for Game - Variables
      */
-    public void setOwnPlayerID(int ownPlayerID)
-    {
+    public void setOwnPlayerID(int ownPlayerID) {
         this.ownPlayerID = ownPlayerID;
     }
-    public int getOwnPlayerID()
-    {
+
+    public int getOwnPlayerID() {
         return this.ownPlayerID;
     }
 
-    public void setOwnRole(String ownRole)
-    {
+    public void setOwnRole(String ownRole) {
         this.ownRole = ownRole;
     }
-    public String getOwnRole()
-    {
+
+    public String getOwnRole() {
         return this.ownRole;
     }
 
-    public void setGameID(int gameID)
-    {
+    public void setGameID(int gameID) {
         this.gameID = gameID;
     }
-    public int getGameID()
-    {
+
+    public int getGameID() {
         return this.gameID;
     }
 
-    public void setCards(String[]cards)
-    {
+    public void setCards(String[] cards) {
         this.cards = cards;
     }
-    public String[] getCards()
-    {
+
+    public String[] getCards() {
         return this.cards;
     }
 
-    public void setNumPlayers(int numPlayers)
-    {
+    public void setNumPlayers(int numPlayers) {
         this.numPlayers = numPlayers;
     }
-    public int getNumPlayers()
-    {
+
+    public int getNumPlayers() {
         return this.numPlayers;
     }
 
-    public void setCurrentlySelectedPlayer(Button currentlySelectedPlayer) { this.currentlySelectedPlayer = currentlySelectedPlayer; }
-    public Button getCurrentlySelectedPlayer()
-    {
+    public void setCurrentlySelectedPlayer(Button currentlySelectedPlayer) {
+        this.currentlySelectedPlayer = currentlySelectedPlayer;
+    }
+
+    public Button getCurrentlySelectedPlayer() {
         return this.currentlySelectedPlayer;
     }
 
-    public void setPhases(String[] Phases)
-    {
+    public void setPhases(String[] Phases) {
         this.Phases = Phases;
     }
-    public String[] getPhases()
-    {
+
+    public String[] getPhases() {
         return this.Phases;
     }
 
-    public void setCurrentPhaseID(int currentPhaseID)
-    {
-        this.currentPhaseID = currentPhaseID;
-    }
-    public int getCurrentPhaseID()
-    {
-        return this.currentPhaseID;
+    public void setCurrentPhase(String currentPhase) {
+        this.currentPhase = currentPhase;
     }
 
-    public void setCurrentContext(Activity currentContext)
-    {
+    public String getCurrentPhase() {
+        return this.currentPhase;
+    }
+
+    public void setCurrentContext(Activity currentContext) {
         this.currentContext = currentContext;
     }
-    public Activity getCurrentContext()
-    {
+
+    public Activity getCurrentContext() {
         return this.currentContext;
     }
 
     /*
      *   getter and setter for Dieb - Variables
      */
-    public void setDiebChoosen(boolean DiebChoosen){this.DiebChoosen = DiebChoosen;};
-    public boolean getDiebChoosen(){return this.DiebChoosen;};
+    public void setDiebChoosen(boolean DiebChoosen) {
+        this.DiebChoosen = DiebChoosen;
+    }
+
+    ;
+
+    public boolean getDiebChoosen() {
+        return this.DiebChoosen;
+    }
+
+    ;
 
     /*
      *  getter and setter for Amor - Variables
      */
-    public void setLover1(Button lover1){this.lover1 = lover1;};
-    public Button getLover1(){return this.lover1;};
+    public void setLover1(Button lover1) {
+        this.lover1 = lover1;
+    }
 
-    public void setLover2(Button lover2){this.lover2 = lover2;};
-    public Button getLover2(){return this.lover2;};
+    ;
 
-    public void setOK(Button OK){this.OK = OK;};
-    public Button getOK(){return this.OK;};
+    public Button getLover1() {
+        return this.lover1;
+    }
+
+    ;
+
+    public void setLover2(Button lover2) {
+        this.lover2 = lover2;
+    }
+
+    ;
+
+    public Button getLover2() {
+        return this.lover2;
+    }
+
+    ;
+
+    public void setOK(Button OK) {
+        this.OK = OK;
+    }
+
+    ;
+
+    public Button getOK() {
+        return this.OK;
+    }
+
+    ;
 
     /*
      *  getter and setter for Seherin - Variables
      */
-    public void setPopUpSeherinIdentity(AlertDialog PopUpSeherinIdentity){this.PopUpSeherinIdentity = PopUpSeherinIdentity;};
-    public AlertDialog getPopUpSeherinIdentity(){return this.PopUpSeherinIdentity;};
+    public void setPopUpSeherinIdentity(AlertDialog PopUpSeherinIdentity) {
+        this.PopUpSeherinIdentity = PopUpSeherinIdentity;
+    }
+
+    ;
+
+    public AlertDialog getPopUpSeherinIdentity() {
+        return this.PopUpSeherinIdentity;
+    }
+
+    ;
 
 }

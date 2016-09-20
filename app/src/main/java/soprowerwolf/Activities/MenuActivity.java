@@ -23,22 +23,22 @@ public class MenuActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void startJoinGame(View view){
+    public void startJoinGame(View view) {
         Intent intent = new Intent(this, JoinGameActivity.class);
         startActivity(intent);
     }
 
-    public void startSettings(View view){
+    public void startSettings(View view) {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
 
-    public void startRules(View view){
+    public void startRules(View view) {
         Intent intent = new Intent(this, RulesActivity.class);
         startActivity(intent);
     }
 
-    public void logout(View view){
+    public void logout(View view) {
         Intent intent = new Intent(this, LoginRegistrationActivity.class);
         startActivity(intent);
         var.setOwnPlayerID(0);

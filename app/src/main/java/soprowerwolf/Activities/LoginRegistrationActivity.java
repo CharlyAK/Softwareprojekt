@@ -37,19 +37,19 @@ public class LoginRegistrationActivity extends AppCompatActivity {
 
         globalVariables.setOwnPlayerID(0);
 
-        bStartScreen = (ImageButton)findViewById(R.id.imageButtonStart);
-        openGame = (TextView)findViewById(R.id.textOpenGame);
+        bStartScreen = (ImageButton) findViewById(R.id.imageButtonStart);
+        openGame = (TextView) findViewById(R.id.textOpenGame);
 
-        bStartLogin = (Button)findViewById(R.id.buttonStartLogin);
-        bLogin = (Button)findViewById(R.id.buttonLogin);
-        bRegistration = (Button)findViewById(R.id.buttonRegistration);
-        bStartRegistration = (Button)findViewById(R.id.buttonStartRegistration);
-        textEMail = (EditText)findViewById(R.id.TextEMail);
-        textPassword = (EditText)findViewById(R.id.TextPassword);
-        textUsername = (EditText)findViewById(R.id.TextUsername);
-        textWelcome = (TextView)findViewById(R.id.textViewWelcome);
-        PlayerImage = (ImageView)findViewById(R.id.imageViewPlayerImage);
-        bChooseImage = (Button)findViewById(R.id.buttonSelectImageStart);
+        bStartLogin = (Button) findViewById(R.id.buttonStartLogin);
+        bLogin = (Button) findViewById(R.id.buttonLogin);
+        bRegistration = (Button) findViewById(R.id.buttonRegistration);
+        bStartRegistration = (Button) findViewById(R.id.buttonStartRegistration);
+        textEMail = (EditText) findViewById(R.id.TextEMail);
+        textPassword = (EditText) findViewById(R.id.TextPassword);
+        textUsername = (EditText) findViewById(R.id.TextUsername);
+        textWelcome = (TextView) findViewById(R.id.textViewWelcome);
+        PlayerImage = (ImageView) findViewById(R.id.imageViewPlayerImage);
+        bChooseImage = (Button) findViewById(R.id.buttonSelectImageStart);
 
         assert bStartScreen != null;
         bStartScreen.setOnClickListener(new View.OnClickListener() {
@@ -93,16 +93,12 @@ public class LoginRegistrationActivity extends AppCompatActivity {
 
     }
 
-    public void login (View view)
-    {
-        if(Con.login(textEMail.getText().toString(), textPassword.getText().toString()))
-        {
+    public void login(View view) {
+        if (Con.login(textEMail.getText().toString(), textPassword.getText().toString())) {
             Toast.makeText(getApplicationContext(), "Login erfolgreich", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, MenuActivity.class);
             startActivity(intent);
-        }
-        else
-        {
+        } else {
             Toast.makeText(getApplicationContext(), "Login fehlgeschlagen. Bitte überprüfe deine Daten", Toast.LENGTH_SHORT).show();
             textEMail.getText().clear();
             textPassword.getText().clear();
@@ -110,23 +106,19 @@ public class LoginRegistrationActivity extends AppCompatActivity {
 
     }
 
-    public void registration (View view)
-    {
+    public void registration(View view) {
         //ToDo: Registrierung
         String name = textUsername.getText().toString();
         String email = textEMail.getText().toString();
         String password = textPassword.getText().toString();
         Matrix image = PlayerImage.getImageMatrix();
 
-        if(Con.registration(name, email, password, image))
-        {
+        if (Con.registration(name, email, password, image)) {
             Toast.makeText(getApplicationContext(), "Spieler wurde erstellt", Toast.LENGTH_LONG).show();
 
             Intent intent = new Intent(this, MenuActivity.class);
             startActivity(intent);
-        }
-        else
-        {
+        } else {
             Toast.makeText(getApplicationContext(), "Spieler existiert bereits. Bitte wähle einen anderen Nutzernamen", Toast.LENGTH_LONG).show();
 
             textPassword.getText().clear();

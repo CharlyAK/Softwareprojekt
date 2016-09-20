@@ -20,9 +20,9 @@ public class GetRole extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_role);
 
-        ImageButton role = (ImageButton)findViewById(R.id.imageButtonRole);
+        ImageButton role = (ImageButton) findViewById(R.id.imageButtonRole);
 
-        switch(globalVariables.getOwnRole()){
+        switch (globalVariables.getOwnRole()) {
             case "Dieb":
                 role.setBackgroundResource(R.drawable.dieb);
                 break;
@@ -49,12 +49,11 @@ public class GetRole extends AppCompatActivity {
         }
     }
 
-    public void Roledescription(View view)
-    {
+    public void Roledescription(View view) {
         String role = globalVariables.getOwnRole();
         popup popup = new popup(this);
 
-        switch(role){
+        switch (role) {
             case "Dorfbewohner":
                 popup.PopUpInfo(getString(R.string.description_dorfbewohner), role).show();
                 break;
@@ -90,15 +89,14 @@ public class GetRole extends AppCompatActivity {
 
     }
 
-    public void showRole(View view)
-    {
-        ImageButton role = (ImageButton)findViewById(R.id.imageButtonRole);
-        Button show = (Button)findViewById(R.id.buttonShowRole);
+    public void showRole(View view) {
+        ImageButton role = (ImageButton) findViewById(R.id.imageButtonRole);
+        Button show = (Button) findViewById(R.id.buttonShowRole);
         role.setVisibility(View.VISIBLE);
         show.setVisibility(View.INVISIBLE);
     }
 
-    public void ready(View view){
+    public void ready(View view) {
         Intent intent = new Intent(this, LetsPlayActivity.class);
         startActivity(intent);
     }

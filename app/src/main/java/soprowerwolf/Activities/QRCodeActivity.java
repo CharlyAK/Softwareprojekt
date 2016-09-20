@@ -68,7 +68,6 @@ public class QRCodeActivity extends AppCompatActivity {
                 }
 
 
-
             }
         });
         t.start();
@@ -76,13 +75,13 @@ public class QRCodeActivity extends AppCompatActivity {
     }
 
     //TODO: nicht weiter durch Button, sondern wenn alle gescannt haben
-    public void weiter(View view){
+    public void weiter(View view) {
         Intent intent = new Intent(QRCodeActivity.this, GetRole.class);
         startActivity(intent);
     }
 
     private void getID() {
-        qrCodeImageview=(ImageView) findViewById(R.id.img_qr_code_image);
+        qrCodeImageview = (ImageView) findViewById(R.id.img_qr_code_image);
     }
 
     // this is method call from on create and return bitmap image of QRCode.
@@ -101,7 +100,7 @@ public class QRCodeActivity extends AppCompatActivity {
         for (int y = 0; y < h; y++) {
             int offset = y * w;
             for (int x = 0; x < w; x++) {
-                pixels[offset + x] = result.get(x, y) ? getResources().getColor(R.color.black):getResources().getColor(R.color.white);
+                pixels[offset + x] = result.get(x, y) ? getResources().getColor(R.color.black) : getResources().getColor(R.color.white);
             }
         }
         Bitmap bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);

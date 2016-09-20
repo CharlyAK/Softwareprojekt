@@ -7,35 +7,33 @@
 // array for JSON response
 $response = array();
 
-// connect to db
+// Verbindung aufbauen, auswählen einer Datenbank
 $link = mysql_connect("localhost", "jkloss", "werwolf")
     or die("Keine Verbindung möglich!");
 
 mysql_select_db("jkloss_db")
     or die("Auswahl der Datenbank fehlgeschlagen");
 
-if (isset($_GET["gameID"])) {
+if (isset($_GET["gameID"]) && !empty($_GET["gameID"])) {
 
     $gameID = $_GET["gameID"];
-    // get all player from player table
-    $result = mysql_query("SELECT * FROM player_game WHERE gameID = '$gameID'") or die(mysql_error());
+	
+    // 
+    $result = mysql_query("SELECT phases FROM _PHASES WHERE gameID = '$gameID' AND currentPhase = 1") 
+	or die("Keine Phase gefunden");
 
     // check for empty result
     if (mysql_num_rows($result) > 0) {
         // looping through all results
-        $response["players"] = array();
+        $response["currentPhase"] = array();
 
         while ($row = mysql_fetch_array($result)) {
             // temp user array
-            $player = array();
-            $player["playerID"] = $row["playerID"];
-            $player["gameID"] = $row["gameID"];
-            $player["role"] = $row["role"];
-            $player["alive"] = $row["alive"];
-			$player["lover"] = $row["lover"];
+            $currentPhase = array();
+            $currentPhase["currentPhase"] = $row["phases"];
 
             // push single player into final response array
-            array_push($response["players"], $player);
+            array_push($response["currentPhase"], $currentPhase);
         }
         // success
         $response["success"] = 1;
@@ -45,7 +43,7 @@ if (isset($_GET["gameID"])) {
     } else {
         // no player found
         $response["success"] = 0;
-        $response["message"] = "No players found";
+        $response["message"] = "No phase found";
 
         // echo no users JSON
         echo json_encode($response);

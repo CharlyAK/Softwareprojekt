@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import soprowerwolf.Classes.databaseCon;
+import soprowerwolf.Database.getCurrentPhase;
+import soprowerwolf.Database.setNextPhase;
 import soprowerwolf.R;
 
 import soprowerwolf.Activities.PhasesActivity.AmorActivity;
@@ -37,55 +39,12 @@ public class GameActivity extends AppCompatActivity {
 
         globalVariables.setCurrentlySelectedPlayer(null);
 
-        String[] cards = globalVariables.getCards();
-
         //View settings: Fullscreen
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        //set up the phases
-        String[] searchFor = {"Dieb", "Amor", "Werwolf", "Seherin", "Hexe"};
-        String[] phase = {"Dieb", "Amor", "Werwolf", "Seherin", "Hexe", "Tag"};
 
-        int j;
-        for (j=0; j<searchFor.length; j++) {
-            boolean inGame = false;
-            for (int i = 0; i < cards.length; i++) {
-                if (cards[i].equals(searchFor[j])) {
-                    inGame = true;
-                }
-            }
-
-            if(!inGame)
-            {
-                int i = phase.length-1;
-                while(!phase[i].equals(searchFor[j]))
-                {
-                    i--;
-                }
-
-                phase[i] = null;
-            }
-        }
-
-        if(this.globalVariables.getDiebChoosen()) // if "Dieb" is one of the Roles -> the last two Roles aren't allocated yet - so they don't belong into the phaseArray
-        {
-            for (j=1; j < 3; j++) {
-                for (int i = 0; i < phase.length-1; i++) {
-                    if(phase[i] != null)
-                    {
-                        if (phase[i].equals(cards[cards.length-j])) {
-                            phase[i] = null;
-                        }
-                    }
-                }
-            }
-        }
-
-        this.globalVariables.setPhases(phase);
-        this.globalVariables.setCurrentPhaseID(-1);
-
-        nextPhase();
+        new getCurrentPhase().execute();
     }
 
     /*
@@ -98,7 +57,7 @@ public class GameActivity extends AppCompatActivity {
     public void createObjects() {
         int numOfPlayers = globalVariables.getNumPlayers();
         Activity context = globalVariables.getCurrentContext();
-        int[]playerIDs = Con.getPlayerIDs();
+        int[] playerIDs = Con.getPlayerIDs();
 
         //create Linear Layouts in gameView
         LinearLayout row1 = (LinearLayout) context.findViewById(R.id.row1);
@@ -116,7 +75,7 @@ public class GameActivity extends AppCompatActivity {
                 button.setEnabled(false);
             }
             else*/
-                button.setId(playerIDs[i]);
+            button.setId(playerIDs[i]);
             button.setBackgroundColor(0);
             // TODO: JSON - getAllPlayer.php
             //button.setText(player[i]);
@@ -124,23 +83,23 @@ public class GameActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     playerSelected(v);
-                    switch (globalVariables.getCurrentPhaseID()){ //bei manchen Phasen passiert mehr, wenn ein Spieler ausgewählt wurde
-                        case 2:
-                            nextPhase();
+                    switch (globalVariables.getCurrentPhase()) { //bei manchen Phasen passiert mehr, wenn ein Spieler ausgewählt wurde
+                        case "Werwolf":
+                            new setNextPhase().execute(""); // kommt dann in Phase
                             break;
 
-                        case 3:
+                        case "Seherin":
                             SeherinActivity seherin = new SeherinActivity();
                             seherin.getIdentity(); // die Seherin bekommt die Gesinnung des ausgwählten Spielers gezeigt
                             break;
 
-                        case 4:
+                        case "Hexe":
                             HexeActivity hexe = new HexeActivity();
                             hexe.magic("poison"); // bei der Hexe wird das ausgewählte Opfer in Datenbank geladen
                             break;
 
-                        case 5:
-                            nextPhase();
+                        case "Tag":
+                            new setNextPhase().execute(""); //kommt dann in Phase
                             break;
                     }
                 }
@@ -169,118 +128,59 @@ public class GameActivity extends AppCompatActivity {
     *
     */
 
-    public void playerSelected(View view){
+    public void playerSelected(View view) {
         Button button = (Button) view;
         Button currentlySelectedPlayer = globalVariables.getCurrentlySelectedPlayer();
         Button lover1 = globalVariables.getLover1();
         Button lover2 = globalVariables.getLover2();
         Activity context = globalVariables.getCurrentContext();
 
-        if(globalVariables.getCurrentPhaseID() == 1)
-        {
-            if(lover1 == null)
-            {
+        //two players can be choosen if the Phase is "Amor"
+        if (globalVariables.getCurrentPhase().equals("Amor")) {
+            if (lover1 == null) {
                 globalVariables.setLover1(button);
                 button.setBackgroundColor(context.getResources().getColor(R.color.button_material_dark));
 
-                if(lover2 != null)
+                if (lover2 != null) {
                     globalVariables.getOK().setEnabled(true);
-            }
-            else if(lover1 != null && button.equals(lover1))
-            {
+                }
+            } else if (lover1 != null && button.equals(lover1)) {
                 globalVariables.setLover1(null);
                 button.setBackgroundColor(0);
                 globalVariables.getOK().setEnabled(false);
-            }
-            else if(lover1 != null && lover2 == null)
-            {
+            } else if (lover1 != null && lover2 == null) {
                 globalVariables.setLover2(button);
                 button.setBackgroundColor(context.getResources().getColor(R.color.button_material_dark));
                 globalVariables.getOK().setEnabled(true);
-            }
-            else if(lover2 != null && button.equals(lover2))
-            {
+            } else if (lover2 != null && button.equals(lover2)) {
                 globalVariables.setLover2(null);
                 button.setBackgroundColor(0);
                 globalVariables.getOK().setEnabled(false);
             }
 
-        }
-        else
-        {
+        } else {
             //make all buttons transparent
-            ViewGroup gameView =(ViewGroup) context.findViewById(R.id.gameView);
-            for (int i=0; i < gameView.getChildCount(); i++){
+            ViewGroup gameView = (ViewGroup) context.findViewById(R.id.gameView);
+            for (int i = 0; i < gameView.getChildCount(); i++) {
                 LinearLayout row = (LinearLayout) gameView.getChildAt(i);
-                for (int j=0; j < row.getChildCount(); j++){
+                for (int j = 0; j < row.getChildCount(); j++) {
                     Button currentButton = (Button) row.getChildAt(j);
                     currentButton.setBackgroundColor(0);
                 }
             }
 
             //if button was already selected, unselect it
-            if(button.equals(currentlySelectedPlayer)) {
+            if (button.equals(currentlySelectedPlayer)) {
                 globalVariables.setCurrentlySelectedPlayer(null);
             }
             //otherwise select it
-            else{
+            else {
                 globalVariables.setCurrentlySelectedPlayer(button);
                 button.setBackgroundColor(context.getResources().getColor(R.color.button_material_dark));
             }
         }
 
 
-    }
-
-    public void nextPhase()
-    {
-        Activity context = globalVariables.getCurrentContext();
-        String[] phases = globalVariables.getPhases();
-        int currentPhaseID = globalVariables.getCurrentPhaseID();
-
-        currentPhaseID = (currentPhaseID+1) % phases.length;
-        while(phases[currentPhaseID] == null)
-            currentPhaseID = (currentPhaseID+1) % phases.length;
-
-
-
-        switch (currentPhaseID){
-            case 0:
-                globalVariables.setCurrentPhaseID(currentPhaseID);
-                Intent dieb = new Intent(context, DiebActivity.class);
-                context.startActivity(dieb);
-                break;
-
-            case 1:
-                globalVariables.setCurrentPhaseID(currentPhaseID);
-                Intent amor = new Intent(context, AmorActivity.class);
-                context.startActivity(amor);
-                break;
-
-            case 2:
-                globalVariables.setCurrentPhaseID(currentPhaseID);
-                Intent werwolf = new Intent(context, WerwolfActivity.class);
-                context.startActivity(werwolf);
-                break;
-
-            case 3:
-                globalVariables.setCurrentPhaseID(currentPhaseID);
-                Intent seherin = new Intent(context, SeherinActivity.class);
-                context.startActivity(seherin);
-                break;
-
-            case 4:
-                globalVariables.setCurrentPhaseID(currentPhaseID);
-                Intent hexe = new Intent(context, HexeActivity.class);
-                context.startActivity(hexe);
-                break;
-
-            case 5:
-                globalVariables.setCurrentPhaseID(currentPhaseID);
-                Intent tag = new Intent(context, TagActivity.class);
-                context.startActivity(tag);
-                break;
-        }
     }
 
 }

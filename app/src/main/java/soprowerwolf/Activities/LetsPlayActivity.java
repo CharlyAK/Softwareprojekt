@@ -21,7 +21,7 @@ public class LetsPlayActivity extends AppCompatActivity {
 
         audio = MediaPlayer.create(this, R.raw.pocahontas);
 
-        timer = new CountDownTimer(audio.getDuration(), 1000){
+        timer = new CountDownTimer(audio.getDuration(), 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 audio.start();
@@ -29,13 +29,15 @@ public class LetsPlayActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
+
                 Intent intent = new Intent(LetsPlayActivity.this, GameActivity.class);
                 startActivity(intent);
             }
         }.start();
     }
 
-    public void letsPlay(View view){
+    public void letsPlay(View view) {
+        audio.stop();
         timer.onFinish();
     }
 }

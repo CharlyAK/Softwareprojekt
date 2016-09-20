@@ -86,6 +86,10 @@
             android:name=".Activities.PhasesActivity.WerwolfActivity"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".Activities.PhasesActivity.JaegerActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
 
     </application>
 

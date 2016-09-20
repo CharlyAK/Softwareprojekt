@@ -35,7 +35,7 @@ public class JoinGameActivity extends AppCompatActivity implements QRCodeReaderV
 
         scanningURL = text;
 
-        Toast.makeText(getApplicationContext()," scanned text: " + scanningURL, Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), " scanned text: " + scanningURL, Toast.LENGTH_LONG).show();
 
         globalVariables.setGameID(Integer.parseInt(scanningURL));
 
@@ -46,10 +46,12 @@ public class JoinGameActivity extends AppCompatActivity implements QRCodeReaderV
     }
 
     @Override
-    public void cameraNotFound() {  }
+    public void cameraNotFound() {
+    }
 
     @Override
-    public void QRCodeNotFoundOnCamImage() {   }
+    public void QRCodeNotFoundOnCamImage() {
+    }
 
     @Override
     protected void onResume() {

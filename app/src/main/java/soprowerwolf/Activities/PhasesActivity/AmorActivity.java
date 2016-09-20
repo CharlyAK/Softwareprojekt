@@ -1,11 +1,14 @@
 package soprowerwolf.Activities.PhasesActivity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 
+import soprowerwolf.Database.AmorDB;
+import soprowerwolf.Database.getCurrentPhase;
 import soprowerwolf.R;
 
 import soprowerwolf.Activities.GameActivity;
@@ -16,63 +19,66 @@ import soprowerwolf.Classes.popup;
 public class AmorActivity extends AppCompatActivity {
 
     popup popup = new popup(AmorActivity.this);
-
     GlobalVariables globalVariables = GlobalVariables.getInstance();
+
+    private Handler timerHandler = new Handler();
+    private Runnable timerRunnable = new Runnable() {
+        @Override
+        public void run() {
+            new getCurrentPhase().execute();
+            timerHandler.postDelayed(this, 2000);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_amor);
-        globalVariables.setCurrentContext(this);
 
-        //View settings: Fullscreen
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //check, if own Role equals Phase -> yes: Activity is shown; no: black screen is shown (activity_wait)
+        if (globalVariables.getOwnRole().equals("Amor")) {
+            setContentView(R.layout.activity_amor);
+            globalVariables.setCurrentContext(this);
 
-        GameActivity create = new GameActivity();
-        create.createObjects();
+            //View settings: Fullscreen
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        Button Info = (Button) findViewById(R.id.buttonInfo);
-        Button OK = (Button) findViewById(R.id.buttonOK);
-        OK.setEnabled(false);
-        globalVariables.setOK(OK);
+            GameActivity create = new GameActivity();
+            create.createObjects();
 
-        assert Info != null;
-        Info.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popup.PopUpInfo(">Erklärung, was getan werden soll<", "Info").show();
-            }
-        });
+            Button OK = (Button) findViewById(R.id.buttonOK);
+            OK.setEnabled(false);
+            globalVariables.setOK(OK);
 
-        assert OK != null;
-        OK.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String lover1 = globalVariables.getLover1().getText().toString();
-                String  lover2 = globalVariables.getLover2().getText().toString();
+            assert OK != null;
+            OK.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String lover1 = globalVariables.getLover1().getText().toString();
+                    String lover2 = globalVariables.getLover2().getText().toString();
 
-                setLovers();
-                popup.PopUpInfo(lover1 + " und " + lover2 + " haben sich ineinander verliebt!", "Amor").show();
+                    setLovers();
+                    popup.PopUpInfo(lover1 + " und " + lover2 + " haben sich ineinander verliebt!", "Amor").show();
+                }
+            });
 
-            }
-        });
+        } else {
+            setContentView(R.layout.activity_wait);
 
+            //check frequently if phase has been changed
+            timerHandler.postDelayed(timerRunnable, 0);
+        }
     }
 
-    public void setLovers()
-    {
+    public void setLovers() {
         databaseCon con = new databaseCon();
         int Lover1ID = globalVariables.getLover1().getId();
         int Lover2ID = globalVariables.getLover2().getId();
 
-        con.Amor(Lover1ID, Lover2ID);
-
-        String[] phases = globalVariables.getPhases();
-        phases[globalVariables.getCurrentPhaseID()] = null;
+        new AmorDB().execute(String.valueOf(Lover1ID), String.valueOf(Lover2ID));
     }
 
-    public void showInfo(View view){
+    public void showInfoAmor(View view) {
         popup.PopUpInfo(getString(R.string.description_amor), "Info").show();
     }
 
