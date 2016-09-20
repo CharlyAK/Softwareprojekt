@@ -19,7 +19,7 @@ public class AmorDB extends AsyncTask<String, String, String> {
 
     private JSONParser jsonParser = new JSONParser();
     private GlobalVariables globalVariables = GlobalVariables.getInstance();
-    private static final String url_set_lovers = "http://192.168.0.13/SoPro/db_test/setLovers.php";//"http://www-e.uni-magdeburg.de/jkloss/setLovers.php";
+    private static final String url_set_lovers = "http://www-e.uni-magdeburg.de/jkloss/setLovers.php";
 
     @Override
     protected String doInBackground(String... params) {

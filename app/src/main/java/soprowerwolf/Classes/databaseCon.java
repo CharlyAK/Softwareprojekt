@@ -28,15 +28,14 @@ public class databaseCon {
 
     private GlobalVariables globalVariables = GlobalVariables.getInstance();
 
-    private static final String url_create_new_player = "http://192.168.0.13/SoPro/db_test/create_new_player.php";//"http://www-e.uni-magdeburg.de/jkloss/create_new_player.php";
-    private static final String url_login = "http://192.168.0.13/SoPro/db_test/login.php";//"http://www-e.uni-magdeburg.de/jkloss/login.php";
-    private static final String url_delete_Account = "http://192.168.0.13/SoPro/db_test/deleteAccount.php";//"http://www-e.uni-magdeburg.de/jkloss/deleteAccount.php";
-    private static final String url_get_all_players = "http://192.168.0.13/SoPro/db_test/get_all_player.php";//"http://www-e.uni-magdeburg.de/jkloss/get_all_player.php";
-    private static final String url_get_game_details = "http://192.168.0.13/SoPro/db_test/get_game_details.php";//"http://www-e.uni-magdeburg.de/jkloss/get_game_details.php";
-    private static final String url_get_player_details = "http://192.168.0.13/SoPro/db_test/get_player_details.php";//"http://www-e.uni-magdeburg.de/jkloss/get_player_details.php";
-    private static final String url_get_player_game_details = "http://192.168.0.13/SoPro/db_test/get_player_game_details.php";//"http://www-e.uni-magdeburg.de/jkloss/get_player_game_details.php";
+    private static final String url_create_new_player = "http://www-e.uni-magdeburg.de/jkloss/create_new_player.php";
+    private static final String url_login = "http://www-e.uni-magdeburg.de/jkloss/login.php";
+    private static final String url_delete_Account = "http://www-e.uni-magdeburg.de/jkloss/deleteAccount.php";
+    private static final String url_get_all_players = "http://www-e.uni-magdeburg.de/jkloss/get_all_player.php";
+    private static final String url_get_game_details = "http://www-e.uni-magdeburg.de/jkloss/get_game_details.php";
+    private static final String url_get_player_details = "http://www-e.uni-magdeburg.de/jkloss/get_player_details.php";
+    private static final String url_get_player_game_details = "http://www-e.uni-magdeburg.de/jkloss/get_player_game_details.php";
     private static final String url_set_victims = "";
-    private static final String url_update_hexe = "http://192.168.0.13/SoPro/db_test/updateHexe.php";//"http://www-e.uni-magdeburg.de/jkloss/updateHexe.php";
     private static final String url_change_alive = "";
 
     public boolean registration(String name, String email, String pw, Matrix image) {

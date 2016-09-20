@@ -32,7 +32,7 @@ public class getCurrentPhase extends AsyncTask<String, String, String> {
     private GlobalVariables globalVariables = GlobalVariables.getInstance();
     private JSONParser jsonParser = new JSONParser();
 
-    private static final String url_get_current_phase = "http://192.168.0.13/SoPro/db_test/getCurrentPhase.php";
+    private static final String url_get_current_phase = "http://www-e.uni-magdeburg.de/jkloss/getCurrentPhase.php";
     private String currentPhase;
 
     @Override
