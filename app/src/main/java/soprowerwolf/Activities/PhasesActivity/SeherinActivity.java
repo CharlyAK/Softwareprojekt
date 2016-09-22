@@ -1,5 +1,6 @@
 package soprowerwolf.Activities.PhasesActivity;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -22,7 +23,7 @@ public class SeherinActivity extends AppCompatActivity {
     private Runnable timerRunnable = new Runnable() {
         @Override
         public void run() {
-            new getCurrentPhase().execute();
+            new getCurrentPhase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             timerHandler.postDelayed(this, 2000);
         }
     };

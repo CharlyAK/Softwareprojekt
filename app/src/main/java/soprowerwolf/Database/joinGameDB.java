@@ -19,8 +19,8 @@ import soprowerwolf.Classes.JSONParser;
  */
 public class joinGameDB extends AsyncTask<String, String, String> {
 
-    JSONParser jsonParser = new JSONParser();
-    GlobalVariables globalVariables = GlobalVariables.getInstance();
+    private JSONParser jsonParser = new JSONParser();
+    private GlobalVariables globalVariables = GlobalVariables.getInstance();
     private static final String url_join_game = "http://www-e.uni-magdeburg.de/jkloss/insert_player.php";
 
     @Override
@@ -46,5 +46,10 @@ public class joinGameDB extends AsyncTask<String, String, String> {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    protected void onPostExecute(String s) {
+        super.onPostExecute(s);
     }
 }

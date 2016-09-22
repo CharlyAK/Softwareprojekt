@@ -1,6 +1,7 @@
 package soprowerwolf.Activities;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -229,8 +230,9 @@ public class GameSetupActivity extends AppCompatActivity {
                 globalVariables.setNumPlayers(((NumberPicker) findViewById(R.id.numberPicker)).getValue());
                 globalVariables.setCards(cardsShuffled);
                 globalVariables.setOwnRole(cardsShuffled[0]);
+                globalVariables.setOwnRole("Hexe");
 
-                new createGameDB().execute();
+                new createGameDB().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
                 Intent intent = new Intent(GameSetupActivity.this, QRCodeActivity.class);
                 startActivity(intent);

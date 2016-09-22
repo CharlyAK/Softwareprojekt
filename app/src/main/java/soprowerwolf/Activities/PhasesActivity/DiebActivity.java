@@ -1,5 +1,6 @@
 package soprowerwolf.Activities.PhasesActivity;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -26,7 +27,7 @@ public class DiebActivity extends AppCompatActivity {
     private Runnable timerRunnable = new Runnable() {
         @Override
         public void run() {
-            new getCurrentPhase().execute();
+            new getCurrentPhase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             timerHandler.postDelayed(this, 2000);
         }
     };
@@ -34,6 +35,7 @@ public class DiebActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); // screen stays on
 
         //check, if own Role equals Phase -> yes: Activity is shown; no: black screen is shown (activity_wait)
         if (globalVariables.getOwnRole().equals("Dieb")) {
@@ -217,13 +219,13 @@ public class DiebActivity extends AppCompatActivity {
         //ToDo: update database: change Role
         switch (choice) {
             case "0": //first choice was choosen
-                new DiebDB().execute(Con.DiebGetRoles()[0], Con.DiebGetRoles()[1], "");
+                new DiebDB().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, Con.DiebGetRoles()[0], Con.DiebGetRoles()[1], "");
                 break;
             case "1": // second choice was choosen
-                new DiebDB().execute(Con.DiebGetRoles()[1], Con.DiebGetRoles()[0], "");
+                new DiebDB().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, Con.DiebGetRoles()[1], Con.DiebGetRoles()[0], "");
                 break;
             case "2": // non of the roles were choosen
-                new DiebDB().execute("Dorfbewohner", Con.DiebGetRoles()[0], Con.DiebGetRoles()[1]);
+                new DiebDB().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "Dorfbewohner", Con.DiebGetRoles()[0], Con.DiebGetRoles()[1]);
         }
 
         /*

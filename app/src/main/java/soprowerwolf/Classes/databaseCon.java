@@ -31,10 +31,11 @@ public class databaseCon {
     private static final String url_create_new_player = "http://www-e.uni-magdeburg.de/jkloss/create_new_player.php";
     private static final String url_login = "http://www-e.uni-magdeburg.de/jkloss/login.php";
     private static final String url_delete_Account = "http://www-e.uni-magdeburg.de/jkloss/deleteAccount.php";
-    private static final String url_get_all_players = "http://www-e.uni-magdeburg.de/jkloss/get_all_player.php";
+    private static final String url_get_all_player = "http://192.168.0.13/SoPro/db_test/get_all_player.php";//"http://www-e.uni-magdeburg.de/jkloss/get_all_player.php";
     private static final String url_get_game_details = "http://www-e.uni-magdeburg.de/jkloss/get_game_details.php";
     private static final String url_get_player_details = "http://www-e.uni-magdeburg.de/jkloss/get_player_details.php";
     private static final String url_get_player_game_details = "http://www-e.uni-magdeburg.de/jkloss/get_player_game_details.php";
+    private static final String url_update_hexe = "http://www-e.uni-magdeburg.de/jkloss/updateHexe.php";
     private static final String url_set_victims = "";
     private static final String url_change_alive = "";
 
@@ -117,13 +118,65 @@ public class databaseCon {
         return false;
     }
 
+    public int getReady() {
+        int ready = 0;
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+
+        params.add(new BasicNameValuePair("gameID", String.valueOf(globalVariables.getGameID())));
+
+        JSONObject JOready = jsonParser.makeHttpRequest(url_get_all_player, "GET", params);
+        try {
+            if (JOready.getInt("success") == 1) {
+                JSONArray JAReady = JOready.getJSONArray("players");
+                for (int i = 0; i < JAReady.length(); i++) {
+                    if (JAReady.getJSONObject(i).getInt("ready") == 1) {
+                        ready++;
+                    }
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return ready;
+    }
+
+    public int getNumPlayers() {
+        int numPlayers = 0;
+        boolean dieb = false;
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+
+        params.add(new BasicNameValuePair("gameID", String.valueOf(globalVariables.getGameID())));
+
+        JSONObject JONumPlayers = jsonParser.makeHttpRequest(url_get_all_player, "GET", params);
+        try {
+            if (JONumPlayers.getInt("success") == 1) {
+                JSONArray JANumPlayer = JONumPlayers.getJSONArray("players");
+                for (int i = 0; i < JANumPlayer.length(); i++) {
+                    if (JANumPlayer.getJSONObject(i).getString("role").equals("Dieb")) {
+                        dieb = true;
+                    }
+                }
+
+                if (dieb) {
+                    numPlayers = JANumPlayer.length() - 2;
+                } else
+                    numPlayers = JANumPlayer.length();
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return numPlayers;
+    }
+
     public int[] getPlayerIDs() {
         int[] playerIDs = new int[20];
         List<NameValuePair> params = new ArrayList<NameValuePair>();
 
         params.add(new BasicNameValuePair("gameID", String.valueOf(globalVariables.getGameID())));
 
-        JSONObject ID = jsonParser.makeHttpRequest(url_get_all_players, "GET", params);
+        JSONObject ID = jsonParser.makeHttpRequest(url_get_all_player, "GET", params);
         try {
             if (ID.getInt("success") == 1) {
                 JSONArray JID = ID.getJSONArray("players");
@@ -147,7 +200,7 @@ public class databaseCon {
 
         params.add(new BasicNameValuePair("gameID", String.valueOf(globalVariables.getGameID())));
 
-        JSONObject allPlayers = jsonParser.makeHttpRequest(url_get_all_players, "GET", params);
+        JSONObject allPlayers = jsonParser.makeHttpRequest(url_get_all_player, "GET", params);
 
         try {
             if (allPlayers.getInt("success") == 1) {
@@ -239,6 +292,21 @@ public class databaseCon {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                break;
+
+            case "saveVictim":
+                params.add(new BasicNameValuePair("heal", "used"));
+                JSONObject jsonObjectSave = jsonParser.makeHttpRequest(url_update_hexe, "POST", params);
+                //ToDo: check for success
+                break;
+
+            case "kill":
+                String playerID = String.valueOf(globalVariables.getCurrentlySelectedPlayer().getId());
+
+                params.add(new BasicNameValuePair("poison", "used"));
+                params.add(new BasicNameValuePair("victimHex", playerID));
+                JSONObject jsonObjectKill = jsonParser.makeHttpRequest(url_update_hexe, "POST", params);
+                //ToDo: check for success
                 break;
         }
         return null;

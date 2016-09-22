@@ -1,6 +1,7 @@
 package soprowerwolf.Activities.PhasesActivity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.WindowManager;
@@ -41,6 +42,6 @@ public class JaegerActivity extends AppCompatActivity {
 
 
 
-        //new setNextPhase().execute(callingPhase): // -> set next Phase
+        //new setNextPhase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, callingPhase): // -> set next Phase
     }
 }

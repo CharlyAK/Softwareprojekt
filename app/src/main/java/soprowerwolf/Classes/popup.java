@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,10 +43,9 @@ public class popup {
 
                     public void onClick(DialogInterface dialog, int which) {
                         if ((globalVariables.getCurrentPhase().equals("Seherin") && globalVariables.getCurrentlySelectedPlayer() != null)
-                                || (globalVariables.getCurrentPhase().equals("Amor") && titel != "Info")
                                 ////this is called after the info screen for the hexe if heal and poison are unavailable
                                 || (globalVariables.getCurrentPhase().equals("Hexe") && Con.Hexe("ableToSave").equals("1") && Con.Hexe("ableToPoison").equals("1"))) {
-                            new setNextPhase().execute("");
+                            new setNextPhase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "");
                         }
                         //this is called after the info screen for the hexe if the heal is available
                         else if (globalVariables.getCurrentPhase().equals("Hexe") && Con.Hexe("ableToSave").equals("0")) {
@@ -115,27 +115,24 @@ public class popup {
 
             case "HexeH":
                 if (choice) {
-                    new HexeDB().execute("saveVictim");
-                    popup popup = new popup(context);
-                    popup.PopUpInfo(Con.Hexe("getVictimWer") + " wurde gerettet", "Hexe - Heiltrank").show();
+                    new HexeDB().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "saveVictim");
+                    PopUpInfo(Con.Hexe("getVictimWer") + " wurde gerettet", "Hexe - Heiltrank").show();
                 } else {
                     //if no heal selected and poison is available
                     if (Con.Hexe("ableToPoison").equals("0")) {
-                        popup popup = new popup(context);
-                        popup.PopUpChoice("Möchtest du deinen Gifttrank verwenden?", "Hexe", "HexeP", "poison").show();
+                        PopUpChoice("Möchtest du deinen Gifttrank verwenden?", "Hexe", "HexeP", "poison").show();
                     }
                     //if no heal selected and poison is unavailable
                     else {
-                        new setNextPhase().execute("");
+                        new setNextPhase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "");
                     }
                 }
-
                 break;
 
             case "HexeP":
                 //if no poison is used the next phase starts
                 if (!choice) {
-                    new setNextPhase().execute("");
+                    new setNextPhase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "");
                 }
                 break;
         }

@@ -2,6 +2,7 @@ package soprowerwolf.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -44,7 +45,7 @@ public class GameActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 
-        new getCurrentPhase().execute();
+        new getCurrentPhase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     /*
@@ -85,7 +86,7 @@ public class GameActivity extends AppCompatActivity {
                     playerSelected(v);
                     switch (globalVariables.getCurrentPhase()) { //bei manchen Phasen passiert mehr, wenn ein Spieler ausgewählt wurde
                         case "Werwolf":
-                            new setNextPhase().execute(""); // kommt dann in Phase
+                            new setNextPhase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, ""); // kommt dann in Phase
                             break;
 
                         case "Seherin":
@@ -93,13 +94,8 @@ public class GameActivity extends AppCompatActivity {
                             seherin.getIdentity(); // die Seherin bekommt die Gesinnung des ausgwählten Spielers gezeigt
                             break;
 
-                        case "Hexe":
-                            HexeActivity hexe = new HexeActivity();
-                            hexe.magic("poison"); // bei der Hexe wird das ausgewählte Opfer in Datenbank geladen
-                            break;
-
                         case "Tag":
-                            new setNextPhase().execute(""); //kommt dann in Phase
+                            new setNextPhase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, ""); //kommt dann in Phase
                             break;
                     }
                 }

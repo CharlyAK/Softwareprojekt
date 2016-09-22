@@ -21,7 +21,7 @@ public class createGameDB extends AsyncTask<String, String, String> {
 
     private JSONParser jsonParser = new JSONParser();
     private GlobalVariables globalVariables = GlobalVariables.getInstance();
-    private static final String url_create_game = "http://www-e.uni-magdeburg.de/jkloss/create_new_game.php";
+    private static final String url_create_game = "http://192.168.0.13/SoPro/db_test/create_new_game.php";//"http://www-e.uni-magdeburg.de/jkloss/create_new_game.php";
 
     @Override
     protected String doInBackground(String... params) {

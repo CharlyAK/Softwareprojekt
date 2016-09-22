@@ -3,6 +3,7 @@ package soprowerwolf.Activities;
 import android.content.Intent;
 import android.graphics.Camera;
 import android.graphics.PointF;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
@@ -39,7 +40,7 @@ public class JoinGameActivity extends AppCompatActivity implements QRCodeReaderV
 
         globalVariables.setGameID(Integer.parseInt(scanningURL));
 
-        new joinGameDB().execute();
+        new joinGameDB().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         Intent intent = new Intent(this, GetRole.class);
         startActivity(intent);

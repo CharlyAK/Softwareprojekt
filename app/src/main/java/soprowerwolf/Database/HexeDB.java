@@ -11,6 +11,10 @@ import java.util.List;
 
 import soprowerwolf.Classes.GlobalVariables;
 import soprowerwolf.Classes.JSONParser;
+import soprowerwolf.Classes.databaseCon;
+import soprowerwolf.Classes.popup;
+
+import static soprowerwolf.Classes.popup.PopUpInfo;
 
 /**
  * Created by Alex on 20.09.2016.
@@ -18,8 +22,9 @@ import soprowerwolf.Classes.JSONParser;
 
 public class HexeDB extends AsyncTask<String, String, String> {
     private JSONParser jsonParser = new JSONParser();
+
     private GlobalVariables globalVariables = GlobalVariables.getInstance();
-    private static final String url_update_hexe = "http://www-e.uni-magdeburg.de/jkloss/updateHexe.php";
+    private static final String url_update_hexe = /*"http://192.168.0.13/SoPro/db_test/updateHexe.php";*/"http://www-e.uni-magdeburg.de/jkloss/updateHexe.php";
 
     @Override
     protected String doInBackground(String... params) {
@@ -44,5 +49,10 @@ public class HexeDB extends AsyncTask<String, String, String> {
                 break;
         }
         return null;
+    }
+
+    @Override
+    protected void onPostExecute(String s) {
+        super.onPostExecute(s);
     }
 }

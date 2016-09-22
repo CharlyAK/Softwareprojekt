@@ -1,5 +1,6 @@
 package soprowerwolf.Activities.PhasesActivity;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -25,7 +26,7 @@ public class AmorActivity extends AppCompatActivity {
     private Runnable timerRunnable = new Runnable() {
         @Override
         public void run() {
-            new getCurrentPhase().execute();
+            new getCurrentPhase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             timerHandler.postDelayed(this, 2000);
         }
     };
@@ -33,6 +34,7 @@ public class AmorActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); // screen stays on
 
         //check, if own Role equals Phase -> yes: Activity is shown; no: black screen is shown (activity_wait)
         if (globalVariables.getOwnRole().equals("Amor")) {
@@ -57,8 +59,9 @@ public class AmorActivity extends AppCompatActivity {
                     String lover1 = globalVariables.getLover1().getText().toString();
                     String lover2 = globalVariables.getLover2().getText().toString();
 
-                    setLovers();
                     popup.PopUpInfo(lover1 + " und " + lover2 + " haben sich ineinander verliebt!", "Amor").show();
+                    setLovers();
+
                 }
             });
 
@@ -71,11 +74,10 @@ public class AmorActivity extends AppCompatActivity {
     }
 
     public void setLovers() {
-        databaseCon con = new databaseCon();
         int Lover1ID = globalVariables.getLover1().getId();
         int Lover2ID = globalVariables.getLover2().getId();
 
-        new AmorDB().execute(String.valueOf(Lover1ID), String.valueOf(Lover2ID));
+        new AmorDB().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, String.valueOf(Lover1ID), String.valueOf(Lover2ID));
     }
 
     public void showInfoAmor(View view) {

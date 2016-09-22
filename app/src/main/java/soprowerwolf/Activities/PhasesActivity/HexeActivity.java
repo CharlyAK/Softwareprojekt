@@ -1,5 +1,6 @@
 package soprowerwolf.Activities.PhasesActivity;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -28,7 +29,7 @@ public class HexeActivity extends AppCompatActivity {
     private Runnable timerRunnable = new Runnable() {
         @Override
         public void run() {
-            new getCurrentPhase().execute();
+            new getCurrentPhase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             timerHandler.postDelayed(this, 2000);
         }
     };
@@ -71,8 +72,12 @@ public class HexeActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     //if a player is selected it will be killed (this can't happen if no poison is available)
                     if (globalVariables.getCurrentlySelectedPlayer() != null)
-                        new HexeDB().execute("kill", String.valueOf(globalVariables.getCurrentlySelectedPlayer().getId()));
-                    new setNextPhase().execute("");
+                    {
+                        String csp = String.valueOf(globalVariables.getCurrentlySelectedPlayer().getId());
+                        new HexeDB().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "kill", csp);
+                    }
+
+                    new setNextPhase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "");
                 }
             });
 
@@ -86,19 +91,6 @@ public class HexeActivity extends AppCompatActivity {
         }
     }
 
-    //just kept this for GameActivity - actually not needed
-    public void magic(String magic) {
-        switch (magic) {
-            case "heal":
-                new HexeDB().execute("saveVictim");
-                break;
-
-            case "poison":
-                new HexeDB().execute("kill", String.valueOf(globalVariables.getCurrentlySelectedPlayer().getId()));
-                break;
-        }
-
-    }
 
     @Override
     public void onBackPressed() {
