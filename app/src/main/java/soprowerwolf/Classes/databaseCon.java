@@ -31,7 +31,7 @@ public class databaseCon {
     private static final String url_create_new_player = "http://www-e.uni-magdeburg.de/jkloss/create_new_player.php";
     private static final String url_login = "http://www-e.uni-magdeburg.de/jkloss/login.php";
     private static final String url_delete_Account = "http://www-e.uni-magdeburg.de/jkloss/deleteAccount.php";
-    private static final String url_get_all_player = "http://192.168.0.13/SoPro/db_test/get_all_player.php";//"http://www-e.uni-magdeburg.de/jkloss/get_all_player.php";
+    private static final String url_get_all_player = "http://www-e.uni-magdeburg.de/jkloss/get_all_player.php";
     private static final String url_get_game_details = "http://www-e.uni-magdeburg.de/jkloss/get_game_details.php";
     private static final String url_get_player_details = "http://www-e.uni-magdeburg.de/jkloss/get_player_details.php";
     private static final String url_get_player_game_details = "http://www-e.uni-magdeburg.de/jkloss/get_player_game_details.php";
