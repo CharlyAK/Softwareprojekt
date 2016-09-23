@@ -38,6 +38,7 @@ public class databaseCon {
     private static final String url_update_hexe = "http://www-e.uni-magdeburg.de/jkloss/updateHexe.php";
     private static final String url_set_victims = "";
     private static final String url_change_alive = "";
+    private static final String url_vote_update = "http://www-e.uni-magdeburg.de/jkloss/vote_update.php";
 
     public boolean registration(String name, String email, String pw, Matrix image) {
         //ToDo: HashWerte für passwörter
@@ -308,6 +309,40 @@ public class databaseCon {
                 JSONObject jsonObjectKill = jsonParser.makeHttpRequest(url_update_hexe, "POST", params);
                 //ToDo: check for success
                 break;
+        }
+        return null;
+    }
+
+    public int[] Tag(String action) throws JSONException {
+
+        int gameID = globalVariables.getGameID();
+
+        switch (action){
+            case "update":
+                int[] playerIDs = getPlayerIDs();
+
+                List<NameValuePair> params = new ArrayList<NameValuePair>();
+                for (int i = 0; i < playerIDs.length; i++) {
+                    params.add(new BasicNameValuePair("id" + i, ""+playerIDs[i]));
+                }
+                JSONObject jsonObjectVotes = jsonParser.makeHttpRequest(url_vote_update, "GET", params);
+                //get the votes from VotingDay
+                JSONArray jVotes = jsonObjectVotes.getJSONArray("votes");
+
+                //merging playerIDs with numOfVotes
+                int[] playerIDsAndVotes = new int[40];
+                //there is the playerID first and afterwards the numOfVotes
+                for (int i = 0, j = 0; i < playerIDs.length && i < jVotes.length(); i++, j++){
+                    playerIDsAndVotes[j] = playerIDs[i];
+                    playerIDsAndVotes[++j] = jVotes.getJSONObject(i).getInt("votes");
+                }
+
+                return playerIDsAndVotes;
+
+
+            case "submitChoice":
+
+
         }
         return null;
     }

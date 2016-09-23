@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
 
 import soprowerwolf.Activities.GameActivity;
@@ -19,6 +20,7 @@ public class JaegerActivity extends AppCompatActivity {
     GlobalVariables globalVariables = GlobalVariables.getInstance();
     databaseCon Con = new databaseCon();
     popup popup = new popup(this);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +38,10 @@ public class JaegerActivity extends AppCompatActivity {
         final GameActivity create = new GameActivity();
         create.createObjects();
 
-        final TextView InfoJaeger = (TextView) findViewById(R.id.TextJaeger);
-        //Button ok = (Button) findViewById(R.id.buttonJaegerContinue);
-        //Button info = (Button) findViewById(R.id.buttonJaegerInfo);
 
-
+        popup.PopUpInfo("Wähle eine Person, die du töten möchtest","Jäger").show();
+        Button ok = (Button) findViewById(R.id.buttonJaegerContinue);
+        Button info = (Button) findViewById(R.id.buttonJaegerInfo);
 
         //new setNextPhase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, callingPhase): // -> set next Phase
     }

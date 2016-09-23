@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import soprowerwolf.Classes.databaseCon;
 import soprowerwolf.Database.getCurrentPhase;
@@ -112,6 +114,27 @@ public class GameActivity extends AppCompatActivity {
                 row3.addView(button);
             else
                 row4.addView(button);
+
+            //in phase 2 and 5 (Werwolf, Tag) an extra 'votes' Textview will be added to each button
+            if(globalVariables.getCurrentPhase().endsWith("W" +
+                    "erwolf") || globalVariables.getCurrentPhase().equals("Tag") ){
+                TextView votes = new TextView(context);
+                RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams ( RelativeLayout.LayoutParams.WRAP_CONTENT,
+                        RelativeLayout.LayoutParams.WRAP_CONTENT );
+                p.addRule(RelativeLayout.BELOW, button.getId()); //below Button
+                votes.setLayoutParams(p);
+                votes.setText("0%");
+
+                //insert into rows
+                if (i < 5)
+                    row1.addView(votes);
+                else if (i < 10)
+                    row2.addView(votes);
+                else if (i < 15)
+                    row3.addView(votes);
+                else
+                    row4.addView(votes);
+            }
         }
     }
 
@@ -159,9 +182,11 @@ public class GameActivity extends AppCompatActivity {
             ViewGroup gameView = (ViewGroup) context.findViewById(R.id.gameView);
             for (int i = 0; i < gameView.getChildCount(); i++) {
                 LinearLayout row = (LinearLayout) gameView.getChildAt(i);
-                for (int j = 0; j < row.getChildCount(); j++) {
-                    Button currentButton = (Button) row.getChildAt(j);
-                    currentButton.setBackgroundColor(0);
+                for (int j=0; j < row.getChildCount(); j++){
+                    if (row.getChildAt(j).isClickable()) {
+                        Button currentButton = (Button) row.getChildAt(j);
+                        currentButton.setBackgroundColor(0);
+                    }
                 }
             }
 
@@ -178,5 +203,32 @@ public class GameActivity extends AppCompatActivity {
 
 
     }
+
+    //updates the percentage of votes next to the player buttons
+    // @params: playerIDsAndVotes contains {id, numOfVotes,...}
+    public void updateVoteButtons(int[] playerIDsAndVotes) {
+        Activity context = globalVariables.getCurrentContext();
+        ViewGroup gameView = (ViewGroup) context.findViewById(R.id.gameView);
+        for (int i = 0; i < gameView.getChildCount(); i++) {
+            LinearLayout row = (LinearLayout) gameView.getChildAt(i);
+            int e = row.getChildCount();
+            for (int j=0; j < row.getChildCount(); j++){
+                //only true for vote TextViews
+                if (!row.getChildAt(j).isClickable()) {
+                    TextView votes = (TextView) row.getChildAt(j);
+                    //get the corresponding playerID
+                    int playerID = row.getChildAt(j-1).getId();
+                    for (int k = 0; k < playerIDsAndVotes.length; k+=2){
+                        //search for playerID in playerIDsAndVotes
+                        if (playerIDsAndVotes[k] == playerID)
+                            //set the percentage (votes divided by numOfPlayers)
+                            votes.setText(playerIDsAndVotes[k+1]*100/playerIDsAndVotes.length/2+"%");
+                    }
+
+                }
+            }
+        }
+    }
+
 
 }
