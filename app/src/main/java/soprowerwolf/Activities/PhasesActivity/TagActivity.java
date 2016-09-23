@@ -31,8 +31,25 @@ public class TagActivity extends AppCompatActivity {
     GlobalVariables globalVariables = GlobalVariables.getInstance();
     popup popup = new popup(this);
     int[] playerIDsAndVotes = new int[40];
-    Activity context = globalVariables.getCurrentContext();
-    Activity context1;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_tag);
+        globalVariables.setCurrentContext(this);
+
+        //View settings: Fullscreen
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        create.createObjects();
+
+        popup.PopUpInfo("Wähle nun eine Person, die du hängen möchtest", "Tägliche Abstimmung").show();
+
+        start();
+
+    }
 
     //this checks the database every second
     boolean started;
@@ -64,26 +81,17 @@ public class TagActivity extends AppCompatActivity {
         handler.postDelayed(runnable, 2000);
     }
 
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tag);
-        globalVariables.setCurrentContext(this);
-
-        //View settings: Fullscreen
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        create.createObjects();
-
-        context1 = create;
-
-        popup.PopUpInfo("Wähle nun eine Person, die du hängen möchtest", "Tägliche Abstimmung").show();
-
-        start();
-
+    public void submitChoice()  {
+        try {
+            Con.Tag("submitChoice");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
+
+
+
+
 
     protected void onResume(){
         super.onResume();

@@ -13,6 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.json.JSONException;
+
 import soprowerwolf.Classes.databaseCon;
 import soprowerwolf.Database.getCurrentPhase;
 import soprowerwolf.Database.setNextPhase;
@@ -97,7 +99,8 @@ public class GameActivity extends AppCompatActivity {
                             break;
 
                         case "Tag":
-                            new setNextPhase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, ""); //kommt dann in Phase
+                            TagActivity tag = new TagActivity();
+                            tag.submitChoice();
                             break;
                     }
                 }
@@ -211,7 +214,6 @@ public class GameActivity extends AppCompatActivity {
         ViewGroup gameView = (ViewGroup) context.findViewById(R.id.gameView);
         for (int i = 0; i < gameView.getChildCount(); i++) {
             LinearLayout row = (LinearLayout) gameView.getChildAt(i);
-            int e = row.getChildCount();
             for (int j=0; j < row.getChildCount(); j++){
                 //only true for vote TextViews
                 if (!row.getChildAt(j).isClickable()) {
@@ -220,9 +222,15 @@ public class GameActivity extends AppCompatActivity {
                     int playerID = row.getChildAt(j-1).getId();
                     for (int k = 0; k < playerIDsAndVotes.length; k+=2){
                         //search for playerID in playerIDsAndVotes
-                        if (playerIDsAndVotes[k] == playerID)
+                        if (playerIDsAndVotes[k] == playerID) {
+                            int percentage = playerIDsAndVotes[k + 1] * 100 / globalVariables.getNumPlayers();
+                            //if the limit is reached new phase will be entered
+                            if (percentage > globalVariables.getLimit())
+                                new setNextPhase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "");
+                                // TODO: reset VotingDay
                             //set the percentage (votes divided by numOfPlayers)
-                            votes.setText(playerIDsAndVotes[k+1]*100/playerIDsAndVotes.length/2+"%");
+                            votes.setText(percentage + "%");
+                        }
                     }
 
                 }

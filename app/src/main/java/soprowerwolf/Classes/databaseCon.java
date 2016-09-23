@@ -39,6 +39,7 @@ public class databaseCon {
     private static final String url_set_victims = "";
     private static final String url_change_alive = "";
     private static final String url_vote_update = "http://www-e.uni-magdeburg.de/jkloss/vote_update.php";
+    private static final String url_submit_choice = "http://www-e.uni-magdeburg.de/jkloss/submit_choice.php";
 
     public boolean registration(String name, String email, String pw, Matrix image) {
         //ToDo: HashWerte für passwörter
@@ -314,14 +315,12 @@ public class databaseCon {
     }
 
     public int[] Tag(String action) throws JSONException {
-
-        int gameID = globalVariables.getGameID();
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
 
         switch (action){
             case "update":
                 int[] playerIDs = getPlayerIDs();
 
-                List<NameValuePair> params = new ArrayList<NameValuePair>();
                 for (int i = 0; i < playerIDs.length; i++) {
                     params.add(new BasicNameValuePair("id" + i, ""+playerIDs[i]));
                 }
@@ -341,8 +340,11 @@ public class databaseCon {
 
 
             case "submitChoice":
+                String playerID = String.valueOf(globalVariables.getCurrentlySelectedPlayer().getId());
 
-
+                params.add(new BasicNameValuePair("choice", playerID));
+                JSONObject jsonObjectChoice = jsonParser.makeHttpRequest(url_submit_choice, "POST", params);
+                //ToDo: check for success
         }
         return null;
     }

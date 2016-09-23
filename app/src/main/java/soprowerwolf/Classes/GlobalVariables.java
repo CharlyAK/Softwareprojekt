@@ -21,6 +21,7 @@ public class GlobalVariables extends Application {
     private String[] Phases;
     private String currentPhase; // currentPhaseID isn't needed anymore when getCurrentPhase works
     private Activity currentContext;
+    private int limit = 66;
 
     // Global variables: Dieb
     private boolean DiebChoosen;
@@ -118,6 +119,10 @@ public class GlobalVariables extends Application {
     public Activity getCurrentContext() {
         return this.currentContext;
     }
+
+    public void setLimit(int limit) { this.limit = limit; }
+
+    public int getLimit() { return this.limit; }
 
     /*
      *   getter and setter for Dieb - Variables
