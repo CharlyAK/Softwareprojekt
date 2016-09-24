@@ -90,7 +90,7 @@ public class GameActivity extends AppCompatActivity {
                     playerSelected(v);
                     switch (globalVariables.getCurrentPhase()) { //bei manchen Phasen passiert mehr, wenn ein Spieler ausgewählt wurde
                         case "Werwolf":
-                            new setNextPhase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, ""); // kommt dann in Phase
+                            new setNextPhase().execute( ""); // kommt dann in Phase
                             break;
 
                         case "Seherin":
@@ -226,7 +226,7 @@ public class GameActivity extends AppCompatActivity {
                             int percentage = playerIDsAndVotes[k + 1] * 100 / globalVariables.getNumPlayers();
                             //if the limit is reached new phase will be entered
                             if (percentage > globalVariables.getLimit())
-                                new setNextPhase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "");
+                                new setNextPhase().execute("");
                                 // TODO: reset VotingDay
                             //set the percentage (votes divided by numOfPlayers)
                             votes.setText(percentage + "%");
