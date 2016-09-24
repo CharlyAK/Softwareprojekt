@@ -77,7 +77,7 @@ public class AmorActivity extends AppCompatActivity {
         int Lover1ID = globalVariables.getLover1().getId();
         int Lover2ID = globalVariables.getLover2().getId();
 
-        new AmorDB().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, String.valueOf(Lover1ID), String.valueOf(Lover2ID));
+        new AmorDB().execute(String.valueOf(Lover1ID), String.valueOf(Lover2ID));
     }
 
     public void showInfoAmor(View view) {

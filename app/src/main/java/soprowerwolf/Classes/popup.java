@@ -45,7 +45,7 @@ public class popup {
                         if ((globalVariables.getCurrentPhase().equals("Seherin") && globalVariables.getCurrentlySelectedPlayer() != null)
                                 ////this is called after the info screen for the hexe if heal and poison are unavailable
                                 || (globalVariables.getCurrentPhase().equals("Hexe") && Con.Hexe("ableToSave").equals("1") && Con.Hexe("ableToPoison").equals("1"))) {
-                            new setNextPhase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "");
+                            new setNextPhase().execute("");
                         }
                         //this is called after the info screen for the hexe if the heal is available
                         else if (globalVariables.getCurrentPhase().equals("Hexe") && Con.Hexe("ableToSave").equals("0")) {
@@ -115,7 +115,7 @@ public class popup {
 
             case "HexeH":
                 if (choice) {
-                    new HexeDB().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "saveVictim");
+                    new HexeDB().execute("saveVictim");
                     PopUpInfo(Con.Hexe("getVictimWer") + " wurde gerettet", "Hexe - Heiltrank").show();
                 } else {
                     //if no heal selected and poison is available
@@ -124,7 +124,7 @@ public class popup {
                     }
                     //if no heal selected and poison is unavailable
                     else {
-                        new setNextPhase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "");
+                        new setNextPhase().execute("");
                     }
                 }
                 break;
@@ -132,7 +132,7 @@ public class popup {
             case "HexeP":
                 //if no poison is used the next phase starts
                 if (!choice) {
-                    new setNextPhase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "");
+                    new setNextPhase().execute("");
                 }
                 break;
         }

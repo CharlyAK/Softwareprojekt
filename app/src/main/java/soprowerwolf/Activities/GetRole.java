@@ -1,5 +1,6 @@
 package soprowerwolf.Activities;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Handler;
@@ -29,6 +30,8 @@ public class GetRole extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_role);
+
+        globalVariables.setCurrentPhase("getRole");
 
         ImageButton role = (ImageButton) findViewById(R.id.imageButtonRole);
 
@@ -109,9 +112,9 @@ public class GetRole extends AppCompatActivity {
     private Runnable timerRunnable = new Runnable() {
         @Override
         public void run() {
-            ready = Con.getReady();
+            //ready = Con.getReady();
 
-            Snackbar.make(findViewById(R.id.activityGetRole), "Die Dorfbewohner sammeln sich... " + String.valueOf(ready) + "/" + String.valueOf(numPlayers) + " sind bereit.", Snackbar.LENGTH_INDEFINITE).show();
+            //Snackbar.make(findViewById(R.id.activityGetRole), "Die Dorfbewohner sammeln sich... " + String.valueOf(ready) + "/" + String.valueOf(numPlayers) + " sind bereit.", Snackbar.LENGTH_INDEFINITE).show();
 
             //if (ready == numPlayers) { // hinderlich, wenn mit nur einem gerät getestet wird
                 Intent intent = new Intent(GetRole.this, LetsPlayActivity.class);
@@ -122,8 +125,8 @@ public class GetRole extends AppCompatActivity {
     };
 
     public void ready(View view) {
-        new setReadyDB().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        numPlayers = Con.getNumPlayers();
+        //new setReadyDB().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        //numPlayers = Con.getNumPlayers();
 
         //check frequently who many players joind the game
         timerHandler.postDelayed(timerRunnable, 0);

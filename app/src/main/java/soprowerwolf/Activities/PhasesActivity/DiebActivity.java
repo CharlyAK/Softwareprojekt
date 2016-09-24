@@ -219,13 +219,13 @@ public class DiebActivity extends AppCompatActivity {
         //ToDo: update database: change Role
         switch (choice) {
             case "0": //first choice was choosen
-                new DiebDB().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, Con.DiebGetRoles()[0], Con.DiebGetRoles()[1], "");
+                new DiebDB().execute(Con.DiebGetRoles()[0], Con.DiebGetRoles()[1], "");
                 break;
             case "1": // second choice was choosen
-                new DiebDB().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, Con.DiebGetRoles()[1], Con.DiebGetRoles()[0], "");
+                new DiebDB().execute(Con.DiebGetRoles()[1], Con.DiebGetRoles()[0], "");
                 break;
             case "2": // non of the roles were choosen
-                new DiebDB().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "Dorfbewohner", Con.DiebGetRoles()[0], Con.DiebGetRoles()[1]);
+                new DiebDB().execute("Dorfbewohner", Con.DiebGetRoles()[0], Con.DiebGetRoles()[1]);
         }
 
         /*

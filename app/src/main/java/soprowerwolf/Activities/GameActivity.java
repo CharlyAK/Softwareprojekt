@@ -86,7 +86,7 @@ public class GameActivity extends AppCompatActivity {
                     playerSelected(v);
                     switch (globalVariables.getCurrentPhase()) { //bei manchen Phasen passiert mehr, wenn ein Spieler ausgewählt wurde
                         case "Werwolf":
-                            new setNextPhase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, ""); // kommt dann in Phase
+                            new setNextPhase().execute(""); // kommt dann in Phase
                             break;
 
                         case "Seherin":
@@ -95,7 +95,7 @@ public class GameActivity extends AppCompatActivity {
                             break;
 
                         case "Tag":
-                            new setNextPhase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, ""); //kommt dann in Phase
+                            new setNextPhase().execute(""); //kommt dann in Phase
                             break;
                     }
                 }

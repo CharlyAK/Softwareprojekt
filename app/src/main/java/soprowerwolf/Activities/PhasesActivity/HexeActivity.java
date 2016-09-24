@@ -74,10 +74,10 @@ public class HexeActivity extends AppCompatActivity {
                     if (globalVariables.getCurrentlySelectedPlayer() != null)
                     {
                         String csp = String.valueOf(globalVariables.getCurrentlySelectedPlayer().getId());
-                        new HexeDB().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "kill", csp);
+                        new HexeDB().execute("kill", csp);
                     }
 
-                    new setNextPhase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "");
+                    new setNextPhase().execute("");
                 }
             });
 

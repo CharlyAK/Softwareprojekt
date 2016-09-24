@@ -42,6 +42,6 @@ public class JaegerActivity extends AppCompatActivity {
 
 
 
-        //new setNextPhase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, callingPhase): // -> set next Phase
+        //new setNextPhase().execute(callingPhase): // -> set next Phase
     }
 }
