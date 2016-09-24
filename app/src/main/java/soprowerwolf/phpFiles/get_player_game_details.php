@@ -65,7 +65,9 @@ if (isset($_GET["playerID"]) && isset($_GET["gameID"])) {
         // echo no users JSON
         echo json_encode($response);
     }
-} else {
+} 
+
+else {
     // required field is missing
     $response["success"] = 0;
     $response["message"] = "Required field(s) is missing";

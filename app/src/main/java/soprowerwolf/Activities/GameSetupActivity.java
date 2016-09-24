@@ -229,6 +229,7 @@ public class GameSetupActivity extends AppCompatActivity {
 
                 globalVariables.setNumPlayers(((NumberPicker) findViewById(R.id.numberPicker)).getValue());
                 globalVariables.setCards(cardsShuffled);
+         //       cardsShuffled[0] = "Dorfbewohner";
                 globalVariables.setOwnRole(cardsShuffled[0]);
                 globalVariables.setOwnRole("Hexe");
 
