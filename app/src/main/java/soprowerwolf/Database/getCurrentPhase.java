@@ -14,6 +14,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import soprowerwolf.Activities.GameOverActivity;
 import soprowerwolf.Activities.PhasesActivity.AmorActivity;
 import soprowerwolf.Activities.PhasesActivity.DiebActivity;
 import soprowerwolf.Activities.PhasesActivity.HexeActivity;
@@ -101,6 +102,11 @@ public class getCurrentPhase extends AsyncTask<String, String, String> {
                         globalVariables.setCurrentPhase("Jaeger");
                         context.startActivity(jaeger);
                     }
+                    break;
+                case "Spielende":
+                    globalVariables.setCurrentPhase("Spielende");
+                    Intent gameOver = new Intent(context, GameOverActivity.class);
+                    context.startActivity(gameOver);
                     break;
             }
         }

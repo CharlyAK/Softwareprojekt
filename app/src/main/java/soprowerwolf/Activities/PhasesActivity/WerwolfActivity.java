@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 
+import soprowerwolf.Classes.Audio;
 import soprowerwolf.Database.getCurrentPhase;
 import soprowerwolf.R;
 
@@ -15,6 +16,7 @@ import soprowerwolf.Classes.GlobalVariables;
 public class WerwolfActivity extends AppCompatActivity {
 
     GlobalVariables globalVariables = GlobalVariables.getInstance();
+    Audio audio = new Audio();
 
     private Handler timerHandler = new Handler();
     private Runnable timerRunnable = new Runnable() {
@@ -28,6 +30,8 @@ public class WerwolfActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if(globalVariables.isSpielleiter()){audio.playWolfW(WerwolfActivity.this);}
 
         //check, if own Role equals Phase -> yes: Activity is shown; no: black screen is shown (activity_wait)
         if (globalVariables.getOwnRole().equals("Werwolf")) {

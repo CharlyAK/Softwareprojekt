@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import soprowerwolf.Classes.Audio;
 import org.json.JSONException;
 
 import soprowerwolf.Classes.databaseCon;
@@ -35,6 +36,7 @@ public class GameActivity extends AppCompatActivity {
 
     GlobalVariables globalVariables = GlobalVariables.getInstance();
     databaseCon Con = new databaseCon();
+    Audio audio = new Audio();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -214,6 +216,7 @@ public class GameActivity extends AppCompatActivity {
         ViewGroup gameView = (ViewGroup) context.findViewById(R.id.gameView);
         for (int i = 0; i < gameView.getChildCount(); i++) {
             LinearLayout row = (LinearLayout) gameView.getChildAt(i);
+            int e = row.getChildCount();
             for (int j=0; j < row.getChildCount(); j++){
                 //only true for vote TextViews
                 if (!row.getChildAt(j).isClickable()) {

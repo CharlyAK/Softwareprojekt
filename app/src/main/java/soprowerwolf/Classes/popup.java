@@ -24,11 +24,10 @@ public class popup {
     private static Activity context;
     static databaseCon Con = new databaseCon();
     static GlobalVariables globalVariables = GlobalVariables.getInstance();
-
+    static Audio audio = new Audio();
 
     public popup(Activity context) {
         this.context = context;
-
     }
 
     /* creates a popup containing information */
@@ -42,9 +41,17 @@ public class popup {
                 new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int which) {
-                        if ((globalVariables.getCurrentPhase().equals("Seherin") && globalVariables.getCurrentlySelectedPlayer() != null)
-                                ////this is called after the info screen for the hexe if heal and poison are unavailable
-                                || (globalVariables.getCurrentPhase().equals("Hexe") && Con.Hexe("ableToSave").equals("1") && Con.Hexe("ableToPoison").equals("1"))) {
+                        if ((globalVariables.getCurrentPhase().equals("Seherin") && globalVariables.getCurrentlySelectedPlayer() != null)){
+                            //audio.playSeherinS(context);
+                            new setNextPhase().execute("");
+                        }
+                        ////this is called after the info screen for the hexe if heal and poison are unavailable
+                        if(globalVariables.getCurrentPhase().equals("Hexe") && Con.Hexe("ableToSave").equals("1") && Con.Hexe("ableToPoison").equals("1")){
+                            //audio.playHexeS(context);
+                            new setNextPhase().execute("");
+                        }
+                        if(globalVariables.getCurrentPhase().equals("Amor") && titel != "Info"){
+                            //audio.playAmorS(context);
                             new setNextPhase().execute("");
                         }
                         //this is called after the info screen for the hexe if the heal is available
@@ -124,6 +131,7 @@ public class popup {
                     }
                     //if no heal selected and poison is unavailable
                     else {
+                       //audio.playHexeS(context);
                         new setNextPhase().execute("");
                     }
                 }
@@ -132,6 +140,7 @@ public class popup {
             case "HexeP":
                 //if no poison is used the next phase starts
                 if (!choice) {
+                    //audio.playHexeS(context);
                     new setNextPhase().execute("");
                 }
                 break;

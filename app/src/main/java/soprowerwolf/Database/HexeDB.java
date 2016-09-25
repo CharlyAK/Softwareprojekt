@@ -39,7 +39,7 @@ public class HexeDB extends AsyncTask<String, String, String> {
                 //ToDo: check for success
                 break;
 
-            case "kill":
+            case "killDB":
                 String playerID = params[1];
 
                 paramsList.add(new BasicNameValuePair("poison", "used"));

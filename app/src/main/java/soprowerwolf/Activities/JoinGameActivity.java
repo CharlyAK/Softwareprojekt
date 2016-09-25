@@ -1,69 +1,69 @@
 package soprowerwolf.Activities;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
-import android.graphics.Camera;
-import android.graphics.PointF;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
+import android.view.View;
+import android.widget.Button;
 
-import com.dlazaro66.qrcodereaderview.QRCodeReaderView;
+import com.google.zxing.Result;
+import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 import soprowerwolf.Classes.GlobalVariables;
 import soprowerwolf.Database.joinGameDB;
 import soprowerwolf.R;
 
+
 // Scanner benötigt Kamerazugriff (evtl. im Smartphone erlauben)
 // Einstellungen -> Anwendungsmanager -> [App] -> Berechtigungen
-public class JoinGameActivity extends AppCompatActivity implements QRCodeReaderView.OnQRCodeReadListener {
+public class JoinGameActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler{
 
-    String scanningURL;
-    private QRCodeReaderView mydecoderview;
+    private ZXingScannerView scannerView;
     GlobalVariables globalVariables = GlobalVariables.getInstance();
+    Button scan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join_game);
 
-        mydecoderview = (QRCodeReaderView) findViewById(R.id.qrdecoderview);
-        mydecoderview.setOnQRCodeReadListener(this);
+        scan = (Button) findViewById(R.id.scan);
+        scan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                QRScanner(v);
+            }
+        });
+    }
+
+    public void QRScanner(View v){
+        scannerView = new ZXingScannerView(this);
+        setContentView(scannerView);
+        scannerView.setResultHandler(this);
+        scannerView.startCamera();
     }
 
     @Override
-    public void onQRCodeRead(String text, PointF[] points) {
+    public void onPause(){
+        super.onPause();
+        scannerView.stopCamera();
+    }
 
-        scanningURL = text;
+    @TargetApi(Build.VERSION_CODES.CUPCAKE)
+    @Override
+    public void handleResult(Result result){
 
-        Toast.makeText(getApplicationContext(), " scanned text: " + scanningURL, Toast.LENGTH_LONG).show();
+        String scanningText = result.getText();
 
-        globalVariables.setGameID(Integer.parseInt(scanningURL));
+        globalVariables.setGameID(Integer.parseInt(scanningText));
 
         new joinGameDB().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         Intent intent = new Intent(this, GetRole.class);
         startActivity(intent);
-    }
-
-    @Override
-    public void cameraNotFound() {
-    }
-
-    @Override
-    public void QRCodeNotFoundOnCamImage() {
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mydecoderview.getCameraManager().startPreview();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mydecoderview.getCameraManager().stopPreview();
     }
 
 }

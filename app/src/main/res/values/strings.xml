@@ -37,7 +37,7 @@
     <string name="description_dorfbewohner">Ich bin ein Dorfbewohner. Ich kann nix</string>
     <string name="description_werwolf">Ich bin ein Werwolf. Ich kann töten!</string>
     <string name="description_dieb">Ich bin der Dieb. Ich kann stehlen.</string>
-    <string name="description_amor">Ich bin Amor. Ich schieß mit Pfeilen.</string>
+    <string name="description_amor">Amor wählt 2 Spieler, die sich ineinander verlieben.\n Stirbt einer von beiden, folgt ihm der andere in den Tod.</string>
     <string name="description_seherin">Ich bin die Seherin. Ich hab gute Augen.</string>
     <string name="description_hexe">
         Die Hexe erwacht immer direkt nachdem die Werwölfe ihr Opfer ausgesucht haben.

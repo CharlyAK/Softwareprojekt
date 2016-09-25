@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 
+import soprowerwolf.Classes.Audio;
 import soprowerwolf.Database.AmorDB;
 import soprowerwolf.Database.getCurrentPhase;
 import soprowerwolf.R;
@@ -21,6 +22,7 @@ public class AmorActivity extends AppCompatActivity {
 
     popup popup = new popup(AmorActivity.this);
     GlobalVariables globalVariables = GlobalVariables.getInstance();
+    Audio audio = new Audio();
 
     private Handler timerHandler = new Handler();
     private Runnable timerRunnable = new Runnable() {
@@ -36,17 +38,19 @@ public class AmorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); // screen stays on
 
+        if (globalVariables.isSpielleiter()){audio.playAmorW(AmorActivity.this);}
+
         //check, if own Role equals Phase -> yes: Activity is shown; no: black screen is shown (activity_wait)
         if (globalVariables.getOwnRole().equals("Amor")) {
             setContentView(R.layout.activity_amor);
             globalVariables.setCurrentContext(this);
 
-            //View settings: Fullscreen
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //View settings: Fullscreen
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-            GameActivity create = new GameActivity();
-            create.createObjects();
+        GameActivity create = new GameActivity();
+        create.createObjects();
 
             Button OK = (Button) findViewById(R.id.buttonOK);
             OK.setEnabled(false);

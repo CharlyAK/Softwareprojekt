@@ -21,10 +21,13 @@ public class GlobalVariables extends Application {
     private String[] Phases;
     private String currentPhase; // currentPhaseID isn't needed anymore when getCurrentPhase works
     private Activity currentContext;
+    private String winner;
+    private boolean spielleiter;
     private int limit = 66;
 
     // Global variables: Dieb
     private boolean DiebChoosen;
+
     // Global variables: Amor
     private Button lover1;
     private Button lover2;
@@ -123,6 +126,15 @@ public class GlobalVariables extends Application {
     public void setLimit(int limit) { this.limit = limit; }
 
     public int getLimit() { return this.limit; }
+
+    public void setWinner(String winner){this.winner = winner;}
+
+    public String getWinner(){return this.winner;}
+
+    public boolean isSpielleiter() { return spielleiter; }
+
+    public void setSpielleiter(boolean spielleiter) { this.spielleiter = spielleiter; }
+
 
     /*
      *   getter and setter for Dieb - Variables

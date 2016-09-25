@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 
+import soprowerwolf.Classes.Audio;
 import soprowerwolf.Database.getCurrentPhase;
 import soprowerwolf.R;
 
@@ -18,6 +19,7 @@ public class SeherinActivity extends AppCompatActivity {
 
     GlobalVariables globalVariables = GlobalVariables.getInstance();
     popup popup = new popup(this);
+    Audio audio = new Audio();
 
     private Handler timerHandler = new Handler();
     private Runnable timerRunnable = new Runnable() {
@@ -31,6 +33,8 @@ public class SeherinActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (globalVariables.isSpielleiter()){audio.playSeherinW(SeherinActivity.this);}
 
         //check, if own Role equals Phase -> yes: Activity is shown; no: black screen is shown (activity_wait)
         if (globalVariables.getOwnRole().equals("Seherin")) {

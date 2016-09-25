@@ -3,7 +3,7 @@
 /*
  * Following code will set the current victims
  * All details are read from HTTP Post Request
- * GameID, victimWer/ victimDor is needed
+ * GameID, victimWer / victimDor / victim Hex is needed
  */
 
 // Verbindung aufbauen, auswählen einer Datenbank
@@ -59,7 +59,9 @@ if (isset($_POST['gameID']) && !empty($_POST['gameID']) && isset($_POST['victimW
          // echoing JSON response
          echo json_encode($response);
      }
-} else {
+}
+
+else {
     // required field is missing
     $response["success"] = 0;
     $response["message"] = "Required field(s) is missing";

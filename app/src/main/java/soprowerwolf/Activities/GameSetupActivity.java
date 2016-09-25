@@ -1,7 +1,9 @@
 package soprowerwolf.Activities;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -29,10 +31,13 @@ public class GameSetupActivity extends AppCompatActivity {
 
     GlobalVariables globalVariables = GlobalVariables.getInstance();
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_setup);
+
+        globalVariables.setWinner(null);
 
         final NumberPicker players = (NumberPicker) findViewById(R.id.numberPicker);
         final Spinner spinnerWer = (Spinner) findViewById(R.id.spinnerWer);
@@ -44,6 +49,7 @@ public class GameSetupActivity extends AppCompatActivity {
 
         //if value of the NumberPicker changes
         players.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @TargetApi(Build.VERSION_CODES.HONEYCOMB)
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 setRecommendedNumberOfWer(picker.getValue());
@@ -79,6 +85,7 @@ public class GameSetupActivity extends AppCompatActivity {
             ((Spinner) findViewById(R.id.spinnerWer)).setSelection(3, true);
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void calculateGame(View view) {
         i = 1;
         cards[0] = "Seherin"; //always a part of the game
@@ -141,6 +148,7 @@ public class GameSetupActivity extends AppCompatActivity {
 
         assert startGame != null;
         startGame.setOnClickListener(new View.OnClickListener() {
+            @TargetApi(Build.VERSION_CODES.HONEYCOMB)
             @Override
             public void onClick(View v) {
                 //insert werewolves
@@ -231,7 +239,7 @@ public class GameSetupActivity extends AppCompatActivity {
                 globalVariables.setCards(cardsShuffled);
          //       cardsShuffled[0] = "Dorfbewohner";
                 globalVariables.setOwnRole(cardsShuffled[0]);
-                globalVariables.setOwnRole("Hexe");
+                globalVariables.setSpielleiter(true);
 
                 new createGameDB().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 

@@ -89,10 +89,6 @@ public class TagActivity extends AppCompatActivity {
         }
     }
 
-
-
-
-
     protected void onResume(){
         super.onResume();
         start();

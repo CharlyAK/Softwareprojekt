@@ -8,6 +8,8 @@ import org.apache.http.message.BasicNameValuePair;
 import java.util.ArrayList;
 import java.util.List;
 
+import soprowerwolf.Activities.PhasesActivity.DiebActivity;
+import soprowerwolf.Classes.Audio;
 import soprowerwolf.Classes.GlobalVariables;
 import soprowerwolf.Classes.JSONParser;
 
@@ -19,6 +21,8 @@ public class DiebDB extends AsyncTask<String, String, String> {
     private JSONParser jsonParser = new JSONParser();
     private GlobalVariables globalVariables = GlobalVariables.getInstance();
     private static final String url_change_role = "http://www-e.uni-magdeburg.de/jkloss/changeRole.php";
+    Audio audio = new Audio();
+    DiebActivity diebActivity;
 
     @Override
     protected String doInBackground(String... params) {
@@ -42,6 +46,6 @@ public class DiebDB extends AsyncTask<String, String, String> {
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
 
-        new setNextPhase().execute("");
+        audio.playDiebS(diebActivity.getApplicationContext());
     }
 }

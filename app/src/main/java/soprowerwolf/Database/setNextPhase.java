@@ -15,8 +15,10 @@ import soprowerwolf.Classes.JSONParser;
  * Created by Alex on 19.09.2016.
  */
 public class setNextPhase extends AsyncTask<String, String, String> {
+
     private GlobalVariables globalVariables = GlobalVariables.getInstance();
     private JSONParser jsonParser = new JSONParser();
+
     private static final String url_set_next_phase = "http://www-e.uni-magdeburg.de/jkloss/setNextPhase.php";
 
     @Override
@@ -39,7 +41,16 @@ public class setNextPhase extends AsyncTask<String, String, String> {
             } else
                 paramsList.add(new BasicNameValuePair("nextPhase", "Tag"));
         }
+        jsonParser.makeHttpRequest(url_set_next_phase, "POST", paramsList);
 
+
+
+        if (globalVariables.getWinner() != null){
+            paramsList.clear();
+            paramsList.add(new BasicNameValuePair("gameID", gameID));
+            paramsList.add(new BasicNameValuePair("currentPhase", currentPhase));
+            paramsList.add(new BasicNameValuePair("nextPhase", "Spielende"));
+        }
         jsonParser.makeHttpRequest(url_set_next_phase, "POST", paramsList);
 
         return null;
@@ -51,5 +62,4 @@ public class setNextPhase extends AsyncTask<String, String, String> {
         // if next Phase is set -> get current Phase
         new getCurrentPhase().execute();
     }
-
 }

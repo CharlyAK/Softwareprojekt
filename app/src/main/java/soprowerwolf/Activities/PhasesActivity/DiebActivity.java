@@ -9,6 +9,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import soprowerwolf.Activities.GameActivity;
+import soprowerwolf.Classes.Audio;
 import soprowerwolf.Classes.GlobalVariables;
 import soprowerwolf.Classes.databaseCon;
 import soprowerwolf.Classes.popup;
@@ -22,6 +23,7 @@ public class DiebActivity extends AppCompatActivity {
     String choice1, choice2;
     GlobalVariables globalVariables = GlobalVariables.getInstance();
     databaseCon Con = new databaseCon();
+    Audio audio = new Audio();
 
     private Handler timerHandler = new Handler();
     private Runnable timerRunnable = new Runnable() {
@@ -36,6 +38,8 @@ public class DiebActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); // screen stays on
+
+        if (globalVariables.isSpielleiter()){audio.playDiebW(DiebActivity.this);}
 
         //check, if own Role equals Phase -> yes: Activity is shown; no: black screen is shown (activity_wait)
         if (globalVariables.getOwnRole().equals("Dieb")) {

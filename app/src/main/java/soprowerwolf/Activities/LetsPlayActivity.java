@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import soprowerwolf.Classes.GlobalVariables;
 import soprowerwolf.R;
 
 public class LetsPlayActivity extends AppCompatActivity {
@@ -14,29 +15,32 @@ public class LetsPlayActivity extends AppCompatActivity {
     MediaPlayer audio;
     CountDownTimer timer;
 
+    GlobalVariables globalVariables = GlobalVariables.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lets_play);
 
-        audio = MediaPlayer.create(this, R.raw.pocahontas);
+        audio = MediaPlayer.create(this, R.raw.first_night);
 
         timer = new CountDownTimer(audio.getDuration(), 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                audio.start();
+                if(globalVariables.isSpielleiter()){audio.start();}
             }
 
             @Override
             public void onFinish() {
-
                 Intent intent = new Intent(LetsPlayActivity.this, GameActivity.class);
                 startActivity(intent);
             }
         }.start();
+
     }
 
-    public void letsPlay(View view) {
+    //TODO: zum testen; später entfernen
+    public void letsPlay(View view){
         audio.stop();
         timer.onFinish();
     }

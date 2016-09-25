@@ -9,6 +9,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import soprowerwolf.Classes.Audio;
 import soprowerwolf.Database.HexeDB;
 import soprowerwolf.Database.getCurrentPhase;
 import soprowerwolf.Database.setNextPhase;
@@ -24,6 +25,7 @@ public class HexeActivity extends AppCompatActivity {
     GlobalVariables globalVariables = GlobalVariables.getInstance();
     databaseCon Con = new databaseCon();
     popup popup = new popup(this);
+    Audio audio = new Audio();
 
     private Handler timerHandler = new Handler();
     private Runnable timerRunnable = new Runnable() {
@@ -37,6 +39,8 @@ public class HexeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (globalVariables.isSpielleiter()){audio.playHexeW(HexeActivity.this);}
 
         //check, if own Role equals Phase -> yes: Activity is shown; no: black screen is shown (activity_wait)
         if (globalVariables.getOwnRole().equals("Hexe")) {
@@ -78,6 +82,7 @@ public class HexeActivity extends AppCompatActivity {
                     }
 
                     new setNextPhase().execute("");
+                    //audio.playHexeS(HexeActivity.this);
                 }
             });
 

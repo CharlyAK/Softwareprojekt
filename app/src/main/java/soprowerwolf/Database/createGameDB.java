@@ -70,22 +70,50 @@ public class createGameDB extends AsyncTask<String, String, String> {
         }
 
         for (int i = 0; i < phases.length - 1; i++) {
-            paramsPhases.add(new BasicNameValuePair("phase", phases[i]));
-            paramsPhases.add(new BasicNameValuePair("nextPhase", phases[i + 1]));
-            paramsPhases.add(new BasicNameValuePair("gameID", gameID));
-            jsonParser.makeHttpRequest(url_create_game, "POST", paramsPhases);
-            paramsPhases.clear();
+            /*
+            if(phases[i].equals("Amor")) {
+                paramsPhases.add(new BasicNameValuePair("phase", phases[i]));
+                paramsPhases.add(new BasicNameValuePair("nextPhase", "Lover"));
+                paramsPhases.add(new BasicNameValuePair("gameID", gameID));
+                jsonParser.makeHttpRequest(url_create_game, "POST", paramsPhases);
+                paramsPhases.clear();
+                paramsPhases.add(new BasicNameValuePair("phase", "Lover"));
+                paramsPhases.add(new BasicNameValuePair("nextPhase", "Werwolf"));
+                paramsPhases.add(new BasicNameValuePair("gameID", gameID));
+                jsonParser.makeHttpRequest(url_create_game, "POST", paramsPhases);
+
+            }
+            else {
+                */
+                paramsPhases.add(new BasicNameValuePair("phase", phases[i]));
+                paramsPhases.add(new BasicNameValuePair("nextPhase", phases[i + 1]));
+                paramsPhases.add(new BasicNameValuePair("gameID", gameID));
+                jsonParser.makeHttpRequest(url_create_game, "POST", paramsPhases);
+                paramsPhases.clear();
+            //}
         }
 
         paramsPhases.clear();
         paramsPhases.add(new BasicNameValuePair("phase", "Tag"));
-        paramsPhases.add(new BasicNameValuePair("nextPhase", "Werwolf"));
+        paramsPhases.add(new BasicNameValuePair("nextPhase", "Werwolf")); //paramsPhases.add(new BasicNameValuePair("nextPhase", "Opfer"));
         paramsPhases.add(new BasicNameValuePair("gameID", gameID));
         jsonParser.makeHttpRequest(url_create_game, "POST", paramsPhases);
 
         paramsPhases.clear();
         paramsPhases.add(new BasicNameValuePair("phase", "Jaeger"));
         paramsPhases.add(new BasicNameValuePair("nextPhase", "Jaeger"));
+        paramsPhases.add(new BasicNameValuePair("gameID", gameID));
+        jsonParser.makeHttpRequest(url_create_game, "POST", paramsPhases);
+
+        paramsPhases.clear();
+        paramsPhases.add(new BasicNameValuePair("phase", "Opfer"));
+        paramsPhases.add(new BasicNameValuePair("nextPhase", "Opfer"));
+        paramsPhases.add(new BasicNameValuePair("gameID", gameID));
+        jsonParser.makeHttpRequest(url_create_game, "POST", paramsPhases);
+
+        paramsPhases.clear();
+        paramsPhases.add(new BasicNameValuePair("phase", "Spielende"));
+        paramsPhases.add(new BasicNameValuePair("nextPhase", "Spielende"));
         paramsPhases.add(new BasicNameValuePair("gameID", gameID));
         jsonParser.makeHttpRequest(url_create_game, "POST", paramsPhases);
 

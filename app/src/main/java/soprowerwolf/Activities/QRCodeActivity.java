@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import com.google.zxing.BarcodeFormat;
@@ -23,7 +22,6 @@ public class QRCodeActivity extends AppCompatActivity {
     public final static int WIDTH = 500;
     GlobalVariables globalVariables = GlobalVariables.getInstance();
 
-    Button weiter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +35,12 @@ public class QRCodeActivity extends AppCompatActivity {
             public void run() {
 
                 // this is the msg which will be encode in QRcode
-                //QRcode = String.valueOf(globalVariables.getGameID());;
-                QRcode = "1";
+                QRcode = String.valueOf(globalVariables.getGameID());;
 
 
                 try {
                     synchronized (this) {
-                        wait(5000);
+                        wait(100);
 
                         // runOnUiThread method used to do UI task in main thread.
                         runOnUiThread(new Runnable() {
