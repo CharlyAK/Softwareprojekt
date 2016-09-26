@@ -1,0 +1,26 @@
+
+/*
+ * Following code will get the number of votes for the players
+ */
+
+// array for JSON response
+$response = array();
+
+// connecting to db
+$link = mysql_connect("localhost", "jkloss", "werwolf")
+or die("Keine Verbindung möglich!");
+
+mysql_select_db("jkloss_db")
+or die("Auswahl der Datenbank fehlgeschlagen");
+
+
+// get a player from player table
+    int i = 0;
+
+    while (!empty$_GET['id'+i]){
+    $playerID = $_GET['id'+i];
+    $result = mysql_query("SELECT numOfVotes FROM _PLAYER WHERE playerID = '$playerID'");
+
+    if (!empty($result)) {
+    }
+    }

@@ -40,6 +40,7 @@ public class databaseCon {
     private static final String url_change_alive = "";
     private static final String url_vote_update = "http://www-e.uni-magdeburg.de/jkloss/vote_update.php";
     private static final String url_submit_choice = "http://www-e.uni-magdeburg.de/jkloss/submit_choice.php";
+    private static final String url_getNumOfWerAlive = "http://www-e.uni-magdeburg.de/jkloss/getNumOfWerAlive.php";
 
     public boolean registration(String name, String email, String pw, Matrix image) {
         //ToDo: HashWerte für passwörter
@@ -220,9 +221,57 @@ public class databaseCon {
     }
 
 
-    public void Werwolf() {
+    public int[] Werwolf(String action) throws JSONException{
 
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+
+        switch (action){
+            case "update":
+                int[] playerIDs = getPlayerIDs();
+
+                params.add(new BasicNameValuePair("phase", "night"));
+                for (int i = 0; i < playerIDs.length; i++) {
+                    params.add(new BasicNameValuePair("id" + i, ""+playerIDs[i]));
+                }
+                JSONObject jsonObjectVotes = jsonParser.makeHttpRequest(url_vote_update, "GET", params);
+                //get the votes from VotingNight
+                JSONArray jVotes = jsonObjectVotes.getJSONArray("votes");
+
+                //merging playerIDs with numOfVotes
+                int[] playerIDsAndVotes = new int[40];
+                //there is the playerID first and afterwards the numOfVotes
+                for (int i = 0, j = 0; i < playerIDs.length && i < jVotes.length(); i++, j++){
+                    playerIDsAndVotes[j] = playerIDs[i];
+                    playerIDsAndVotes[++j] = jVotes.getJSONObject(i).getInt("votes");
+                }
+
+                return playerIDsAndVotes;
+
+
+            case "submitChoice":
+                String playerID = String.valueOf(globalVariables.getCurrentlySelectedPlayer().getId());
+
+                params.add(new BasicNameValuePair("phase", "night"));
+                params.add(new BasicNameValuePair("choice", playerID));
+                JSONObject jsonObjectChoice = jsonParser.makeHttpRequest(url_submit_choice, "POST", params);
+                //ToDo: check for success
+                break;
+
+            case "getNumOfWerAlive":
+                params.add(new BasicNameValuePair("gameID", String.valueOf(globalVariables.getGameID())));
+                JSONObject jsonObjectNumber = jsonParser.makeHttpRequest(url_getNumOfWerAlive, "GET", params);
+                //int[] jsonNumOfWerAlive = jsonObjectNumber.getInt("numOfWerAlive");
+
+                int[] numOfWerAlive = new int[1];
+                numOfWerAlive [0]= jsonObjectNumber.getInt("numOfWerAlive");
+                //numOfWerAlive[0] = jsonNumOfWerAlive.getJSONObject(0).getInt("numOfWerAlive");
+
+                return numOfWerAlive;
+        }
+
+        return null;
     }
+
 
     public String Seherin() {
         String GoodOrBad = null;
@@ -321,6 +370,7 @@ public class databaseCon {
             case "update":
                 int[] playerIDs = getPlayerIDs();
 
+                params.add(new BasicNameValuePair("phase", "day"));
                 for (int i = 0; i < playerIDs.length; i++) {
                     params.add(new BasicNameValuePair("id" + i, ""+playerIDs[i]));
                 }
@@ -342,6 +392,7 @@ public class databaseCon {
             case "submitChoice":
                 String playerID = String.valueOf(globalVariables.getCurrentlySelectedPlayer().getId());
 
+                params.add(new BasicNameValuePair("phase", "day"));
                 params.add(new BasicNameValuePair("choice", playerID));
                 JSONObject jsonObjectChoice = jsonParser.makeHttpRequest(url_submit_choice, "POST", params);
                 //ToDo: check for success
