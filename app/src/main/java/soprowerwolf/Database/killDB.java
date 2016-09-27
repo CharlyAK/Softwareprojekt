@@ -26,8 +26,8 @@ public class killDB extends AsyncTask<String, String, String> {
     private JSONParser jsonParser = new JSONParser();
     GameOverDB gameOverDB = new GameOverDB();
 
-    private static final String url_changeAlive = "http://192.168.0.13/SoPro/db_test/changeAlive.php";//"http://www-e.uni-magdeburg.de/jkloss/changeAlive.php";
-    private static final String url_setVictims = "http://192.168.0.13/SoPro/db_test/setVictims.php";//"http://www-e.uni-magdeburg.de/jkloss/setVictims.php";
+    private static final String url_changeAlive = "http://www-e.uni-magdeburg.de/jkloss/changeAlive.php";
+    private static final String url_setVictims = "http://www-e.uni-magdeburg.de/jkloss/setVictims.php";
 
     @Override
     protected String doInBackground(String... params) {

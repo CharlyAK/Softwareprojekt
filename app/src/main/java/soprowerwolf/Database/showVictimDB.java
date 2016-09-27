@@ -21,9 +21,9 @@ public class showVictimDB {
     GlobalVariables globalVariables = GlobalVariables.getInstance();
 
     private JSONParser jsonParser = new JSONParser();
-    private static final String url_get_game_details = "http://192.168.0.13/SoPro/db_test/get_game_details.php";//"http://www-e.uni-magdeburg.de/jkloss/get_game_details.php";
-    private static final String url_get_player_game_details = "http://192.168.0.13/SoPro/db_test/get_player_game_details.php";//"http://www-e.uni-magdeburg.de/jkloss/get_player_game_details.php";
-    private static final String url_get_player_details = "http://192.168.0.13/SoPro/db_test/get_player_details.php";//"http://www-e.uni-magdeburg.de/jkloss/get_player_details.php";
+    private static final String url_get_game_details = "http://www-e.uni-magdeburg.de/jkloss/get_game_details.php";
+    private static final String url_get_player_game_details = "http://www-e.uni-magdeburg.de/jkloss/get_player_game_details.php";
+    private static final String url_get_player_details = "http://www-e.uni-magdeburg.de/jkloss/get_player_details.php";
 
     public showVictimDB() {
     }
