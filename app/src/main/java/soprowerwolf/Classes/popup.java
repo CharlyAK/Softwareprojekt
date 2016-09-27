@@ -13,6 +13,7 @@ import soprowerwolf.Activities.LoginRegistrationActivity;
 import soprowerwolf.Activities.PhasesActivity.DiebActivity;
 import soprowerwolf.Activities.PhasesActivity.HexeActivity;
 import soprowerwolf.Database.HexeDB;
+import soprowerwolf.Database.JaegerDB;
 import soprowerwolf.Database.setNextPhase;
 import soprowerwolf.R;
 
@@ -63,6 +64,10 @@ public class popup {
                         else if (globalVariables.getCurrentPhase().equals("Hexe") && Con.Hexe("ableToSave").equals("1") && Con.Hexe("ableToPoison").equals("0")) {
                             popup popup = new popup(context);
                             popup.PopUpChoice("Möchtest du deinen Gifttrank verwenden?", "Hexe", "HexeP", "poison").show();
+                        }
+                        else if(globalVariables.getCurrentPhase().equals("Jaeger") && globalVariables.getVictimJaeger())
+                        {
+                            new JaegerDB().execute(String.valueOf(globalVariables.getCurrentlySelectedPlayer().getId()));
                         }
                     }
                 });

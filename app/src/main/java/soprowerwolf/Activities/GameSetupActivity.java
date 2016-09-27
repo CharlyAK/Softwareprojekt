@@ -237,11 +237,10 @@ public class GameSetupActivity extends AppCompatActivity {
 
                 globalVariables.setNumPlayers(((NumberPicker) findViewById(R.id.numberPicker)).getValue());
                 globalVariables.setCards(cardsShuffled);
-         //       cardsShuffled[0] = "Dorfbewohner";
                 globalVariables.setOwnRole(cardsShuffled[0]);
                 globalVariables.setSpielleiter(true);
 
-                new createGameDB().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                new createGameDB().execute();
 
                 Intent intent = new Intent(GameSetupActivity.this, QRCodeActivity.class);
                 startActivity(intent);

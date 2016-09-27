@@ -28,9 +28,9 @@ if (isset($_POST['gameID'])) {
 	or die("Kein Opfer des Tages gefunden");
 
 	// get the Lover of the Victim
-	$loverDor = mysql_query("SELECT lover FROM player_game WHERE player_ID = '$victimDor'") or die("Opfer hat keinen Lover")
+	$loverDor = mysql_query("SELECT lover FROM player_game WHERE player_ID = '$victimDor'") or die("Opfer hat keinen Lover");
 
-	if($victimDor != null) {
+	if($victimDor != 0) {
     	// change alive of victimDor to 0
     	mysql_query("UPDATE player_game SET alive = 0 WHERE playerID = '$victimDor'")
     	or die("Änderung von 'alive' fehlgeschlagen");
@@ -46,7 +46,7 @@ if (isset($_POST['gameID'])) {
     		echo json_encode($response);
     	}
 
-    	if($loverDor != null){
+    	if($loverDor != 0){
     	   // change alive of loverDor to 0
            mysql_query("UPDATE player_game SET alive = 0 WHERE playerID = '$loverDor'")
            or die("Änderung von 'alive' fehlgeschlagen");
@@ -70,9 +70,9 @@ if (isset($_POST['gameID'])) {
     	or die("Kein Opfer der Werwölfe gefunden");
 
     	// get the Lover of the Victim
-        	$loverWer = mysql_query("SELECT lover FROM player_game WHERE player_ID = '$victimWer'") or die("Opfer hat keinen Lover")
+        	$loverWer = mysql_query("SELECT lover FROM player_game WHERE player_ID = '$victimWer'") or die("Opfer hat keinen Lover");
 
-    	if($victimWer!= null) {
+    	if($victimWer!= 0) {
         	// change alive of victimWer to 0
         	mysql_query("UPDATE player_game SET alive = 0 WHERE playerID = '$victimWer'")
         	or die("Änderung von 'alive' fehlgeschlagen");
@@ -88,7 +88,7 @@ if (isset($_POST['gameID'])) {
         		echo json_encode($response);
         	}
 
-        	if($loverWer != null){
+        	if($loverWer != 0){
                 	   // change alive of loverWer to 0
                        mysql_query("UPDATE player_game SET alive = 0 WHERE playerID = '$loverDor'")
                        or die("Änderung von 'alive' fehlgeschlagen");
@@ -112,9 +112,9 @@ if (isset($_POST['gameID'])) {
         	or die("Kein Opfer der Hexe gefunden");
 
         	// get the Lover of the Victim
-            	$loverHex = mysql_query("SELECT lover FROM player_game WHERE player_ID = '$victimHex'") or die("Opfer hat keinen Lover")
+            	$loverHex = mysql_query("SELECT lover FROM player_game WHERE player_ID = '$victimHex'") or die("Opfer hat keinen Lover");
 
-        	if($victimHex!= null) {
+        	if($victimHex!= 0) {
             	// change alive of victimHex to 0
             	mysql_query("UPDATE player_game SET alive = 0 WHERE playerID = '$victimHex'")
             	or die("Änderung von 'alive' fehlgeschlagen");
@@ -130,7 +130,7 @@ if (isset($_POST['gameID'])) {
             		echo json_encode($response);
             	}
 
-            	if($loverHex != null){
+            	if($loverHex != 0){
                     	   // change alive of loverDor to 0
                            mysql_query("UPDATE player_game SET alive = 0 WHERE playerID = '$loverHex'")
                            or die("Änderung von 'alive' fehlgeschlagen");

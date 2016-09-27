@@ -127,7 +127,7 @@ public class Audio {
             @TargetApi(Build.VERSION_CODES.HONEYCOMB)
             @Override
             public void onFinish() {
-                new setNextPhase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "");
+                new setNextPhase().execute("");
             }
         }.start();
     }

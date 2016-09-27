@@ -20,7 +20,7 @@ public class setReadyDB extends AsyncTask<String, String, String> {
     JSONParser jsonParser = new JSONParser();
     GlobalVariables globalVariables = GlobalVariables.getInstance();
 
-    private static final String url_set_ready = "http://www-e.uni-magdeburg.de/jkloss/setReady.php";
+    private static final String url_set_ready = "http://192.168.0.13/SoPro/db_test/setReady.php";//"http://www-e.uni-magdeburg.de/jkloss/setReady.php";
     @Override
     protected String doInBackground(String... params) {
         List<NameValuePair> paramsList = new ArrayList<NameValuePair>();

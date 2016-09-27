@@ -29,7 +29,7 @@ public class DiebActivity extends AppCompatActivity {
     private Runnable timerRunnable = new Runnable() {
         @Override
         public void run() {
-            new getCurrentPhase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new getCurrentPhase().execute();
             timerHandler.postDelayed(this, 2000);
         }
     };

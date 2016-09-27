@@ -22,6 +22,7 @@ import soprowerwolf.Activities.PhasesActivity.JaegerActivity;
 import soprowerwolf.Activities.PhasesActivity.SeherinActivity;
 import soprowerwolf.Activities.PhasesActivity.TagActivity;
 import soprowerwolf.Activities.PhasesActivity.WerwolfActivity;
+import soprowerwolf.Activities.PhasesActivity.showVictimActivity;
 import soprowerwolf.Classes.GlobalVariables;
 import soprowerwolf.Classes.JSONParser;
 import soprowerwolf.R;
@@ -33,7 +34,7 @@ public class getCurrentPhase extends AsyncTask<String, String, String> {
     private GlobalVariables globalVariables = GlobalVariables.getInstance();
     private JSONParser jsonParser = new JSONParser();
 
-    private static final String url_get_current_phase = /*"http://192.168.0.13/SoPro/db_test/getCurrentPhase.php";*/"http://www-e.uni-magdeburg.de/jkloss/getCurrentPhase.php";
+    private static final String url_get_current_phase = "http://192.168.0.13/SoPro/db_test/getCurrentPhase.php";//"http://www-e.uni-magdeburg.de/jkloss/getCurrentPhase.php";
     private String currentPhase;
 
     @Override
@@ -90,18 +91,25 @@ public class getCurrentPhase extends AsyncTask<String, String, String> {
                     Intent hexe = new Intent(context, HexeActivity.class);
                     context.startActivity(hexe);
                     break;
+                case "OpferNacht":
+                    globalVariables.setCurrentPhase("OpferNacht");
+                    Intent victimsNight = new Intent(context, showVictimActivity.class);
+                    context.startActivity(victimsNight);
+                    break;
                 case "Tag":
                     globalVariables.setCurrentPhase("Tag");
                     Intent tag = new Intent(context, TagActivity.class);
                     context.startActivity(tag);
                     break;
+                case "OpferTag":
+                    globalVariables.setCurrentPhase("OpferTag");
+                    Intent victimsDay = new Intent(context, showVictimActivity.class);
+                    context.startActivity(victimsDay);
+                    break;
                 case "Jaeger":
-                    if (globalVariables.getOwnRole() == "Jaeger") {
-                        Intent jaeger = new Intent(context, JaegerActivity.class);
-                        jaeger.putExtra("callingPhase", globalVariables.getCurrentPhase());
-                        globalVariables.setCurrentPhase("Jaeger");
-                        context.startActivity(jaeger);
-                    }
+                    globalVariables.setCurrentPhase("Jaeger");
+                    Intent jaeger = new Intent(context, JaegerActivity.class);
+                    context.startActivity(jaeger);
                     break;
                 case "Spielende":
                     globalVariables.setCurrentPhase("Spielende");

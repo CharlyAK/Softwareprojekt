@@ -36,6 +36,10 @@ public class GlobalVariables extends Application {
     // Global variables: Seherin
     private AlertDialog PopUpSeherinIdentity;
 
+    // Global variables: Jäger
+    private boolean JaegerDies = false;
+    private boolean victimJaeger = false;
+
 
     // Restrict the constructor from being instantiated
     private GlobalVariables() {
@@ -123,17 +127,29 @@ public class GlobalVariables extends Application {
         return this.currentContext;
     }
 
-    public void setLimit(int limit) { this.limit = limit; }
+    public void setLimit(int limit) {
+        this.limit = limit;
+    }
 
-    public int getLimit() { return this.limit; }
+    public int getLimit() {
+        return this.limit;
+    }
 
-    public void setWinner(String winner){this.winner = winner;}
+    public void setWinner(String winner) {
+        this.winner = winner;
+    }
 
-    public String getWinner(){return this.winner;}
+    public String getWinner() {
+        return this.winner;
+    }
 
-    public boolean isSpielleiter() { return spielleiter; }
+    public boolean isSpielleiter() {
+        return spielleiter;
+    }
 
-    public void setSpielleiter(boolean spielleiter) { this.spielleiter = spielleiter; }
+    public void setSpielleiter(boolean spielleiter) {
+        this.spielleiter = spielleiter;
+    }
 
 
     /*
@@ -143,13 +159,10 @@ public class GlobalVariables extends Application {
         this.DiebChoosen = DiebChoosen;
     }
 
-    ;
-
     public boolean getDiebChoosen() {
         return this.DiebChoosen;
     }
 
-    ;
 
     /*
      *  getter and setter for Amor - Variables
@@ -158,37 +171,26 @@ public class GlobalVariables extends Application {
         this.lover1 = lover1;
     }
 
-    ;
-
     public Button getLover1() {
         return this.lover1;
     }
-
-    ;
 
     public void setLover2(Button lover2) {
         this.lover2 = lover2;
     }
 
-    ;
-
     public Button getLover2() {
         return this.lover2;
     }
-
-    ;
 
     public void setOK(Button OK) {
         this.OK = OK;
     }
 
-    ;
-
     public Button getOK() {
         return this.OK;
     }
 
-    ;
 
     /*
      *  getter and setter for Seherin - Variables
@@ -197,12 +199,25 @@ public class GlobalVariables extends Application {
         this.PopUpSeherinIdentity = PopUpSeherinIdentity;
     }
 
-    ;
-
     public AlertDialog getPopUpSeherinIdentity() {
         return this.PopUpSeherinIdentity;
     }
 
-    ;
 
+    /*
+     *  getter and setter for Jäger - Variables
+     */
+    public void setJaegerDies(boolean JaegerDies) {
+        this.JaegerDies = JaegerDies;
+    }
+    public boolean getJaegerDies() {
+        return this.JaegerDies;
+    }
+
+    public void setVictimJaeger(boolean victimJaeger) {
+        this.victimJaeger = victimJaeger;
+    }
+    public boolean getVictimJaeger() {
+        return this.victimJaeger;
+    }
 }

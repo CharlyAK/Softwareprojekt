@@ -1,6 +1,7 @@
 package soprowerwolf.Activities.PhasesActivity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +20,7 @@ import java.util.TimerTask;
 
 import soprowerwolf.Classes.databaseCon;
 import soprowerwolf.Classes.popup;
+import soprowerwolf.Database.GameOverDB;
 import soprowerwolf.R;
 
 import soprowerwolf.Activities.GameActivity;
@@ -27,6 +29,7 @@ import soprowerwolf.Classes.GlobalVariables;
 public class TagActivity extends AppCompatActivity {
 
     GameActivity create = new GameActivity();
+    GameOverDB gameOver = new GameOverDB();
     databaseCon Con = new databaseCon();
     GlobalVariables globalVariables = GlobalVariables.getInstance();
     popup popup = new popup(this);
@@ -38,10 +41,13 @@ public class TagActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tag);
         globalVariables.setCurrentContext(this);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); // screen stays on
 
         //View settings: Fullscreen
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        gameOver.gameOver();
 
         create.createObjects();
 
@@ -81,7 +87,7 @@ public class TagActivity extends AppCompatActivity {
         handler.postDelayed(runnable, 2000);
     }
 
-    public void submitChoice()  {
+    public void submitChoice() {
         try {
             Con.Tag("submitChoice");
         } catch (JSONException e) {
@@ -89,13 +95,14 @@ public class TagActivity extends AppCompatActivity {
         }
     }
 
-    protected void onResume(){
+
+    protected void onResume() {
         super.onResume();
         start();
     }
 
     @Override
-    protected void onStop(){
+    protected void onStop() {
         super.onStop();
         //stop();
     }

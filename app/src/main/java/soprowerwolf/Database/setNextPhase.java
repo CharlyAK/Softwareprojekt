@@ -19,7 +19,7 @@ public class setNextPhase extends AsyncTask<String, String, String> {
     private GlobalVariables globalVariables = GlobalVariables.getInstance();
     private JSONParser jsonParser = new JSONParser();
 
-    private static final String url_set_next_phase = "http://www-e.uni-magdeburg.de/jkloss/setNextPhase.php";
+    private static final String url_set_next_phase = "http://192.168.0.13/SoPro/db_test/setNextPhase.php";//"http://www-e.uni-magdeburg.de/jkloss/setNextPhase.php";
 
     @Override
     protected String doInBackground(String... params) {
@@ -30,27 +30,21 @@ public class setNextPhase extends AsyncTask<String, String, String> {
         paramsList.add(new BasicNameValuePair("gameID", gameID));
         paramsList.add(new BasicNameValuePair("currentPhase", currentPhase));
 
-        //"Jaeger" can be called at the beginning or at the end of "Tag" -> two possible next Phases
-        // => so next Phase depends on previous Phase:
-        //      - previous Phase = Tag -> next Phase = "Werwolf"
-        //      - previous Phase != Tag -> next Phase = "Tag"
-        if (!params[0].equals("")) //"Jaeger" has been killed
-        {
-            if (params[0] == "Tag") {
-                paramsList.add(new BasicNameValuePair("nextPhase", "Werwolf"));
-            } else
-                paramsList.add(new BasicNameValuePair("nextPhase", "Tag"));
-        }
-        jsonParser.makeHttpRequest(url_set_next_phase, "POST", paramsList);
-
-
-
         if (globalVariables.getWinner() != null){
             paramsList.clear();
             paramsList.add(new BasicNameValuePair("gameID", gameID));
             paramsList.add(new BasicNameValuePair("currentPhase", currentPhase));
             paramsList.add(new BasicNameValuePair("nextPhase", "Spielende"));
         }
+
+        if(globalVariables.getJaegerDies() && !params[0].equals("next"))
+        {
+            paramsList.clear();
+            paramsList.add(new BasicNameValuePair("gameID", gameID));
+            paramsList.add(new BasicNameValuePair("currentPhase", currentPhase));
+            paramsList.add(new BasicNameValuePair("nextPhase", "Jaeger"));
+        }
+
         jsonParser.makeHttpRequest(url_set_next_phase, "POST", paramsList);
 
         return null;

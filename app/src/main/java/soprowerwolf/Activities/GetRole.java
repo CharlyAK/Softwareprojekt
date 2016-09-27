@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import soprowerwolf.Classes.GlobalVariables;
 import soprowerwolf.Classes.databaseCon;
@@ -25,6 +26,9 @@ public class GetRole extends AppCompatActivity {
     popup popup = new popup(this);
     int ready;
     int numPlayers;
+    Snackbar info;
+    boolean firstClick = true;
+    boolean secondClick = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,36 +37,58 @@ public class GetRole extends AppCompatActivity {
 
         globalVariables.setCurrentPhase("getRole");
 
-        ImageButton role = (ImageButton) findViewById(R.id.imageButtonRole);
 
-        switch (globalVariables.getOwnRole()) {
-            case "Dieb":
-                role.setBackgroundResource(R.drawable.dieb);
-                break;
-            case "Amor":
-                role.setBackgroundResource(R.drawable.amor);
-                break;
-            case "Werwolf":
-                role.setBackgroundResource(R.drawable.werwolf);
-                break;
-            case "Seherin":
-                role.setBackgroundResource(R.drawable.seherin);
-                break;
-            case "Hexe":
-                role.setBackgroundResource(R.drawable.hexe);
-                break;
-            case "Dorfbewohner":
-                role.setBackgroundResource(R.drawable.dorfbewohner);
-                break;
-            case "Maedchen":
-                role.setBackgroundResource(R.drawable.maedchen);
-                break;
-            case "Jaeger":
-                role.setBackgroundResource(R.drawable.jaeger);
-        }
+        final ImageButton role = (ImageButton) findViewById(R.id.imageButtonRole);
+
+        assert role != null;
+        role.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (firstClick && !secondClick) {
+                    switch (globalVariables.getOwnRole()) {
+                        case "Dieb":
+                            role.setBackgroundResource(R.drawable.dieb);
+                            break;
+                        case "Amor":
+                            role.setBackgroundResource(R.drawable.amor);
+                            break;
+                        case "Werwolf":
+                            role.setBackgroundResource(R.drawable.werwolf);
+                            break;
+                        case "Seherin":
+                            role.setBackgroundResource(R.drawable.seherin);
+                            break;
+                        case "Hexe":
+                            role.setBackgroundResource(R.drawable.hexe);
+                            break;
+                        case "Dorfbewohner":
+                            role.setBackgroundResource(R.drawable.dorfbewohner);
+                            break;
+                        case "Maedchen":
+                            role.setBackgroundResource(R.drawable.maedchen);
+                            break;
+                        case "Jaeger":
+                            role.setBackgroundResource(R.drawable.jaeger);
+                    }
+                    firstClick = false;
+                    secondClick = true;
+                } else if (!firstClick && secondClick) {
+                    Roledescription();
+                    secondClick = false;
+                } else {
+                    role.setBackgroundResource(R.drawable.back);
+
+                    firstClick = true;
+                }
+
+            }
+        });
+
+
     }
 
-    public void Roledescription(View view) {
+    public void Roledescription() {
         String role = globalVariables.getOwnRole();
 
         switch (role) {
@@ -101,34 +127,30 @@ public class GetRole extends AppCompatActivity {
 
     }
 
-    public void showRole(View view) {
-        ImageButton role = (ImageButton) findViewById(R.id.imageButtonRole);
-        Button show = (Button) findViewById(R.id.buttonShowRole);
-        role.setVisibility(View.VISIBLE);
-        show.setVisibility(View.INVISIBLE);
-    }
-
     private Handler timerHandler = new Handler();
     private Runnable timerRunnable = new Runnable() {
         @Override
         public void run() {
-            //ready = Con.getReady();
+            ready = Con.getReady();
 
-            //Snackbar.make(findViewById(R.id.activityGetRole), "Die Dorfbewohner sammeln sich... " + String.valueOf(ready) + "/" + String.valueOf(numPlayers) + " sind bereit.", Snackbar.LENGTH_INDEFINITE).show();
+            info.setText("Die Dorfbewohner sammeln sich... " + String.valueOf(ready) + "/" + String.valueOf(numPlayers) + " sind bereit.");
 
-            //if (ready == numPlayers) { // hinderlich, wenn mit nur einem gerät getestet wird
+            if (ready == numPlayers || ready == numPlayers + 2) { // ToDo: ändern
                 Intent intent = new Intent(GetRole.this, LetsPlayActivity.class);
                 startActivity(intent);
-            /*} else
-                timerHandler.postDelayed(this, 2000);*/
+            } else
+                timerHandler.postDelayed(this, 2000);
         }
     };
 
     public void ready(View view) {
-        //new setReadyDB().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        //numPlayers = Con.getNumPlayers();
+        new setReadyDB().execute();
+        numPlayers = Con.getNumPlayers();
 
-        //check frequently who many players joind the game
+        info = Snackbar.make(findViewById(R.id.activityGetRole), "Die Dorfbewohner sammeln sich... " + String.valueOf(ready) + "/" + String.valueOf(numPlayers) + " sind bereit.", Snackbar.LENGTH_INDEFINITE);
+        info.show();
+
+        //check frequently who many players joined the game
         timerHandler.postDelayed(timerRunnable, 0);
     }
 

@@ -103,7 +103,9 @@
 
     <string name="AufforderungSeherin">Seherin, wessen Identität möchtest du erfahren?</string>
 
-
+    <string name="AufforderungJaeger">Dein Tod ist nahe doch mit deinem letztem Atemzug reißt du einen weiteren Dorfbewohner mit
+        in den Tod. So wähle nun, wer mit dir sterben soll.</string>
+    <string name="EndeJaeger"> wurde von dir mit in den Tod gerissen!</string>
 
     <string name="ExplanationTag">Diskutiert nun, wer nominiert werden soll. Wenn die meisten Spieler eine Person nomiert und ihre Wahl mit Betätigung
         des Bestätigen - Buttons bestätigt haben, bleibt den übrigen noch etwas Zeit um sich zu entscheiden. Wer nach Ablauf dieser Zeit keine Wahl getroffen

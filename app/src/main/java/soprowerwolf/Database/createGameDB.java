@@ -21,7 +21,7 @@ public class createGameDB extends AsyncTask<String, String, String> {
 
     private JSONParser jsonParser = new JSONParser();
     private GlobalVariables globalVariables = GlobalVariables.getInstance();
-    private static final String url_create_game = "http://www-e.uni-magdeburg.de/jkloss/create_new_game.php";
+    private static final String url_create_game = "http://192.168.0.13/SoPro/db_test/create_new_game.php";//"http://www-e.uni-magdeburg.de/jkloss/create_new_game.php";
 
     @Override
     protected String doInBackground(String... params) {
@@ -59,61 +59,34 @@ public class createGameDB extends AsyncTask<String, String, String> {
         paramsPhases.add(new BasicNameValuePair("firstPhase", "true"));
 
         // if some roles aren't selected -> there would be an error without this
-        String[] phases = new String[6];
+        String[] phases = new String[7];
         int j = 0;
         for (int i = 0; i < globalVariables.getPhases().length; i++) {
             if (!globalVariables.getPhases()[i].equals("")) {
                 phases[j] = globalVariables.getPhases()[i];
                 j++;
+
+                if (globalVariables.getPhases()[i].equals("Amor")) {
+                    phases[j] = "Lover";
+                    j++;
+                }
             }
 
         }
 
-        for (int i = 0; i < phases.length - 1; i++) {
-            /*
-            if(phases[i].equals("Amor")) {
-                paramsPhases.add(new BasicNameValuePair("phase", phases[i]));
-                paramsPhases.add(new BasicNameValuePair("nextPhase", "Lover"));
-                paramsPhases.add(new BasicNameValuePair("gameID", gameID));
-                jsonParser.makeHttpRequest(url_create_game, "POST", paramsPhases);
-                paramsPhases.clear();
-                paramsPhases.add(new BasicNameValuePair("phase", "Lover"));
-                paramsPhases.add(new BasicNameValuePair("nextPhase", "Werwolf"));
-                paramsPhases.add(new BasicNameValuePair("gameID", gameID));
-                jsonParser.makeHttpRequest(url_create_game, "POST", paramsPhases);
+        int i;
+        for (i = 0; i < phases.length - 2; i++) {
 
-            }
-            else {
-                */
-                paramsPhases.add(new BasicNameValuePair("phase", phases[i]));
-                paramsPhases.add(new BasicNameValuePair("nextPhase", phases[i + 1]));
-                paramsPhases.add(new BasicNameValuePair("gameID", gameID));
-                jsonParser.makeHttpRequest(url_create_game, "POST", paramsPhases);
-                paramsPhases.clear();
-            //}
+            paramsPhases.add(new BasicNameValuePair("phase", phases[i]));
+            paramsPhases.add(new BasicNameValuePair("nextPhase", phases[i + 1]));
+            paramsPhases.add(new BasicNameValuePair("gameID", gameID));
+            jsonParser.makeHttpRequest(url_create_game, "POST", paramsPhases);
+            paramsPhases.clear();
         }
 
         paramsPhases.clear();
-        paramsPhases.add(new BasicNameValuePair("phase", "Tag"));
-        paramsPhases.add(new BasicNameValuePair("nextPhase", "Werwolf")); //paramsPhases.add(new BasicNameValuePair("nextPhase", "Opfer"));
-        paramsPhases.add(new BasicNameValuePair("gameID", gameID));
-        jsonParser.makeHttpRequest(url_create_game, "POST", paramsPhases);
-
-        paramsPhases.clear();
-        paramsPhases.add(new BasicNameValuePair("phase", "Jaeger"));
-        paramsPhases.add(new BasicNameValuePair("nextPhase", "Jaeger"));
-        paramsPhases.add(new BasicNameValuePair("gameID", gameID));
-        jsonParser.makeHttpRequest(url_create_game, "POST", paramsPhases);
-
-        paramsPhases.clear();
-        paramsPhases.add(new BasicNameValuePair("phase", "Opfer"));
-        paramsPhases.add(new BasicNameValuePair("nextPhase", "Opfer"));
-        paramsPhases.add(new BasicNameValuePair("gameID", gameID));
-        jsonParser.makeHttpRequest(url_create_game, "POST", paramsPhases);
-
-        paramsPhases.clear();
-        paramsPhases.add(new BasicNameValuePair("phase", "Spielende"));
-        paramsPhases.add(new BasicNameValuePair("nextPhase", "Spielende"));
+        paramsPhases.add(new BasicNameValuePair("phase", phases[i]));
+        paramsPhases.add(new BasicNameValuePair("nextPhase", "OpferNacht"));
         paramsPhases.add(new BasicNameValuePair("gameID", gameID));
         jsonParser.makeHttpRequest(url_create_game, "POST", paramsPhases);
 

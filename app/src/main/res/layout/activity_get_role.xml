@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@color/MainBackground"
+    android:background="@color/black"
     android:id="@+id/activityGetRole"
     tools:context="soprowerwolf.Activities.GetRole">
 
@@ -31,18 +31,9 @@
         android:layout_above="@+id/ready"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:visibility="invisible"
-        android:onClick="Roledescription"/>
+        android:visibility="visible"
+        android:background="@drawable/back" />
 
-    <Button
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:text="@string/yourRole"
-        android:textSize="20dp"
-        android:gravity="center_vertical"
-        android:id="@+id/buttonShowRole"
-        android:onClick="showRole"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+
 
 </RelativeLayout>

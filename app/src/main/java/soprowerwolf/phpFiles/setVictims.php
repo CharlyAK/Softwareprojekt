@@ -3,7 +3,7 @@
 /*
  * Following code will set the current victims
  * All details are read from HTTP Post Request
- * GameID, victimWer / victimDor / victim Hex is needed
+ * GameID, victimWer/ victimDor is needed
  */
 
 // Verbindung aufbauen, auswählen einer Datenbank
@@ -39,7 +39,7 @@ if (isset($_POST['gameID']) && !empty($_POST['gameID']) && isset($_POST['victimW
         echo json_encode($response);
     }
 
- else if (isset($_POST['gameID']) && !empty($_POST['gameID']) && isset($_POST['victimDor']) && !empty($_POST['victimDor'])) {
+ }else if (isset($_POST['gameID']) && !empty($_POST['gameID']) && isset($_POST['victimDor']) && !empty($_POST['victimDor'])) {
 
      $gameID = $_POST['gameID'];
      $victimDor = $_POST['victimDor'];
@@ -59,9 +59,27 @@ if (isset($_POST['gameID']) && !empty($_POST['gameID']) && isset($_POST['victimW
          // echoing JSON response
          echo json_encode($response);
      }
-}
+} else if (isset($_POST['gameID']) && !empty($_POST['gameID']) && isset($_POST['victimJaeger']) && !empty($_POST['victimJaeger'])) {
 
-else {
+     $gameID = $_POST['gameID'];
+     $victimJaeger = $_POST['victimJaeger'];
+
+     // set victimJaeger
+     mysql_query("UPDATE _GAME SET victimJaeger='$victimJaeger' WHERE gameID = '$gameID'")
+ 	or die("Die Änderung des Jaegeropfers ist fehlgeschlagen");
+
+     // check if victimJaeger has been changed
+
+     $result = mysql_query("SELECT victimJaeger FROM _GAME WHERE gameID = '$gameID'");
+     if ($result == $victimJaeger) {
+         // successfully updated
+         $response["success"] = 1;
+         $response["message"] = "VictimJaeger successfully updated.";
+
+         // echoing JSON response
+         echo json_encode($response);
+     }
+} else {
     // required field is missing
     $response["success"] = 0;
     $response["message"] = "Required field(s) is missing";

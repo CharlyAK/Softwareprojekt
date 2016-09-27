@@ -60,7 +60,7 @@ public class JoinGameActivity extends AppCompatActivity implements ZXingScannerV
 
         globalVariables.setGameID(Integer.parseInt(scanningText));
 
-        new joinGameDB().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new joinGameDB().execute();
 
         Intent intent = new Intent(this, GetRole.class);
         startActivity(intent);

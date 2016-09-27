@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:textSize="30dp"
         android:id="@+id/victim" />
 
     <TextView
@@ -25,6 +26,7 @@
         android:layout_alignLeft="@+id/victim"
         android:layout_alignStart="@+id/victim"
         android:layout_marginTop="72dp"
+        android:textSize="30dp"
         android:id="@+id/v1" />
 
     <TextView
@@ -33,15 +35,7 @@
         android:layout_centerVertical="true"
         android:layout_alignLeft="@+id/v1"
         android:layout_alignStart="@+id/v1"
+        android:textSize="30dp"
         android:id="@+id/v2" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="27dp"
-        android:id="@+id/v3"
-        android:layout_below="@+id/v2"
-        android:layout_alignLeft="@+id/v2"
-        android:layout_alignStart="@+id/v2" />
 
 </RelativeLayout>

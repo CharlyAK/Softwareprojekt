@@ -21,9 +21,11 @@ public class GameOverDB {
     private GlobalVariables globalVariables = GlobalVariables.getInstance();
     private JSONParser jsonParser = new JSONParser();
 
-    private static final String url_get_all_player = "http://www-e.uni-magdeburg.de/jkloss/get_all_player.php";
+    private static final String url_get_all_player = "http://192.168.0.13/SoPro/db_test/get_all_player.php";//"http://www-e.uni-magdeburg.de/jkloss/get_all_player.php";
 
-    public GameOverDB() {}
+    public GameOverDB() {
+
+    }
 
     public void gameOver() {
 

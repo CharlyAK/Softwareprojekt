@@ -51,7 +51,7 @@ public class GameActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 
-        new getCurrentPhase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new getCurrentPhase().execute();
     }
 
     /*
@@ -92,7 +92,7 @@ public class GameActivity extends AppCompatActivity {
                     playerSelected(v);
                     switch (globalVariables.getCurrentPhase()) { //bei manchen Phasen passiert mehr, wenn ein Spieler ausgewählt wurde
                         case "Werwolf":
-                            new setNextPhase().execute( ""); // kommt dann in Phase
+                            new setNextPhase().execute(""); // kommt dann in Phase
                             break;
 
                         case "Seherin":

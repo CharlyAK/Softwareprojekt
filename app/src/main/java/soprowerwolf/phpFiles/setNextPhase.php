@@ -14,7 +14,38 @@ $link = mysql_connect("localhost", "jkloss", "werwolf")
 mysql_select_db("jkloss_db")
     or die("Auswahl der Datenbank fehlgeschlagen");
 
-if (isset($_POST["gameID"]) && !empty($_POST["gameID"]) && isset($_POST["currentPhase"]) && !empty($_POST["currentPhase"])) {
+if(isset($_POST["gameID"]) && !empty($_POST["gameID"]) && isset($_POST["currentPhase"]) && !empty($_POST["currentPhase"]) && isset($_POST["nextPhase"]) && !empty($_POST["nextPhase"]))
+{
+	$gameID = $_POST["gameID"];
+	$currentPhase = $_POST["currentPhase"];
+	$nextPhase = $_POST["nextPhase"];
+	
+	if($nextPhase == 'Jaeger')
+	{
+		mysql_query("UPDATE _PHASES SET currentPhase = 1 WHERE gameID = '$gameID' AND phases = '$nextPhase'");
+		mysql_query("UPDATE _PHASES SET currentPhase = 0 WHERE gameID = '$gameID' AND phases = '$currentPhase'");
+		mysql_query("UPDATE _PHASES SET nextPhase = '$currentPhase' WHERE gameID = '$gameID' && phases = '$nextPhase'");
+	}
+	else
+	{
+		mysql_query("UPDATE _PHASES SET currentPhase = 1 WHERE gameID = '$gameID' AND phases = '$nextPhase'");
+		mysql_query("UPDATE _PHASES SET currentPhase = 0 WHERE gameID = '$gameID' AND phases = '$currentPhase'");
+	}
+	
+	//check if currentPhase has been changed
+	$resultNewPhase = mysql_query("SELECT currentPhase FROM _PHASES WHERE gameID = '$gameID' AND phases = '$nextPhase'");
+	$resultOldPhase = mysql_query("SELECT currentPhase FROM _PHASES WHERE gameID = '$gameID' AND phases = '$currentPhase'");
+    if ($resultNewPhase == 1 && $resultOldPhase == 0) 
+	{
+        // successfully updated
+        $response["success"] = 1;
+        $response["message"] = "Phases successfully updated.";
+
+        // echoing JSON response
+        echo json_encode($response); 
+    }
+}
+else if (isset($_POST["gameID"]) && !empty($_POST["gameID"]) && isset($_POST["currentPhase"]) && !empty($_POST["currentPhase"])) {
 
     $gameID = $_POST["gameID"];
 	$currentPhase = $_POST["currentPhase"];
@@ -38,29 +69,7 @@ if (isset($_POST["gameID"]) && !empty($_POST["gameID"]) && isset($_POST["current
         // echoing JSON response
         echo json_encode($response); 
     }
-}
-else if(isset($_POST["gameID"]) && !empty($_POST["gameID"]) && isset($_POST["currentPhase"]) && !empty($_POST["currentPhase"]) && isset($_POST["nextPhase"]) && !empty($_POST["nextPhase"]))
-{
-	$gameID = $_POST["gameID"];
-	$currentPhase = $_POST["currentPhase"];
-	$nextPhase = $_POST["nextPhase"];
-	
-	mysql_query("UPDATE _PHASES SET currentPhase = 1 WHERE gameID = '$gameID' AND phases = '$nextPhase'");
-	mysql_query("UPDATE _PHASES SET currentPhase = 0 WHERE gameID = '$gameID' AND phases = '$currentPhase'");
-	
-	//check if currentPhase has been changed
-	$resultNewPhase = mysql_query("SELECT currentPhase FROM _PHASES WHERE gameID = '$gameID' AND phases = '$nextPhase'");
-	$resultOldPhase = mysql_query("SELECT currentPhase FROM _PHASES WHERE gameID = '$gameID' AND phases = '$currentPhase'");
-    if ($resultNewPhase == 1 && $resultOldPhase == 0) 
-	{
-        // successfully updated
-        $response["success"] = 1;
-        $response["message"] = "Phases successfully updated.";
-
-        // echoing JSON response
-        echo json_encode($response); 
-    }
-}
+} 
 else{
         // required field is missing
         $response["success"] = 0;

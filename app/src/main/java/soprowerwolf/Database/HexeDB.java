@@ -24,7 +24,7 @@ public class HexeDB extends AsyncTask<String, String, String> {
     private JSONParser jsonParser = new JSONParser();
 
     private GlobalVariables globalVariables = GlobalVariables.getInstance();
-    private static final String url_update_hexe = /*"http://192.168.0.13/SoPro/db_test/updateHexe.php";*/"http://www-e.uni-magdeburg.de/jkloss/updateHexe.php";
+    private static final String url_update_hexe = "http://192.168.0.13/SoPro/db_test/updateHexe.php";//"http://www-e.uni-magdeburg.de/jkloss/updateHexe.php";
 
     @Override
     protected String doInBackground(String... params) {

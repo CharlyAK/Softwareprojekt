@@ -26,11 +26,11 @@ $response = array();
 	
 	$i = 1;
 	$insert = 0;
-	$size = mysql_query("SELECT * FROM _GAME");
+	$size = mysql_query("SELECT * FROM _game");
 	$DatabaseSize = mysql_num_rows($size);
 	while($i <= $DatabaseSize+1 && $insert == 0)
 	{
-		$currentRow = mysql_query("SELECT count(*) FROM _GAME WHERE gameID = '$i'");
+		$currentRow = mysql_query("SELECT count(*) FROM _game WHERE gameID = '$i'");
 		if(mysql_result($currentRow, 0) == 1)
 		{
 			$i++;
@@ -38,10 +38,10 @@ $response = array();
 		else
 		{
 			//set new game in free row
-			mysql_query("INSERT INTO _GAME (gameID) VALUES ('$i')")
+			mysql_query("INSERT INTO _game (gameID) VALUES ('$i')")
 			or die("Spiel in Datenbank einfügen fehlgeschlagen");
 			
-			mysql_query("SELECT gameID FROM _GAME ORDER BY gameID DESC")
+			mysql_query("SELECT gameID FROM _game ORDER BY gameID DESC")
 			or die("Sortieren der _game - Tabelle fehlgeschlagen");
 			
 			mysql_query("INSERT INTO player_game (gameID, playerID, role) VALUES ('$i', '$player', '$role')")
@@ -55,7 +55,7 @@ $response = array();
 			
 			// check if game has been inserted 
 	
-			$resultGame = mysql_query("SELECT gameID FROM _GAME WHERE gameID = '$i'");
+			$resultGame = mysql_query("SELECT gameID FROM _game WHERE gameID = '$i'");
 			$resultPlayer_Game = mysql_query("SELECT gameID FROM player_game WHERE playerID = '$player'");
 			if ($resultGame == $resultPlayer_Game) 
 			{
@@ -144,9 +144,9 @@ $response = array();
 		or die("Setzen der ersten Phase fehlgeschlagen");
 	}
 	
-	// check if role has been inserted 
+	// check if phase has been inserted 
 	
-			$result = mysql_query("SELECT phases FROM _PHASES WHERE gameID = '$gameID' AND phases = '$phase' AND nextPhase = '$nextPhase'");
+			$result = mysql_query("SELECT phases FROM _PHASES WHERE gameID = '$gameID' AND nextPhase = '$nextPhase'");
 			if ($result = $phase) 
 			{
 				// successfully updated
@@ -156,6 +156,91 @@ $response = array();
 				// echoing JSON response
 				echo json_encode($response); 
 			}
+			
+	 // 5. insert Phases which belong to every Game
+	if($nextPhase == 'OpferNacht')
+	{
+		mysql_query("INSERT INTO _PHASES (gameID, phases, nextPhase) VALUES ('$gameID','OpferNacht', 'Tag')")
+		or die("Einfügen der Phase 'OpferNacht' fehlgeschlagen");
+
+		// check if phase has been inserted 
+	
+			$result = mysql_query("SELECT phases FROM _PHASES WHERE gameID = '$gameID' AND nextPhase = 'Tag'");
+			if ($result = 'OpferNacht') 
+			{
+				// successfully updated
+				$response["success"] = 1;
+				$response["message"] = "Phase 'OpferNacht' successfully inserted.";
+
+				// echoing JSON response
+				echo json_encode($response); 
+			}
+			
+		mysql_query("INSERT INTO _PHASES (gameID, phases, nextPhase) VALUES ('$gameID','Tag', 'OpferTag')")
+		or die("Einfügen der Phase 'Tag' fehlgeschlagen");
+
+		// check if phase has been inserted 
+	
+			$result = mysql_query("SELECT phases FROM _PHASES WHERE gameID = '$gameID' AND nextPhase = 'OpferTag'");
+			if ($result = 'Tag') 
+			{
+				// successfully updated
+				$response["success"] = 1;
+				$response["message"] = "Phase 'Tag' successfully inserted.";
+
+				// echoing JSON response
+				echo json_encode($response); 
+			}
+	
+		mysql_query("INSERT INTO _PHASES (gameID, phases, nextPhase) VALUES ('$gameID','OpferTag', 'Werwolf')")
+		or die("Einfügen der Phase 'OpferTag' fehlgeschlagen");
+
+		// check if phase has been inserted 
+	
+			$result = mysql_query("SELECT phases FROM _PHASES WHERE gameID = '$gameID' AND nextPhase = 'Werwolf'");
+			if ($result = 'OpferTag') 
+			{
+				// successfully updated
+				$response["success"] = 1;
+				$response["message"] = "Phase 'OpferTag' successfully inserted.";
+
+				// echoing JSON response
+				echo json_encode($response); 
+			}
+			
+		mysql_query("INSERT INTO _PHASES (gameID, phases, nextPhase) VALUES ('$gameID','Spielende', 'Spielende')")
+		or die("Einfügen der Phase 'Spielende' fehlgeschlagen");
+
+		// check if phase has been inserted 
+	
+			$result = mysql_query("SELECT phases FROM _PHASES WHERE gameID = '$gameID' AND nextPhase = 'Spielende'");
+			if ($result = 'Spielende') 
+			{
+				// successfully updated
+				$response["success"] = 1;
+				$response["message"] = "Phase 'Spielende' successfully inserted.";
+
+				// echoing JSON response
+				echo json_encode($response); 
+			}
+			
+		mysql_query("INSERT INTO _PHASES (gameID, phases, nextPhase) VALUES ('$gameID','Jaeger', 'Jaeger')")
+		or die("Einfügen der Phase 'Jaeger' fehlgeschlagen");
+
+		// check if phase has been inserted 
+	
+			$result = mysql_query("SELECT phases FROM _PHASES WHERE gameID = '$gameID' AND nextPhase = 'Jaeger'");
+			if ($result = 'Jaeger') 
+			{
+				// successfully updated
+				$response["success"] = 1;
+				$response["message"] = "Phase 'Jaeger' successfully inserted.";
+
+				// echoing JSON response
+				echo json_encode($response); 
+			}	
+	}
+	
  }
  else {
     // required field is missing
