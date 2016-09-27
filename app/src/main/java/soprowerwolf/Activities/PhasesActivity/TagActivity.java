@@ -58,7 +58,6 @@ public class TagActivity extends AppCompatActivity {
     }
 
     //this checks the database every second
-    boolean started;
     private Handler handler = new Handler();
 
     private Runnable runnable = new Runnable() {
@@ -70,7 +69,11 @@ public class TagActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            create.updateVoteButtons(playerIDsAndVotes);
+            try {
+                create.updateVoteButtons(playerIDsAndVotes);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             handler.postDelayed(this, 2000);
 
         }
@@ -78,12 +81,10 @@ public class TagActivity extends AppCompatActivity {
 
 
     public void stop() {
-        started = false;
         handler.removeCallbacks(runnable);
     }
 
     public void start() {
-        started = true;
         handler.postDelayed(runnable, 2000);
     }
 
@@ -104,7 +105,7 @@ public class TagActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        //stop();
+        stop();
     }
 
     @Override
