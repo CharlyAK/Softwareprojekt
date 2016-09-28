@@ -18,7 +18,7 @@ mysql_select_db("jkloss_db")
 $response = array();
 
 	
-// 1. create new gameID and insert gameID into _game and gameID and the first playerID with role of the game into player_game
+// 1. create new gameID and insert gameID into _GAME and gameID and the first playerID with role of the game into player_game
   if (!empty($_POST['playerID']) && isset($_POST['playerID']) && !empty($_POST['role']) && isset($_POST['role']))
   { 
 	$player = $_POST['playerID'];
@@ -26,11 +26,11 @@ $response = array();
 	
 	$i = 1;
 	$insert = 0;
-	$size = mysql_query("SELECT * FROM _game");
+	$size = mysql_query("SELECT * FROM _GAME");
 	$DatabaseSize = mysql_num_rows($size);
 	while($i <= $DatabaseSize+1 && $insert == 0)
 	{
-		$currentRow = mysql_query("SELECT count(*) FROM _game WHERE gameID = '$i'");
+		$currentRow = mysql_query("SELECT count(*) FROM _GAME WHERE gameID = '$i'");
 		if(mysql_result($currentRow, 0) == 1)
 		{
 			$i++;
@@ -38,10 +38,10 @@ $response = array();
 		else
 		{
 			//set new game in free row
-			mysql_query("INSERT INTO _game (gameID) VALUES ('$i')")
+			mysql_query("INSERT INTO _GAME (gameID) VALUES ('$i')")
 			or die("Spiel in Datenbank einfügen fehlgeschlagen");
 			
-			mysql_query("SELECT gameID FROM _game ORDER BY gameID DESC")
+			mysql_query("SELECT gameID FROM _GAME ORDER BY gameID DESC")
 			or die("Sortieren der _game - Tabelle fehlgeschlagen");
 			
 			mysql_query("INSERT INTO player_game (gameID, playerID, role) VALUES ('$i', '$player', '$role')")
@@ -55,7 +55,7 @@ $response = array();
 			
 			// check if game has been inserted 
 	
-			$resultGame = mysql_query("SELECT gameID FROM _game WHERE gameID = '$i'");
+			$resultGame = mysql_query("SELECT gameID FROM _GAME WHERE gameID = '$i'");
 			$resultPlayer_Game = mysql_query("SELECT gameID FROM player_game WHERE playerID = '$player'");
 			if ($resultGame == $resultPlayer_Game) 
 			{

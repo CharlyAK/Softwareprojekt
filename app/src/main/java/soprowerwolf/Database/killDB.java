@@ -3,9 +3,11 @@ package soprowerwolf.Database;
 import android.annotation.TargetApi;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.util.Log;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,7 +29,7 @@ public class killDB extends AsyncTask<String, String, String> {
     GameOverDB gameOverDB = new GameOverDB();
 
     private static final String url_changeAlive = "http://www-e.uni-magdeburg.de/jkloss/changeAlive.php";
-    private static final String url_setVictims = "http://www-e.uni-magdeburg.de/jkloss/setVictims.php";
+
 
     @Override
     protected String doInBackground(String... params) {
@@ -37,25 +39,11 @@ public class killDB extends AsyncTask<String, String, String> {
         paramsList.add(new BasicNameValuePair("gameID", String.valueOf(globalVariables.getGameID())));
         jsonParser.makeHttpRequest(url_changeAlive, "POST", paramsList);
 
-        //victims NULL setzten
-        paramsList.add(new BasicNameValuePair("victimWer", "0"));
-        jsonParser.makeHttpRequest(url_setVictims, "POST", paramsList);
-
-        paramsList.clear();
-        paramsList.add(new BasicNameValuePair("gameID", String.valueOf(globalVariables.getGameID())));
-        paramsList.add(new BasicNameValuePair("victimDor", "0"));
-        jsonParser.makeHttpRequest(url_setVictims, "POST", paramsList);
-
-        paramsList.clear();
-        paramsList.add(new BasicNameValuePair("gameID", String.valueOf(globalVariables.getGameID())));
-        paramsList.add(new BasicNameValuePair("victimHex", "0"));
-        jsonParser.makeHttpRequest(url_setVictims, "POST", paramsList);
-
         return null;
     }
 
     @Override
-    protected void onPostExecute(String s){
+    protected void onPostExecute(String s) {
         super.onPostExecute(s);
     }
 

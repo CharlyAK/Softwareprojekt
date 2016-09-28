@@ -82,7 +82,7 @@ if (isset($_POST['gameID']) && !empty($_POST['gameID']) && isset($_POST['victimW
 } else {
     // required field is missing
     $response["success"] = 0;
-    $response["message"] = "Required field(s) is missing";
+    $response["message"] = "Required field(s) is missing: setVictims";
 
     // echoing JSON response
     echo json_encode($response);
