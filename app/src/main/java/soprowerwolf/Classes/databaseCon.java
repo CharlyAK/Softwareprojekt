@@ -36,6 +36,8 @@ public class databaseCon {
     private static final String url_get_player_details = "http://www-e.uni-magdeburg.de/jkloss/get_player_details.php";
     private static final String url_get_player_game_details = "http://www-e.uni-magdeburg.de/jkloss/get_player_game_details.php";
     private static final String url_update_hexe = "http://www-e.uni-magdeburg.de/jkloss/updateHexe.php";
+    private static final String url_set_victims = "";
+    private static final String url_change_alive = "";
     private static final String url_vote_update = "http://www-e.uni-magdeburg.de/jkloss/vote_update.php";
     private static final String url_submit_choice = "http://www-e.uni-magdeburg.de/jkloss/submit_choice.php";
     private static final String url_getNumOfWerAlive = "http://www-e.uni-magdeburg.de/jkloss/getNumOfWerAlive.php";
@@ -216,6 +218,24 @@ public class databaseCon {
         }
 
         return roles;
+    }
+
+    public void setVictims(int victimID){
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("gameID", String.valueOf(globalVariables.getGameID())));
+
+
+        switch (globalVariables.getCurrentPhase()){
+            case "Werwolf":
+                params.add(new BasicNameValuePair("victimWer", String.valueOf(victimID)));
+                break;
+
+            case "Tag":
+                params.add(new BasicNameValuePair("victimDor", String.valueOf(victimID)));
+                break;
+        }
+        JSONObject jsonObjectChoice = jsonParser.makeHttpRequest(url_set_victims, "POST", params);
+        //ToDo: check for success
     }
 
 

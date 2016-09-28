@@ -26,6 +26,9 @@ if (isset($_POST['gameID']) && !empty($_POST['gameID']) && isset($_POST['victimW
     // set victimWer
     mysql_query("UPDATE _GAME SET victimWer='$victimWer' WHERE gameID = '$gameID'")
 	or die("Die Änderung des Werwolfopfers ist fehlgeschlagen");
+	
+	//reset the table
+	mysql_query("DELETE v FROM  `votingNight` v JOIN  `player_game` p ON v.playerID = p.gameID WHERE gameID = $gameID")
 
     // check if victimWer has been changed
 
@@ -39,7 +42,8 @@ if (isset($_POST['gameID']) && !empty($_POST['gameID']) && isset($_POST['victimW
         echo json_encode($response);
     }
 
- }else if (isset($_POST['gameID']) && !empty($_POST['gameID']) && isset($_POST['victimDor']) && !empty($_POST['victimDor'])) {
+ }
+ else if (isset($_POST['gameID']) && !empty($_POST['gameID']) && isset($_POST['victimDor']) && !empty($_POST['victimDor'])) {
 
      $gameID = $_POST['gameID'];
      $victimDor = $_POST['victimDor'];
@@ -47,6 +51,9 @@ if (isset($_POST['gameID']) && !empty($_POST['gameID']) && isset($_POST['victimW
      // set victimDor
      mysql_query("UPDATE _GAME SET victimDor='$victimDor' WHERE gameID = '$gameID'")
  	or die("Die Änderung des Bauernopfers ist fehlgeschlagen");
+
+	//reset the table
+	mysql_query("DELETE v FROM  `votingDay` v JOIN  `player_game` p ON v.playerID = p.gameID WHERE gameID = $gameID")
 
      // check if victimDor has been changed
 
@@ -59,7 +66,8 @@ if (isset($_POST['gameID']) && !empty($_POST['gameID']) && isset($_POST['victimW
          // echoing JSON response
          echo json_encode($response);
      }
-} else if (isset($_POST['gameID']) && !empty($_POST['gameID']) && isset($_POST['victimJaeger']) && !empty($_POST['victimJaeger'])) {
+}
+ else if (isset($_POST['gameID']) && !empty($_POST['gameID']) && isset($_POST['victimJaeger']) && !empty($_POST['victimJaeger'])) {
 
      $gameID = $_POST['gameID'];
      $victimJaeger = $_POST['victimJaeger'];
