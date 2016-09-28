@@ -228,6 +228,7 @@ public class GameActivity extends AppCompatActivity {
                         //search for playerID in playerIDsAndVotes
                         if (playerIDsAndVotes[k] == playerID) {
                             int percentage = 0;
+                            //calculate the percentage depending on the phase
                             switch (globalVariables.getCurrentPhase()){
                                 case "Werwolf":
                                     int numOfWerAlive = Con.Werwolf("getNumOfWerAlive")[0];
@@ -239,8 +240,13 @@ public class GameActivity extends AppCompatActivity {
                             }
 
                             //if the limit is reached new phase will be entered
-                            if (percentage > globalVariables.getLimit())
+                            if (percentage > globalVariables.getLimit()) {
+
+                                Con.setVictims(playerIDsAndVotes[k]);
+
                                 new setNextPhase().execute("");
+
+                            }
                                 // TODO: reset VotingDay
                             //set the percentage (votes divided by numOfPlayers)
                             votes.setText(percentage + "%");
