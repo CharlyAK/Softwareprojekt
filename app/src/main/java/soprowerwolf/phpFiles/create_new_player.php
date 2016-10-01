@@ -76,7 +76,7 @@ $response = array();
   
     // check if player has been inserted 
 	
-    $result = mysql_query("SELECT email FROM _player WHERE name = '$name' AND password = '$password'");
+    $result = mysql_query("SELECT email FROM _PLAYER WHERE name = '$name' AND password = '$password'");
     if ($result == $email) 
 	{
         // successfully updated

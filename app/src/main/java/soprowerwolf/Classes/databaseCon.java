@@ -36,7 +36,7 @@ public class databaseCon {
     private static final String url_get_player_details = "http://www-e.uni-magdeburg.de/jkloss/get_player_details.php";
     private static final String url_get_player_game_details = "http://www-e.uni-magdeburg.de/jkloss/get_player_game_details.php";
     private static final String url_update_hexe = "http://www-e.uni-magdeburg.de/jkloss/updateHexe.php";
-    private static final String url_set_victims = "";
+    private static final String url_set_victims = "http://www-e.uni-magdeburg.de/jkloss/setVictims.php";
     private static final String url_change_alive = "";
     private static final String url_vote_update = "http://www-e.uni-magdeburg.de/jkloss/vote_update.php";
     private static final String url_submit_choice = "http://www-e.uni-magdeburg.de/jkloss/submit_choice.php";
@@ -197,6 +197,7 @@ public class databaseCon {
         return playerIDs;
     }
 
+
     public String[] DiebGetRoles() {
         String[] roles = new String[2];
         List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -269,7 +270,6 @@ public class databaseCon {
             case "submitChoice":
                 String playerID = String.valueOf(globalVariables.getCurrentlySelectedPlayer().getId());
 
-                params.add(new BasicNameValuePair("phase", "night"));
                 params.add(new BasicNameValuePair("choice", playerID));
                 JSONObject jsonObjectChoice = jsonParser.makeHttpRequest(url_submit_choice, "POST", params);
                 //ToDo: check for success
@@ -384,11 +384,11 @@ public class databaseCon {
     public int[] Tag(String action) throws JSONException {
         List<NameValuePair> params = new ArrayList<NameValuePair>();
 
+
         switch (action){
             case "update":
                 int[] playerIDs = getPlayerIDs();
 
-                params.add(new BasicNameValuePair("phase", "day"));
                 for (int i = 0; i < playerIDs.length; i++) {
                     params.add(new BasicNameValuePair("id" + i, ""+playerIDs[i]));
                 }
@@ -401,7 +401,8 @@ public class databaseCon {
                 //there is the playerID first and afterwards the numOfVotes
                 for (int i = 0, j = 0; i < playerIDs.length && i < jVotes.length(); i++, j++){
                     playerIDsAndVotes[j] = playerIDs[i];
-                    playerIDsAndVotes[++j] = jVotes.getJSONObject(i).getInt("votes");
+                    if (!((jVotes.getJSONObject(i).getString("votes")).equals("null")));
+                        playerIDsAndVotes[++j] = jVotes.getJSONObject(i).getInt("votes");
                 }
 
                 return playerIDsAndVotes;
@@ -409,11 +410,11 @@ public class databaseCon {
 
             case "submitChoice":
                 String playerID = String.valueOf(globalVariables.getCurrentlySelectedPlayer().getId());
-
-                params.add(new BasicNameValuePair("phase", "day"));
                 params.add(new BasicNameValuePair("choice", playerID));
                 JSONObject jsonObjectChoice = jsonParser.makeHttpRequest(url_submit_choice, "POST", params);
                 //ToDo: check for success
+                break;
+
         }
         return null;
     }

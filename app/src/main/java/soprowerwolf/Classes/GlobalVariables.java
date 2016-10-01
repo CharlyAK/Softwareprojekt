@@ -23,7 +23,6 @@ public class GlobalVariables extends Application {
     private Activity currentContext;
     private String winner;
     private boolean spielleiter;
-    private int limit = 66;
 
     // Global variables: Dieb
     private boolean DiebChoosen;
@@ -125,14 +124,6 @@ public class GlobalVariables extends Application {
 
     public Activity getCurrentContext() {
         return this.currentContext;
-    }
-
-    public void setLimit(int limit) {
-        this.limit = limit;
-    }
-
-    public int getLimit() {
-        return this.limit;
     }
 
     public void setWinner(String winner) {

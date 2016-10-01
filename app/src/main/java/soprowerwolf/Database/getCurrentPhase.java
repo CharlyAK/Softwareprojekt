@@ -62,7 +62,7 @@ public class getCurrentPhase extends AsyncTask<String, String, String> {
         super.onPostExecute(s);
         Activity context = globalVariables.getCurrentContext();
 
-        // if current Phase from database doesn't equals current Phase from global Variabels -> Phase has been changed
+        // if current Phase from database doesn't equals current Phase from global variables -> Phase has been changed
         // ==> call next Phase
         if (!currentPhase.equals(globalVariables.getCurrentPhase())) {
             switch (currentPhase) {

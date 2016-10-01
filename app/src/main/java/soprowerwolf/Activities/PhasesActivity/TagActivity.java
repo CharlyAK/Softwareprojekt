@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -21,6 +22,7 @@ import java.util.TimerTask;
 import soprowerwolf.Classes.databaseCon;
 import soprowerwolf.Classes.popup;
 import soprowerwolf.Database.GameOverDB;
+import soprowerwolf.Database.setNextPhase;
 import soprowerwolf.R;
 
 import soprowerwolf.Activities.GameActivity;
@@ -53,6 +55,26 @@ public class TagActivity extends AppCompatActivity {
 
         popup.PopUpInfo("Wähle nun eine Person, die du hängen möchtest", "Tägliche Abstimmung").show();
 
+        final Button buttonConfirm = (Button) findViewById(R.id.buttonConfirm);
+        buttonConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //if no player is selected
+                if(globalVariables.getCurrentlySelectedPlayer() == null)
+                    return;
+
+                buttonConfirm.setClickable(false);
+                GameActivity gameActivity = new GameActivity();
+                //makes all buttons unclickable
+                gameActivity.setUnclickable();
+                try {
+                    Con.Tag("submitChoice");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         start();
 
     }
@@ -69,12 +91,17 @@ public class TagActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            try {
-                create.updateVoteButtons(playerIDsAndVotes);
-            } catch (JSONException e) {
-                e.printStackTrace();
+            int votes = 0;
+            //count how many player have already voted
+            for (int i=1; i < playerIDsAndVotes.length-1; i+=2){
+                votes += playerIDsAndVotes[i];
             }
-            handler.postDelayed(this, 2000);
+            //if all players have voted
+            if (votes == globalVariables.getNumPlayers())
+                getResult(playerIDsAndVotes);
+
+            else
+                handler.postDelayed(this, 2000);
 
         }
     };
@@ -88,14 +115,23 @@ public class TagActivity extends AppCompatActivity {
         handler.postDelayed(runnable, 2000);
     }
 
-    public void submitChoice() {
-        try {
-            Con.Tag("submitChoice");
-        } catch (JSONException e) {
-            e.printStackTrace();
+    // @params: playerIDsAndVotes contains {id, numOfVotes,...}
+    private void getResult(int[] playerIDsAndVotes){
+        stop();
+        int victimAndVotes[] = new int[2];
+        for (int i=1; i < playerIDsAndVotes.length-1; i+=2){
+            //if a player has more votes than the current victim, swap
+            if (playerIDsAndVotes[i] > victimAndVotes[1]){ // TODO: implement a draw
+                victimAndVotes[0] = playerIDsAndVotes[i-1];
+                victimAndVotes[1] = playerIDsAndVotes[i];
+            }
         }
-    }
 
+        //setting the victim in the database
+        Con.setVictims(victimAndVotes[0]);
+
+        new setNextPhase().execute( "");
+    }
 
     protected void onResume() {
         super.onResume();

@@ -91,21 +91,12 @@ public class GameActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     playerSelected(v);
                     switch (globalVariables.getCurrentPhase()) { //bei manchen Phasen passiert mehr, wenn ein Spieler ausgewählt wurde
-                        case "Werwolf":
-                            WerwolfActivity werwolf = new WerwolfActivity();
-                            werwolf.submitChoice();
-                            //new setNextPhase().execute( ""); // kommt dann in Phase
-                            break;
 
                         case "Seherin":
                             SeherinActivity seherin = new SeherinActivity();
                             seherin.getIdentity(); // die Seherin bekommt die Gesinnung des ausgwählten Spielers gezeigt
                             break;
-
-                        case "Tag":
-                            TagActivity tag = new TagActivity();
-                            tag.submitChoice();
-                            break;
+                        
                     }
                 }
             };
@@ -122,26 +113,6 @@ public class GameActivity extends AppCompatActivity {
             else
                 row4.addView(button);
 
-            //in phase 2 and 5 (Werwolf, Tag) an extra 'votes' Textview will be added to each button
-            if(globalVariables.getCurrentPhase().equals("W" +
-                    "erwolf") || globalVariables.getCurrentPhase().equals("Tag") ){
-                TextView votes = new TextView(context);
-                RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams ( RelativeLayout.LayoutParams.WRAP_CONTENT,
-                        RelativeLayout.LayoutParams.WRAP_CONTENT );
-                p.addRule(RelativeLayout.BELOW, button.getId()); //below Button
-                votes.setLayoutParams(p);
-                votes.setText("0%");
-
-                //insert into rows
-                if (i < 5)
-                    row1.addView(votes);
-                else if (i < 10)
-                    row2.addView(votes);
-                else if (i < 15)
-                    row3.addView(votes);
-                else
-                    row4.addView(votes);
-            }
         }
     }
 
@@ -200,6 +171,7 @@ public class GameActivity extends AppCompatActivity {
             //if button was already selected, unselect it
             if (button.equals(currentlySelectedPlayer)) {
                 globalVariables.setCurrentlySelectedPlayer(null);
+
             }
             //otherwise select it
             else {
@@ -211,52 +183,19 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
-    //updates the percentage of votes next to the player buttons
-    // @params: playerIDsAndVotes contains {id, numOfVotes,...}
-    public void updateVoteButtons(int[] playerIDsAndVotes) throws JSONException {
+    public void setUnclickable(){
+
         Activity context = globalVariables.getCurrentContext();
         ViewGroup gameView = (ViewGroup) context.findViewById(R.id.gameView);
         for (int i = 0; i < gameView.getChildCount(); i++) {
             LinearLayout row = (LinearLayout) gameView.getChildAt(i);
             for (int j=0; j < row.getChildCount(); j++){
-                //only true for vote TextViews
-                if (!row.getChildAt(j).isClickable()) {
-                    TextView votes = (TextView) row.getChildAt(j);
-                    //get the corresponding playerID
-                    int playerID = row.getChildAt(j-1).getId();
-                    for (int k = 0; k < playerIDsAndVotes.length; k+=2){
-                        //search for playerID in playerIDsAndVotes
-                        if (playerIDsAndVotes[k] == playerID) {
-                            int percentage = 0;
-                            //calculate the percentage depending on the phase
-                            switch (globalVariables.getCurrentPhase()){
-                                case "Werwolf":
-                                    int numOfWerAlive = Con.Werwolf("getNumOfWerAlive")[0];
-                                    percentage = playerIDsAndVotes[k + 1] * 100 /numOfWerAlive;
-                                    break;
-                                case "Tag":
-                                    percentage = playerIDsAndVotes[k + 1] * 100 / globalVariables.getNumPlayers();
-                                    break;
-                            }
-
-                            //if the limit is reached new phase will be entered
-                            if (percentage > globalVariables.getLimit()) {
-
-                                Con.setVictims(playerIDsAndVotes[k]);
-
-                                new setNextPhase().execute("");
-
-                            }
-                                // TODO: reset VotingDay
-                            //set the percentage (votes divided by numOfPlayers)
-                            votes.setText(percentage + "%");
-                        }
-                    }
-
+                if (row.getChildAt(j).isClickable()) {
+                    Button currentButton = (Button) row.getChildAt(j);
+                    currentButton.setClickable(false);
                 }
             }
         }
     }
-
 
 }

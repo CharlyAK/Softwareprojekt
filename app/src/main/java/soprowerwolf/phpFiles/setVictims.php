@@ -28,7 +28,7 @@ if (isset($_POST['gameID']) && !empty($_POST['gameID']) && isset($_POST['victimW
 	or die("Die Änderung des Werwolfopfers ist fehlgeschlagen");
 	
 	//reset the table
-	mysql_query("DELETE v FROM  `votingNight` v JOIN  `player_game` p ON v.playerID = p.gameID WHERE gameID = $gameID")
+	mysql_query("UPDATE `player_game` SET numOfVotes=0 WHERE gameID = $gameID");
 
     // check if victimWer has been changed
 
@@ -52,11 +52,10 @@ if (isset($_POST['gameID']) && !empty($_POST['gameID']) && isset($_POST['victimW
      mysql_query("UPDATE _GAME SET victimDor='$victimDor' WHERE gameID = '$gameID'")
  	or die("Die Änderung des Bauernopfers ist fehlgeschlagen");
 
-	//reset the table
-	mysql_query("DELETE v FROM  `votingDay` v JOIN  `player_game` p ON v.playerID = p.gameID WHERE gameID = $gameID")
+     //reset the table
+     mysql_query("UPDATE `player_game` SET numOfVotes=0 WHERE gameID = $gameID");
 
      // check if victimDor has been changed
-
      $result = mysql_query("SELECT victimDor FROM _GAME WHERE gameID = '$gameID'");
      if ($result == $victimDor) {
          // successfully updated
