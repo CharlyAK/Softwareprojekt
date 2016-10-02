@@ -23,7 +23,7 @@ public class LoginRegistrationActivity extends AppCompatActivity {
 
     Button bStartLogin, bStartRegistration, bLogin, bRegistration, bChooseImage;
     EditText textUsername, textEMail, textPassword;
-    TextView openGame, textWelcome;
+    TextView textWelcome;
     ImageButton bStartScreen;
     ImageView PlayerImage;
     databaseCon Con = new databaseCon();
@@ -38,7 +38,6 @@ public class LoginRegistrationActivity extends AppCompatActivity {
         globalVariables.setOwnPlayerID(0);
 
         bStartScreen = (ImageButton) findViewById(R.id.imageButtonStart);
-        openGame = (TextView) findViewById(R.id.textOpenGame);
 
         bStartLogin = (Button) findViewById(R.id.buttonStartLogin);
         bLogin = (Button) findViewById(R.id.buttonLogin);
@@ -56,11 +55,10 @@ public class LoginRegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 bStartScreen.setVisibility(View.INVISIBLE);
-                assert openGame != null;
-                openGame.setVisibility(View.INVISIBLE);
                 bStartLogin.setVisibility(View.VISIBLE);
                 bStartRegistration.setVisibility(View.VISIBLE);
                 textWelcome.setVisibility(View.VISIBLE);
+                findViewById(R.id.login_registration).setBackgroundColor(getResources().getColor(R.color.MainBackground));
             }
         });
 
@@ -132,7 +130,7 @@ public class LoginRegistrationActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         bStartScreen.setVisibility(View.VISIBLE);
-        openGame.setVisibility(View.VISIBLE);
+        findViewById(R.id.login_registration).setBackground(getResources().getDrawable(R.drawable.start));
 
         bStartLogin.setVisibility(View.INVISIBLE);
         bLogin.setVisibility(View.INVISIBLE);

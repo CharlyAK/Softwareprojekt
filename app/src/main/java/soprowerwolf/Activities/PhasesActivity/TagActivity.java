@@ -49,7 +49,7 @@ public class TagActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        gameOver.gameOver();
+        //gameOver.gameOver();
 
         create.createObjects();
 
