@@ -29,7 +29,7 @@ public class AmorActivity extends AppCompatActivity {
         @Override
         public void run() {
             new getCurrentPhase().execute();
-            timerHandler.postDelayed(this, 2000);
+            timerHandler.postDelayed(this, 3000);
         }
     };
 
@@ -38,19 +38,21 @@ public class AmorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); // screen stays on
 
-        if (globalVariables.isSpielleiter()){audio.playAmorW(AmorActivity.this);}
+        if (globalVariables.isSpielleiter()) {
+            audio.playAmorW(AmorActivity.this);
+        }
 
         //check, if own Role equals Phase -> yes: Activity is shown; no: black screen is shown (activity_wait)
         if (globalVariables.getOwnRole().equals("Amor")) {
             setContentView(R.layout.activity_amor);
             globalVariables.setCurrentContext(this);
 
-        //View settings: Fullscreen
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            //View settings: Fullscreen
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        GameActivity create = new GameActivity();
-        create.createObjects();
+            GameActivity create = new GameActivity();
+            create.createObjects();
 
             Button OK = (Button) findViewById(R.id.buttonOK);
             OK.setEnabled(false);
@@ -73,7 +75,7 @@ public class AmorActivity extends AppCompatActivity {
             setContentView(R.layout.activity_wait);
 
             //check frequently if phase has been changed
-            timerHandler.postDelayed(timerRunnable, 0);
+            timerHandler.postDelayed(timerRunnable, 3000);
         }
     }
 

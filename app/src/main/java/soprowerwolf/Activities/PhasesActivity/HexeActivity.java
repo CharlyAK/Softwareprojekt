@@ -32,7 +32,7 @@ public class HexeActivity extends AppCompatActivity {
         @Override
         public void run() {
             new getCurrentPhase().execute();
-            timerHandler.postDelayed(this, 2000);
+            timerHandler.postDelayed(this, 3000);
         }
     };
 
@@ -40,7 +40,9 @@ public class HexeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (globalVariables.isSpielleiter()){audio.playHexeW(HexeActivity.this);}
+        if (globalVariables.isSpielleiter()) {
+            audio.playHexeW(HexeActivity.this);
+        }
 
         //check, if own Role equals Phase -> yes: Activity is shown; no: black screen is shown (activity_wait)
         if (globalVariables.getOwnRole().equals("Hexe")) {
@@ -75,8 +77,7 @@ public class HexeActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     //if a player is selected it will be killed (this can't happen if no poison is available)
-                    if (globalVariables.getCurrentlySelectedPlayer() != null)
-                    {
+                    if (globalVariables.getCurrentlySelectedPlayer() != null) {
                         String csp = String.valueOf(globalVariables.getCurrentlySelectedPlayer().getId());
                         new HexeDB().execute("kill", csp);
                     }
@@ -92,7 +93,7 @@ public class HexeActivity extends AppCompatActivity {
             setContentView(R.layout.activity_wait);
 
             //check frequently if phase has been changed
-            timerHandler.postDelayed(timerRunnable, 0);
+            timerHandler.postDelayed(timerRunnable, 3000);
         }
     }
 

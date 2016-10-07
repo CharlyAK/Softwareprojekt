@@ -16,16 +16,18 @@ import soprowerwolf.R;
 
 public class Audio {
 
-    GlobalVariables globalVariables = GlobalVariables.getInstance();
+    private GlobalVariables globalVariables = GlobalVariables.getInstance();
 
-    MediaPlayer amor_wakeUp, amor_sleep,
+    private MediaPlayer amor_wakeUp, amor_sleep,
                 dieb_wakeUp, dieb_sleep,
                 hexe_wakeUp, hexe_sleep,
                 seherin_wakeUp, seherin_sleep,
                 wolf_wakeUp, wolf_sleep,
                 tag_wakeUp, tag_sleep;
 
-    CountDownTimer amorW, amorS, diebW, diebS, hexeW, hexeS, seherinW, seherinS, wolfW, wolfS, tagW, tagS;
+    private CountDownTimer amorW, amorS, diebW, diebS, hexeW, hexeS, seherinW, seherinS, wolfW, wolfS, tagW, tagS;
+
+    //ToDo: check for Spielleiter
 
     public void playAmorW(Context context){
         amor_wakeUp = MediaPlayer.create(context, R.raw.amor_wakeup);

@@ -10,7 +10,7 @@ import soprowerwolf.R;
 
 public class MenuActivity extends AppCompatActivity {
 
-    GlobalVariables var = GlobalVariables.getInstance();
+    GlobalVariables globalVariables = GlobalVariables.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +41,6 @@ public class MenuActivity extends AppCompatActivity {
     public void logout(View view) {
         Intent intent = new Intent(this, LoginRegistrationActivity.class);
         startActivity(intent);
-        var.setOwnPlayerID(0);
+        globalVariables.setOwnPlayerID(0);
     }
 }

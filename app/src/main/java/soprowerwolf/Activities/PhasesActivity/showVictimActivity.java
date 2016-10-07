@@ -29,59 +29,108 @@ public class showVictimActivity extends AppCompatActivity {
         victim = (TextView) findViewById(R.id.victim);
         v1 = (TextView) findViewById(R.id.v1);
 
-        if(!globalVariables.getJaegerDies())
-        {
-            final String[] victims = showVictimDB.getVictims();
-            victim.setText("Von uns gegangen sind...");
+        if (globalVariables.getCurrentPhase().equals("OpferNacht")) {
+            if (!globalVariables.getJaegerDies()) {
+                final String[] victims = showVictimDB.getVictims();
+                victim.setText("Von uns gegangen sind...");
 
-            for (String victim1 : victims) {
-                if (!victim1.equals("0")) {
-                    v1.setText(v1.getText().toString() + "\n" + victim1);
-                }
-            }
-
-            tag = MediaPlayer.create(showVictimActivity.this, R.raw.tag_wakeup);
-
-            if(globalVariables.isSpielleiter()){tag.start();}
-
-            timer = new CountDownTimer(tag.getDuration() + 10000, 1000) {
-                @Override
-                public void onTick(long millisUntilFinished) {
-
+                for (String victim1 : victims) {
+                    if (!victim1.equals("0")) {
+                        v1.setText(v1.getText().toString() + "\n" + victim1);
+                    }
                 }
 
-                @Override
-                public void onFinish() {
+                tag = MediaPlayer.create(showVictimActivity.this, R.raw.tag_wakeup);
+
+                if (globalVariables.isSpielleiter()) {
+                    tag.start();
+                }
+
+                timer = new CountDownTimer(tag.getDuration() + 10000, 1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+
+                    }
+
+                    @Override
+                    public void onFinish() {
                         new killDB().execute("");
                         new setNextPhase().execute("");
-                }
-            }.start();
-        }
-        else
-        {
-            final String[] victims = showVictimDB.getVictims();
-            v1.setText("Vom Jäger erschossen: ");
+                    }
+                }.start();
+            } else {
+                final String[] victims = showVictimDB.getVictims();
+                v1.setText("Vom Jäger erschossen: ");
 
-            for (String victim1 : victims) {
-                if (!victim1.equals("0")) {
-                    v1.setText(v1.getText().toString() + "\n" + victim1);
+                for (String victim1 : victims) {
+                    if (!victim1.equals("0")) {
+                        v1.setText(v1.getText().toString() + "\n" + victim1);
+                    }
                 }
+
+                timer = new CountDownTimer(10000, 1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        globalVariables.setJaegerDies(false);
+                        new killDB().execute("");
+                        new setNextPhase().execute("");
+                    }
+                }.start();
             }
+        } else {
+            if (!globalVariables.getJaegerDies()) {
+                final String[] victims = showVictimDB.getVictims();
+                victim.setText("Von uns gegangen sind...");
 
-            timer = new CountDownTimer(10000, 1000) {
-                @Override
-                public void onTick(long millisUntilFinished) {
-
+                for (String victim1 : victims) {
+                    if (!victim1.equals("0")) {
+                        v1.setText(v1.getText().toString() + "\n" + victim1);
+                    }
                 }
 
-                @Override
-                public void onFinish() {
-                    globalVariables.setJaegerDies(false);
-                    new killDB().execute("");
-                    new setNextPhase().execute("");
+                timer = new CountDownTimer(tag.getDuration() + 10000, 1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        new killDB().execute("");
+                        new setNextPhase().execute("");
+                    }
+                }.start();
+            } else {
+                final String[] victims = showVictimDB.getVictims();
+                v1.setText("Vom Jäger erschossen: ");
+
+                for (String victim1 : victims) {
+                    if (!victim1.equals("0")) {
+                        v1.setText(v1.getText().toString() + "\n" + victim1);
+                    }
                 }
-            }.start();
+
+                timer = new CountDownTimer(10000, 1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        globalVariables.setJaegerDies(false);
+                        new killDB().execute("");
+                        new setNextPhase().execute("");
+                    }
+                }.start();
+            }
         }
+
 
     }
 }

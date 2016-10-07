@@ -26,7 +26,7 @@ public class SeherinActivity extends AppCompatActivity {
         @Override
         public void run() {
             new getCurrentPhase().execute();
-            timerHandler.postDelayed(this, 2000);
+            timerHandler.postDelayed(this, 3000);
         }
     };
 
@@ -34,7 +34,9 @@ public class SeherinActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (globalVariables.isSpielleiter()){audio.playSeherinW(SeherinActivity.this);}
+        if (globalVariables.isSpielleiter()) {
+            audio.playSeherinW(SeherinActivity.this);
+        }
 
         //check, if own Role equals Phase -> yes: Activity is shown; no: black screen is shown (activity_wait)
         if (globalVariables.getOwnRole().equals("Seherin")) {
@@ -58,12 +60,11 @@ public class SeherinActivity extends AppCompatActivity {
             setContentView(R.layout.activity_wait);
 
             //check frequently if phase has been changed
-            timerHandler.postDelayed(timerRunnable, 0);
+            timerHandler.postDelayed(timerRunnable, 3000);
         }
     }
 
     public void getIdentity() {
-        //ToDo: database
         databaseCon Con = new databaseCon();
         String GoB = Con.Seherin();
 

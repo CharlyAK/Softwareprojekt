@@ -38,6 +38,7 @@ if (isset($_GET["gameID"])) {
 			$game["victimDor"] = $result["victimDor"];
 			$game["victimWer"] = $result["victimWer"];
 			$game["victimHex"] = $result["victimHex"];
+			$game["victimJaeger"] = $result["victimJaeger"];
             // success
             $response["success"] = 1;
  

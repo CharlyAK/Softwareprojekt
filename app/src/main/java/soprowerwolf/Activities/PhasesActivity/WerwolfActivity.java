@@ -29,11 +29,10 @@ public class WerwolfActivity extends AppCompatActivity {
         @Override
         public void run() {
             new getCurrentPhase().execute();
-            timerHandler.postDelayed(this, 2000);
+            timerHandler.postDelayed(this, 3000);
         }
     };
 
-    GameActivity create = new GameActivity();
     databaseCon Con = new databaseCon();
     GlobalVariables globalVariables = GlobalVariables.getInstance();
     soprowerwolf.Classes.popup popup = new popup(this);
@@ -44,17 +43,21 @@ public class WerwolfActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(globalVariables.isSpielleiter()){audio.playWolfW(WerwolfActivity.this);}
+        if (globalVariables.isSpielleiter()) {
+            audio.playWolfW(WerwolfActivity.this);
+        }
+
+        try {
+            numOfWer = Con.Werwolf("getNumOfWerAlive")[0];
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         //check, if own Role equals Phase -> yes: Activity is shown; no: black screen is shown (activity_wait)
         if (globalVariables.getOwnRole().equals("Werwolf")) {
             setContentView(R.layout.activity_werwolf);
             globalVariables.setCurrentContext(this);
-            try {
-                numOfWer = Con.Werwolf("getNumOfWerAlive")[0];
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+
 
             //View settings: Fullscreen
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -70,7 +73,7 @@ public class WerwolfActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     //if no player is selected
-                    if(globalVariables.getCurrentlySelectedPlayer() == null)
+                    if (globalVariables.getCurrentlySelectedPlayer() == null)
                         return;
 
                     buttonConfirm.setClickable(false);
@@ -85,12 +88,11 @@ public class WerwolfActivity extends AppCompatActivity {
             start();
 
 
-
         } else {
             setContentView(R.layout.activity_wait);
 
             //check frequently if phase has been changed
-            timerHandler.postDelayed(timerRunnable, 0);
+            timerHandler.postDelayed(timerRunnable, 3000);
         }
     }
 
@@ -121,20 +123,20 @@ public class WerwolfActivity extends AppCompatActivity {
     };
 
     // @params: playerIDsAndVotes contains {id, numOfVotes,...}
-    private void getResult(int[] playerIDsAndVotes){
+    private void getResult(int[] playerIDsAndVotes) {
         stop();
         int victimAndVotes[] = new int[2];
-        for (int i=1; i < playerIDsAndVotes.length-1; i+=2){
+        for (int i = 1; i < playerIDsAndVotes.length - 1; i += 2) {
             //if a player has more votes than the current victim, swap
-            if (playerIDsAndVotes[i] > victimAndVotes[1]){ // TODO: implement a draw
-                victimAndVotes[0] = playerIDsAndVotes[i-1];
+            if (playerIDsAndVotes[i] > victimAndVotes[1]) { // TODO: implement a draw
+                victimAndVotes[0] = playerIDsAndVotes[i - 1];
                 victimAndVotes[1] = playerIDsAndVotes[i];
             }
         }
         //setting the victim in the database
         Con.setVictims(victimAndVotes[0]);
 
-        new setNextPhase().execute( "");
+        new setNextPhase().execute("");
     }
 
 
@@ -147,13 +149,13 @@ public class WerwolfActivity extends AppCompatActivity {
     }
 
 
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
         start();
     }
 
     @Override
-    protected void onStop(){
+    protected void onStop() {
         super.onStop();
         stop();
     }

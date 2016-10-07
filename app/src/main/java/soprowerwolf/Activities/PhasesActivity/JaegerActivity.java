@@ -33,6 +33,7 @@ public class JaegerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jaeger);
+
         globalVariables.setCurrentContext(this);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); // screen stays on
 
@@ -44,19 +45,17 @@ public class JaegerActivity extends AppCompatActivity {
             GameActivity create = new GameActivity();
             create.createObjects();
 
-            popup.PopUpInfo(getResources().getString(R.string.AufforderungJaeger),"Jäger").show();
+            popup.PopUpInfo(getResources().getString(R.string.AufforderungJaeger), "Jäger").show();
             Button ok = (Button) findViewById(R.id.buttonJaegerContinue);
 
             ok.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     globalVariables.setVictimJaeger(true);
-                    popup.PopUpInfo(globalVariables.getCurrentlySelectedPlayer().getText().toString()+ " " + getResources().getString(R.string.EndeJaeger), "Jäger").show();
+                    popup.PopUpInfo(globalVariables.getCurrentlySelectedPlayer().getText().toString() + " " + getResources().getString(R.string.EndeJaeger), "Jäger").show();
                 }
             });
-        }
-        else
-        {
+        } else {
             setContentView(R.layout.activity_show_victim);
             TextView victim = (TextView) findViewById(R.id.victim);
 

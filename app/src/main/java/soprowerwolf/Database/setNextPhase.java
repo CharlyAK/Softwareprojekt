@@ -19,7 +19,7 @@ public class setNextPhase extends AsyncTask<String, String, String> {
     private GlobalVariables globalVariables = GlobalVariables.getInstance();
     private JSONParser jsonParser = new JSONParser();
 
-    private static final String url_set_next_phase = "http://192.168.0.13/SoPro/db_test/setNextPhase.php";//"http://www-e.uni-magdeburg.de/jkloss/setNextPhase.php";
+    private static final String url_set_next_phase = /*"http://192.168.0.13/SoPro/db_test/setNextPhase.php";*/"http://www-e.uni-magdeburg.de/jkloss/setNextPhase.php";
 
     @Override
     protected String doInBackground(String... params) {

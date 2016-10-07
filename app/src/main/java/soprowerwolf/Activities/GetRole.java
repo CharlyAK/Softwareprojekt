@@ -145,13 +145,14 @@ public class GetRole extends AppCompatActivity {
 
     public void ready(View view) {
         new setReadyDB().execute();
-        numPlayers = Con.getNumPlayers();
+        globalVariables.setNumPlayers(Con.getNumPlayers());
+        numPlayers = globalVariables.getNumPlayers();
 
         info = Snackbar.make(findViewById(R.id.activityGetRole), "Die Dorfbewohner sammeln sich... " + String.valueOf(ready) + "/" + String.valueOf(numPlayers) + " sind bereit.", Snackbar.LENGTH_INDEFINITE);
         info.show();
 
         //check frequently who many players joined the game
-        timerHandler.postDelayed(timerRunnable, 0);
+        timerHandler.postDelayed(timerRunnable, 2000);
     }
 
     @Override
