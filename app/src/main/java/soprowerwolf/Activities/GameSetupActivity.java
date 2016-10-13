@@ -242,9 +242,6 @@ public class GameSetupActivity extends AppCompatActivity {
                 globalVariables.setSpielleiter(true);
 
                 new createGameDB().execute();
-
-                Intent intent = new Intent(GameSetupActivity.this, QRCodeActivity.class);
-                startActivity(intent);
             }
 
         });

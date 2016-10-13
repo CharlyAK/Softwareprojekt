@@ -1,5 +1,7 @@
 package soprowerwolf.Database;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 
 import org.apache.http.NameValuePair;
@@ -11,6 +13,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import soprowerwolf.Activities.GameSetupActivity;
+import soprowerwolf.Activities.QRCodeActivity;
 import soprowerwolf.Classes.GlobalVariables;
 import soprowerwolf.Classes.JSONParser;
 
@@ -91,5 +95,14 @@ public class createGameDB extends AsyncTask<String, String, String> {
         jsonParser.makeHttpRequest(url_create_game, "POST", paramsPhases);
 
         return null;
+    }
+
+    @Override
+    protected void onPostExecute(String s) {
+        super.onPostExecute(s);
+        Activity context = globalVariables.getCurrentContext();
+
+        Intent intent = new Intent(context, QRCodeActivity.class);
+        context.startActivity(intent);
     }
 }

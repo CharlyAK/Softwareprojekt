@@ -1,7 +1,10 @@
 package soprowerwolf.Classes;
 
+import android.graphics.Bitmap;
 import android.graphics.Matrix;
+import android.media.Image;
 import android.os.StrictMode;
+import android.util.Base64;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -9,6 +12,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,18 +35,18 @@ public class databaseCon {
     private static final String url_create_new_player = "http://www-e.uni-magdeburg.de/jkloss/create_new_player.php";
     private static final String url_login = "http://www-e.uni-magdeburg.de/jkloss/login.php";
     private static final String url_delete_Account = "http://www-e.uni-magdeburg.de/jkloss/deleteAccount.php";
+    private static final String url_save_image = "http://192.168.0.13/SoPro/db_test/save_image.php";
     private static final String url_get_all_player = "http://www-e.uni-magdeburg.de/jkloss/get_all_player.php";
     private static final String url_get_game_details = "http://www-e.uni-magdeburg.de/jkloss/get_game_details.php";
     private static final String url_get_player_details = "http://www-e.uni-magdeburg.de/jkloss/get_player_details.php";
     private static final String url_get_player_game_details = "http://www-e.uni-magdeburg.de/jkloss/get_player_game_details.php";
     private static final String url_update_hexe = "http://www-e.uni-magdeburg.de/jkloss/updateHexe.php";
     private static final String url_set_victims = "http://www-e.uni-magdeburg.de/jkloss/setVictims.php";
-    private static final String url_change_alive = "";
     private static final String url_vote_update = "http://www-e.uni-magdeburg.de/jkloss/vote_update.php";
     private static final String url_submit_choice = "http://www-e.uni-magdeburg.de/jkloss/submit_choice.php";
     private static final String url_getNumOfWerAlive = "http://www-e.uni-magdeburg.de/jkloss/getNumOfWerAlive.php";
 
-    public boolean registration(String name, String email, String pw, Matrix image) {
+    public boolean registration(String name, String email, String pw) {
         //ToDo: HashWerte für passwörter
         //ToDo: Bild in DB laden
         List<NameValuePair> paramsCheck = new ArrayList<NameValuePair>();
@@ -119,6 +123,25 @@ public class databaseCon {
         }
 
         return false;
+    }
+
+    public void setImage(Bitmap bitmap)
+    {
+        //use following method to convert bitmap to byte array:
+
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] byteArray = byteArrayOutputStream .toByteArray();
+        //to encode base64 from byte array use following method
+
+        String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
+
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+
+        params.add(new BasicNameValuePair("playerID", String.valueOf(globalVariables.getOwnPlayerID())));
+        params.add(new BasicNameValuePair("image", encoded));
+
+        jsonParser.makeHttpRequest(url_save_image, "POST", params);
     }
 
     public int getReady() {
@@ -270,7 +293,7 @@ public class databaseCon {
             case "submitChoice":
                 String playerID = String.valueOf(globalVariables.getCurrentlySelectedPlayer().getId());
 
-                params.add(new BasicNameValuePair("choice", playerID));
+                params.add(new BasicNameValuePair("playerID", playerID));
                 JSONObject jsonObjectChoice = jsonParser.makeHttpRequest(url_submit_choice, "POST", params);
                 //ToDo: check for success
                 break;
@@ -410,7 +433,7 @@ public class databaseCon {
 
             case "submitChoice":
                 String playerID = String.valueOf(globalVariables.getCurrentlySelectedPlayer().getId());
-                params.add(new BasicNameValuePair("choice", playerID));
+                params.add(new BasicNameValuePair("playerID", playerID));
                 JSONObject jsonObjectChoice = jsonParser.makeHttpRequest(url_submit_choice, "POST", params);
                 //ToDo: check for success
                 break;

@@ -29,6 +29,8 @@ public class showVictimActivity extends AppCompatActivity {
         victim = (TextView) findViewById(R.id.victim);
         v1 = (TextView) findViewById(R.id.v1);
 
+        tag = MediaPlayer.create(showVictimActivity.this, R.raw.tag_wakeup);
+
         if (globalVariables.getCurrentPhase().equals("OpferNacht")) {
             if (!globalVariables.getJaegerDies()) {
                 final String[] victims = showVictimDB.getVictims();
@@ -39,8 +41,6 @@ public class showVictimActivity extends AppCompatActivity {
                         v1.setText(v1.getText().toString() + "\n" + victim1);
                     }
                 }
-
-                tag = MediaPlayer.create(showVictimActivity.this, R.raw.tag_wakeup);
 
                 if (globalVariables.isSpielleiter()) {
                     tag.start();

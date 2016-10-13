@@ -111,7 +111,7 @@ public class LoginRegistrationActivity extends AppCompatActivity {
         String password = textPassword.getText().toString();
         Matrix image = PlayerImage.getImageMatrix();
 
-        if (Con.registration(name, email, password, image)) {
+        if (Con.registration(name, email, password)) {
             Toast.makeText(getApplicationContext(), "Spieler wurde erstellt", Toast.LENGTH_LONG).show();
 
             Intent intent = new Intent(this, MenuActivity.class);

@@ -152,7 +152,7 @@ public class GetRole extends AppCompatActivity {
         info.show();
 
         //check frequently who many players joined the game
-        timerHandler.postDelayed(timerRunnable, 2000);
+        timerHandler.postDelayed(timerRunnable, 0);
     }
 
     @Override
