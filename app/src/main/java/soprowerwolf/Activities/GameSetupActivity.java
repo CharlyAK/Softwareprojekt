@@ -46,6 +46,7 @@ public class GameSetupActivity extends AppCompatActivity {
         assert players != null;
         players.setMinValue(8);
         players.setMaxValue(20);
+        players.setValue(2);
 
         //if value of the NumberPicker changes
         players.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
