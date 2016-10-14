@@ -78,14 +78,16 @@ public class createGameDB extends AsyncTask<String, String, String> {
 
         }
 
-        int i;
-        for (i = 0; i < phases.length - 2; i++) {
+        int i = 0;
 
+        while(!phases[i+1].equals("Tag"))
+        {
             paramsPhases.add(new BasicNameValuePair("phase", phases[i]));
             paramsPhases.add(new BasicNameValuePair("nextPhase", phases[i + 1]));
             paramsPhases.add(new BasicNameValuePair("gameID", gameID));
             jsonParser.makeHttpRequest(url_create_game, "POST", paramsPhases);
             paramsPhases.clear();
+            i++;
         }
 
         paramsPhases.clear();
