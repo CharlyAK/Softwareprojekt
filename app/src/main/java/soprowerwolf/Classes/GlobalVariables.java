@@ -19,7 +19,7 @@ public class GlobalVariables extends Application {
     private String[] cards;
     private Button currentlySelectedPlayer;
     private String[] Phases;
-    private String currentPhase; // currentPhaseID isn't needed anymore when getCurrentPhase works
+    private String currentPhase = "Game";
     private Activity currentContext;
     private String winner;
     private boolean spielleiter;

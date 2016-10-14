@@ -45,7 +45,6 @@ public class GameActivity extends AppCompatActivity {
         globalVariables.setCurrentContext(this);
 
         globalVariables.setCurrentlySelectedPlayer(null);
-        globalVariables.setCurrentPhase("Game");
 
         //View settings: Fullscreen
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,

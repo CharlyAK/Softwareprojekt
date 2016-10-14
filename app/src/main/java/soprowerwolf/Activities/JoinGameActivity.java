@@ -58,7 +58,7 @@ public class JoinGameActivity extends AppCompatActivity implements ZXingScannerV
 
         String scanningText = result.getText();
 
-        //globalVariables.setGameID(Integer.parseInt(scanningText));
+        globalVariables.setGameID(Integer.parseInt(scanningText));
         globalVariables.setSpielleiter(false);
 
         new joinGameDB().execute();
