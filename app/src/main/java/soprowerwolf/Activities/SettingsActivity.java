@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import org.json.JSONException;
+
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
@@ -44,6 +46,11 @@ public class SettingsActivity extends AppCompatActivity {
 
         //Bild auswählen
         playerImage = (ImageView) findViewById(R.id.imageView);
+        try {
+            playerImage.setImageBitmap(Con.getImage());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         Image_button = (Button) findViewById(R.id.button);
         Image_button.setOnClickListener(new View.OnClickListener() {
             @Override

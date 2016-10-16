@@ -23,7 +23,7 @@ if (isset($_POST['playerID'])) {
         // successfully updated
         $response["success"] = 1;
         $response["message"] = "numOfVotes successfully updated.";
-    }
+
 
 
     // echoing JSON response

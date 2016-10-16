@@ -1,6 +1,7 @@
 package soprowerwolf.Classes;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.Image;
 import android.os.StrictMode;
@@ -35,7 +36,7 @@ public class databaseCon {
     private static final String url_create_new_player = "http://www-e.uni-magdeburg.de/jkloss/create_new_player.php";
     private static final String url_login = "http://www-e.uni-magdeburg.de/jkloss/login.php";
     private static final String url_delete_Account = "http://www-e.uni-magdeburg.de/jkloss/deleteAccount.php";
-    private static final String url_save_image = "http://192.168.0.13/SoPro/db_test/save_image.php";
+    private static final String url_save_image = "http://www-e.uni-magdeburg.de/jkloss/save_image.php";
     private static final String url_get_all_player = "http://www-e.uni-magdeburg.de/jkloss/get_all_player.php";
     private static final String url_get_game_details = "http://www-e.uni-magdeburg.de/jkloss/get_game_details.php";
     private static final String url_get_player_details = "http://www-e.uni-magdeburg.de/jkloss/get_player_details.php";
@@ -103,6 +104,7 @@ public class databaseCon {
             e.printStackTrace();
         }
 
+
         return false;
     }
 
@@ -125,16 +127,19 @@ public class databaseCon {
         return false;
     }
 
+    public void setImage(){
+
+    }
+
     public void setImage(Bitmap bitmap)
     {
         //use following method to convert bitmap to byte array:
-
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-        byte[] byteArray = byteArrayOutputStream .toByteArray();
+        byte[] byteArray = byteArrayOutputStream.toByteArray();
         //to encode base64 from byte array use following method
 
-        String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
+        String encoded = Base64.encodeToString(byteArray, 0);
 
         List<NameValuePair> params = new ArrayList<NameValuePair>();
 
@@ -142,6 +147,22 @@ public class databaseCon {
         params.add(new BasicNameValuePair("image", encoded));
 
         jsonParser.makeHttpRequest(url_save_image, "POST", params);
+    }
+
+    public Bitmap getImage() throws JSONException {
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+
+        params.add(new BasicNameValuePair("playerID", String.valueOf(globalVariables.getOwnPlayerID())));
+
+        JSONObject jsonObject = jsonParser.makeHttpRequest(url_save_image, "GET", params);
+
+        //JSONArray jsonImage = jsonObject.getJSONArray("image");
+        JSONObject jsonObject1 = jsonObject.getJSONObject("image");
+        String base64String = jsonObject1.getString("0");
+
+        byte[] decodedString = Base64.decode(base64String, Base64.DEFAULT);
+        Bitmap bitmapResult = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        return bitmapResult;
     }
 
     public int getReady() {
@@ -301,11 +322,9 @@ public class databaseCon {
             case "getNumOfWerAlive":
                 params.add(new BasicNameValuePair("gameID", String.valueOf(globalVariables.getGameID())));
                 JSONObject jsonObjectNumber = jsonParser.makeHttpRequest(url_getNumOfWerAlive, "GET", params);
-                //int[] jsonNumOfWerAlive = jsonObjectNumber.getInt("numOfWerAlive");
 
                 int[] numOfWerAlive = new int[1];
                 numOfWerAlive [0]= jsonObjectNumber.getInt("numOfWerAlive");
-                //numOfWerAlive[0] = jsonNumOfWerAlive.getJSONObject(0).getInt("numOfWerAlive");
 
                 return numOfWerAlive;
         }

@@ -74,7 +74,8 @@ public class TagActivity extends AppCompatActivity {
             }
         });
 
-        start();
+        if (globalVariables.isSpielleiter())
+            start();
 
     }
 
@@ -126,10 +127,12 @@ public class TagActivity extends AppCompatActivity {
             }
         }
 
+
         //setting the victim in the database
         Con.setVictims(victimAndVotes[0]);
 
-        new setNextPhase().execute( "");
+        new setNextPhase().execute("");
+
     }
 
     protected void onResume() {

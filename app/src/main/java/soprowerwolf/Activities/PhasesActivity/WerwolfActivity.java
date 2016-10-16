@@ -135,8 +135,8 @@ public class WerwolfActivity extends AppCompatActivity {
         }
         //setting the victim in the database
         Con.setVictims(victimAndVotes[0]);
-
-        new setNextPhase().execute("");
+        if (globalVariables.getCurrentPhase().equals("Werwolf"))
+            new setNextPhase().execute("");
     }
 
 
