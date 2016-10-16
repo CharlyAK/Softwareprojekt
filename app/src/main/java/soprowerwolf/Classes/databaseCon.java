@@ -127,12 +127,11 @@ public class databaseCon {
         return false;
     }
 
-    public void setImage(){
+    public void setImage() {
 
     }
 
-    public void setImage(Bitmap bitmap)
-    {
+    public void setImage(Bitmap bitmap) {
         //use following method to convert bitmap to byte array:
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
@@ -241,6 +240,30 @@ public class databaseCon {
         return playerIDs;
     }
 
+    public String[] getPlayerNames() {
+        String[] playerNames = new String[20];
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+
+        int[] playerIDs = getPlayerIDs();
+
+        try {
+            for(int i = 0; i < globalVariables.getNumPlayers(); i++)
+            {
+                params.clear();
+                params.add(new BasicNameValuePair("playerID", String.valueOf(playerIDs[i])));
+
+                JSONObject name = jsonParser.makeHttpRequest(url_get_player_details, "GET", params);
+
+                JSONArray AName = name.getJSONArray("player");
+                playerNames[i] = AName.getJSONObject(0).getString("name");
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return playerNames;
+    }
+
 
     public String[] DiebGetRoles() {
         String[] roles = new String[2];
@@ -265,12 +288,12 @@ public class databaseCon {
         return roles;
     }
 
-    public void setVictims(int victimID){
+    public void setVictims(int victimID) {
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("gameID", String.valueOf(globalVariables.getGameID())));
 
 
-        switch (globalVariables.getCurrentPhase()){
+        switch (globalVariables.getCurrentPhase()) {
             case "Werwolf":
                 params.add(new BasicNameValuePair("victimWer", String.valueOf(victimID)));
                 break;
@@ -284,17 +307,17 @@ public class databaseCon {
     }
 
 
-    public int[] Werwolf(String action) throws JSONException{
+    public int[] Werwolf(String action) throws JSONException {
 
         List<NameValuePair> params = new ArrayList<NameValuePair>();
 
-        switch (action){
+        switch (action) {
             case "update":
                 int[] playerIDs = getPlayerIDs();
 
                 params.add(new BasicNameValuePair("phase", "night"));
                 for (int i = 0; i < playerIDs.length; i++) {
-                    params.add(new BasicNameValuePair("id" + i, ""+playerIDs[i]));
+                    params.add(new BasicNameValuePair("id" + i, "" + playerIDs[i]));
                 }
                 JSONObject jsonObjectVotes = jsonParser.makeHttpRequest(url_vote_update, "GET", params);
                 //get the votes from VotingNight
@@ -303,7 +326,7 @@ public class databaseCon {
                 //merging playerIDs with numOfVotes
                 int[] playerIDsAndVotes = new int[40];
                 //there is the playerID first and afterwards the numOfVotes
-                for (int i = 0, j = 0; i < playerIDs.length && i < jVotes.length(); i++, j++){
+                for (int i = 0, j = 0; i < playerIDs.length && i < jVotes.length(); i++, j++) {
                     playerIDsAndVotes[j] = playerIDs[i];
                     playerIDsAndVotes[++j] = jVotes.getJSONObject(i).getInt("votes");
                 }
@@ -324,7 +347,7 @@ public class databaseCon {
                 JSONObject jsonObjectNumber = jsonParser.makeHttpRequest(url_getNumOfWerAlive, "GET", params);
 
                 int[] numOfWerAlive = new int[1];
-                numOfWerAlive [0]= jsonObjectNumber.getInt("numOfWerAlive");
+                numOfWerAlive[0] = jsonObjectNumber.getInt("numOfWerAlive");
 
                 return numOfWerAlive;
         }
@@ -427,12 +450,12 @@ public class databaseCon {
         List<NameValuePair> params = new ArrayList<NameValuePair>();
 
 
-        switch (action){
+        switch (action) {
             case "update":
                 int[] playerIDs = getPlayerIDs();
 
                 for (int i = 0; i < playerIDs.length; i++) {
-                    params.add(new BasicNameValuePair("id" + i, ""+playerIDs[i]));
+                    params.add(new BasicNameValuePair("id" + i, "" + playerIDs[i]));
                 }
                 JSONObject jsonObjectVotes = jsonParser.makeHttpRequest(url_vote_update, "GET", params);
                 //get the votes from VotingDay
@@ -441,10 +464,10 @@ public class databaseCon {
                 //merging playerIDs with numOfVotes
                 int[] playerIDsAndVotes = new int[40];
                 //there is the playerID first and afterwards the numOfVotes
-                for (int i = 0, j = 0; i < playerIDs.length && i < jVotes.length(); i++, j++){
+                for (int i = 0, j = 0; i < playerIDs.length && i < jVotes.length(); i++, j++) {
                     playerIDsAndVotes[j] = playerIDs[i];
-                    if (!((jVotes.getJSONObject(i).getString("votes")).equals("null")));
-                        playerIDsAndVotes[++j] = jVotes.getJSONObject(i).getInt("votes");
+                    if (!((jVotes.getJSONObject(i).getString("votes")).equals("null"))) ;
+                    playerIDsAndVotes[++j] = jVotes.getJSONObject(i).getInt("votes");
                 }
 
                 return playerIDsAndVotes;

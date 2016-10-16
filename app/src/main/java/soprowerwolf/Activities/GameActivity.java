@@ -65,6 +65,7 @@ public class GameActivity extends AppCompatActivity {
         int numOfPlayers = globalVariables.getNumPlayers();
         Activity context = globalVariables.getCurrentContext();
         int[] playerIDs = Con.getPlayerIDs();
+        String[] playerNames = Con.getPlayerNames();
 
         //create Linear Layouts in gameView
         LinearLayout row1 = (LinearLayout) context.findViewById(R.id.row1);
@@ -75,7 +76,7 @@ public class GameActivity extends AppCompatActivity {
         //create playerbuttons
         for (int i = 0; i < numOfPlayers; i++) {
             Button button = new Button(context);
-            button.setText("player" + i);
+            button.setText(playerNames[i]);
             /* ==> funktioniert, ist aber hinderlich, wenn man nur mit einem gerät spielt //ToDo: wieder einbinden
             if(playerIDs[i] == 0) // if playerID = 0 -> player is dead and cannot be selected anymore
             {

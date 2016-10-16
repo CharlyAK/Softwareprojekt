@@ -239,7 +239,7 @@ public class GameSetupActivity extends AppCompatActivity {
 
                 globalVariables.setNumPlayers(((NumberPicker) findViewById(R.id.numberPicker)).getValue());
                 globalVariables.setCards(cardsShuffled);
-                cardsShuffled[0] = "Dieb";
+                //cardsShuffled[0] = "Dieb";
                 globalVariables.setOwnRole(cardsShuffled[0]);
                 globalVariables.setSpielleiter(true);
 
