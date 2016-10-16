@@ -63,7 +63,7 @@ $response = array();
 		else
 		{
 			//set new player in free row
-			mysql_query("INSERT INTO _PLAYER VALUES ('$i', '$name', '$email', '$password')")
+			mysql_query("INSERT INTO _PLAYER VALUES ('$i', '$name', '$email', '$password', null)")
 			or die("Spieler in Datenbank einfügen fehlgeschlagen");
 			
 			mysql_query("SELECT playerID, name, email, password FROM _PLAYER ORDER BY playerID DESC")

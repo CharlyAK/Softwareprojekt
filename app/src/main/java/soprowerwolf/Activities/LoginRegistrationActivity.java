@@ -1,9 +1,12 @@
 package soprowerwolf.Activities;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +18,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
 import soprowerwolf.Classes.GlobalVariables;
 import soprowerwolf.Classes.databaseCon;
 import soprowerwolf.R;
@@ -24,8 +30,13 @@ public class LoginRegistrationActivity extends AppCompatActivity {
     Button bStartLogin, bStartRegistration, bLogin, bRegistration, bChooseImage;
     EditText textUsername, textEMail, textPassword;
     TextView textWelcome;
+    Intent chooseImage;
     ImageButton bStartScreen;
     ImageView PlayerImage;
+    final int requode = 42;
+    Uri image_uri;
+    Bitmap bm = null;
+    InputStream is;
     databaseCon Con = new databaseCon();
 
     GlobalVariables globalVariables = GlobalVariables.getInstance();
@@ -89,6 +100,35 @@ public class LoginRegistrationActivity extends AppCompatActivity {
             }
         });
 
+        bChooseImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chooseImage = new Intent(Intent.ACTION_GET_CONTENT);
+                chooseImage.setType("image/*"); // Bilder aller Formate können ausgewählt werden
+                startActivityForResult(chooseImage, requode);
+            }
+        });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (resultCode == RESULT_OK) {
+            if (requestCode == requode) {
+                //Dateipfad auslesen
+                image_uri = data.getData();
+                try {
+                    is = getContentResolver().openInputStream(image_uri);
+                    bm = BitmapFactory.decodeStream(is); // Stream in Bitmap umwandeln
+                    PlayerImage.setImageBitmap(bm);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     public void login(View view) {
@@ -109,9 +149,11 @@ public class LoginRegistrationActivity extends AppCompatActivity {
         String name = textUsername.getText().toString();
         String email = textEMail.getText().toString();
         String password = textPassword.getText().toString();
-        Matrix image = PlayerImage.getImageMatrix();
 
         if (Con.registration(name, email, password)) {
+            if (!(bm == null))
+                Con.setImage(bm);
+
             Toast.makeText(getApplicationContext(), "Spieler wurde erstellt", Toast.LENGTH_LONG).show();
 
             Intent intent = new Intent(this, MenuActivity.class);

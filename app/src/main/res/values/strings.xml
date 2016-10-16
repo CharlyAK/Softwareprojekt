@@ -5,7 +5,7 @@
 
     LoginRegistration
     <string name="clickToContinue">Tippe zum Fortfahren...</string>
-    <string name="Welcome">Willkommen! Bist du neu im Düsterwald?</string>
+    <string name="Welcome">Willkommen!</string>
 
 
     Menu

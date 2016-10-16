@@ -11,18 +11,6 @@
     tools:context=".Activities.LoginRegistrationActivity"
     android:background="@drawable/start">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/Welcome"
-        android:gravity="center"
-        android:textSize="30sp"
-        android:id="@+id/textViewWelcome"
-        android:visibility="invisible"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
-        android:hint="E-Mail"
+        android:hint="Username"
         android:ems="10"
         android:id="@+id/TextEMail"
         android:layout_below="@+id/TextUsername"
@@ -117,7 +105,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="JA!"
+        android:text="Registrieren"
         android:id="@+id/buttonStartRegistration"
         android:visibility="invisible"
         android:layout_centerVertical="true"
@@ -129,11 +117,22 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nein"
+        android:text="Login"
         android:id="@+id/buttonStartLogin"
         android:visibility="invisible"
         android:layout_below="@+id/TextUsername"
         android:layout_toRightOf="@+id/TextEMail"
         android:layout_toEndOf="@+id/TextEMail" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Welcome"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:id="@+id/textViewWelcome"
+        android:visibility="invisible"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
