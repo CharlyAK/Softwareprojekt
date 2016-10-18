@@ -6,6 +6,7 @@ import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 
 import soprowerwolf.Classes.GlobalVariables;
 import soprowerwolf.R;
@@ -21,6 +22,7 @@ public class LetsPlayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lets_play);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); // screen stays on
 
         audio = MediaPlayer.create(this, R.raw.first_night);
 

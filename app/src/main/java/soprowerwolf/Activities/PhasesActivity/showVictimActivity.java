@@ -4,6 +4,7 @@ import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import soprowerwolf.Classes.GlobalVariables;
@@ -25,6 +26,7 @@ public class showVictimActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_victim);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); // screen stays on
 
         victim = (TextView) findViewById(R.id.victim);
         v1 = (TextView) findViewById(R.id.v1);

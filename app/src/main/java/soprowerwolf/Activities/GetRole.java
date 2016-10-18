@@ -9,6 +9,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -36,6 +37,7 @@ public class GetRole extends AppCompatActivity {
         setContentView(R.layout.activity_get_role);
 
         globalVariables.setCurrentPhase("getRole");
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); // screen stays on
 
 
         final ImageButton role = (ImageButton) findViewById(R.id.imageButtonRole);

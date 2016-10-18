@@ -224,12 +224,15 @@ public class DiebActivity extends AppCompatActivity {
     public void changeRole(String choice) {
         switch (choice) {
             case "0": //first choice was choosen
+                globalVariables.setOwnRole(Con.DiebGetRoles()[0]);
                 new DiebDB().execute(Con.DiebGetRoles()[0], Con.DiebGetRoles()[1], "");
                 break;
             case "1": // second choice was choosen
+                globalVariables.setOwnRole(Con.DiebGetRoles()[1]);
                 new DiebDB().execute(Con.DiebGetRoles()[1], Con.DiebGetRoles()[0], "");
                 break;
             case "2": // non of the roles were choosen
+                globalVariables.setOwnRole("Dorfbewohner");
                 new DiebDB().execute("Dorfbewohner", Con.DiebGetRoles()[0], Con.DiebGetRoles()[1]);
         }
     }

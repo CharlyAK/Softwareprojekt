@@ -39,6 +39,7 @@ public class HexeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); // screen stays on
 
         if (globalVariables.isSpielleiter()) {
             audio.playHexeW(HexeActivity.this);
