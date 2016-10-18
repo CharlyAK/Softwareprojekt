@@ -21,7 +21,7 @@ import soprowerwolf.Classes.JSONParser;
 public class JaegerDB extends AsyncTask<String, String, String> {
     GlobalVariables globalVariables = GlobalVariables.getInstance();
     JSONParser jsonParser = new JSONParser();
-    private static final String url_shoot = "http://www-e.uni-magdeburg.de/jkloss/db_test/setVictims.php";
+    private static final String url_shoot = "http://www-e.uni-magdeburg.de/jkloss/setVictims.php";
 
     @Override
     protected String doInBackground(String... params) {

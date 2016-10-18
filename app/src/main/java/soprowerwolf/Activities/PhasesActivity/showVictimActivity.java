@@ -2,12 +2,14 @@ package soprowerwolf.Activities.PhasesActivity;
 
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.WindowManager;
 import android.widget.TextView;
 
 import soprowerwolf.Classes.GlobalVariables;
+import soprowerwolf.Database.getCurrentPhase;
 import soprowerwolf.Database.killDB;
 import soprowerwolf.Database.setNextPhase;
 import soprowerwolf.Database.showVictimDB;
@@ -21,6 +23,15 @@ public class showVictimActivity extends AppCompatActivity {
     TextView victim, v1;
     MediaPlayer tag;
     CountDownTimer timer;
+
+    private Handler timerHandler = new Handler();
+    private Runnable timerRunnable = new Runnable() {
+        @Override
+        public void run() {
+            new getCurrentPhase().execute();
+            timerHandler.postDelayed(this, 3000);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,19 +67,23 @@ public class showVictimActivity extends AppCompatActivity {
 
                     @Override
                     public void onFinish() {
-                        new killDB().execute("");
-                        new setNextPhase().execute("");
+                        if (globalVariables.isSpielleiter()) {
+                            new killDB().execute("");
+                            new setNextPhase().execute("");
+                        } else
+                            timerHandler.postDelayed(timerRunnable, 3000);
                     }
                 }.start();
             } else {
                 final String[] victims = showVictimDB.getVictims();
                 v1.setText("Vom Jäger erschossen: ");
 
-                for (String victim1 : victims) {
-                    if (!victim1.equals("0")) {
-                        v1.setText(v1.getText().toString() + "\n" + victim1);
-                    }
+                v1.setText(v1.getText().toString() + "\n" + victims[3]);
+                if(!victims[4].equals("0"))
+                {
+                    v1.setText(v1.getText().toString() + "\n" + victims[4]);
                 }
+
 
                 timer = new CountDownTimer(10000, 1000) {
                     @Override
@@ -79,8 +94,11 @@ public class showVictimActivity extends AppCompatActivity {
                     @Override
                     public void onFinish() {
                         globalVariables.setJaegerDies(false);
-                        new killDB().execute("");
-                        new setNextPhase().execute("");
+                        if (globalVariables.isSpielleiter()) {
+                            new killDB().execute("");
+                            new setNextPhase().execute("");
+                        } else
+                            timerHandler.postDelayed(timerRunnable, 3000);
                     }
                 }.start();
             }
@@ -103,18 +121,21 @@ public class showVictimActivity extends AppCompatActivity {
 
                     @Override
                     public void onFinish() {
-                        new killDB().execute("");
-                        new setNextPhase().execute("");
+                        if (globalVariables.isSpielleiter()) {
+                            new killDB().execute("");
+                            new setNextPhase().execute("");
+                        } else
+                            timerHandler.postDelayed(timerRunnable, 3000);
                     }
                 }.start();
             } else {
                 final String[] victims = showVictimDB.getVictims();
                 v1.setText("Vom Jäger erschossen: ");
 
-                for (String victim1 : victims) {
-                    if (!victim1.equals("0")) {
-                        v1.setText(v1.getText().toString() + "\n" + victim1);
-                    }
+                v1.setText(v1.getText().toString() + "\n" + victims[3]);
+                if(!victims[4].equals("0"))
+                {
+                    v1.setText(v1.getText().toString() + "\n" + victims[4]);
                 }
 
                 timer = new CountDownTimer(10000, 1000) {
@@ -126,8 +147,11 @@ public class showVictimActivity extends AppCompatActivity {
                     @Override
                     public void onFinish() {
                         globalVariables.setJaegerDies(false);
-                        new killDB().execute("");
-                        new setNextPhase().execute("");
+                        if (globalVariables.isSpielleiter()) {
+                            new killDB().execute("");
+                            new setNextPhase().execute("");
+                        } else
+                            timerHandler.postDelayed(timerRunnable, 3000);
                     }
                 }.start();
             }

@@ -70,10 +70,11 @@ public class createGameDB extends AsyncTask<String, String, String> {
                 phases[j] = globalVariables.getPhases()[i];
                 j++;
 
+                /*
                 if (globalVariables.getPhases()[i].equals("Amor")) {
                     phases[j] = "Lover";
                     j++;
-                }
+                }*/
             }
 
         }
