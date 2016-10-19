@@ -69,7 +69,6 @@ public class LoginRegistrationActivity extends AppCompatActivity {
                 bStartLogin.setVisibility(View.VISIBLE);
                 bStartRegistration.setVisibility(View.VISIBLE);
                 textWelcome.setVisibility(View.VISIBLE);
-                //findViewById(R.id.login_registration).setBackgroundColor(getResources().getColor(R.color.MainBackground));
                 findViewById(R.id.login_registration).setBackground(getResources().getDrawable(R.drawable.start));
             }
         });

@@ -90,6 +90,27 @@ public class AmorActivity extends AppCompatActivity {
         popup.PopUpInfo(getString(R.string.description_amor), "Info").show();
     }
 
+    public void stop() {
+        timerHandler.removeCallbacks(timerRunnable);
+    }
+
+    public void start() {
+        timerHandler.postDelayed(timerRunnable, 2000);
+    }
+
+
+    protected void onResume() {
+        super.onResume();
+        start();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        stop();
+    }
+
+
     @Override
     public void onBackPressed() {
 

@@ -61,8 +61,29 @@ public class JaegerActivity extends AppCompatActivity {
 
             victim.setText("Der Jäger richtet mit seinem letzten Atemzug sein Gewehr auf einen von euch...");
 
-            timerHandler.postDelayed(timerRunnable, 0);
+            timerHandler.postDelayed(timerRunnable, 2000);
         }
 
     }
+
+    public void stop() {
+        timerHandler.removeCallbacks(timerRunnable);
+    }
+
+    public void start() {
+        timerHandler.postDelayed(timerRunnable, 2000);
+    }
+
+
+    protected void onResume() {
+        super.onResume();
+        start();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        stop();
+    }
+
 }

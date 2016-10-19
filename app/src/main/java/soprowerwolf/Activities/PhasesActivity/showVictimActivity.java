@@ -159,4 +159,25 @@ public class showVictimActivity extends AppCompatActivity {
 
 
     }
+
+    public void stop() {
+        timerHandler.removeCallbacks(timerRunnable);
+    }
+
+    public void start() {
+        timerHandler.postDelayed(timerRunnable, 2000);
+    }
+
+
+    protected void onResume() {
+        super.onResume();
+        start();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        stop();
+    }
+
 }

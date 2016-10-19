@@ -65,8 +65,8 @@ public class SettingsActivity extends AppCompatActivity {
         //Open SharedPref-File
         SharedPreferences mySPR_Name = getSharedPreferences("MySPFile", 0);
 
-        //Read Keys from file in text field
-        playerName.setText(mySPR_Name.getString("KeyName", "Name"));
+        playerName.setText(Con.getName());
+
     }
 
     // Wird ausgeführt, sobald von einem Intent in diese Activity gesendet wird

@@ -43,12 +43,35 @@ public class LoverActivity extends AppCompatActivity {
             love.vibrate(5000);
 
             //check frequently if phase has been changed
-            timerHandler.postDelayed(timerRunnable, 0);
+            timerHandler.postDelayed(timerRunnable, 2000);
         }
     }
+
+    public void stop() {
+        timerHandler.removeCallbacks(timerRunnable);
+    }
+
+    public void start() {
+        timerHandler.postDelayed(timerRunnable, 2000);
+    }
+
+
+    protected void onResume() {
+        super.onResume();
+        start();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        stop();
+    }
+
 
     @Override
     public void onBackPressed() {
 
     }
+
+
 }

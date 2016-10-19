@@ -127,10 +127,6 @@ public class databaseCon {
         return false;
     }
 
-    public void setImage() {
-
-    }
-
     public void setImage(Bitmap bitmap) {
         //use following method to convert bitmap to byte array:
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -262,6 +258,22 @@ public class databaseCon {
             e.printStackTrace();
         }
         return playerNames;
+    }
+
+    public String getName(){
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+
+        params.add(new BasicNameValuePair("playerID", String.valueOf(globalVariables.getOwnPlayerID())));
+
+        try {
+        JSONObject name = jsonParser.makeHttpRequest(url_get_player_details, "GET", params);
+
+        JSONArray AName = name.getJSONArray("player");
+        return AName.getJSONObject(0).getString("name");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 
