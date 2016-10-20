@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.Image;
+import android.os.Build;
 import android.os.StrictMode;
 import android.util.Base64;
 
@@ -49,7 +50,6 @@ public class databaseCon {
 
     public boolean registration(String name, String email, String pw) {
         //ToDo: HashWerte für passwörter
-        //ToDo: Bild in DB laden
         List<NameValuePair> paramsCheck = new ArrayList<NameValuePair>();
 
         paramsCheck.add(new BasicNameValuePair("email", email));
@@ -131,6 +131,14 @@ public class databaseCon {
         //use following method to convert bitmap to byte array:
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            while (bitmap.getAllocationByteCount() > 64000)
+                bitmap.compress(Bitmap.CompressFormat.PNG, 90, byteArrayOutputStream);
+        }
+        else {
+            while (bitmap.getByteCount() > 64000)
+                bitmap.compress(Bitmap.CompressFormat.PNG, 90, byteArrayOutputStream);
+        }
         byte[] byteArray = byteArrayOutputStream.toByteArray();
         //to encode base64 from byte array use following method
 
@@ -151,7 +159,6 @@ public class databaseCon {
 
         JSONObject jsonObject = jsonParser.makeHttpRequest(url_save_image, "GET", params);
 
-        //JSONArray jsonImage = jsonObject.getJSONArray("image");
         JSONObject jsonObject1 = jsonObject.getJSONObject("image");
         String base64String = jsonObject1.getString("0");
 

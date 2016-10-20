@@ -2,9 +2,11 @@ package soprowerwolf.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -32,8 +34,6 @@ import soprowerwolf.Classes.GlobalVariables;
 
 public class GameActivity extends AppCompatActivity {
 
-    //string contains phases, counter keeps track of current phase
-
     GlobalVariables globalVariables = GlobalVariables.getInstance();
     databaseCon Con = new databaseCon();
     Audio audio = new Audio();
@@ -58,7 +58,7 @@ public class GameActivity extends AppCompatActivity {
     * >createObjects<
     *
     * This method creates all objects in the GameView.
-    * Like rows, button, ...
+    * Like rows, buttons, ...
     *
     */
     public void createObjects() {
@@ -76,7 +76,18 @@ public class GameActivity extends AppCompatActivity {
         //create playerbuttons
         for (int i = 0; i < numOfPlayers; i++) {
             Button button = new Button(context);
+
+            //limit the buttons to a maximum size
+            DisplayMetrics dm = new DisplayMetrics();
+            button.setMaxHeight(dm.heightPixels/4);
+            button.setMaxWidth(dm.widthPixels/5);
+
             button.setText(playerNames[i]);
+            /*try {
+                button.setBackground(new BitmapDrawable(getResources(), Con.getImage()));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }*/
             /* ==> funktioniert, ist aber hinderlich, wenn man nur mit einem gerät spielt //ToDo: wieder einbinden
             if(playerIDs[i] == 0) // if playerID = 0 -> player is dead and cannot be selected anymore
             {

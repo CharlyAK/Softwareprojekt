@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -47,7 +48,8 @@ public class SettingsActivity extends AppCompatActivity {
         //Bild auswählen
         playerImage = (ImageView) findViewById(R.id.imageView);
         try {
-            playerImage.setImageBitmap(Con.getImage());
+            //playerImage.setImageBitmap(Con.getImage());
+            playerImage.setImageDrawable(new BitmapDrawable(getResources(),Con.getImage()));
         } catch (JSONException e) {
             e.printStackTrace();
         }

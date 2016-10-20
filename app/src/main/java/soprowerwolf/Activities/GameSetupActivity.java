@@ -43,11 +43,11 @@ public class GameSetupActivity extends AppCompatActivity {
         final NumberPicker players = (NumberPicker) findViewById(R.id.numberPicker);
         final Spinner spinnerWer = (Spinner) findViewById(R.id.spinnerWer);
 
+
         //set values for NumberPicker
         assert players != null;
         players.setMinValue(8);
         players.setMaxValue(20);
-        players.setValue(2);
 
         //if value of the NumberPicker changes
         players.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
@@ -74,6 +74,7 @@ public class GameSetupActivity extends AppCompatActivity {
         });
 
         //initiate values
+        spinnerWer.setSelection(2, true);
         calculateGame(players);
     }
 
@@ -239,7 +240,7 @@ public class GameSetupActivity extends AppCompatActivity {
 
                 globalVariables.setNumPlayers(((NumberPicker) findViewById(R.id.numberPicker)).getValue());
                 globalVariables.setCards(cardsShuffled);
-                //cardsShuffled[0] = "Jaeger";
+                cardsShuffled[0] = "Werwolf";
                 globalVariables.setOwnRole(cardsShuffled[0]);
                 globalVariables.setSpielleiter(true);
 

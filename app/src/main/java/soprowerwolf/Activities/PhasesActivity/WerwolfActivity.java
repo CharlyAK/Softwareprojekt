@@ -113,6 +113,7 @@ public class WerwolfActivity extends AppCompatActivity {
                 }
                 //if all players have voted
                 if (votes == numOfWer)
+
                     getResult(playerIDsAndVotes);
 
                 else
@@ -137,8 +138,13 @@ public class WerwolfActivity extends AppCompatActivity {
         }
         //setting the victim in the database
         Con.setVictims(victimAndVotes[0]);
-        if (globalVariables.getCurrentPhase().equals("Werwolf"))
+
+        if (globalVariables.getCurrentPhase().equals("Werwolf")) {
             new setNextPhase().execute("");
+        }
+        else
+            new getCurrentPhase().execute();
+
     }
 
 
