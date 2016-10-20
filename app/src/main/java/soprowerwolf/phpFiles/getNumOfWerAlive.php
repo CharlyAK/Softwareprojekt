@@ -1,5 +1,3 @@
-  GNU nano 1.3.12                                   Datei: getNumOfWerAlive.php                                                                              
-
 <?php
 /*
  * Following code get the number of alive werewolves
