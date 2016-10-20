@@ -74,7 +74,7 @@ public class GameSetupActivity extends AppCompatActivity {
         });
 
         //initiate values
-        spinnerWer.setSelection(2, true);
+        spinnerWer.setSelection(1, true);
         calculateGame(players);
     }
 
