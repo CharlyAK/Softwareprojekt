@@ -19,7 +19,7 @@ or die("Auswahl der Datenbank fehlgeschlagen");
 if (isset($_GET['gameID'])) {
 
     $gameID = $_GET['gameID'];
-    $response["numOfWerAlive"] = mysql_num_rows(mysql_query("SELECT * FROM `player_game` WHERE `role` = 'Werwolf' AND `alive` = 1"));
+    $response["numOfWerAlive"] = mysql_num_rows(mysql_query("SELECT * FROM `player_game` WHERE `role` = 'Werwolf' AND `alive` = 1 AND `playerID` != 0"));
 
     // success
     $response["success"] = 1;

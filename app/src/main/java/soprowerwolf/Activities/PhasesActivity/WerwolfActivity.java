@@ -55,6 +55,11 @@ public class WerwolfActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        //the spielleiter checks for the votes
+        if (globalVariables.isSpielleiter()){
+            start();
+        }
+
         //check, if own Role equals Phase -> yes: Activity is shown; no: black screen is shown (activity_wait)
         if (globalVariables.getOwnRole().equals("Werwolf")) {
             setContentView(R.layout.activity_werwolf);
@@ -84,10 +89,11 @@ public class WerwolfActivity extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+
+                    //check frequently if phase has been changed
+                    timerHandler.postDelayed(timerRunnable, 3000);
                 }
             });
-
-            start();
 
 
         } else {
@@ -112,12 +118,12 @@ public class WerwolfActivity extends AppCompatActivity {
                     votes += playerIDsAndVotes[i];
                 }
                 //if all players have voted
-                if (votes == numOfWer)
-
+                if (votes == numOfWer) {
                     getResult(playerIDsAndVotes);
-
-                else
+                }
+                else {
                     handler.postDelayed(this, 2000);
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -139,12 +145,7 @@ public class WerwolfActivity extends AppCompatActivity {
         //setting the victim in the database
         Con.setVictims(victimAndVotes[0]);
 
-        if (globalVariables.getCurrentPhase().equals("Werwolf")) {
-            new setNextPhase().execute("");
-        }
-        else
-            new getCurrentPhase().execute();
-
+        new setNextPhase().execute("");
     }
 
 
