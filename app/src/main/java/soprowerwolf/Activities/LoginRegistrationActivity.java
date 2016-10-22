@@ -120,7 +120,9 @@ public class LoginRegistrationActivity extends AppCompatActivity {
                 image_uri = data.getData();
                 try {
                     is = getContentResolver().openInputStream(image_uri);
-                    bm = BitmapFactory.decodeStream(is); // Stream in Bitmap umwandeln
+                    final BitmapFactory.Options options = new BitmapFactory.Options();
+                    options.inSampleSize = 4;
+                    bm = BitmapFactory.decodeStream(is, null, options);
                     PlayerImage.setImageBitmap(bm);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();

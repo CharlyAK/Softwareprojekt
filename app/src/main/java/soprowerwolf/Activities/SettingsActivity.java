@@ -48,7 +48,6 @@ public class SettingsActivity extends AppCompatActivity {
         //Bild auswählen
         playerImage = (ImageView) findViewById(R.id.imageView);
         try {
-            //playerImage.setImageBitmap(Con.getImage());
             playerImage.setImageDrawable(new BitmapDrawable(getResources(),Con.getImage()));
         } catch (JSONException e) {
             e.printStackTrace();
@@ -81,7 +80,10 @@ public class SettingsActivity extends AppCompatActivity {
                 image_uri = data.getData();
                 try {
                     is = getContentResolver().openInputStream(image_uri);
-                    bm = BitmapFactory.decodeStream(is); // Stream in Bitmap umwandeln
+                    //create bitmap from Stream
+                    final BitmapFactory.Options options = new BitmapFactory.Options();
+                    options.inSampleSize = 4;
+                    bm = BitmapFactory.decodeStream(is, null, options);
                     playerImage.setImageBitmap(bm);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();

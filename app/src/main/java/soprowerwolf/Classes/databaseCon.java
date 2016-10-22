@@ -130,15 +130,16 @@ public class databaseCon {
     public void setImage(Bitmap bitmap) {
         //use following method to convert bitmap to byte array:
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            while (bitmap.getAllocationByteCount() > 64000)
-                bitmap.compress(Bitmap.CompressFormat.PNG, 90, byteArrayOutputStream);
+        bitmap.compress(Bitmap.CompressFormat.PNG, 50, byteArrayOutputStream);
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            while (bitmap.getHeight() > 1000 && bitmap.getWidth() > 1000)
+                bitmap.compress(Bitmap.CompressFormat.PNG, 50, byteArrayOutputStream);
         }
         else {
-            while (bitmap.getByteCount() > 64000)
-                bitmap.compress(Bitmap.CompressFormat.PNG, 90, byteArrayOutputStream);
-        }
+            while (bitmap.getHeight() > 1000 && bitmap.getWidth() > 1000)
+                bitmap.compress(Bitmap.CompressFormat.PNG, 50, byteArrayOutputStream);
+        }*/
+
         byte[] byteArray = byteArrayOutputStream.toByteArray();
         //to encode base64 from byte array use following method
 
