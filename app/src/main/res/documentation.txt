@@ -1,0 +1,152 @@
+
+Dokumentation der App 'Werwolf'
+
+
+
+1 Spielbeschreibung
+2 Appbeschreibung
+
+
+
+== 1 Spielbeschreibung ==
+
+Thematisch geht es darum, dass das kleine Dörfchen Düsterwald von Werwölfen heimgesucht wird.
+Die Gruppe der Bürger versucht die Wölfe, die sich als Bürger getarnt haben, zu entlarven.
+Dagegen versuchen die Wölfe als einzige zu überleben und Widersacher auszuschalten.
+
+= Vorbereitung =
+
+Der Spielleiter mischt alle Charakterkarten und teilt an jeden Spieler verdeckt eine davon aus.
+Die Spieler schauen sich ihre Karte an und erkennen nun, ob sie einen Werwolf, einen einfachen
+Dorfbewohner oder eine Sonderrolle verkörpern. Danach ruft der Spielleiter zur ersten Nacht aus und
+das eigentliche Spiel kann beginnen.
+
+= Nachtphase =
+
+In der Nachtphase schließen alle Spieler die Augen. Der Spielleiter ruft die handelnden Charaktere
+einzeln auf. Sie öffnen ihre Augen und führen ihre Aktion aus.
+
+Der <Dieb> ist der erste, der im Spiel erwacht. Wird mit Dieb gespielt, werden zwei Karten mehr
+ausgeteilt. Der Dieb darf diese ansehen und seine Karte gegen eine der beiden übrig gebliebenen
+Karten austauschen. Er hat ab jetzt also eine neue Rolle. Möchte er nicht tauschen, ist er für den
+Rest des Spiels einfacher Dorfbewohner.
+
+<Amor> erwacht nur einmal in der allerersten Nacht, um zwei Spieler seiner Wahl miteinander zu
+verkuppeln (eventuell auch sich selbst). Danach schläft er wieder ein. Anschließend berührt der
+Spielleiter die beiden Verliebten an der Schulter, sodass diese kurz erwachen können und wissen,
+wer der jeweilige Partner ist. Die Verliebten haben im Laufe des Spiels die Aufgabe, den Partner
+zu beschützen, denn wenn einer der beiden stirbt, macht es ihm der Partner trauernd nach; sie
+dürfen nie gegeneinander stimmen.
+
+Werden die <Werwölfe> vom Spielleiter aufgerufen, wachen sie auf und erkennen sich gegenseitig.
+Je nach Spielerzahl gibt es zwei bis vier Wölfe.
+Die Wölfe einigen sich durch Gesten auf ein Opfer und schlafen dann wieder ein.
+Der Spielleiter merkt sich das Opfer der Werwölfe.
+
+Das kleine <Mädchen> darf nachts in der Werwolf-Phase heimlich blinzeln, um so die Werwölfe zu
+erkennen. Die Werwölfe ihrerseits hingegen achten natürlich darauf, das Mädchen dabei zu ertappen,
+es besteht also beim Blinzeln ein gewisses Risiko.
+
+Die <Seherin> erwacht in der Nacht alleine und zeigt auf einen Spieler.
+Der Spielleiter zeigt der Seherin nun die entsprechende Charakter-Karte der Person.
+Die Seherin weiß dadurch mehr als die übrigen Dorfbewohner, muss aber mit ihrem Wissen
+sorgfältig umgehen, um nicht von den Werwölfen enttarnt zu werden.
+
+Die <Hexe> erwacht immer nachem die Werwölfe ihr Opfer ausgesucht haben.
+Sie hat im Verlauf des gesamten Spiels einen Gift- und einen Heiltrank.
+Der Spielleiter zeigt auf die Person, die von den Werwölfen als Mordopfer gewählt wurde und die
+Hexe kann diese mit ihrem Heiltrank heilen (auch sich selbst), so dass es am nächsten Morgen keinen
+Toten gibt. Sie kann aber auch den Gifttrank auf einen anderen Spieler anwenden -
+dann gibt es mehrere Tote.
+
+Scheidet der <Jäger> aus dem Spiel aus, feuert er in seinem letzten Atemzug noch einen Schuss ab,
+mit dem er einen Spieler seiner Wahl mit in den Tod reißt, d.h. er bestimmt einen Spieler,
+der mit ihm aus dem Spiel ausscheidet.
+
+= Tagphase =
+
+Am Tag wachen alle Spieler auf. Das Opfer der Werwölfe wird verkündet, es dreht seine Karte um,
+gilt als tot und scheidet aus der Runde aus, d. h., er darf keinen Kommentar zum Spiel mehr abgeben.
+Nun diskutieren die Dorfbewohner, wer von ihnen ein Werwolf sein könnte. Diese Diskussionsphase
+ist das eigentliche Herzstück des Spiels.
+
+Am Ende des Tages gibt es eine sogenannte Abstimmung durch das Dorfgericht, wobei auf Kommando des
+Spielleiters jeder, außer den ausgeschiedenen Personen, mit dem Finger auf eine für ihn verdächtige
+Person deutet. Wer die meisten Stimmen erhält, scheidet aus. Bei Gleichstand gibt es eine Stichwahl,
+bei erneutem Patt entscheidet ein zu Spielbeginn gewählter Hauptmann. Den verbleibenden Spielern
+wird die Charakterrolle des ausgeschiedenen Spielers bekanntgeben. Nach dem Tag wird es wieder
+Nacht und der Zyklus beginnt von vorn.
+
+= Ende des Spiels =
+
+Das Spiel endet, sobald entweder alle Werwölfe oder alle Bürger tot sind.
+Das Ziel der Werwölfe ist es, alle Bürger auszulöschen, während die Dorfbewohner den Wölfen den
+Garaus machen wollen. Lediglich wenn das Liebespaar aus einem Werwolf und einem Dorfbewohner besteht,
+können diese beiden Spieler nur dann gewinnen, wenn außer ihnen niemand überlebt.
+
+
+
+
+
+
+== Appbeschreibung ==
+
+Die App versucht das Spiel so gut wie möglich digital umzusetzen. Dabei ist ein erheblicher Vorteil
+die Ersetzung des Spielleiters durch die App. Alle Daten werden in einer Datenbank gespeichert und
+die nötigen Berechnungen werden von den spielenden Geräten durchgeführt.
+
+= LoginRegistrationActivity =
+
+Jeder neue Spieler muss sich einen Account erstellen.
+Dazu wird ein neuer Eintrag in der Datenbank mit playerID, name, username, password und image
+angelegt.
+Die Registrierung erfolgt mithilfe die Klasse {@link databaseCon} über die Methode registration.
+
+Bereits registrierte User können sich einfach einloggen. Der Username und das Passwort werden
+mithilfe der Methode login verifiziert.
+
+Anschließend wird die {@link MenuActivity} gestartet.
+
+= MenuActivity =
+
+In dieser Activity kann sich der Spieler entscheiden, ob er ein neues Spiel starten möchte, welches
+die {@link GameSetupActivity} startet.
+Andernfalls kann er einem Spiel beitreten, mittels der {@link JoinGameActivity},
+oder er öffnet die Einstellungen, wobei die {@link SettingsActivity} geöffnet wird.
+Ebenfalls möglich ist das Betrachten der Regeln.
+
+= SettingsActivity =
+
+In der SettingsActivity hat der Spieler die Möglichkeit sein Bild zu ändern. Die Änderung
+erfolgt mittels der Funktion setImage der Klasse {@link databaseCon}.
+Außerdem kann er seinen Account löschen.
+
+= GameSetupActivy =
+
+Diese Activity lässt den Spieler die Einstellungen für das zu erstellende Spiel treffen.
+Es gibt einen {@code NumberPicker} für die Auswahl der Anzahl der Spieler.
+Außerdem existiert ein {@code Spinner}, der automatisch die benötigte Anzahl an Werwölfen mithilfe
+der Funktion setRecommendedNumberOfWer(int players) berechnet. Es steht dem Spieler frei die
+Anzahl im Nachhinein zu verändern.
+Im Folgenden können die Extrarollen an- bzw. abgewählt werden.
+Bei jeder Änderung erfolgt ein Aufruf der Funktion calculateGame. Diese berechnet anhan der Anzahl
+der Werwölfe und der Anzahl der Extrarollen die benötigte Anzahl an Dorfbewohnern für das Spiel
+und setzt diese automatisch.
+Alle teilnehmenden Rollen werden in das cards-Array geschrieben, welches anschließend gemischt wird
+und das cardsShuffled-Array entsteht.
+Die für das Spiel benötigten Phasen werden gesammelt und die createGameDB() wird ausgeführt.
+Nach erfolgreicher Erstellung des Spiels in der Datenbank wird die {@link QRCodeActivity}
+aufgerufen.
+Der erstellende Spieler ist der Spielleiter.
+
+= QRCodeActivity =
+
+Diese Activity erzeugt aus der gameID des erstellten Spiels einen QR-Code der von anderen Spielern
+gescannt werden muss, um dem Spiel beizutreten.
+Anschließend wird die {@link LetsPlayActivity} aufgerufen.
+
+= LetsPlayActivity =
+
+= JoinGameActivity =
+
+In dieser Activity kann der Spieler

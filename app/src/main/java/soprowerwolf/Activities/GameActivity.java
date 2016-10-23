@@ -2,6 +2,7 @@ package soprowerwolf.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -83,11 +84,16 @@ public class GameActivity extends AppCompatActivity {
             button.setMaxWidth(dm.widthPixels/5);
 
             button.setText(playerNames[i]);
-            /*try {
-                button.setBackground(new BitmapDrawable(getResources(), Con.getImage()));
+            /*
+            try {
+                Bitmap playerImage = Con.getImage();
+                if (playerImage != null)
+                    button.setBackground(new BitmapDrawable(playerImage));
             } catch (JSONException e) {
                 e.printStackTrace();
-            }*/
+            }
+            */
+
             /* ==> funktioniert, ist aber hinderlich, wenn man nur mit einem gerät spielt //ToDo: wieder einbinden
             if(playerIDs[i] == 0) // if playerID = 0 -> player is dead and cannot be selected anymore
             {
