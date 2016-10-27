@@ -86,6 +86,16 @@ public class JSONParser {
             }
             is.close();
             json = sb.toString();
+
+
+            //TODO: Fehler beim getNextPhase.php finden
+            char c = json.charAt(0);
+            if(!String.valueOf(c).equals("{")){
+                String[] parts = json.split("¿");
+                json = parts[1];
+            }
+
+
             Log.e("JSON Parser", "sb.toString()" + json);
         } catch (Exception e) {
             Log.e("Buffer Error", "Error converting result " + e.toString());

@@ -31,7 +31,6 @@ import soprowerwolf.Classes.GlobalVariables;
 public class TagActivity extends AppCompatActivity {
 
     GameActivity create = new GameActivity();
-    GameOverDB gameOver = new GameOverDB();
     databaseCon Con = new databaseCon();
     GlobalVariables globalVariables = GlobalVariables.getInstance();
     popup popup = new popup(this);
@@ -128,11 +127,11 @@ public class TagActivity extends AppCompatActivity {
         }
 
 
+        //TODO: if spielleiter nextPhase else TimerRunnable getCurrentPhase
         //setting the victim in the database
         Con.setVictims(victimAndVotes[0]);
 
         new setNextPhase().execute("");
-
     }
 
     protected void onResume() {

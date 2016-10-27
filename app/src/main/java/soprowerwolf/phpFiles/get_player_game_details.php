@@ -49,6 +49,7 @@ if (isset($_GET["playerID"]) && isset($_GET["gameID"])) {
  
             // echoing JSON response
             echo json_encode($response);
+
         } else {
             // no player found
             $response["success"] = 0;

@@ -35,8 +35,7 @@ public class QRCodeActivity extends AppCompatActivity {
             public void run() {
 
                 // this is the msg which will be encode in QRcode
-                QRcode = String.valueOf(globalVariables.getGameID());;
-
+                QRcode = String.valueOf(globalVariables.getGameID());
 
                 try {
                     synchronized (this) {

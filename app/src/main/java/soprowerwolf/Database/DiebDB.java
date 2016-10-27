@@ -46,7 +46,6 @@ public class DiebDB extends AsyncTask<String, String, String> {
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
 
-        new setNextPhase().execute("");
-        //audio.playDiebS(diebActivity.getApplicationContext());
+        new setNextPhase().execute("audio");
     }
 }

@@ -504,4 +504,35 @@ public class databaseCon {
         return null;
     }
 
+    public String getLover(){
+
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("playerID",String.valueOf(globalVariables.getOwnPlayerID())));
+        params.add(new BasicNameValuePair("gameID", String.valueOf(globalVariables.getGameID())));
+        JSONObject JSONLover = jsonParser.makeHttpRequest(url_get_player_game_details, "GET", params);
+
+        try {
+
+            JSONArray player = JSONLover.getJSONArray("player_game");
+            int lover = player.getJSONObject(0).getInt("lover");
+
+            if(lover != 0){
+                params.clear();
+                params.add(new BasicNameValuePair("playerID", String.valueOf(lover)));
+                JSONObject JSON = jsonParser.makeHttpRequest(url_get_player_details, "GET", params);
+                try {
+                    JSONArray JSONarray = JSON.getJSONArray("player");
+                    return JSONarray.getJSONObject(0).getString("name");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return "niemanden";
+    }
+
 }

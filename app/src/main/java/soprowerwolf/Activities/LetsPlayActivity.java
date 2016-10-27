@@ -38,12 +38,11 @@ public class LetsPlayActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         }.start();
-
     }
 
     //TODO: zum testen; später entfernen
     public void letsPlay(View view){
-        audio.stop();
-        timer.onFinish();
+        //audio.stop();
+        //timer.onFinish();
     }
 }

@@ -31,7 +31,7 @@ public class HexeActivity extends AppCompatActivity {
     private Runnable timerRunnable = new Runnable() {
         @Override
         public void run() {
-            new getCurrentPhase().execute();
+            new getCurrentPhase().execute("");
             timerHandler.postDelayed(this, 3000);
         }
     };
@@ -39,10 +39,11 @@ public class HexeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        globalVariables.setCurrentPhase("Hexe");
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); // screen stays on
 
         if (globalVariables.isSpielleiter()) {
-            audio.playHexeW(HexeActivity.this);
+            audio.playHexeW();
         }
 
         //check, if own Role equals Phase -> yes: Activity is shown; no: black screen is shown (activity_wait)
@@ -83,8 +84,7 @@ public class HexeActivity extends AppCompatActivity {
                         new HexeDB().execute("kill", csp);
                     }
 
-                    new setNextPhase().execute("");
-                    //audio.playHexeS(HexeActivity.this);
+                    new setNextPhase().execute("audio");
                 }
             });
 

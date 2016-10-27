@@ -39,6 +39,5 @@ public class AmorDB extends AsyncTask<String, String, String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-
     }
 }

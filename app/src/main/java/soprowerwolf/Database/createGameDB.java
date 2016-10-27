@@ -1,6 +1,5 @@
 package soprowerwolf.Database;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 
@@ -13,7 +12,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import soprowerwolf.Activities.GameSetupActivity;
 import soprowerwolf.Activities.QRCodeActivity;
 import soprowerwolf.Classes.GlobalVariables;
 import soprowerwolf.Classes.JSONParser;
@@ -26,6 +24,7 @@ public class createGameDB extends AsyncTask<String, String, String> {
     private JSONParser jsonParser = new JSONParser();
     private GlobalVariables globalVariables = GlobalVariables.getInstance();
     private static final String url_create_game = "http://www-e.uni-magdeburg.de/jkloss/create_new_game.php";
+    NextPhaseDB nextPhaseDB = new NextPhaseDB();
 
     @Override
     protected String doInBackground(String... params) {
@@ -70,11 +69,10 @@ public class createGameDB extends AsyncTask<String, String, String> {
                 phases[j] = globalVariables.getPhases()[i];
                 j++;
 
-                /*
                 if (globalVariables.getPhases()[i].equals("Amor")) {
                     phases[j] = "Lover";
                     j++;
-                }*/
+                }
             }
 
         }
@@ -84,10 +82,11 @@ public class createGameDB extends AsyncTask<String, String, String> {
         while(!phases[i+1].equals("Tag"))
         {
             paramsPhases.add(new BasicNameValuePair("phase", phases[i]));
-            paramsPhases.add(new BasicNameValuePair("nextPhase", phases[i + 1]));
+            paramsPhases.add(new BasicNameValuePair("nextPhase", phases[i+1]));
             paramsPhases.add(new BasicNameValuePair("gameID", gameID));
             jsonParser.makeHttpRequest(url_create_game, "POST", paramsPhases);
             paramsPhases.clear();
+
             i++;
         }
 
@@ -97,15 +96,20 @@ public class createGameDB extends AsyncTask<String, String, String> {
         paramsPhases.add(new BasicNameValuePair("gameID", gameID));
         jsonParser.makeHttpRequest(url_create_game, "POST", paramsPhases);
 
+        paramsPhases.clear();
+        paramsPhases.add(new BasicNameValuePair("phase", "Audio"));
+        paramsPhases.add(new BasicNameValuePair("nextPhase", "Audio"));
+        paramsPhases.add(new BasicNameValuePair("gameID", gameID));
+        jsonParser.makeHttpRequest(url_create_game, "POST", paramsPhases);
+
         return null;
     }
 
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        Activity context = globalVariables.getCurrentContext();
 
-        Intent intent = new Intent(context, QRCodeActivity.class);
-        context.startActivity(intent);
+        Intent intent = new Intent(globalVariables.getCurrentContext(), QRCodeActivity.class);
+        globalVariables.getCurrentContext().startActivity(intent);
     }
 }

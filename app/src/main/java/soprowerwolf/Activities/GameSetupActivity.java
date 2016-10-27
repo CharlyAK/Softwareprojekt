@@ -31,7 +31,6 @@ public class GameSetupActivity extends AppCompatActivity {
 
     GlobalVariables globalVariables = GlobalVariables.getInstance();
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -240,7 +239,6 @@ public class GameSetupActivity extends AppCompatActivity {
 
                 globalVariables.setNumPlayers(((NumberPicker) findViewById(R.id.numberPicker)).getValue());
                 globalVariables.setCards(cardsShuffled);
-                //cardsShuffled[0] = "Werwolf";
                 globalVariables.setOwnRole(cardsShuffled[0]);
                 globalVariables.setSpielleiter(true);
 

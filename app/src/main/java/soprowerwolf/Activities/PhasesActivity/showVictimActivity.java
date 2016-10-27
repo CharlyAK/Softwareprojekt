@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import soprowerwolf.Classes.Audio;
 import soprowerwolf.Classes.GlobalVariables;
 import soprowerwolf.Database.getCurrentPhase;
 import soprowerwolf.Database.killDB;
@@ -18,6 +19,7 @@ import soprowerwolf.R;
 public class showVictimActivity extends AppCompatActivity {
 
     showVictimDB showVictimDB = new showVictimDB();
+    Audio audio = new Audio();
     GlobalVariables globalVariables = GlobalVariables.getInstance();
 
     TextView victim, v1;
@@ -45,6 +47,9 @@ public class showVictimActivity extends AppCompatActivity {
         tag = MediaPlayer.create(showVictimActivity.this, R.raw.tag_wakeup);
 
         if (globalVariables.getCurrentPhase().equals("OpferNacht")) {
+
+            if(globalVariables.isSpielleiter()){audio.playTagW();}
+
             if (!globalVariables.getJaegerDies()) {
                 final String[] victims = showVictimDB.getVictims();
                 victim.setText("Von uns gegangen sind...");
@@ -55,9 +60,6 @@ public class showVictimActivity extends AppCompatActivity {
                     }
                 }
 
-                if (globalVariables.isSpielleiter()) {
-                    tag.start();
-                }
 
                 timer = new CountDownTimer(tag.getDuration() + 10000, 1000) {
                     @Override

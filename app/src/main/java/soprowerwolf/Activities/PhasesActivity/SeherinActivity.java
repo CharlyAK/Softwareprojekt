@@ -25,7 +25,7 @@ public class SeherinActivity extends AppCompatActivity {
     private Runnable timerRunnable = new Runnable() {
         @Override
         public void run() {
-            new getCurrentPhase().execute();
+            new getCurrentPhase().execute("");
             timerHandler.postDelayed(this, 3000);
         }
     };
@@ -33,10 +33,11 @@ public class SeherinActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        globalVariables.setCurrentPhase("Seherin");
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); // screen stays on
 
         if (globalVariables.isSpielleiter()) {
-            audio.playSeherinW(SeherinActivity.this);
+            audio.playSeherinW();
         }
 
         //check, if own Role equals Phase -> yes: Activity is shown; no: black screen is shown (activity_wait)

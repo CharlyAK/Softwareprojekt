@@ -13,23 +13,12 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-
-import soprowerwolf.Classes.Audio;
-import org.json.JSONException;
 
 import soprowerwolf.Classes.databaseCon;
 import soprowerwolf.Database.getCurrentPhase;
-import soprowerwolf.Database.setNextPhase;
 import soprowerwolf.R;
 
-import soprowerwolf.Activities.PhasesActivity.AmorActivity;
-import soprowerwolf.Activities.PhasesActivity.DiebActivity;
-import soprowerwolf.Activities.PhasesActivity.HexeActivity;
 import soprowerwolf.Activities.PhasesActivity.SeherinActivity;
-import soprowerwolf.Activities.PhasesActivity.TagActivity;
-import soprowerwolf.Activities.PhasesActivity.WerwolfActivity;
 import soprowerwolf.Classes.GlobalVariables;
 
 
@@ -37,7 +26,6 @@ public class GameActivity extends AppCompatActivity {
 
     GlobalVariables globalVariables = GlobalVariables.getInstance();
     databaseCon Con = new databaseCon();
-    Audio audio = new Audio();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

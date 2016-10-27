@@ -42,11 +42,10 @@ public class WerwolfActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); // screen stays on
 
         if (globalVariables.isSpielleiter()) {
-            audio.playWolfW(WerwolfActivity.this);
+            audio.playWolfW();
         }
 
         try {
@@ -145,7 +144,7 @@ public class WerwolfActivity extends AppCompatActivity {
         //setting the victim in the database
         Con.setVictims(victimAndVotes[0]);
 
-        new setNextPhase().execute("");
+        new setNextPhase().execute("audio");
     }
 
 

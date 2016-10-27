@@ -4,18 +4,13 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import soprowerwolf.Activities.GameActivity;
 import soprowerwolf.Activities.LoginRegistrationActivity;
 import soprowerwolf.Activities.PhasesActivity.DiebActivity;
-import soprowerwolf.Activities.PhasesActivity.HexeActivity;
 import soprowerwolf.Database.HexeDB;
 import soprowerwolf.Database.JaegerDB;
 import soprowerwolf.Database.setNextPhase;
-import soprowerwolf.R;
 
 /**
  * Created by Alex on 29.08.2016.
@@ -43,17 +38,17 @@ public class popup {
 
                     public void onClick(DialogInterface dialog, int which) {
                         if ((globalVariables.getCurrentPhase().equals("Seherin") && globalVariables.getCurrentlySelectedPlayer() != null)) {
-                            //audio.playSeherinS(context);
-                            new setNextPhase().execute("");
+                            new setNextPhase().execute("audio");
                         }
                         ////this is called after the info screen for the hexe if heal and poison are unavailable
                         if (globalVariables.getCurrentPhase().equals("Hexe") && Con.Hexe("ableToSave").equals("1") && Con.Hexe("ableToPoison").equals("1")) {
-                            //audio.playHexeS(context);
-                            new setNextPhase().execute("");
+                            new setNextPhase().execute("audio");
                         }
                         if (globalVariables.getCurrentPhase().equals("Amor") && titel != "Info") {
-                            //audio.playAmorS(context);
-                            new setNextPhase().execute("");
+                            new setNextPhase().execute("audio");
+                        }
+                        if (globalVariables.getCurrentPhase().equals("Dieb") && titel != "Info") {
+                            new setNextPhase().execute("audio");
                         }
                         //this is called after the info screen for the hexe if the heal is available
                         else if (globalVariables.getCurrentPhase().equals("Hexe") && Con.Hexe("ableToSave").equals("0")) {
@@ -64,7 +59,8 @@ public class popup {
                         else if (globalVariables.getCurrentPhase().equals("Hexe") && Con.Hexe("ableToSave").equals("1") && Con.Hexe("ableToPoison").equals("0")) {
                             popup popup = new popup(context);
                             popup.PopUpChoice("Möchtest du deinen Gifttrank verwenden?", "Hexe", "HexeP", "poison").show();
-                        } else if (globalVariables.getCurrentPhase().equals("Jaeger") && globalVariables.getVictimJaeger()) {
+                        }
+                        else if (globalVariables.getCurrentPhase().equals("Jaeger") && globalVariables.getVictimJaeger()) {
                             new JaegerDB().execute(String.valueOf(globalVariables.getCurrentlySelectedPlayer().getId()));
                         }
                     }
@@ -134,8 +130,7 @@ public class popup {
                     }
                     //if no heal selected and poison is unavailable
                     else {
-                        //audio.playHexeS(context);
-                        new setNextPhase().execute("");
+                        new setNextPhase().execute("audio");
                     }
                 }
                 break;
@@ -143,8 +138,7 @@ public class popup {
             case "HexeP":
                 //if no poison is used the next phase starts
                 if (!choice) {
-                    //audio.playHexeS(context);
-                    new setNextPhase().execute("");
+                    new setNextPhase().execute("audio");
                 }
                 break;
         }

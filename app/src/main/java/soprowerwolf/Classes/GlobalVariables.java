@@ -20,6 +20,7 @@ public class GlobalVariables extends Application {
     private Button currentlySelectedPlayer;
     private String[] Phases;
     private String currentPhase = "Game";
+    private String nextPhase;
     private Activity currentContext;
     private String winner;
     private boolean spielleiter;
@@ -57,7 +58,6 @@ public class GlobalVariables extends Application {
     public void setOwnPlayerID(int ownPlayerID) {
         this.ownPlayerID = ownPlayerID;
     }
-
     public int getOwnPlayerID() {
         return this.ownPlayerID;
     }
@@ -65,7 +65,6 @@ public class GlobalVariables extends Application {
     public void setOwnRole(String ownRole) {
         this.ownRole = ownRole;
     }
-
     public String getOwnRole() {
         return this.ownRole;
     }
@@ -73,7 +72,6 @@ public class GlobalVariables extends Application {
     public void setGameID(int gameID) {
         this.gameID = gameID;
     }
-
     public int getGameID() {
         return this.gameID;
     }
@@ -81,7 +79,6 @@ public class GlobalVariables extends Application {
     public void setCards(String[] cards) {
         this.cards = cards;
     }
-
     public String[] getCards() {
         return this.cards;
     }
@@ -89,7 +86,6 @@ public class GlobalVariables extends Application {
     public void setNumPlayers(int numPlayers) {
         this.numPlayers = numPlayers;
     }
-
     public int getNumPlayers() {
         return this.numPlayers;
     }
@@ -97,7 +93,6 @@ public class GlobalVariables extends Application {
     public void setCurrentlySelectedPlayer(Button currentlySelectedPlayer) {
         this.currentlySelectedPlayer = currentlySelectedPlayer;
     }
-
     public Button getCurrentlySelectedPlayer() {
         return this.currentlySelectedPlayer;
     }
@@ -105,7 +100,6 @@ public class GlobalVariables extends Application {
     public void setPhases(String[] Phases) {
         this.Phases = Phases;
     }
-
     public String[] getPhases() {
         return this.Phases;
     }
@@ -113,15 +107,20 @@ public class GlobalVariables extends Application {
     public void setCurrentPhase(String currentPhase) {
         this.currentPhase = currentPhase;
     }
-
     public String getCurrentPhase() {
         return this.currentPhase;
+    }
+
+    public void setNextPhase(String nextPhase) {
+        this.nextPhase = nextPhase;
+    }
+    public String getNextPhase() {
+        return this.nextPhase;
     }
 
     public void setCurrentContext(Activity currentContext) {
         this.currentContext = currentContext;
     }
-
     public Activity getCurrentContext() {
         return this.currentContext;
     }
@@ -129,15 +128,13 @@ public class GlobalVariables extends Application {
     public void setWinner(String winner) {
         this.winner = winner;
     }
-
     public String getWinner() {
         return this.winner;
     }
 
     public boolean isSpielleiter() {
-        return spielleiter;
+        return this.spielleiter;
     }
-
     public void setSpielleiter(boolean spielleiter) {
         this.spielleiter = spielleiter;
     }

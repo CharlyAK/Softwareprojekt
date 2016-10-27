@@ -24,7 +24,7 @@ public class JaegerActivity extends AppCompatActivity {
     private Runnable timerRunnable = new Runnable() {
         @Override
         public void run() {
-            new getCurrentPhase().execute();
+            new getCurrentPhase().execute("");
             timerHandler.postDelayed(this, 2000);
         }
     };
@@ -35,6 +35,7 @@ public class JaegerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_jaeger);
 
         globalVariables.setCurrentContext(this);
+        globalVariables.setCurrentPhase("Jaeger");
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); // screen stays on
 
         //View settings: Fullscreen

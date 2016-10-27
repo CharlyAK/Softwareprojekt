@@ -37,6 +37,8 @@ public class AmorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); // screen stays on
+        globalVariables.setCurrentContext(this);
+        globalVariables.setCurrentPhase("Amor");
 
         if (globalVariables.isSpielleiter()) {
             audio.playAmorW(AmorActivity.this);
@@ -45,7 +47,7 @@ public class AmorActivity extends AppCompatActivity {
         //check, if own Role equals Phase -> yes: Activity is shown; no: black screen is shown (activity_wait)
         if (globalVariables.getOwnRole().equals("Amor")) {
             setContentView(R.layout.activity_amor);
-            globalVariables.setCurrentContext(this);
+
 
             //View settings: Fullscreen
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,

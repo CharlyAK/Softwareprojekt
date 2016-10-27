@@ -26,6 +26,7 @@ if(isset($_POST["gameID"]) && !empty($_POST["gameID"]) && isset($_POST["currentP
 		mysql_query("UPDATE _PHASES SET currentPhase = 0 WHERE gameID = '$gameID' AND phases = '$currentPhase'");
 		mysql_query("UPDATE _PHASES SET nextPhase = '$currentPhase' WHERE gameID = '$gameID' && phases = '$nextPhase'");
 	}
+
 	else
 	{
 		mysql_query("UPDATE _PHASES SET currentPhase = 1 WHERE gameID = '$gameID' AND phases = '$nextPhase'");
@@ -45,6 +46,7 @@ if(isset($_POST["gameID"]) && !empty($_POST["gameID"]) && isset($_POST["currentP
         echo json_encode($response); 
     }
 }
+
 else if (isset($_POST["gameID"]) && !empty($_POST["gameID"]) && isset($_POST["currentPhase"]) && !empty($_POST["currentPhase"])) {
 
     $gameID = $_POST["gameID"];

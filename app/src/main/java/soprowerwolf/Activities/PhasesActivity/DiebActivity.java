@@ -1,6 +1,5 @@
 package soprowerwolf.Activities.PhasesActivity;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -8,14 +7,12 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 
-import soprowerwolf.Activities.GameActivity;
 import soprowerwolf.Classes.Audio;
 import soprowerwolf.Classes.GlobalVariables;
 import soprowerwolf.Classes.databaseCon;
 import soprowerwolf.Classes.popup;
 import soprowerwolf.Database.DiebDB;
 import soprowerwolf.Database.getCurrentPhase;
-import soprowerwolf.Database.setNextPhase;
 import soprowerwolf.R;
 
 public class DiebActivity extends AppCompatActivity {
@@ -29,7 +26,7 @@ public class DiebActivity extends AppCompatActivity {
     private Runnable timerRunnable = new Runnable() {
         @Override
         public void run() {
-            new getCurrentPhase().execute();
+            new getCurrentPhase().execute("");
             timerHandler.postDelayed(this, 3000);
         }
     };
@@ -38,6 +35,8 @@ public class DiebActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); // screen stays on
+        globalVariables.setCurrentContext(this);
+        globalVariables.setCurrentPhase("Dieb");
 
         if (globalVariables.isSpielleiter()) {
             audio.playDiebW(DiebActivity.this);
@@ -46,7 +45,6 @@ public class DiebActivity extends AppCompatActivity {
         //check, if own Role equals Phase -> yes: Activity is shown; no: black screen is shown (activity_wait)
         if (globalVariables.getOwnRole().equals("Dieb")) {
             setContentView(R.layout.activity_dieb);
-            globalVariables.setCurrentContext(this);
 
             //View settings: Fullscreen
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -266,4 +264,5 @@ public class DiebActivity extends AppCompatActivity {
     public void onBackPressed() {
 
     }
+
 }
