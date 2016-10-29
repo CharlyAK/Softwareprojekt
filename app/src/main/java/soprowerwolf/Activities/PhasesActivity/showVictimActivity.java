@@ -22,7 +22,7 @@ public class showVictimActivity extends AppCompatActivity {
     Audio audio = new Audio();
     GlobalVariables globalVariables = GlobalVariables.getInstance();
 
-    TextView victim, v1;
+    TextView InfoVictim, v1, v2;
     MediaPlayer tag;
     CountDownTimer timer;
 
@@ -41,125 +41,86 @@ public class showVictimActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_victim);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); // screen stays on
 
-        victim = (TextView) findViewById(R.id.victim);
+        InfoVictim = (TextView) findViewById(R.id.victim);
         v1 = (TextView) findViewById(R.id.v1);
+        v2 = (TextView) findViewById(R.id.v2);
 
         tag = MediaPlayer.create(showVictimActivity.this, R.raw.tag_wakeup);
 
-        if (globalVariables.getCurrentPhase().equals("OpferNacht")) {
+        if (globalVariables.isSpielleiter() && globalVariables.getCurrentPhase().equals("OpferNacht") && !globalVariables.getJaegerDies()) {
+            audio.playTagW();
+        }
 
-            if(globalVariables.isSpielleiter()){audio.playTagW();}
+        String[] victims = showVictimDB.getVictims();
 
-            if (!globalVariables.getJaegerDies()) {
-                final String[] victims = showVictimDB.getVictims();
-                victim.setText("Von uns gegangen sind...");
+        /* victims[0] = victimDor; victim[1] = [victimDor = good] or [victimDor = bad]
+         * victims[2] = victimWer; victim[3] = [victimWer = good] or [victimWer = bad]
+         * victims[4] = victimHex; victim[5] = [victimHex = good] or [victimHex = bad]
+         * victims[6] = Lover; victim[7] = [Lover = good] or [Lover = bad]
+         * victims[8] = victimJaeg; victim[9] = [victimJaeg = good] or [victimJaeg = bad]
+         * victims[10] = LoverVictimJaeg; victim[11] = [LoverVictimJaeg = good] or [LoverVictimJaeg = bad]
+         * victim[12] = Lover of victim[6] --> easier for showing (see below)
+         * victim[13] = number of victims --> for a better Text
+         */
+        if (victims[13].equals("0"))
+            InfoVictim.setText("Diese Nacht ist niemand gestorben!");
 
-                for (String victim1 : victims) {
-                    if (!victim1.equals("0")) {
-                        v1.setText(v1.getText().toString() + "\n" + victim1);
-                    }
+        else if (victims[13].equals("1")) {
+            InfoVictim.setText("Das Opfer der Nacht ist... ");
+            for (int i = 0; i < 6; i = i + 2) {
+                if (!victims[i].equals("0")) {
+                    v1.setText(v1.getText().toString() + "\n" + victims[i] + " und war " + victims[i + 1]);
+                }
+            }
+
+            if (!victims[8].equals("0")) {
+                v2.setText(victims[8] + " wurde vom Jäger erschossen und war " + victims[9]);
+                if (!victims[10].equals("0")) {
+                    v2.setText(v2.getText().toString() + "\n" + victims[10] + " ist aus Liebe zu " + victims[8] + " gestorben und war " + victims[11]);
                 }
 
-
-                timer = new CountDownTimer(tag.getDuration() + 10000, 1000) {
-                    @Override
-                    public void onTick(long millisUntilFinished) {
-
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        if (globalVariables.isSpielleiter()) {
-                            new killDB().execute("");
-                            new setNextPhase().execute("");
-                        } else
-                            timerHandler.postDelayed(timerRunnable, 3000);
-                    }
-                }.start();
-            } else {
-                final String[] victims = showVictimDB.getVictims();
-                v1.setText("Vom Jäger erschossen: ");
-
-                v1.setText(v1.getText().toString() + "\n" + victims[3]);
-                if(!victims[4].equals("0"))
-                {
-                    v1.setText(v1.getText().toString() + "\n" + victims[4]);
-                }
-
-
-                timer = new CountDownTimer(10000, 1000) {
-                    @Override
-                    public void onTick(long millisUntilFinished) {
-
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        globalVariables.setJaegerDies(false);
-                        if (globalVariables.isSpielleiter()) {
-                            new killDB().execute("");
-                            new setNextPhase().execute("");
-                        } else
-                            timerHandler.postDelayed(timerRunnable, 3000);
-                    }
-                }.start();
+                globalVariables.setJaegerDies(false);
             }
         } else {
-            if (!globalVariables.getJaegerDies()) {
-                final String[] victims = showVictimDB.getVictims();
-                victim.setText("Von uns gegangen sind...");
+            InfoVictim.setText("Die Opfer der Nacht sind... ");
+            for (int i = 0; i < 6; i = i + 2) {
+                if (!victims[i].equals("0")) {
+                    v1.setText(v1.getText().toString() + "\n" + victims[i] + " und war " + victims[i + 1]);
+                }
+            }
 
-                for (String victim1 : victims) {
-                    if (!victim1.equals("0")) {
-                        v1.setText(v1.getText().toString() + "\n" + victim1);
-                    }
+            if (!victims[6].equals("0")) {
+                v1.setText(v1.getText().toString() + "\n" + victims[6] + " ist aus Liebe zu " + victims[12] + " gestorben und war " + victims[7]);
+            }
+
+            if (!victims[8].equals("0")) {
+                v2.setText(victims[8] + " wurde vom Jäger erschossen und war " + victims[9]);
+                if (!victims[10].equals("0")) {
+                    v2.setText(v2.getText().toString() + "\n" + victims[10] + " ist aus Liebe zu " + victims[8] + " gestorben und war " + victims[11]);
                 }
 
-                timer = new CountDownTimer(tag.getDuration() + 10000, 1000) {
-                    @Override
-                    public void onTick(long millisUntilFinished) {
-
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        if (globalVariables.isSpielleiter()) {
-                            new killDB().execute("");
-                            new setNextPhase().execute("");
-                        } else
-                            timerHandler.postDelayed(timerRunnable, 3000);
-                    }
-                }.start();
-            } else {
-                final String[] victims = showVictimDB.getVictims();
-                v1.setText("Vom Jäger erschossen: ");
-
-                v1.setText(v1.getText().toString() + "\n" + victims[3]);
-                if(!victims[4].equals("0"))
-                {
-                    v1.setText(v1.getText().toString() + "\n" + victims[4]);
-                }
-
-                timer = new CountDownTimer(10000, 1000) {
-                    @Override
-                    public void onTick(long millisUntilFinished) {
-
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        globalVariables.setJaegerDies(false);
-                        if (globalVariables.isSpielleiter()) {
-                            new killDB().execute("");
-                            new setNextPhase().execute("");
-                        } else
-                            timerHandler.postDelayed(timerRunnable, 3000);
-                    }
-                }.start();
+                globalVariables.setJaegerDies(false);
             }
         }
 
+        timer = new CountDownTimer(tag.getDuration() + 1000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
 
+            }
+
+            @Override
+            public void onFinish() {
+                if (globalVariables.isSpielleiter() && globalVariables.getJaegerDies()) {
+                    // if "Jaeger" dies -> don't kill, call "JaegerActivity"
+                    new setNextPhase().execute("");
+                } else if (globalVariables.isSpielleiter() && !globalVariables.getJaegerDies()) {
+                    new killDB().execute("");
+                    new setNextPhase().execute("");
+                } else
+                    timerHandler.postDelayed(timerRunnable, 3000);
+            }
+        }.start();
     }
 
     public void stop() {
