@@ -68,7 +68,7 @@ public class SeherinActivity extends AppCompatActivity {
 
     public void getIdentity() {
         databaseCon Con = new databaseCon();
-        String GoB = Con.Seherin();
+        String GoB = Con.Seherin(globalVariables.getCurrentlySelectedPlayer().getId());
 
         if (globalVariables.getCurrentlySelectedPlayer() != null) {
             globalVariables.getPopUpSeherinIdentity().setMessage(globalVariables.getCurrentlySelectedPlayer().getText().toString() + " ist " + GoB);

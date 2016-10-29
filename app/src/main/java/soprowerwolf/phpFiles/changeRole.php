@@ -14,6 +14,7 @@ mysql_select_db("jkloss_db")
     or die("Auswahl der Datenbank fehlgeschlagen");
 
 
+
 // array for JSON response
 $response = array();
 
@@ -45,7 +46,7 @@ $response = array();
 	if (!empty($nothingChoosen) && isset ($nothingChoosen) && $nothingChoosen != 'Werwolf')
 	{
 	    //if Amor isn't choosen -> delete Lover-Phase, too
-	    if(&nothingChoosen == 'Amor' || &notChoosen == 'Amor')
+	    if($nothingChoosen == 'Amor' || $notChoosen == 'Amor')
 	    {
 	        mysql_query("UPDATE _PHASES p1,
             						(SELECT(sp.nextPhase) AS newNextPhase FROM _PHASES sp WHERE gameID = '$gameID' AND phases = 'Lover') AS p2
@@ -81,7 +82,7 @@ $response = array();
 	else
 	{
 	    //if Amor isn't choosen -> delete Lover-Phase, too
-        if(&nothingChoosen == 'Amor' || &notChoosen == 'Amor')
+        if($nothingChoosen == 'Amor' || $notChoosen == 'Amor')
         {
             mysql_query("UPDATE _PHASES p1,
                 (SELECT(sp.nextPhase) AS newNextPhase FROM _PHASES sp WHERE gameID = '$gameID' AND phases = 'Lover') AS p2

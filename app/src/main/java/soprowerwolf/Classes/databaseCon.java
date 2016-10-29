@@ -376,10 +376,9 @@ public class databaseCon {
     }
 
 
-    public String Seherin() {
+    public String Seherin(int playerID) {
         String GoodOrBad = null;
 
-        int playerID = globalVariables.getCurrentlySelectedPlayer().getId();
         int gameID = globalVariables.getGameID();
 
         List<NameValuePair> params = new ArrayList<NameValuePair>();

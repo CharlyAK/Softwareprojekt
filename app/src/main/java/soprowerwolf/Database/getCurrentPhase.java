@@ -69,74 +69,65 @@ public class getCurrentPhase extends AsyncTask<String, String, String> {
             e.printStackTrace();
         }
 
+
         // if current Phase from database doesn't equals current Phase from global variables -> Phase has been changed
         // ==> call next Phase
         if (!currentPhase.equals(globalVariables.getCurrentPhase())) {
+            nextPhaseDB.setNextPhase();
             switch (currentPhase) {
                 case "Dieb":
                     globalVariables.setCurrentPhase("Dieb");
-                    nextPhaseDB.setNextPhase();
                     Intent dieb = new Intent(context, DiebActivity.class);
                     context.startActivity(dieb);
                     break;
                 case "Amor":
                     globalVariables.setCurrentPhase("Amor");
-                    nextPhaseDB.setNextPhase();
                     Intent amor = new Intent(context, AmorActivity.class);
                     context.startActivity(amor);
                     break;
                 case "Lover":
                     globalVariables.setCurrentPhase("Lover");
-                    nextPhaseDB.setNextPhase();
                     Intent lover = new Intent(context, LoverActivity.class);
                     context.startActivity(lover);
                     break;
                 case "Werwolf":
                     globalVariables.setCurrentPhase("Werwolf");
-                    nextPhaseDB.setNextPhase();
                     Intent werwolf = new Intent(context, WerwolfActivity.class);
                     context.startActivity(werwolf);
                     break;
                 case "Seherin":
                     globalVariables.setCurrentPhase("Seherin");
-                    nextPhaseDB.setNextPhase();
                     Intent seherin = new Intent(context, SeherinActivity.class);
                     context.startActivity(seherin);
                     break;
                 case "Hexe":
                     globalVariables.setCurrentPhase("Hexe");
-                    nextPhaseDB.setNextPhase();
                     Intent hexe = new Intent(context, HexeActivity.class);
                     context.startActivity(hexe);
                     break;
                 case "OpferNacht":
                     globalVariables.setCurrentPhase("OpferNacht");
-                    nextPhaseDB.setNextPhase();
                     Intent victimsNight = new Intent(context, showVictimActivity.class);
                     context.startActivity(victimsNight);
                     break;
                 case "Tag":
                     globalVariables.setCurrentPhase("Tag");
-                    nextPhaseDB.setNextPhase();
                     Intent tag = new Intent(context, TagActivity.class);
                     context.startActivity(tag);
                     break;
                 case "OpferTag":
                     globalVariables.setCurrentPhase("OpferTag");
-                    nextPhaseDB.setNextPhase();
                     Intent victimsDay = new Intent(context, showVictimActivity.class);
                     context.startActivity(victimsDay);
                     break;
                 case "Jaeger":
                     globalVariables.setCurrentPhase("Jaeger");
-                    nextPhaseDB.setNextPhase();
                     Intent jaeger = new Intent(context, JaegerActivity.class);
                     context.startActivity(jaeger);
                     break;
                 case "Spielende":
                     gameOverDB.gameOver();
                     globalVariables.setCurrentPhase("Spielende");
-                    nextPhaseDB.setNextPhase();
                     Intent gameOver = new Intent(context, GameOverActivity.class);
                     context.startActivity(gameOver);
                     break;

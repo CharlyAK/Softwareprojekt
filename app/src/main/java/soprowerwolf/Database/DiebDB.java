@@ -21,8 +21,7 @@ public class DiebDB extends AsyncTask<String, String, String> {
     private JSONParser jsonParser = new JSONParser();
     private GlobalVariables globalVariables = GlobalVariables.getInstance();
     private static final String url_change_role = "http://www-e.uni-magdeburg.de/jkloss/changeRole.php";
-    Audio audio = new Audio();
-    DiebActivity diebActivity;
+    NextPhaseDB nextPhaseDB = new NextPhaseDB();
 
     @Override
     protected String doInBackground(String... params) {
@@ -46,6 +45,7 @@ public class DiebDB extends AsyncTask<String, String, String> {
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
 
+        nextPhaseDB.setNextPhase();
         new setNextPhase().execute("audio");
     }
 }

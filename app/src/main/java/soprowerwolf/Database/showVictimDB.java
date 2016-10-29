@@ -11,6 +11,7 @@ import java.util.List;
 
 import soprowerwolf.Classes.GlobalVariables;
 import soprowerwolf.Classes.JSONParser;
+import soprowerwolf.Classes.databaseCon;
 
 /**
  * Created by Gina on 25.09.2016.
@@ -32,7 +33,7 @@ public class showVictimDB {
         List<NameValuePair> paramsList = new ArrayList<NameValuePair>();
         paramsList.add(new BasicNameValuePair("gameID", String.valueOf(globalVariables.getGameID())));
 
-        int[] victimsID = new int[5];
+        int[] victimsID = new int[7];
 
         JSONObject V = jsonParser.makeHttpRequest(url_get_game_details, "GET", paramsList);
         try {
@@ -40,21 +41,22 @@ public class showVictimDB {
             victimsID[0] = JV.getJSONObject(0).getInt("victimDor");
             victimsID[1] = JV.getJSONObject(0).getInt("victimWer");
             victimsID[2] = JV.getJSONObject(0).getInt("victimHex");
-            victimsID[3] = JV.getJSONObject(0).getInt("victimJaeger");
+            victimsID[4] = JV.getJSONObject(0).getInt("victimJaeger");
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         // check if victimDor has a lover and/ or is "Jäger"
         paramsList.add(new BasicNameValuePair("playerID", String.valueOf(victimsID[0])));
-        JSONObject V1 = jsonParser.makeHttpRequest(url_get_player_game_details, "GET", paramsList);
+        JSONObject loverVicDor = jsonParser.makeHttpRequest(url_get_player_game_details, "GET", paramsList);
         try {
-            JSONArray JV1 = V1.getJSONArray("player_game");
-            if (JV1.getJSONObject(0).getInt("lover") != 0) {
-                victimsID[4] = JV1.getJSONObject(0).getInt("lover");
+            JSONArray JLoverVicDor = loverVicDor.getJSONArray("player_game");
+            if (JLoverVicDor.getJSONObject(0).getInt("lover") != 0) {
+                victimsID[3] = JLoverVicDor.getJSONObject(0).getInt("lover");
+                victimsID[6] = victimsID[0];
             }
 
-            if (JV1.getJSONObject(0).getString("role").equals("Jaeger")) {
+            if (JLoverVicDor.getJSONObject(0).getString("role").equals("Jaeger")) {
                 globalVariables.setJaegerDies(true);
             }
         } catch (JSONException e) {
@@ -65,14 +67,15 @@ public class showVictimDB {
         paramsList.clear();
         paramsList.add(new BasicNameValuePair("gameID", String.valueOf(globalVariables.getGameID())));
         paramsList.add(new BasicNameValuePair("playerID", String.valueOf(victimsID[1])));
-        JSONObject V2 = jsonParser.makeHttpRequest(url_get_player_game_details, "GET", paramsList);
+        JSONObject loverVicWer = jsonParser.makeHttpRequest(url_get_player_game_details, "GET", paramsList);
         try {
-            JSONArray JV2 = V2.getJSONArray("player_game");
-            if (JV2.getJSONObject(0).getInt("lover") != 0) {
-                victimsID[4] = JV2.getJSONObject(0).getInt("lover");
+            JSONArray JLoverVicWer = loverVicWer.getJSONArray("player_game");
+            if (JLoverVicWer.getJSONObject(0).getInt("lover") != 0) {
+                victimsID[3] = JLoverVicWer.getJSONObject(0).getInt("lover");
+                victimsID[6] = victimsID[1];
             }
 
-            if (JV2.getJSONObject(0).getString("role").equals("Jaeger")) {
+            if (JLoverVicWer.getJSONObject(0).getString("role").equals("Jaeger")) {
                 globalVariables.setJaegerDies(true);
             }
         } catch (JSONException e) {
@@ -83,14 +86,15 @@ public class showVictimDB {
         paramsList.clear();
         paramsList.add(new BasicNameValuePair("gameID", String.valueOf(globalVariables.getGameID())));
         paramsList.add(new BasicNameValuePair("playerID", String.valueOf(victimsID[2])));
-        JSONObject V3 = jsonParser.makeHttpRequest(url_get_player_game_details, "GET", paramsList);
+        JSONObject loverVicHex = jsonParser.makeHttpRequest(url_get_player_game_details, "GET", paramsList);
         try {
-            JSONArray JV3 = V3.getJSONArray("player_game");
-            if (JV3.getJSONObject(0).getInt("lover") != 0) {
-                victimsID[4] = JV3.getJSONObject(0).getInt("lover");
+            JSONArray JLoverVicHex = loverVicHex.getJSONArray("player_game");
+            if (JLoverVicHex.getJSONObject(0).getInt("lover") != 0) {
+                victimsID[3] = JLoverVicHex.getJSONObject(0).getInt("lover");
+                victimsID[6] = victimsID[2];
             }
 
-            if (JV3.getJSONObject(0).getString("role").equals("Jaeger")) {
+            if (JLoverVicHex.getJSONObject(0).getString("role").equals("Jaeger")) {
                 globalVariables.setJaegerDies(true);
             }
         } catch (JSONException e) {
@@ -100,25 +104,26 @@ public class showVictimDB {
         // check if victimJaeger has a lover
         paramsList.clear();
         paramsList.add(new BasicNameValuePair("gameID", String.valueOf(globalVariables.getGameID())));
-        paramsList.add(new BasicNameValuePair("playerID", String.valueOf(victimsID[3])));
-        JSONObject V4 = jsonParser.makeHttpRequest(url_get_player_game_details, "GET", paramsList);
+        paramsList.add(new BasicNameValuePair("playerID", String.valueOf(victimsID[4])));
+        JSONObject loverVicJaeg = jsonParser.makeHttpRequest(url_get_player_game_details, "GET", paramsList);
         try {
-            JSONArray JV4 = V4.getJSONArray("player_game");
-            if (JV4.getJSONObject(0).getInt("lover") != 0) {
-                victimsID[4] = JV4.getJSONObject(0).getInt("lover");
+            JSONArray JLoverVicJaeg = loverVicJaeg.getJSONArray("player_game");
+            if (JLoverVicJaeg.getJSONObject(0).getInt("lover") != 0) {
+                victimsID[5] = JLoverVicJaeg.getJSONObject(0).getInt("lover");
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        if (victimsID[4] != 0) {
+        //check, if lover was "Jäger"
+        if (victimsID[3] != 0) {
             paramsList.clear();
             paramsList.add(new BasicNameValuePair("gameID", String.valueOf(globalVariables.getGameID())));
             paramsList.add(new BasicNameValuePair("playerID", String.valueOf(victimsID[4])));
-            JSONObject V5 = jsonParser.makeHttpRequest(url_get_player_game_details, "GET", paramsList);
+            JSONObject checkLoverJaeg = jsonParser.makeHttpRequest(url_get_player_game_details, "GET", paramsList);
             try {
-                JSONArray JV5 = V5.getJSONArray("player_game");
-                if (JV5.getJSONObject(0).getString("role").equals("Jaeger")) {
+                JSONArray JCheckLoverJaeg = checkLoverJaeg.getJSONArray("player_game");
+                if (JCheckLoverJaeg.getJSONObject(0).getString("role").equals("Jaeger")) {
                     globalVariables.setJaegerDies(true);
                 }
             } catch (JSONException e) {
@@ -126,25 +131,34 @@ public class showVictimDB {
             }
         }
 
-        String[] victims = new String[5];
+        String[] victims = new String[14];
+        databaseCon Con = new databaseCon();
         int j = 0;
+        int counter = 0;
         for (int i = 0; i < victimsID.length; i++) {
             if (victimsID[i] != 0) {
+                if (i < 4) {
+                    counter++;
+                }
+
                 paramsList.clear();
                 paramsList.add(new BasicNameValuePair("playerID", String.valueOf(victimsID[i])));
-                JSONObject J = jsonParser.makeHttpRequest(url_get_player_details, "GET", paramsList);
+                JSONObject victimName = jsonParser.makeHttpRequest(url_get_player_details, "GET", paramsList);
                 try {
-                    JSONArray JVictimName = J.getJSONArray("player");
+                    JSONArray JVictimName = victimName.getJSONArray("player");
                     victims[j] = JVictimName.getJSONObject(0).getString("name");
-                    j++;
+                    victims[j + 1] = Con.Seherin(JVictimName.getJSONObject(0).getInt("playerID"));
+                    j = j + 2;
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             } else {
                 victims[j] = "0";
-                j++;
+                victims[j + 1] = "0";
+                j = j + 2;
             }
         }
+        victims[13] = String.valueOf(counter);
 
         return victims;
     }
