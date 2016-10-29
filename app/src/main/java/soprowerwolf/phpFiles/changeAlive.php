@@ -18,140 +18,56 @@ mysql_select_db("jkloss_db")
 $response = array();
 
 // check for required fields
-if (isset($_POST['gameID'])) {
+if (isset($_POST['gameID']) && !empty($_POST['gameID'])) {
 
     $gameID = $_POST['gameID'];
 
+	// get victimDor and change "alive" --> if there is a lover - change alive, too
+	mysql_query("UPDATE player_game p1,
+						(SELECT(sp.victimDor) AS victimDor FROM _GAME sp WHERE gameID = '$gameID') AS p2
+					SET p1.alive = 0 WHERE gameID = '$gameID' AND playerID = p2.victimDor");
 
-	// get the victim of the day
-	$victimDor = mysql_query("SELECT victimDor FROM player_game WHERE gameID = '$gameID'")
-	or die("Kein Opfer des Tages gefunden");
+	mysql_query("UPDATE player_game p1,
+						(SELECT(sp.victimDor) AS victimDor FROM _GAME sp WHERE gameID = '$gameID') AS p2
+					SET p1.alive = 0 WHERE gameID = '$gameID' AND lover = p2.victimDor");
 
-	// get the Lover of the Victim
-	$loverDor = mysql_query("SELECT lover FROM player_game WHERE player_ID = '$victimDor'") or die("Opfer hat keinen Lover");
+	// get victimWer and change "alive" --> if there is a lover - change alive, too
+	mysql_query("UPDATE player_game p1,
+						(SELECT(sp.victimWer) AS victimWer FROM _GAME sp WHERE gameID = '$gameID') AS p2
+					SET p1.alive = 0 WHERE gameID = '$gameID' AND playerID = p2.victimWer");
 
-	if($victimDor != 0) {
-    	// change alive of victimDor to 0
-    	mysql_query("UPDATE player_game SET alive = 0 WHERE playerID = '$victimDor'")
-    	or die("Änderung von 'alive' fehlgeschlagen");
+	mysql_query("UPDATE player_game p1,
+						(SELECT(sp.victimWer) AS victimWer FROM _GAME sp WHERE gameID = '$gameID') AS p2
+					SET p1.alive = 0 WHERE gameID = '$gameID' AND lover = p2.victimWer");
 
-    	// check if alive has been changed
-    	$result = mysql_query("SELECT alive FROM player_game WHERE playerID = '$victimDor' AND gameID = '$gameID'");
-    	if ($result == 0) {
-    		// successfully updated
-    		$response["success"] = 1;
-    		$response["message"] = "Player successfully updated.";
+	// get victimHex and change "alive" --> if there is a lover - change alive, too
+	mysql_query("UPDATE player_game p1,
+						(SELECT(sp.victimHex) AS victimHex FROM _GAME sp WHERE gameID = '$gameID') AS p2
+					SET p1.alive = 0 WHERE gameID = '$gameID' AND playerID = p2.victimHex");
 
-    		// echoing JSON response
-    		echo json_encode($response);
-    	}
+	mysql_query("UPDATE player_game p1,
+						(SELECT(sp.victimHex) AS victimHex FROM _GAME sp WHERE gameID = '$gameID') AS p2
+					SET p1.alive = 0 WHERE gameID = '$gameID' AND lover = p2.victimHex");
 
-    	if($loverDor != 0){
-    	   // change alive of loverDor to 0
-           mysql_query("UPDATE player_game SET alive = 0 WHERE playerID = '$loverDor'")
-           or die("Änderung von 'alive' fehlgeschlagen");
+	// get victimJaeger and change "alive" --> if there is a lover - change alive, too
+	mysql_query("UPDATE player_game p1,
+						(SELECT(sp.victimJaeger) AS victimJaeger FROM _GAME sp WHERE gameID = '$gameID') AS p2
+					SET p1.alive = 0 WHERE gameID = '$gameID' AND playerID = p2.victimJaeger");
 
-           // check if alive has been changed
-           $result = mysql_query("SELECT alive FROM player_game WHERE playerID = '$loverDor' AND gameID = '$gameID'");
-           if ($result == 0) {
-            // successfully updated
-            $response["success"] = 1;
-            $response["message"] = "Player successfully updated.";
+	mysql_query("UPDATE player_game p1,
+						(SELECT(sp.victimJaeger) AS victimJaeger FROM _GAME sp WHERE gameID = '$gameID') AS p2
+					SET p1.alive = 0 WHERE gameID = '$gameID' AND lover = p2.victimJaeger");
 
-            // echoing JSON response
-            echo json_encode($response);
-           }
-    	}
-    }
-
-
-	// get the victim of the Werewolfes
-    	$victimWer = mysql_query("SELECT victimWer FROM player_game WHERE gameID = '$gameID'")
-    	or die("Kein Opfer der Werwölfe gefunden");
-
-    	// get the Lover of the Victim
-        	$loverWer = mysql_query("SELECT lover FROM player_game WHERE player_ID = '$victimWer'") or die("Opfer hat keinen Lover");
-
-    	if($victimWer!= 0) {
-        	// change alive of victimWer to 0
-        	mysql_query("UPDATE player_game SET alive = 0 WHERE playerID = '$victimWer'")
-        	or die("Änderung von 'alive' fehlgeschlagen");
-
-        	// check if alive has been changed
-        	$result = mysql_query("SELECT alive FROM player_game WHERE playerID = '$victimWer' AND gameID = '$gameID'");
-        	if ($result == 0) {
-        		// successfully updated
-        		$response["success"] = 1;
-        		$response["message"] = "Player successfully updated.";
-
-        		// echoing JSON response
-        		echo json_encode($response);
-        	}
-
-        	if($loverWer != 0){
-                	   // change alive of loverWer to 0
-                       mysql_query("UPDATE player_game SET alive = 0 WHERE playerID = '$loverDor'")
-                       or die("Änderung von 'alive' fehlgeschlagen");
-
-                       // check if alive has been changed
-                       $result = mysql_query("SELECT alive FROM player_game WHERE playerID = '$loverWer' AND gameID = '$gameID'");
-                       if ($result == 0) {
-                        // successfully updated
-                        $response["success"] = 1;
-                        $response["message"] = "Player successfully updated.";
-
-                        // echoing JSON response
-                        echo json_encode($response);
-                       }
-                	}
-        }
-
-
-	// get the victim of the Witch
-        	$victimHex = mysql_query("SELECT victimHex FROM player_game WHERE gameID = '$gameID'")
-        	or die("Kein Opfer der Hexe gefunden");
-
-        	// get the Lover of the Victim
-            	$loverHex = mysql_query("SELECT lover FROM player_game WHERE player_ID = '$victimHex'") or die("Opfer hat keinen Lover");
-
-        	if($victimHex!= 0) {
-            	// change alive of victimHex to 0
-            	mysql_query("UPDATE player_game SET alive = 0 WHERE playerID = '$victimHex'")
-            	or die("Änderung von 'alive' fehlgeschlagen");
-
-            	// check if alive has been changed
-            	$result = mysql_query("SELECT alive FROM player_game WHERE playerID = '$victimHex' AND gameID = '$gameID'");
-            	if ($result == 0) {
-            		// successfully updated
-            		$response["success"] = 1;
-            		$response["message"] = "Player successfully updated.";
-
-            		// echoing JSON response
-            		echo json_encode($response);
-            	}
-
-            	if($loverHex != 0){
-                    	   // change alive of loverDor to 0
-                           mysql_query("UPDATE player_game SET alive = 0 WHERE playerID = '$loverHex'")
-                           or die("Änderung von 'alive' fehlgeschlagen");
-
-                           // check if alive has been changed
-                           $result = mysql_query("SELECT alive FROM player_game WHERE playerID = '$loverHex' AND gameID = '$gameID'");
-                           if ($result == 0) {
-                            // successfully updated
-                            $response["success"] = 1;
-                            $response["message"] = "Player successfully updated.";
-
-                            // echoing JSON response
-                            echo json_encode($response);
-                           }
-                    	}
-            }
+	//reset victims
+	mysql_query("UPDATE _GAME SET victimDor = 0 WHERE gameID = $gameID");
+	mysql_query("UPDATE _GAME SET victimWer = 0 WHERE gameID = $gameID");
+	mysql_query("UPDATE _GAME SET victimHex = 0 WHERE gameID = $gameID");
+	mysql_query("UPDATE _GAME SET victimJaeger = 0 WHERE gameID = $gameID");
 
 } else {
     // required field is missing
     $response["success"] = 0;
-    $response["message"] = "Required field(s) is missing";
+    $response["message"] = "Required field(s) is missing: changeAlive";
 
     // echoing JSON response
     echo json_encode($response);
