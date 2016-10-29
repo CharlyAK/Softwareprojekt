@@ -24,6 +24,7 @@ public class GlobalVariables extends Application {
     private Activity currentContext;
     private String winner;
     private boolean spielleiter;
+    private String[] images;
 
     // Global variables: Dieb
     private boolean DiebChoosen;
@@ -138,6 +139,9 @@ public class GlobalVariables extends Application {
     public void setSpielleiter(boolean spielleiter) {
         this.spielleiter = spielleiter;
     }
+
+    public String[] getImages() { return this.images; }
+    public void setImages(String[] images) {this.images = images; }
 
 
     /*

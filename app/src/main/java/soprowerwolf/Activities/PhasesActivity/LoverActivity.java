@@ -1,8 +1,10 @@
 package soprowerwolf.Activities.PhasesActivity;
 
+import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.WindowManager;
@@ -45,7 +47,13 @@ public class LoverActivity extends AppCompatActivity {
         //TODO: change Audio
         //audio = MediaPlayer.create(this, R.raw.first_night);
 
-        lover.setText("(automatisch weiter in 5s)\nDu bist verliebt in " + Con.getLover() + " verliebt." );
+        //lover.setText("(automatisch weiter in 5s)\nDu bist verliebt in " + Con.getLover() + " verliebt." );
+
+        //let the phones of the players that are not in love vibrate
+        if (Con.getLover().equals("niemanden")){
+            Vibrator vibrator = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
+            vibrator.vibrate(20);
+        }
 
         if(globalVariables.isSpielleiter()){
            timer = new CountDownTimer(5000, 1000){

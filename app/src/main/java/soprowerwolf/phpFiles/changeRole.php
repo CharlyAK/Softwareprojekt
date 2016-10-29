@@ -28,6 +28,8 @@ $response = array();
     // set new Role
     mysql_query("UPDATE player_game SET role='$newRole' WHERE playerID = '$playerID' AND gameID = '$gameID'")
 	or die("Die Änderung der Rolle ist fehlgeschlagen");
+
+      //
 	
 	// check if role has been changed
 	
@@ -44,7 +46,7 @@ $response = array();
 	
 	if (!empty($nothingChoosen) && isset ($nothingChoosen) && $nothingChoosen != 'Werwolf')
 	{
-		//delete both phase which are not choosen --> nextPhase of "notChoosen" and "nothingChoosen" become nextPhase of another Phase
+		//delete both phases which are not chosen --> nextPhase of "notChosen" and "nothingChosen" becomes nextPhase of another Phase
 		mysql_query("UPDATE _PHASES p1, 
 						(SELECT(sp.nextPhase) AS newNextPhase FROM _PHASES sp WHERE gameID = '$gameID' AND phases = '$nothingChoosen') AS p2 	
 					SET p1.nextPhase = p2.newNextPhase WHERE gameID = '$gameID' AND p1.nextPhase = '$nothingChoosen'");

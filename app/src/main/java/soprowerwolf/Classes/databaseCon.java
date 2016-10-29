@@ -47,6 +47,8 @@ public class databaseCon {
     private static final String url_vote_update = "http://www-e.uni-magdeburg.de/jkloss/vote_update.php";
     private static final String url_submit_choice = "http://www-e.uni-magdeburg.de/jkloss/submit_choice.php";
     private static final String url_getNumOfWerAlive = "http://www-e.uni-magdeburg.de/jkloss/getNumOfWerAlive.php";
+    private static final String url_update_player_game = "http://www-e.uni-magdeburg.de/jkloss/update_player_game.php";
+
 
     public boolean registration(String name, String email, String pw) {
         //ToDo: HashWerte für passwörter
@@ -127,18 +129,14 @@ public class databaseCon {
         return false;
     }
 
+    /**
+     * Takes a bitmap which is encoded and saved in the database
+     * @param bitmap to be saved
+     */
     public void setImage(Bitmap bitmap) {
         //use following method to convert bitmap to byte array:
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 50, byteArrayOutputStream);
-        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            while (bitmap.getHeight() > 1000 && bitmap.getWidth() > 1000)
-                bitmap.compress(Bitmap.CompressFormat.PNG, 50, byteArrayOutputStream);
-        }
-        else {
-            while (bitmap.getHeight() > 1000 && bitmap.getWidth() > 1000)
-                bitmap.compress(Bitmap.CompressFormat.PNG, 50, byteArrayOutputStream);
-        }*/
 
         byte[] byteArray = byteArrayOutputStream.toByteArray();
         //to encode base64 from byte array use following method
@@ -153,6 +151,13 @@ public class databaseCon {
         jsonParser.makeHttpRequest(url_save_image, "POST", params);
     }
 
+    /**
+     * Gets the blob object for a specific player from the database.
+     * This is converted to a bitmap.
+     * @return returns the created bitmap
+     * @throws JSONException
+     */
+
     public Bitmap getImage() throws JSONException {
         List<NameValuePair> params = new ArrayList<NameValuePair>();
 
@@ -166,6 +171,23 @@ public class databaseCon {
         byte[] decodedString = Base64.decode(base64String, Base64.DEFAULT);
         Bitmap bitmapResult = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
         return bitmapResult;
+    }
+
+    /**
+     * This function get the image of a player as a string.
+     * It will be stored in the global variables
+     * @param playerID of the player to get the image from
+     * @return returns the String which contains the image information
+     * @throws JSONException
+     */
+    public String getImagesAsString(int playerID) throws JSONException {
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("playerID", String.valueOf(playerID)));
+
+        JSONObject jsonObject = jsonParser.makeHttpRequest(url_save_image, "GET", params);
+
+        JSONObject jsonObject1 = jsonObject.getJSONObject("image");
+        return jsonObject1.getString("0");
     }
 
     public int getReady() {
@@ -231,7 +253,8 @@ public class databaseCon {
             if (ID.getInt("success") == 1) {
                 JSONArray JID = ID.getJSONArray("players");
                 for (int i = 0; i < JID.length(); i++) {
-                    if (JID.getJSONObject(i).getInt("alive") == 0) //there are no playerID 0 -> if the playerID is 0, the player is dead
+                    //there is no playerID 0 -> if the playerID is 0, the player is dead
+                    if (JID.getJSONObject(i).getInt("alive") == 0)
                     {
                         playerIDs[i] = 0;
                     } else
@@ -308,11 +331,14 @@ public class databaseCon {
         return roles;
     }
 
+    /**
+     * Sets the victim of the current phase
+     * @param victimID playerID of the victim
+     */
+
     public void setVictims(int victimID) {
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("gameID", String.valueOf(globalVariables.getGameID())));
-
-
         switch (globalVariables.getCurrentPhase()) {
             case "Werwolf":
                 params.add(new BasicNameValuePair("victimWer", String.valueOf(victimID)));
@@ -326,6 +352,16 @@ public class databaseCon {
         //ToDo: check for success
     }
 
+    /**
+     * Called during the Werwolf-phase
+     * @param action: decides if you want to get an update on how many werewolves have voted
+     *              or if you want to submit your own choice
+     *              or if you want to get the number of werewolves alive
+     * @return returns the playerIds and the votes
+     *          in the following pattern: {id1, votes1, id2, votes2, ...}
+     *          or the number of werewolves alive
+     * @throws JSONException
+     */
 
     public int[] Werwolf(String action) throws JSONException {
 
@@ -403,6 +439,12 @@ public class databaseCon {
         return GoodOrBad;
     }
 
+    /**
+     *
+     * @param magic: calls different functions (getVictimWer, ableToSave, ableToPoison, saveVictim, kill)
+     * @return
+     */
+
     public String Hexe(String magic) {
         int gameID = globalVariables.getGameID();
         List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -419,7 +461,8 @@ public class databaseCon {
                     List<NameValuePair> playerName = new ArrayList<NameValuePair>();
                     playerName.add(new BasicNameValuePair("playerID", String.valueOf(victimID)));
 
-                    JSONObject jsonObjectPlayer = jsonParser.makeHttpRequest(url_get_player_details, "GET", playerName);
+                    JSONObject jsonObjectPlayer = jsonParser.makeHttpRequest(url_get_player_details,
+                            "GET", playerName);
 
                     JSONArray JVictimName = jsonObjectPlayer.getJSONArray("player");
                     return JVictimName.getJSONObject(JVictimName.length() - 1).getString("name");
@@ -466,9 +509,17 @@ public class databaseCon {
         return null;
     }
 
+    /**
+     * Called during the day
+     * @param action: choose if you want to get an update on how many players have voted
+     *              or if you want to submit your own choice to the database
+     * @return returns the playerIds and the votes
+     *          in the following pattern: {id1, votes1, id2, votes2, ...}
+     * @throws JSONException
+     */
+
     public int[] Tag(String action) throws JSONException {
         List<NameValuePair> params = new ArrayList<NameValuePair>();
-
 
         switch (action) {
             case "update":
@@ -502,6 +553,15 @@ public class databaseCon {
 
         }
         return null;
+    }
+
+    /*
+            DEBUG
+     */
+    public void debugStartGame(){
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("gameID", String.valueOf(globalVariables.getGameID())));
+        JSONObject jsonObject = jsonParser.makeHttpRequest(url_update_player_game, "POST", params);
     }
 
     public String getLover(){
