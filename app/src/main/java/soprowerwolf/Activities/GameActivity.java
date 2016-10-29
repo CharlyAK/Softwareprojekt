@@ -3,16 +3,20 @@ package soprowerwolf.Activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
+
+import org.json.JSONException;
 
 import soprowerwolf.Classes.databaseCon;
 import soprowerwolf.Database.getCurrentPhase;
@@ -26,6 +30,8 @@ public class GameActivity extends AppCompatActivity {
 
     GlobalVariables globalVariables = GlobalVariables.getInstance();
     databaseCon Con = new databaseCon();
+    String[] images = globalVariables.getImages();
+    Bitmap bitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,13 +78,12 @@ public class GameActivity extends AppCompatActivity {
             button.setMaxWidth(dm.widthPixels/5);
 
             button.setText(playerNames[i]);
-            /*
-            try {
-                Bitmap playerImage = Con.getImage();
-                if (playerImage != null)
-                    button.setBackground(new BitmapDrawable(playerImage));
-            } catch (JSONException e) {
-                e.printStackTrace();
+
+            // TODO: playerImages
+            /*if (images[i] != null) {
+                byte[] decodedString = Base64.decode(images[i], Base64.DEFAULT);
+                bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                button.setBackground(new BitmapDrawable(context.getResources(), bitmap));
             }
             */
 
@@ -89,7 +94,7 @@ public class GameActivity extends AppCompatActivity {
             }
             else*/
             button.setId(playerIDs[i]);
-            button.setBackgroundColor(0);
+            //button.setBackgroundColor(0);
             // TODO: JSON - getAllPlayer.php
             //button.setText(player[i]);
             View.OnClickListener onClickListener = new View.OnClickListener() {

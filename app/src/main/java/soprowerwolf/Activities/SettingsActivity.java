@@ -68,6 +68,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         playerName.setText(Con.getName());
 
+
     }
 
     // Wird ausgeführt, sobald von einem Intent in diese Activity gesendet wird
@@ -107,10 +108,8 @@ public class SettingsActivity extends AppCompatActivity {
 
         //save
         editor.commit();
-
-        Snackbar.make(view, "Dein Name wurde gespeichert", Snackbar.LENGTH_LONG).show();
-
         Con.setImage(bm);
+        Snackbar.make(view, "Dein Bild wurde gespeicher", Snackbar.LENGTH_LONG).show();
     }
 
     public void deleteAccount(View view) {

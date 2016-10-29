@@ -147,6 +147,30 @@ Anschließend wird die {@link LetsPlayActivity} aufgerufen.
 
 = LetsPlayActivity =
 
+
 = JoinGameActivity =
 
-In dieser Activity kann der Spieler
+In dieser Activity kann der Spieler einen, auf einem anderen Handy erzeugten, QR-Code scannen.
+Anschließend wird {@link GetRole} aufgerufen. Die eigene Rolle wird aus der Datenbank angefragt
+und angezeigt.
+Sobald alle Spieler
+
+
+= GameActivity =
+
+= DiebActivity =
+
+= AmorActivity =
+
+= LoverActivity =
+
+= WerwolfActivity =
+
+= SeherinActivity =
+
+= HexeActivity =
+
+= showVictimActivity =
+
+= TagActivity =
+
