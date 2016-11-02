@@ -11,7 +11,4 @@
     <include layout="@layout/content_game" />
 
 
-
-
-
 </android.support.design.widget.CoordinatorLayout>

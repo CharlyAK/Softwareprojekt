@@ -63,7 +63,7 @@ public class MenuActivity extends AppCompatActivity {
         List<NameValuePair> params = new ArrayList<NameValuePair>();
 
         params.add(new BasicNameValuePair("nothing", "nothing"));
-        JSONObject reset = jsonParser.makeHttpRequest(url_reset, "POST", params);
+        jsonParser.makeHttpRequest(url_reset, "POST", params);
 
     }
 }

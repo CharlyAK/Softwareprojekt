@@ -1,9 +1,16 @@
 package soprowerwolf.Classes;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
+import android.util.Base64;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import soprowerwolf.Activities.LoginRegistrationActivity;
@@ -11,6 +18,7 @@ import soprowerwolf.Activities.PhasesActivity.DiebActivity;
 import soprowerwolf.Database.HexeDB;
 import soprowerwolf.Database.JaegerDB;
 import soprowerwolf.Database.setNextPhase;
+import soprowerwolf.R;
 
 /**
  * Created by Alex on 29.08.2016.
@@ -93,8 +101,27 @@ public class popup {
             }
         });
 
-        AlertDialog helpDialog = helpBuilder.create();
-        return helpDialog;
+        return helpBuilder.create();
+    }
+
+    /**
+     * This Method creates a View that shows a player's image.
+     * It is called by a long click on a player button
+     * @return it returns the AlertDialog
+     */
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public AlertDialog imageView(String playerImageString){
+        //create a ImageView that will contain the playerImage
+        ImageView imageView = new ImageView(context);
+        byte[] decodedString = Base64.decode(playerImageString, Base64.DEFAULT);
+        Bitmap bitmapResult = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        imageView.setImageDrawable(new BitmapDrawable(context.getResources(), bitmapResult));
+
+        AlertDialog.Builder helpBuilder = new AlertDialog.Builder(context);
+        helpBuilder.setView(imageView);
+
+        return helpBuilder.create();
     }
 
 

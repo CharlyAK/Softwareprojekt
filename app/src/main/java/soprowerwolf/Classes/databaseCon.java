@@ -174,7 +174,7 @@ public class databaseCon {
     }
 
     /**
-     * This function get the image of a player as a string.
+     * This function gets the image of a player as a string.
      * It will be stored in the global variables
      * @param playerID of the player to get the image from
      * @return returns the String which contains the image information

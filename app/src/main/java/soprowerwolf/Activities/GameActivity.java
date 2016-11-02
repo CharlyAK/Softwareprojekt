@@ -6,7 +6,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.DisplayMetrics;
@@ -14,11 +16,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import org.json.JSONException;
 
 import soprowerwolf.Classes.databaseCon;
+import soprowerwolf.Classes.popup;
 import soprowerwolf.Database.getCurrentPhase;
 import soprowerwolf.R;
 
@@ -32,6 +36,7 @@ public class GameActivity extends AppCompatActivity {
     databaseCon Con = new databaseCon();
     String[] images = globalVariables.getImages();
     Bitmap bitmap;
+    popup popup = new popup(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,18 +54,21 @@ public class GameActivity extends AppCompatActivity {
         new getCurrentPhase().execute();
     }
 
-    /*
+    /**
     * >createObjects<
     *
     * This method creates all objects in the GameView.
     * Like rows, buttons, ...
     *
+     * The Tag of a playerButton represents the number if you simply count them through.
+     * The ID represents the correlated playerID.
     */
     public void createObjects() {
         int numOfPlayers = globalVariables.getNumPlayers();
         Activity context = globalVariables.getCurrentContext();
         int[] playerIDs = Con.getPlayerIDs();
         String[] playerNames = Con.getPlayerNames();
+
 
         //create Linear Layouts in gameView
         LinearLayout row1 = (LinearLayout) context.findViewById(R.id.row1);
@@ -71,13 +79,23 @@ public class GameActivity extends AppCompatActivity {
         //create playerbuttons
         for (int i = 0; i < numOfPlayers; i++) {
             Button button = new Button(context);
-
-            //limit the buttons to a maximum size
-            DisplayMetrics dm = new DisplayMetrics();
-            button.setMaxHeight(dm.heightPixels/4);
-            button.setMaxWidth(dm.widthPixels/5);
-
             button.setText(playerNames[i]);
+            button.setTag(i);
+
+            //create an OnLongClickListener which will show a popup of a player's Image
+            View.OnLongClickListener onLongClickListener = new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    //check if there is an image an the required android version
+                    if (images[(int)v.getTag()] != null &&
+                            android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        //shows a popup containing the image of the clicked player
+                        popup.imageView(images[(int) v.getTag()]).show();
+                    }
+                    return true;
+                }
+            };
+            button.setOnLongClickListener(onLongClickListener);
 
             // TODO: playerImages
             /*if (images[i] != null) {
@@ -94,7 +112,7 @@ public class GameActivity extends AppCompatActivity {
             }
             else*/
             button.setId(playerIDs[i]);
-            //button.setBackgroundColor(0);
+            button.setBackgroundColor(0);
             // TODO: JSON - getAllPlayer.php
             //button.setText(player[i]);
             View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -194,6 +212,10 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
+
+    /**
+     * makes the buttons unclickable
+     */
     public void setUnclickable(){
 
         Activity context = globalVariables.getCurrentContext();
