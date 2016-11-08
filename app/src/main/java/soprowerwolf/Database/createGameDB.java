@@ -43,7 +43,7 @@ public class createGameDB extends AsyncTask<String, String, String> {
 
         try {
             JSONArray JID = newGame.getJSONArray("gameID");
-            globalVariables.setGameID(JID.getJSONObject(JID.length() - 1).getInt("gameID"));
+            globalVariables.setGameID(JID.getJSONObject(JID.length() - 1). getInt("gameID"));
         } catch (JSONException e) {
             e.printStackTrace();
         }

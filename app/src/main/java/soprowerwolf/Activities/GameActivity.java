@@ -35,7 +35,6 @@ public class GameActivity extends AppCompatActivity {
     GlobalVariables globalVariables = GlobalVariables.getInstance();
     databaseCon Con = new databaseCon();
     String[] images = globalVariables.getImages();
-    Bitmap bitmap;
     popup popup = new popup(this);
 
     @Override
@@ -68,7 +67,6 @@ public class GameActivity extends AppCompatActivity {
         Activity context = globalVariables.getCurrentContext();
         int[] playerIDs = Con.getPlayerIDs();
         String[] playerNames = Con.getPlayerNames();
-
 
         //create Linear Layouts in gameView
         LinearLayout row1 = (LinearLayout) context.findViewById(R.id.row1);

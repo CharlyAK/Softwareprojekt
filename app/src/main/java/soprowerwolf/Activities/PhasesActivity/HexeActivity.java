@@ -24,7 +24,7 @@ public class HexeActivity extends AppCompatActivity {
 
     GlobalVariables globalVariables = GlobalVariables.getInstance();
     databaseCon Con = new databaseCon();
-    popup popup = new popup(this);
+    popup popup = new popup();
     Audio audio = new Audio();
 
     private Handler timerHandler = new Handler();

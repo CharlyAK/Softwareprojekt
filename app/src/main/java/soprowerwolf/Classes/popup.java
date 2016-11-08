@@ -30,13 +30,13 @@ public class popup {
     private static GlobalVariables globalVariables = GlobalVariables.getInstance();
     static Audio audio = new Audio();
 
-    public popup(Activity context) {
-        this.context = context;
+    public popup() {
     }
 
     /* creates a popup containing information */
     public static AlertDialog PopUpInfo(String infotext, final String titel) {
 
+        context = globalVariables.getCurrentContext();
         final String victimWer = Con.Hexe("getVictimWer");
         AlertDialog.Builder helpBuilder = new AlertDialog.Builder(context);
         helpBuilder.setTitle(titel);
@@ -60,12 +60,12 @@ public class popup {
                         }
                         //this is called after the info screen for the hexe if the heal is available
                         else if (globalVariables.getCurrentPhase().equals("Hexe") && Con.Hexe("ableToSave").equals("0")) {
-                            popup popup = new popup(context);
+                            popup popup = new popup();
                             popup.PopUpChoice("Möchtest du " + victimWer + " retten?", "Hexe", "HexeH", "safe").show();
                         }
                         //this is called after the info screen for the hexe if heal isn't available and poison is available
                         else if (globalVariables.getCurrentPhase().equals("Hexe") && Con.Hexe("ableToSave").equals("1") && Con.Hexe("ableToPoison").equals("0")) {
-                            popup popup = new popup(context);
+                            popup popup = new popup();
                             popup.PopUpChoice("Möchtest du deinen Gifttrank verwenden?", "Hexe", "HexeP", "poison").show();
                         }
                         else if (globalVariables.getCurrentPhase().equals("Jaeger") && globalVariables.getVictimJaeger()) {
@@ -80,6 +80,8 @@ public class popup {
 
     /* creates a popup offering you a choice */
     public AlertDialog PopUpChoice(String infotext, String titel, final String Role, final String toBeDecided) {
+
+        context = globalVariables.getCurrentContext();
 
         AlertDialog.Builder helpBuilder = new AlertDialog.Builder(context);
         helpBuilder.setTitle(titel);
@@ -112,6 +114,7 @@ public class popup {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public AlertDialog imageView(String playerImageString){
+        context = globalVariables.getCurrentContext();
         //create a ImageView that will contain the playerImage
         ImageView imageView = new ImageView(context);
         byte[] decodedString = Base64.decode(playerImageString, Base64.DEFAULT);

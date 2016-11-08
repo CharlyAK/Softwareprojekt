@@ -69,7 +69,7 @@ $response = array();
 		}
 	}   
  }
- // 2. GET reqest to get the created gameID 
+ // 2. GET request to get the created gameID
  else if (!empty($_GET['playerID']) && isset($_GET['playerID']))
  {
 	$player = $_GET['playerID'];
