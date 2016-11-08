@@ -29,14 +29,8 @@ public class GameOverDB {
 
     public void gameOver() {
 
-        int[] evil = new int[20];
-        int[] good = new int[20];
-
         List<NameValuePair> paramsList = new ArrayList<NameValuePair>();
-
-        String gameID = String.valueOf(globalVariables.getGameID());
-
-        paramsList.add(new BasicNameValuePair("gameID", gameID));
+        paramsList.add(new BasicNameValuePair("gameID", String.valueOf(globalVariables.getGameID())));
 
         JSONObject allplayers = jsonParser.makeHttpRequest(url_get_all_player, "GET", paramsList);
 
@@ -48,19 +42,17 @@ public class GameOverDB {
 
                 int e = 0;
                 int g = 0;
-                for (int i = 0; i < allplayers.length(); i++) {
+                for (int i = 0; i < player.length(); i++) {
 
                     if (player.getJSONObject(i).getInt("alive") == 1 && player.getJSONObject(i).get("role") == "Werwolf") {
-                        evil[e] = player.getJSONObject(i).getInt("playerID");
                         e++;
                     } else if (player.getJSONObject(i).getInt("alive") == 1 && player.getJSONObject(i).get("role") != "Werwolf") {
-                        good[g] = player.getJSONObject(i).getInt("playerID");
                         g++;
                     }
                 }
 
-                if (evil[0] == 0) { globalVariables.setWinner("Dorfbewohner"); }
-                if (good[0] == 0) { globalVariables.setWinner("Werwölfe"); }
+                if (e == 0) { globalVariables.setWinner("Dorfbewohner"); }
+                if (g == 0) { globalVariables.setWinner("Werwölfe"); }
             }
 
         } catch (JSONException e) {

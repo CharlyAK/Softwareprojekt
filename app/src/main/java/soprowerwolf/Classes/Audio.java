@@ -99,7 +99,7 @@ public class Audio {
 
     public void playWolfW(){
         wolf_wakeUp = MediaPlayer.create(globalVariables.getCurrentContext(), R.raw.wolf_wakeup);
-        wolf_wakeUp.start();;
+        wolf_wakeUp.start();
     }
 
     public void playWolfS(){

@@ -22,7 +22,7 @@ public class GlobalVariables extends Application {
     private String currentPhase = "Game";
     private String nextPhase;
     private Activity currentContext;
-    private String winner;
+    private String winner = "";
     private boolean spielleiter;
     private String[] images;
 

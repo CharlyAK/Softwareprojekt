@@ -47,5 +47,4 @@ public class killDB extends AsyncTask<String, String, String> {
         super.onPostExecute(s);
         gameOverDB.gameOver();
     }
-
 }

@@ -30,7 +30,6 @@ public class AudioActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wait);
         globalVariables.setCurrentContext(this);
-        nextPhaseDB.setNextPhase();
 
         if(globalVariables.isSpielleiter()){
             switch (globalVariables.getCurrentPhase()){

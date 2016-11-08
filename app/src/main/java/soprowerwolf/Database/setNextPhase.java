@@ -49,7 +49,7 @@ public class setNextPhase extends AsyncTask<String, String, String> {
             paramsList.add(new BasicNameValuePair("nextPhase", "Audio"));
         }
 
-        if (globalVariables.getWinner() != null){
+        if (!globalVariables.getWinner().equals("")){
             paramsList.clear();
             paramsList.add(new BasicNameValuePair("gameID", gameID));
             paramsList.add(new BasicNameValuePair("currentPhase", currentPhase));
