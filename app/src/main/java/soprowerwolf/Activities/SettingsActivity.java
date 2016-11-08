@@ -113,7 +113,9 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void deleteAccount(View view) {
-        popup popup = new popup(this);
+        popup popup = new popup();
+        GlobalVariables globalVariables = GlobalVariables.getInstance();
+        globalVariables.setCurrentContext(this);
         popup.PopUpChoice("Möchtest du deinen Account wirklich löschen?", "Account löschen?", "Account", null).show();
     }
 
