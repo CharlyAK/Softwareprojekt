@@ -22,7 +22,7 @@ public class GameOverActivity extends AppCompatActivity {
     private JSONParser jsonParser = new JSONParser();
 
     GlobalVariables globalVariables = GlobalVariables.getInstance();
-    popup popup = new popup(GameOverActivity.this);
+    popup popup = new popup();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

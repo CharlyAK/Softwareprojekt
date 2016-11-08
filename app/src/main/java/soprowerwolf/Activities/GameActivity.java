@@ -35,7 +35,7 @@ public class GameActivity extends AppCompatActivity {
     GlobalVariables globalVariables = GlobalVariables.getInstance();
     databaseCon Con = new databaseCon();
     String[] images = globalVariables.getImages();
-    popup popup = new popup(this);
+    popup popup = new popup();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
