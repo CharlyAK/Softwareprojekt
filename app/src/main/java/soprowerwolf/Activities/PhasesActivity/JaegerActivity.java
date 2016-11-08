@@ -18,7 +18,7 @@ import soprowerwolf.R;
 public class JaegerActivity extends AppCompatActivity {
 
     GlobalVariables globalVariables = GlobalVariables.getInstance();
-    popup popup = new popup(this);
+    popup popup = new popup();
 
     private Handler timerHandler = new Handler();
     private Runnable timerRunnable = new Runnable() {
