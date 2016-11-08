@@ -37,7 +37,7 @@ public class GameSetupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game_setup);
         globalVariables.setCurrentContext(this);
 
-        globalVariables.setWinner(null);
+        globalVariables.setWinner("");
 
         final NumberPicker players = (NumberPicker) findViewById(R.id.numberPicker);
         final Spinner spinnerWer = (Spinner) findViewById(R.id.spinnerWer);
