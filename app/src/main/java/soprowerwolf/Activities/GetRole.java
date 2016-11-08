@@ -25,7 +25,7 @@ import soprowerwolf.R;
 public class GetRole extends AppCompatActivity {
     GlobalVariables globalVariables = GlobalVariables.getInstance();
     databaseCon Con = new databaseCon();
-    popup popup = new popup(this);
+    popup popup = new popup();
     int ready;
     int numPlayers;
     Snackbar info;
