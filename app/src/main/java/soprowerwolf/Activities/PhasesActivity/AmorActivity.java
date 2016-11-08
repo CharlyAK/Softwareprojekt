@@ -20,7 +20,7 @@ import soprowerwolf.Classes.popup;
 
 public class AmorActivity extends AppCompatActivity {
 
-    popup popup = new popup(AmorActivity.this);
+    popup popup = new popup();
     GlobalVariables globalVariables = GlobalVariables.getInstance();
     Audio audio = new Audio();
 

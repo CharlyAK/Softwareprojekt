@@ -54,7 +54,7 @@ public class DiebActivity extends AppCompatActivity {
             choice1 = choices[0];
             choice2 = choices[1];
 
-            final popup popup = new popup(this);
+            final popup popup = new popup();
 
             Button choiceLeft = (Button) findViewById(R.id.diebDecisionLeft);
             Button choiceRight = (Button) findViewById(R.id.diebDecisionRight);

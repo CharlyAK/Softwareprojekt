@@ -18,7 +18,7 @@ import soprowerwolf.Classes.popup;
 public class SeherinActivity extends AppCompatActivity {
 
     GlobalVariables globalVariables = GlobalVariables.getInstance();
-    popup popup = new popup(this);
+    popup popup = new popup();
     Audio audio = new Audio();
 
     private Handler timerHandler = new Handler();

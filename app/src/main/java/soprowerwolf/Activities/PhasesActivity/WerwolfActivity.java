@@ -35,7 +35,7 @@ public class WerwolfActivity extends AppCompatActivity {
 
     databaseCon Con = new databaseCon();
     GlobalVariables globalVariables = GlobalVariables.getInstance();
-    soprowerwolf.Classes.popup popup = new popup(this);
+    soprowerwolf.Classes.popup popup = new popup();
     int[] playerIDsAndVotes = new int[40];
     int numOfWer = 0;
 

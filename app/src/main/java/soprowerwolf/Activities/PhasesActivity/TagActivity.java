@@ -33,7 +33,7 @@ public class TagActivity extends AppCompatActivity {
     GameActivity create = new GameActivity();
     databaseCon Con = new databaseCon();
     GlobalVariables globalVariables = GlobalVariables.getInstance();
-    popup popup = new popup(this);
+    popup popup = new popup();
     int[] playerIDsAndVotes = new int[40];
 
 
