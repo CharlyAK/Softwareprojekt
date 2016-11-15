@@ -60,6 +60,16 @@ public class DiebActivity extends AppCompatActivity {
             Button choiceRight = (Button) findViewById(R.id.diebDecisionRight);
             Button stayDor = (Button) findViewById(R.id.ChangeToDorfbewohner);
 
+            if(choice1.equals("Werwolf") || choice2.equals("Werwolf"))
+            {
+                choiceLeft.setVisibility(View.INVISIBLE);
+                choiceRight.setVisibility(View.INVISIBLE);
+                stayDor.setVisibility(View.INVISIBLE);
+                popup.PopUpInfo(getString(R.string.becomeWolf), "Dieb").show();
+            }
+
+
+
             assert choiceLeft != null;
 
             switch (choice1) {
@@ -232,6 +242,18 @@ public class DiebActivity extends AppCompatActivity {
             case "2": // none of the roles were chosen
                 globalVariables.setOwnRole("Dorfbewohner");
                 new DiebDB().execute("Dorfbewohner", Con.DiebGetRoles()[0], Con.DiebGetRoles()[1]);
+                break;
+            case "Werwolf":
+                globalVariables.setOwnRole("Werwolf");
+                String[] choices = Con.DiebGetRoles();
+                choice1 = choices[0];
+                choice2 = choices[1];
+
+                if(choice1.equals("Werwolf"))
+                {
+                    new DiebDB().execute("Werwolf", choice2, "");
+                }
+                else new DiebDB().execute("Werwolf", choice1, "");
         }
     }
 

@@ -56,7 +56,8 @@ public class popup {
                             new setNextPhase().execute("audio");
                         }
                         if (globalVariables.getCurrentPhase().equals("Dieb") && titel != "Info") {
-                            new setNextPhase().execute("audio");
+                            DiebActivity Dieb = new DiebActivity();
+                            Dieb.changeRole("Werwolf");
                         }
                         //this is called after the info screen for the hexe if the heal is available
                         else if (globalVariables.getCurrentPhase().equals("Hexe") && Con.Hexe("ableToSave").equals("0")) {

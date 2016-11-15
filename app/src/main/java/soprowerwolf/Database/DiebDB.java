@@ -23,6 +23,9 @@ public class DiebDB extends AsyncTask<String, String, String> {
     private static final String url_change_role = "http://www-e.uni-magdeburg.de/jkloss/changeRole.php";
     NextPhaseDB nextPhaseDB = new NextPhaseDB();
 
+    /*
+     * @param param[0] newRole, param[1] the role, which wasn't choosen, param[2] the second role, which wasn't choosen (if the player wants to stay "Dorfbewohner" -> important to delete the right phases)
+     */
     @Override
     protected String doInBackground(String... params) {
         List<NameValuePair> paramsList = new ArrayList<NameValuePair>();

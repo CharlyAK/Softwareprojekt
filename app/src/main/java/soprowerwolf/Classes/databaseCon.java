@@ -190,6 +190,7 @@ public class databaseCon {
         return jsonObject1.getString("0");
     }
 
+    // getting Number of ready Players
     public int getReady() {
         int ready = 0;
         List<NameValuePair> params = new ArrayList<NameValuePair>();
