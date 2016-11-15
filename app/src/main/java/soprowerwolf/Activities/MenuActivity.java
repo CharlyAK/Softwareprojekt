@@ -1,6 +1,7 @@
 package soprowerwolf.Activities;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +30,12 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Philosopher-Regular.ttf");
+        ((Button) findViewById(R.id.startGame)).setTypeface(font);
+        ((Button) findViewById(R.id.joinGame)).setTypeface(font);
+        ((Button) findViewById(R.id.settings)).setTypeface(font);
+
     }
 
     public void startGameSetup(View view) {

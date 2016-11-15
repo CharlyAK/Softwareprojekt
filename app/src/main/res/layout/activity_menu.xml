@@ -15,7 +15,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:text="@string/app_name"
-        android:textSize="30sp"
+        android:textSize="40sp"
+        android:gravity="center_horizontal"
         android:textColor="#9f2626"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
@@ -29,6 +30,10 @@
         android:layout_height="wrap_content"
         android:textSize="30sp"
         android:text="@string/start_game"
+        android:shadowColor="#00ccff"
+        android:shadowRadius="1.5"
+        android:shadowDx="1"
+        android:shadowDy="1"
         android:onClick="startGameSetup"
         />
 
@@ -41,7 +46,10 @@
         android:textSize="30sp"
         android:text="@string/join_game"
         android:onClick="startJoinGame"
-        android:nestedScrollingEnabled="false" />
+        android:shadowColor="#00ccff"
+        android:shadowRadius="1.5"
+        android:shadowDx="1"
+        android:shadowDy="1" />
 
     <Button
         android:id="@+id/settings"
@@ -49,6 +57,10 @@
         android:layout_height="wrap_content"
         android:textSize="30sp"
         android:text="@string/settings"
+        android:shadowColor="#00ccff"
+        android:shadowRadius="1.5"
+        android:shadowDx="1"
+        android:shadowDy="1"
         android:onClick="startSettings"
         android:layout_below="@+id/joinGame"
         android:layout_alignLeft="@+id/joinGame"
