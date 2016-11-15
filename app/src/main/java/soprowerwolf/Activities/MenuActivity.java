@@ -1,12 +1,15 @@
 package soprowerwolf.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -25,6 +28,7 @@ public class MenuActivity extends AppCompatActivity {
 
     GlobalVariables globalVariables = GlobalVariables.getInstance();
     private static final String url_reset = "http://www-e.uni-magdeburg.de/jkloss/reset.php";
+    databaseCon Con = new databaseCon();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +39,10 @@ public class MenuActivity extends AppCompatActivity {
         ((Button) findViewById(R.id.startGame)).setTypeface(font);
         ((Button) findViewById(R.id.joinGame)).setTypeface(font);
         ((Button) findViewById(R.id.settings)).setTypeface(font);
+        ((TextView) findViewById(R.id.textViewPlayerName)).setTypeface(font);
 
+        TextView playerName = (TextView) findViewById(R.id.textViewPlayerName);
+        playerName.setText(playerName.getText() + " " + Con.getName());
     }
 
     public void startGameSetup(View view) {
@@ -59,9 +66,15 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void logout(View view) {
+        globalVariables.setOwnPlayerID(0);
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(globalVariables.getSharedPrefContext());
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.remove("PlayerID");
+        editor.apply();
+
         Intent intent = new Intent(this, LoginRegistrationActivity.class);
         startActivity(intent);
-        globalVariables.setOwnPlayerID(0);
     }
 
     public void reset (View view){

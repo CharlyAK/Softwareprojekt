@@ -23,50 +23,6 @@
         style="@android:style/Theme.Light" />
 
     <Button
-        android:id="@+id/startGame"
-        android:layout_below="@id/Heading"
-        android:layout_centerHorizontal="true"
-        android:layout_width="230dp"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:text="@string/start_game"
-        android:shadowColor="#00ccff"
-        android:shadowRadius="1.5"
-        android:shadowDx="1"
-        android:shadowDy="1"
-        android:onClick="startGameSetup"
-        />
-
-    <Button
-        android:id="@+id/joinGame"
-        android:layout_width="230dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/startGame"
-        android:layout_centerHorizontal="true"
-        android:textSize="30sp"
-        android:text="@string/join_game"
-        android:onClick="startJoinGame"
-        android:shadowColor="#00ccff"
-        android:shadowRadius="1.5"
-        android:shadowDx="1"
-        android:shadowDy="1" />
-
-    <Button
-        android:id="@+id/settings"
-        android:layout_width="230dp"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:text="@string/settings"
-        android:shadowColor="#00ccff"
-        android:shadowRadius="1.5"
-        android:shadowDx="1"
-        android:shadowDy="1"
-        android:onClick="startSettings"
-        android:layout_below="@+id/joinGame"
-        android:layout_alignLeft="@+id/joinGame"
-        android:layout_alignStart="@+id/joinGame" />
-
-    <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -96,5 +52,63 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:id="@+id/buttonReset" />
+
+    <Button
+        android:id="@+id/settings"
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:text="@string/settings"
+        android:shadowColor="#00ccff"
+        android:shadowRadius="1.5"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:onClick="startSettings"
+        android:layout_above="@+id/rules"
+        android:layout_alignLeft="@+id/joinGame"
+        android:layout_alignStart="@+id/joinGame"
+        android:layout_marginBottom="22dp" />
+
+    <Button
+        android:id="@+id/joinGame"
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:text="@string/join_game"
+        android:onClick="startJoinGame"
+        android:shadowColor="#00ccff"
+        android:shadowRadius="1.5"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:layout_marginBottom="13dp"
+        android:layout_above="@+id/settings"
+        android:layout_alignLeft="@+id/startGame"
+        android:layout_alignStart="@+id/startGame" />
+
+    <Button
+        android:id="@+id/startGame"
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:text="@string/start_game"
+        android:shadowColor="#00ccff"
+        android:shadowRadius="1.5"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:onClick="startGameSetup"
+        android:layout_marginBottom="12dp"
+        android:layout_above="@+id/joinGame"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="Eingeloggt als:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewPlayerName"
+        android:layout_below="@+id/Heading"
+        android:layout_alignLeft="@+id/startGame"
+        android:layout_alignStart="@+id/startGame"
+        android:layout_alignRight="@+id/startGame"
+        android:layout_alignEnd="@+id/startGame" />
 
 </RelativeLayout>

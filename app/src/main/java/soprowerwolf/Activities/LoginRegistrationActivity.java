@@ -1,10 +1,12 @@
 package soprowerwolf.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -34,6 +36,7 @@ public class LoginRegistrationActivity extends AppCompatActivity {
     Bitmap bm = null;
     InputStream is;
     databaseCon Con = new databaseCon();
+    int playerID = 0;
 
     GlobalVariables globalVariables = GlobalVariables.getInstance();
 
@@ -41,8 +44,8 @@ public class LoginRegistrationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_registration);
-
-        globalVariables.setOwnPlayerID(0);
+        globalVariables.setCurrentContext(this);
+        globalVariables.setSharedPrefContext(this); // for sharedPref (staying logged in)
 
         bStartScreen = (ImageButton) findViewById(R.id.imageButtonStart);
 
@@ -58,13 +61,29 @@ public class LoginRegistrationActivity extends AppCompatActivity {
 
         startLayout = findViewById(R.id.startLayout);
 
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        if(preferences.contains("PlayerID"))
+        {
+             playerID = preferences.getInt("PlayerID", -1);
+        }
+
+
         assert bStartScreen != null;
         bStartScreen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bStartScreen.setVisibility(View.INVISIBLE);
-                startLayout.setVisibility(View.VISIBLE);
-                findViewById(R.id.login_registration).setBackground(getResources().getDrawable(R.drawable.start));
+                if(playerID != 0)
+                {
+                    globalVariables.setOwnPlayerID(playerID);
+                    Intent intent = new Intent(globalVariables.getCurrentContext(), MenuActivity.class);
+                    startActivity(intent);
+                }
+                else
+                {
+                    bStartScreen.setVisibility(View.INVISIBLE);
+                    startLayout.setVisibility(View.VISIBLE);
+                    findViewById(R.id.login_registration).setBackground(getResources().getDrawable(R.drawable.start));
+                }
             }
         });
 
@@ -125,7 +144,12 @@ public class LoginRegistrationActivity extends AppCompatActivity {
     }
 
     public void login(View view) {
-        if (Con.login(textEMail.getText().toString(), textPassword.getText().toString())) {
+        if (Con.login(textEMail.getText().toString(), textPassword.getText().toString()) ) {
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putInt("PlayerID", globalVariables.getOwnPlayerID());
+            editor.apply();
+
             Toast.makeText(getApplicationContext(), "Login erfolgreich", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, MenuActivity.class);
             startActivity(intent);

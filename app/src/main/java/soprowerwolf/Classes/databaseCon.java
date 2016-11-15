@@ -1,11 +1,13 @@
 package soprowerwolf.Classes;
 
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.Image;
 import android.os.Build;
 import android.os.StrictMode;
+import android.preference.PreferenceManager;
 import android.util.Base64;
 
 import org.apache.http.NameValuePair;

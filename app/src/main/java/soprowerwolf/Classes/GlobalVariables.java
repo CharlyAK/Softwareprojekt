@@ -22,6 +22,7 @@ public class GlobalVariables extends Application {
     private String currentPhase = "Game";
     private String nextPhase;
     private Activity currentContext;
+    private Activity sharedPrefContext;
     private String winner = "";
     private boolean spielleiter;
     private String[] images;
@@ -124,6 +125,13 @@ public class GlobalVariables extends Application {
     }
     public Activity getCurrentContext() {
         return this.currentContext;
+    }
+
+    public void setSharedPrefContext(Activity sharedPrefContext) {
+        this.sharedPrefContext = sharedPrefContext;
+    }
+    public Activity getSharedPrefContext() {
+        return this.sharedPrefContext;
     }
 
     public void setWinner(String winner) {
