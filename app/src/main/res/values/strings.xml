@@ -90,6 +90,8 @@
     GetRole
     <string name="ready">bereit</string>
     <string name="yourRole">Deine Rolle ist...</string>
+    <string name="gettingReady">Die Dorfbewohner sammeln sich...</string>
+    <string name="PlayerReady">sind bereit</string>
 
 
     Game
@@ -98,7 +100,7 @@
 
     <string name="stayDorfbewohner">Ich möchte Dorfbewohner bleiben!</string>
     <string name="newRole">Dieb, klaue dir eine Rolle ;)</string>
-    <string name="becomeWolf">Um dem Gefängnis zu entfiehen mischt du dich unter die Werwölfe und bleibst unerkannt...</string>
+    <string name="becomeWolf">Die Gesetzeshüter sind dir dicht auf den Fersen. Um dem Gefängnis zu entfiehen mischt du dich unter die Werwölfe und bleibst unerkannt...</string>
 
     <string name="chooseLovers">Amor, wähle ein Liebespaar.</string>
 
@@ -107,6 +109,14 @@
     <string name="AufforderungJaeger">Dein Tod ist nahe doch mit deinem letztem Atemzug reißt du einen weiteren Dorfbewohner mit
         in den Tod. So wähle nun, wer mit dir sterben soll.</string>
     <string name="EndeJaeger"> wurde von dir mit in den Tod gerissen!</string>
+    
+    <string name="showNoVictim">Diese Nacht ist niemand gestorben!</string>
+    <string name="showOneVictim">Das Opfer der Nacht ist...</string>
+    <string name="showTwoVictims">Die Opfer der Nacht sind...</string>
+    <string name="victimWas">und war</string>
+    <string name="shotByJaeger">wurde vom Jänger erschossen und war</string>
+    <string name="victimLover">ist aus Liebe zu</string>
+    <string name="victimLoverWas">gestorben und war</string>
 
     <string name="ExplanationTag">Diskutiert nun, wer nominiert werden soll. Wenn die meisten Spieler eine Person nomiert und ihre Wahl mit Betätigung
         des Bestätigen - Buttons bestätigt haben, bleibt den übrigen noch etwas Zeit um sich zu entscheiden. Wer nach Ablauf dieser Zeit keine Wahl getroffen

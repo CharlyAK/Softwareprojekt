@@ -61,6 +61,7 @@ public class LoginRegistrationActivity extends AppCompatActivity {
 
         startLayout = findViewById(R.id.startLayout);
 
+        // check if, PlayerID exists (if somebody is logged in)
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         if(preferences.contains("PlayerID"))
         {
@@ -72,12 +73,14 @@ public class LoginRegistrationActivity extends AppCompatActivity {
         bStartScreen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // if PlayerID exists -> continue with Menu
                 if(playerID != 0)
                 {
                     globalVariables.setOwnPlayerID(playerID);
                     Intent intent = new Intent(globalVariables.getCurrentContext(), MenuActivity.class);
                     startActivity(intent);
                 }
+                // else continue with login/ registration
                 else
                 {
                     bStartScreen.setVisibility(View.INVISIBLE);
@@ -145,6 +148,7 @@ public class LoginRegistrationActivity extends AppCompatActivity {
 
     public void login(View view) {
         if (Con.login(textEMail.getText().toString(), textPassword.getText().toString()) ) {
+            // if success -> save PlayerID in sharedPref
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
             SharedPreferences.Editor editor = preferences.edit();
             editor.putInt("PlayerID", globalVariables.getOwnPlayerID());
@@ -172,6 +176,12 @@ public class LoginRegistrationActivity extends AppCompatActivity {
                 Con.setImage(bm);
 
             Toast.makeText(getApplicationContext(), "Spieler wurde erstellt", Toast.LENGTH_LONG).show();
+
+            // if success -> save PlayerID in sharedPref
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putInt("PlayerID", globalVariables.getOwnPlayerID());
+            editor.apply();
 
             Intent intent = new Intent(this, MenuActivity.class);
             startActivity(intent);

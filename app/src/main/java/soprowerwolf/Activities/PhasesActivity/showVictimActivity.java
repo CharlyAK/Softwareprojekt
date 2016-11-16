@@ -62,45 +62,48 @@ public class showVictimActivity extends AppCompatActivity {
          * victim[12] = Lover of victim[6] --> easier for showing (see below)
          * victim[13] = number of victims --> for a better Text
          */
-        if (victims[13].equals("0"))
-            InfoVictim.setText("Diese Nacht ist niemand gestorben!");
-
-        else if (victims[13].equals("1")) {
-            InfoVictim.setText("Das Opfer der Nacht ist... ");
-            for (int i = 0; i < 6; i = i + 2) {
-                if (!victims[i].equals("0")) {
-                    v1.setText(v1.getText().toString() + "\n" + victims[i] + " und war " + victims[i + 1]);
-                }
-            }
-
-            if (!victims[8].equals("0")) {
-                v2.setText(victims[8] + " wurde vom Jäger erschossen und war " + victims[9]);
-                if (!victims[10].equals("0")) {
-                    v2.setText(v2.getText().toString() + "\n" + victims[10] + " ist aus Liebe zu " + victims[8] + " gestorben und war " + victims[11]);
+        switch (victims[13]) {
+            case "0": // no victim this night
+                InfoVictim.setText(getString(R.string.showNoVictim));
+                break;
+            case "1": // one victim this night
+                InfoVictim.setText(getString(R.string.showOneVictim));
+                for (int i = 0; i < 6; i = i + 2) {
+                    if (!victims[i].equals("0")) { // was the victim good or bad?
+                        v1.setText(v1.getText().toString() + "\n" + victims[i] + " " + getString(R.string.victimWas) + " " + victims[i + 1]);
+                    }
                 }
 
-                globalVariables.setJaegerDies(false);
-            }
-        } else {
-            InfoVictim.setText("Die Opfer der Nacht sind... ");
-            for (int i = 0; i < 6; i = i + 2) {
-                if (!victims[i].equals("0")) {
-                    v1.setText(v1.getText().toString() + "\n" + victims[i] + " und war " + victims[i + 1]);
+                if (!victims[8].equals("0")) { //"Jaeger" died and shot somebody
+                    v2.setText(victims[8] + " " + getString(R.string.shotByJaeger) + " " + victims[9]);
+                    if (!victims[10].equals("0")) { // the victim of "Jaeger" had a lover
+                        v2.setText(v2.getText().toString() + "\n" + victims[10] + " " + getString(R.string.victimLover) + " " + victims[8] + " " + getString(R.string.victimLoverWas) + " " + victims[11]);
+                    }
+
+                    globalVariables.setJaegerDies(false);
                 }
-            }
-
-            if (!victims[6].equals("0")) {
-                v1.setText(v1.getText().toString() + "\n" + victims[6] + " ist aus Liebe zu " + victims[12] + " gestorben und war " + victims[7]);
-            }
-
-            if (!victims[8].equals("0")) {
-                v2.setText(victims[8] + " wurde vom Jäger erschossen und war " + victims[9]);
-                if (!victims[10].equals("0")) {
-                    v2.setText(v2.getText().toString() + "\n" + victims[10] + " ist aus Liebe zu " + victims[8] + " gestorben und war " + victims[11]);
+                break;
+            default:// more than one victim this night
+                InfoVictim.setText(getString(R.string.showTwoVictims));
+                for (int i = 0; i < 6; i = i + 2) {
+                    if (!victims[i].equals("0")) { // was the victim good or bad?
+                        v1.setText(v1.getText().toString() + "\n" + victims[i] + " " + getString(R.string.victimWas) + " " + victims[i + 1]);
+                    }
                 }
 
-                globalVariables.setJaegerDies(false);
-            }
+                if (!victims[6].equals("0")) { // the victim and its lover died --> was the lover good or bad?
+                    v1.setText(v1.getText().toString() + "\n" + victims[6] + " " + getString(R.string.victimLover) + " " + victims[12] + " " + getString(R.string.victimLoverWas) + " " + victims[7]);
+                }
+
+                if (!victims[8].equals("0")) { //"Jaeger" died and shot somebody
+                    v2.setText(victims[8] + " " + getString(R.string.shotByJaeger) + " " + victims[9]);
+                    if (!victims[10].equals("0")) { // the victim of "Jaeger" had a lover
+                        v2.setText(v2.getText().toString() + "\n" + victims[10] + " " + getString(R.string.victimLover) + " " + victims[8] + " " + getString(R.string.victimLoverWas) + " " + victims[11]);
+                    }
+
+                    globalVariables.setJaegerDies(false);
+                }
+                break;
         }
 
         timer = new CountDownTimer(tag.getDuration() + 1000, 1000) {
@@ -115,6 +118,7 @@ public class showVictimActivity extends AppCompatActivity {
                     // if "Jaeger" dies -> don't kill, call "JaegerActivity"
                     new setNextPhase().execute("");
                 } else if (globalVariables.isSpielleiter() && !globalVariables.getJaegerDies()) {
+                    // kill and set next phase
                     new killDB().execute("");
                     new setNextPhase().execute("");
                 } else

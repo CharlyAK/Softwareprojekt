@@ -60,6 +60,7 @@ public class DiebActivity extends AppCompatActivity {
             Button choiceRight = (Button) findViewById(R.id.diebDecisionRight);
             Button stayDor = (Button) findViewById(R.id.ChangeToDorfbewohner);
 
+            // if one choices is "Werwolf" -> Dieb has to become "Werwolf"
             if(choice1.equals("Werwolf") || choice2.equals("Werwolf"))
             {
                 choiceLeft.setVisibility(View.INVISIBLE);
@@ -72,6 +73,7 @@ public class DiebActivity extends AppCompatActivity {
 
             assert choiceLeft != null;
 
+            // first button gets picture an info of the role (choice1)
             switch (choice1) {
                 case "Amor":
                     choiceLeft.setBackgroundResource(R.drawable.amor);
@@ -141,6 +143,7 @@ public class DiebActivity extends AppCompatActivity {
 
             assert choiceRight != null;
 
+            //second button gets picture and info of the role (choice2)
             switch (choice2) {
                 case "Amor":
                     choiceRight.setBackgroundResource(R.drawable.amor);
@@ -207,6 +210,8 @@ public class DiebActivity extends AppCompatActivity {
                     break;
             }
 
+            // if one of the coices is "Dorfbewohner" -> the button "stayDof" becomes invisible
+            // => if both choices are speciale roles -> Dieb can also stay "Dorfbewohner"
             if (choice1.equals("Dorfbewohner") || choice2.equals("Dorfbewohner")) {
                 assert stayDor != null;
                 stayDor.setVisibility(View.INVISIBLE);
@@ -243,7 +248,7 @@ public class DiebActivity extends AppCompatActivity {
                 globalVariables.setOwnRole("Dorfbewohner");
                 new DiebDB().execute("Dorfbewohner", Con.DiebGetRoles()[0], Con.DiebGetRoles()[1]);
                 break;
-            case "Werwolf":
+            case "Werwolf": // if Dieb has to become "Werwolf"
                 globalVariables.setOwnRole("Werwolf");
                 String[] choices = Con.DiebGetRoles();
                 choice1 = choices[0];

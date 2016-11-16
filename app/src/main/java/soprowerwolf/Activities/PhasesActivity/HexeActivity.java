@@ -88,7 +88,7 @@ public class HexeActivity extends AppCompatActivity {
                 }
             });
 
-            popup.PopUpInfo("Das Opfer der Werwölfe ist diese Nacht " + victimWer, "Hexe").show();
+            popup.PopUpInfo("Das Opfer der Werwölfe diese Nacht ist " + victimWer, "Hexe").show();
 
         } else {
             setContentView(R.layout.activity_wait);

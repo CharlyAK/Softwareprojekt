@@ -16,6 +16,14 @@ import soprowerwolf.Classes.JSONParser;
 /**
  * Created by Alex on 12.09.2016.
  */
+
+
+/**
+ * updates database -> changes Role of "Dieb" + deletes Phases of not choosen roles (if necessary)
+ * params[0] = new role
+ * params[1] = the role, which wasn't choosen
+ * params[2] = the second role, which wasn't choosen (if the player wants to stay "Dorfbewohner" -> important to delete the right phases)
+ */
 public class DiebDB extends AsyncTask<String, String, String> {
 
     private JSONParser jsonParser = new JSONParser();
@@ -23,9 +31,6 @@ public class DiebDB extends AsyncTask<String, String, String> {
     private static final String url_change_role = "http://www-e.uni-magdeburg.de/jkloss/changeRole.php";
     NextPhaseDB nextPhaseDB = new NextPhaseDB();
 
-    /*
-     * @param param[0] newRole, param[1] the role, which wasn't choosen, param[2] the second role, which wasn't choosen (if the player wants to stay "Dorfbewohner" -> important to delete the right phases)
-     */
     @Override
     protected String doInBackground(String... params) {
         List<NameValuePair> paramsList = new ArrayList<NameValuePair>();

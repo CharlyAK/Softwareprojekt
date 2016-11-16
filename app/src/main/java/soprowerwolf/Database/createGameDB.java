@@ -19,6 +19,11 @@ import soprowerwolf.Classes.JSONParser;
 /**
  * Created by Alex on 12.09.2016.
  */
+
+
+/**
+ * This class creats a new Game, gets and saves gameID (global) and inserts Phases into database
+ */
 public class createGameDB extends AsyncTask<String, String, String> {
 
     private JSONParser jsonParser = new JSONParser();

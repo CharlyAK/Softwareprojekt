@@ -48,7 +48,7 @@ public class GetRole extends AppCompatActivity {
         role.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+            // first click: show role, second click: show roleInfo, third click: role disapears
                 if (firstClick && !secondClick) {
                     switch (globalVariables.getOwnRole()) {
                         case "Dieb":
@@ -137,7 +137,7 @@ public class GetRole extends AppCompatActivity {
         public void run() {
             ready = Con.getReady();
 
-            info.setText("Die Dorfbewohner sammeln sich... " + String.valueOf(ready) + "/" + String.valueOf(numPlayers) + " sind bereit.");
+            info.setText(getString(R.string.gettingReady) + String.valueOf(ready) + "/" + String.valueOf(numPlayers) + " " + getString(R.string.PlayerReady));
 
             if (ready == numPlayers || ready == numPlayers + 2) { // ToDo: ändern
                 Intent intent = new Intent(GetRole.this, LetsPlayActivity.class);
@@ -152,7 +152,7 @@ public class GetRole extends AppCompatActivity {
         globalVariables.setNumPlayers(Con.getNumPlayers());
         numPlayers = globalVariables.getNumPlayers();
 
-        info = Snackbar.make(findViewById(R.id.activityGetRole), "Die Dorfbewohner sammeln sich... " + String.valueOf(ready) + "/" + String.valueOf(numPlayers) + " sind bereit.", Snackbar.LENGTH_INDEFINITE);
+        info = Snackbar.make(findViewById(R.id.activityGetRole), getString(R.string.gettingReady) + String.valueOf(ready) + "/" + String.valueOf(numPlayers) + " " + getString(R.string.PlayerReady), Snackbar.LENGTH_INDEFINITE);
         info.show();
 
         //check frequently who many players joined the game

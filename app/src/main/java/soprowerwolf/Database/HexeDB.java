@@ -33,12 +33,14 @@ public class HexeDB extends AsyncTask<String, String, String> {
 
         switch (params[0])
         {
+            // saves victim -> victimWer becomes null, heal becomes true
             case "saveVictim":
                 paramsList.add(new BasicNameValuePair("heal", "used"));
                 JSONObject jsonObjectSave = jsonParser.makeHttpRequest(url_update_hexe, "POST", paramsList);
                 //ToDo: check for success
                 break;
 
+            // kills player -> victimHex is set, poison becomes true
             case "kill":
                 String playerID = params[1];
 

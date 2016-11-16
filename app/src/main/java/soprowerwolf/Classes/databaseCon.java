@@ -52,6 +52,13 @@ public class databaseCon {
     private static final String url_update_player_game = "http://www-e.uni-magdeburg.de/jkloss/update_player_game.php";
 
 
+    /**
+     * creats a new player, getting playerID
+     * @param name -> displayed name during the game
+     * @param email -> needed for next login
+     * @param pw -> needed for next login
+     * @return true (if the registration was successful) or false (if the player already exists)
+     */
     public boolean registration(String name, String email, String pw) {
         //ToDo: HashWerte für passwörter
         List<NameValuePair> paramsCheck = new ArrayList<NameValuePair>();
@@ -88,6 +95,13 @@ public class databaseCon {
         return false;
     }
 
+    /**
+     * getting Playerinformation from database to login -> compare data
+     * @param email
+     * @param pw
+     *     ==> combination needed for login
+     * @return true(if login successful) or false (if login failed)
+     */
     public boolean login(String email, String pw) {
         List<NameValuePair> params = new ArrayList<NameValuePair>();
 
@@ -112,6 +126,10 @@ public class databaseCon {
         return false;
     }
 
+    /**
+     * deletes the entry of a player
+     * @return true(if player successfully deleted) or false (if delete failed)
+     */
     public boolean deleteAccount() {
         List<NameValuePair> params = new ArrayList<NameValuePair>();
 
@@ -192,7 +210,10 @@ public class databaseCon {
         return jsonObject1.getString("0");
     }
 
-    // getting Number of ready Players
+    /**
+     * getting number auf players, who are ready to play
+     * @return number of players, where "ready" is true (database)
+     */
     public int getReady() {
         int ready = 0;
         List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -216,6 +237,10 @@ public class databaseCon {
         return ready;
     }
 
+    /**
+     * getting number of Game players
+     * @return number of players
+     */
     public int getNumPlayers() {
         int numPlayers = 0;
         boolean dieb = false;
@@ -245,6 +270,10 @@ public class databaseCon {
         return numPlayers;
     }
 
+    /**
+     * getting all playerIDs of Game players for playerIcons
+     * @return array of playerIDs (playerID = 0 if player is dead)
+     */
     public int[] getPlayerIDs() {
         int[] playerIDs = new int[20];
         List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -270,6 +299,10 @@ public class databaseCon {
         return playerIDs;
     }
 
+    /**
+     * getting all playernames of Game Players for playerIcons
+     * @return array of playerNames
+     */
     public String[] getPlayerNames() {
         String[] playerNames = new String[20];
         List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -294,6 +327,10 @@ public class databaseCon {
         return playerNames;
     }
 
+    /**
+     * getting own name for displaying (settings/ menu)
+     * @return String name
+     */
     public String getName(){
         List<NameValuePair> params = new ArrayList<NameValuePair>();
 
@@ -310,7 +347,10 @@ public class databaseCon {
         return null;
     }
 
-
+    /**
+     * getting remaining roles from database
+     * @return array with two roles (choices)
+     */
     public String[] DiebGetRoles() {
         String[] roles = new String[2];
         List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -415,6 +455,10 @@ public class databaseCon {
     }
 
 
+    /**
+     * getting role of "victim" from database
+     * @return if "ictim" is good or bad
+     */
     public String Seherin(int playerID) {
         String GoodOrBad = null;
 

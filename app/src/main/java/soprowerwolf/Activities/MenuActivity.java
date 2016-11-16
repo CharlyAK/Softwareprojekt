@@ -68,6 +68,7 @@ public class MenuActivity extends AppCompatActivity {
     public void logout(View view) {
         globalVariables.setOwnPlayerID(0);
 
+        //remove PlayerID from sharedPref -> next time login necessary
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(globalVariables.getSharedPrefContext());
         SharedPreferences.Editor editor = preferences.edit();
         editor.remove("PlayerID");

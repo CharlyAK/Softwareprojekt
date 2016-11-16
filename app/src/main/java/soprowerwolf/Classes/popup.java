@@ -55,6 +55,7 @@ public class popup {
                         if (globalVariables.getCurrentPhase().equals("Amor") && titel != "Info") {
                             new setNextPhase().execute("audio");
                         }
+                        // this is called if one of the choices is "werwolf"
                         if (globalVariables.getCurrentPhase().equals("Dieb") && titel != "Info") {
                             DiebActivity Dieb = new DiebActivity();
                             Dieb.changeRole("Werwolf");

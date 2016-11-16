@@ -15,11 +15,17 @@ import soprowerwolf.Classes.JSONParser;
  * Created by Alex on 20.09.2016.
  */
 
+/**
+ * updates database -> sets lover
+ *  params[0] = lover1
+ *  params[1] = lover2
+ */
 public class AmorDB extends AsyncTask<String, String, String> {
 
     private JSONParser jsonParser = new JSONParser();
     private GlobalVariables globalVariables = GlobalVariables.getInstance();
     private static final String url_set_lovers = "http://www-e.uni-magdeburg.de/jkloss/setLovers.php";
+
 
     @Override
     protected String doInBackground(String... params) {
