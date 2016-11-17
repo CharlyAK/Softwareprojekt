@@ -21,7 +21,7 @@ public class LetsPlayActivity extends AppCompatActivity {
     CountDownTimer timer;
     String[] images = new String[globalVariables.getNumPlayers()];
     databaseCon con = new databaseCon();
-    int[] playerIDs = con.getPlayerIDs();
+    int[] playerIDs = globalVariables.getPlayerIDs();
 
 
     @Override
@@ -29,6 +29,7 @@ public class LetsPlayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lets_play);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); // screen stays on
+
 
         audio = MediaPlayer.create(this, R.raw.first_night);
 

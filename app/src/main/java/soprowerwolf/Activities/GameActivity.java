@@ -65,8 +65,9 @@ public class GameActivity extends AppCompatActivity {
     public void createObjects() {
         int numOfPlayers = globalVariables.getNumPlayers();
         Activity context = globalVariables.getCurrentContext();
-        int[] playerIDs = Con.getPlayerIDs();
-        String[] playerNames = Con.getPlayerNames();
+        int[] playerIDs = globalVariables.getPlayerIDs();
+        String[] playerNames = globalVariables.getPlayerNames();
+        int[] alive = Con.getAlive();
 
         //create Linear Layouts in gameView
         LinearLayout row1 = (LinearLayout) context.findViewById(R.id.row1);
@@ -103,12 +104,11 @@ public class GameActivity extends AppCompatActivity {
             }
             */
 
-            /* ==> funktioniert, ist aber hinderlich, wenn man nur mit einem gerät spielt //ToDo: wieder einbinden
-            if(playerIDs[i] == 0) // if playerID = 0 -> player is dead and cannot be selected anymore
+            if(alive[i] == 0) // player is dead and cannot be selected anymore
             {
                 button.setEnabled(false);
             }
-            else*/
+            else
             button.setId(playerIDs[i]);
             button.setBackgroundColor(0);
             // TODO: JSON - getAllPlayer.php

@@ -16,6 +16,8 @@ public class GlobalVariables extends Application {
     private String ownRole;
     private int gameID;
     private int numPlayers;
+    private int[] PlayerIDs;
+    private String[] PlayerNames;
     private String[] cards;
     private Button currentlySelectedPlayer;
     private String[] Phases;
@@ -90,6 +92,20 @@ public class GlobalVariables extends Application {
     }
     public int getNumPlayers() {
         return this.numPlayers;
+    }
+
+    public void setPlayerIDs(int[] PlayerIDs) {
+        this.PlayerIDs = PlayerIDs;
+    }
+    public int[] getPlayerIDs() {
+        return this.PlayerIDs;
+    }
+
+    public void setPlayerNames(String[] PlayerNames) {
+        this.PlayerNames = PlayerNames;
+    }
+    public String[] getPlayerNames() {
+        return this.PlayerNames;
     }
 
     public void setCurrentlySelectedPlayer(Button currentlySelectedPlayer) {

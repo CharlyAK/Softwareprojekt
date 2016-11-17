@@ -37,6 +37,9 @@ public class GetRole extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_role);
 
+        Con.getPlayerIDs();
+        Con.getPlayerNames();
+
         globalVariables.setCurrentPhase("getRole");
         globalVariables.setCurrentContext(this);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); // screen stays on

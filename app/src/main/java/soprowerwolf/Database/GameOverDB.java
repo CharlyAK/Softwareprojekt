@@ -44,9 +44,9 @@ public class GameOverDB {
                 int g = 0;
                 for (int i = 0; i < player.length(); i++) {
 
-                    if (player.getJSONObject(i).getInt("alive") == 1 && player.getJSONObject(i).get("role") == "Werwolf") {
+                    if (player.getJSONObject(i).getInt("alive") == 1 && player.getJSONObject(i).getString("role").equals("Werwolf")) {
                         e++;
-                    } else if (player.getJSONObject(i).getInt("alive") == 1 && player.getJSONObject(i).get("role") != "Werwolf") {
+                    } else if (player.getJSONObject(i).getInt("alive") == 1 && !player.getJSONObject(i).getString("role").equals("Werwolf")) {
                         g++;
                     }
                 }

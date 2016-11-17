@@ -274,7 +274,7 @@ public class databaseCon {
      * getting all playerIDs of Game players for playerIcons
      * @return array of playerIDs (playerID = 0 if player is dead)
      */
-    public int[] getPlayerIDs() {
+    public void getPlayerIDs() {
         int[] playerIDs = new int[20];
         List<NameValuePair> params = new ArrayList<NameValuePair>();
 
@@ -285,29 +285,24 @@ public class databaseCon {
             if (ID.getInt("success") == 1) {
                 JSONArray JID = ID.getJSONArray("players");
                 for (int i = 0; i < JID.length(); i++) {
-                    //there is no playerID 0 -> if the playerID is 0, the player is dead
-                    if (JID.getJSONObject(i).getInt("alive") == 0)
-                    {
-                        playerIDs[i] = 0;
-                    } else
-                        playerIDs[i] = JID.getJSONObject(i).getInt("playerID");
+                    playerIDs[i] = JID.getJSONObject(i).getInt("playerID");
                 }
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return playerIDs;
+        globalVariables.setPlayerIDs(playerIDs);
     }
 
     /**
      * getting all playernames of Game Players for playerIcons
      * @return array of playerNames
      */
-    public String[] getPlayerNames() {
+    public void getPlayerNames() {
         String[] playerNames = new String[20];
         List<NameValuePair> params = new ArrayList<NameValuePair>();
 
-        int[] playerIDs = getPlayerIDs();
+        int[] playerIDs = globalVariables.getPlayerIDs();
 
         try {
             for(int i = 0; i < globalVariables.getNumPlayers(); i++)
@@ -324,7 +319,30 @@ public class databaseCon {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return playerNames;
+        globalVariables.setPlayerNames(playerNames);
+    }
+
+    public int[] getAlive()
+    {
+        int[] alive = new int[20];
+
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+
+        params.add(new BasicNameValuePair("gameID", String.valueOf(globalVariables.getGameID())));
+
+        JSONObject ID = jsonParser.makeHttpRequest(url_get_all_player, "GET", params);
+        try {
+            if (ID.getInt("success") == 1) {
+                JSONArray JID = ID.getJSONArray("players");
+                for (int i = 0; i < JID.length(); i++) {
+                    alive[i] = JID.getJSONObject(i).getInt("alive");
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return alive;
     }
 
     /**
@@ -412,7 +430,7 @@ public class databaseCon {
 
         switch (action) {
             case "update":
-                int[] playerIDs = getPlayerIDs();
+                int[] playerIDs = globalVariables.getPlayerIDs();
 
                 params.add(new BasicNameValuePair("phase", "night"));
                 for (int i = 0; i < playerIDs.length; i++) {
@@ -569,7 +587,7 @@ public class databaseCon {
 
         switch (action) {
             case "update":
-                int[] playerIDs = getPlayerIDs();
+                int[] playerIDs = globalVariables.getPlayerIDs();
 
                 for (int i = 0; i < playerIDs.length; i++) {
                     params.add(new BasicNameValuePair("id" + i, "" + playerIDs[i]));
