@@ -81,6 +81,7 @@ public class GameActivity extends AppCompatActivity {
             button.setText(playerNames[i]);
             button.setTag(i);
 
+
             //create an OnLongClickListener which will show a popup of a player's Image
             View.OnLongClickListener onLongClickListener = new View.OnLongClickListener() {
                 @Override
@@ -95,6 +96,7 @@ public class GameActivity extends AppCompatActivity {
                 }
             };
             button.setOnLongClickListener(onLongClickListener);
+
 
             // TODO: playerImages
             /*if (images[i] != null) {

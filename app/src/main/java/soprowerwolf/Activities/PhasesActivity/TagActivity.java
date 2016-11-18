@@ -95,8 +95,8 @@ public class TagActivity extends AppCompatActivity {
             for (int i=1; i < playerIDsAndVotes.length-1; i+=2){
                 votes += playerIDsAndVotes[i];
             }
-            //if all players have voted
-            if (votes >= globalVariables.getNumPlayers())
+            //if all players alive have voted
+            if (votes >= globalVariables.getNumPlayersAlive())
                 getResult(playerIDsAndVotes);
 
             else

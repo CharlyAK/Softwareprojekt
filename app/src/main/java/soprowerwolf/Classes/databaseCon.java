@@ -325,6 +325,7 @@ public class databaseCon {
     public int[] getAlive()
     {
         int[] alive = new int[20];
+        int numPlayersAlive = 0;
 
         List<NameValuePair> params = new ArrayList<NameValuePair>();
 
@@ -342,6 +343,13 @@ public class databaseCon {
             e.printStackTrace();
         }
 
+        for(int i=0; i < globalVariables.getNumPlayers(); i++)
+        {
+            if(alive[i] == 1)
+                numPlayersAlive++;
+        }
+
+        globalVariables.setNumPlayersAlive(numPlayersAlive);
         return alive;
     }
 

@@ -16,6 +16,7 @@ public class GlobalVariables extends Application {
     private String ownRole;
     private int gameID;
     private int numPlayers;
+    private int numPlayersAlive;
     private int[] PlayerIDs;
     private String[] PlayerNames;
     private String[] cards;
@@ -92,6 +93,13 @@ public class GlobalVariables extends Application {
     }
     public int getNumPlayers() {
         return this.numPlayers;
+    }
+
+    public void setNumPlayersAlive(int numPlayersAlive) {
+        this.numPlayersAlive = numPlayersAlive;
+    }
+    public int getNumPlayersAlive() {
+        return this.numPlayersAlive;
     }
 
     public void setPlayerIDs(int[] PlayerIDs) {

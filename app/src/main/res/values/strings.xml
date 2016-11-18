@@ -109,11 +109,16 @@
     <string name="AufforderungJaeger">Dein Tod ist nahe doch mit deinem letztem Atemzug reißt du einen weiteren Dorfbewohner mit
         in den Tod. So wähle nun, wer mit dir sterben soll.</string>
     <string name="EndeJaeger"> wurde von dir mit in den Tod gerissen!</string>
-    
-    <string name="showNoVictim">Diese Nacht ist niemand gestorben!</string>
-    <string name="showOneVictim">Das Opfer der Nacht ist...</string>
-    <string name="showTwoVictims">Die Opfer der Nacht sind...</string>
-    <string name="victimWas">und war</string>
+
+    showVictim
+    <string name="showNoVictimNight">Diese Nacht ist niemand gestorben!</string>
+    <string name="showOneVictimNight">Hört die schreckliche Kunde, diese Nacht ist wieder jemand gestorben...</string>
+    <string name="showTwoVictimsNight">Hört die schreckliche Kunde, diese Nacht ist mehr als ein Opfer von uns gegangen...</string>
+
+    <string name="showNoVictimDay">Heute ist niemand gestorben!</string>
+    <string name="showOneVictimDay">Ihr habt abgestimmt. Hingerichtet wird...</string>
+
+    <string name="victimWas">war</string>
     <string name="shotByJaeger">wurde vom Jänger erschossen und war</string>
     <string name="victimLover">ist aus Liebe zu</string>
     <string name="victimLoverWas">gestorben und war</string>

@@ -63,11 +63,21 @@ public class showVictimActivity extends AppCompatActivity {
          * victim[13] = number of victims --> for a better Text
          */
         switch (victims[13]) {
-            case "0": // no victim this night
-                InfoVictim.setText(getString(R.string.showNoVictim));
+            case "0": // no victim
+                if (globalVariables.getCurrentPhase().equals("OpferNacht")) {
+                    InfoVictim.setText(getString(R.string.showNoVictimNight));
+                }
+                else {
+                    InfoVictim.setText(getString(R.string.showNoVictimDay));
+                }
                 break;
-            case "1": // one victim this night
-                InfoVictim.setText(getString(R.string.showOneVictim));
+            case "1": // one victim
+                if (globalVariables.getCurrentPhase().equals("OpferNacht")) {
+                    InfoVictim.setText(getString(R.string.showOneVictimNight));
+                }
+                else {
+                    InfoVictim.setText(getString(R.string.showOneVictimDay));
+                }
                 for (int i = 0; i < 6; i = i + 2) {
                     if (!victims[i].equals("0")) { // was the victim good or bad?
                         v1.setText(v1.getText().toString() + "\n" + victims[i] + " " + getString(R.string.victimWas) + " " + victims[i + 1]);
@@ -83,8 +93,13 @@ public class showVictimActivity extends AppCompatActivity {
                     globalVariables.setJaegerDies(false);
                 }
                 break;
-            default:// more than one victim this night
-                InfoVictim.setText(getString(R.string.showTwoVictims));
+            default:// more than one victim
+                if (globalVariables.getCurrentPhase().equals("OpferNacht")) {
+                    InfoVictim.setText(getString(R.string.showTwoVictimsNight));
+                }
+                else {
+                    InfoVictim.setText(getString(R.string.showOneVictimDay));
+                }
                 for (int i = 0; i < 6; i = i + 2) {
                     if (!victims[i].equals("0")) { // was the victim good or bad?
                         v1.setText(v1.getText().toString() + "\n" + victims[i] + " " + getString(R.string.victimWas) + " " + victims[i + 1]);

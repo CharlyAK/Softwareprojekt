@@ -37,8 +37,7 @@ public class GetRole extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_role);
 
-        Con.getPlayerIDs();
-        Con.getPlayerNames();
+        numPlayers = globalVariables.getNumPlayers();
 
         globalVariables.setCurrentPhase("getRole");
         globalVariables.setCurrentContext(this);
@@ -153,7 +152,6 @@ public class GetRole extends AppCompatActivity {
     public void ready(View view) {
         new setReadyDB().execute();
         globalVariables.setNumPlayers(Con.getNumPlayers());
-        numPlayers = globalVariables.getNumPlayers();
 
         info = Snackbar.make(findViewById(R.id.activityGetRole), getString(R.string.gettingReady) + String.valueOf(ready) + "/" + String.valueOf(numPlayers) + " " + getString(R.string.PlayerReady), Snackbar.LENGTH_INDEFINITE);
         info.show();
