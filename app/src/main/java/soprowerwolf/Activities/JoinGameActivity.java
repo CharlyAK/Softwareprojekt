@@ -48,7 +48,6 @@ public class JoinGameActivity extends AppCompatActivity implements ZXingScannerV
     @Override
     public void onPause(){
         super.onPause();
-        scannerView.stopCamera();
     }
 
     @TargetApi(Build.VERSION_CODES.CUPCAKE)

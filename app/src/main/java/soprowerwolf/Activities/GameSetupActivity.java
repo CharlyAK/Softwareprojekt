@@ -13,6 +13,7 @@ import android.widget.CheckBox;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Random;
 
@@ -27,6 +28,7 @@ public class GameSetupActivity extends AppCompatActivity {
     String[] cards = new String[22];
     int i = 0;
     int numberWer = 0;
+    int numberDor;
     int fillDor;
 
     GlobalVariables globalVariables = GlobalVariables.getInstance();
@@ -95,28 +97,13 @@ public class GameSetupActivity extends AppCompatActivity {
         Button startGame = (Button) findViewById(R.id.startGame);
         final Spinner spinnerWer = (Spinner) findViewById(R.id.spinnerWer);
 
-        int numberDor = ((NumberPicker) findViewById(R.id.numberPicker)).getValue();
+        numberDor = ((NumberPicker) findViewById(R.id.numberPicker)).getValue();
 
 
-        //transform String to int and
         assert spinnerWer != null;
-        switch ((String) spinnerWer.getSelectedItem()) {
-            case "1":
-                numberDor -= 1;
-                break;
-            case "2":
-                numberDor -= 2;
-                break;
-            case "3":
-                numberDor -= 3;
-                break;
-            case "4":
-                numberDor -= 4;
-                break;
-            case "5":
-                numberDor -= 5;
-                break;
-        }
+        //subtract the number of werewolves from the numberDor
+        numberDor -= Integer.parseInt((String) spinnerWer.getSelectedItem());
+
 
         //calculate number of extra roles
         if (((CheckBox) (findViewById(R.id.checkBoxDie))).isChecked()) {
@@ -153,40 +140,28 @@ public class GameSetupActivity extends AppCompatActivity {
             @TargetApi(Build.VERSION_CODES.HONEYCOMB)
             @Override
             public void onClick(View v) {
-                //insert werewolves
-
-                switch ((String) spinnerWer.getSelectedItem()) {
-                    case "1":
-                        numberWer = 1;
-                        break;
-                    case "2":
-                        numberWer = 2;
-                        break;
-                    case "3":
-                        numberWer = 3;
-                        break;
-                    case "4":
-                        numberWer = 4;
-                        break;
-                    case "5":
-                        numberWer = 5;
-                        break;
+                if(numberDor < 0){
+                    Toast.makeText(globalVariables.getCurrentContext(),
+                            "Diese Spieleinstellungen funktionieren nicht",Toast.LENGTH_LONG).show();
+                    return;
                 }
 
+                //insert werewolves
+                numberWer = Integer.parseInt((String) spinnerWer.getSelectedItem());
                 int k = i;
                 for (i = k; i < k + numberWer; i++) {
                     cards[i] = "Werwolf";
                 }
 
                 //fill with "dorfbewohnern"
-                for (i = i; i < fillDor; i++) {
+                for (; i < fillDor; i++) {
                     cards[i] = "Dorfbewohner";
                 }
 
                 String[] cardsShuffled = new String[i];
                 //shuffle roles
                 for (int j = 0; j < i; j++) {
-                    //the last two roles are for the decision of the thief - non of them has to be the "Dieb" itself
+                    //the last two roles are for the decision of the thief - none of them has to be the "Dieb" itself
                     // + if there is only one "Werwolf" and the Role "Dieb" contains to the game - non of the decisionCards for the "Dieb" has to be a "Werwolf"
                     // -> otherwise it could be possible to have no "Werwolf" in the game
                     if (cards[j] == "Dieb" || (cards[j] == "Werwolf" && numberWer == 1 && globalVariables.getDiebChoosen())) {
@@ -236,7 +211,6 @@ public class GameSetupActivity extends AppCompatActivity {
                 }
 
                 globalVariables.setPhases(phase);
-
                 globalVariables.setNumPlayers(((NumberPicker) findViewById(R.id.numberPicker)).getValue());
                 globalVariables.setCards(cardsShuffled);
                 globalVariables.setOwnRole(cardsShuffled[0]);
