@@ -13,6 +13,7 @@ import android.widget.CheckBox;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Random;
 
@@ -154,6 +155,8 @@ public class GameSetupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //insert werewolves
+
+                Toast.makeText(getApplicationContext(), "Spiel wird erstellt...", Toast.LENGTH_SHORT).show();
 
                 switch ((String) spinnerWer.getSelectedItem()) {
                     case "1":

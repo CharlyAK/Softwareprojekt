@@ -135,7 +135,10 @@ public class showVictimActivity extends AppCompatActivity {
                 } else if (globalVariables.isSpielleiter() && !globalVariables.getJaegerDies()) {
                     // kill and set next phase
                     new killDB().execute("");
-                    new setNextPhase().execute("");
+                    if(globalVariables.getCurrentPhase().equals("OpferTag"))
+                        new setNextPhase().execute("audio");
+                    else
+                        new setNextPhase().execute("");
                 } else
                     timerHandler.postDelayed(timerRunnable, 3000);
             }

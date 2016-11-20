@@ -53,7 +53,7 @@ public class AudioActivity extends AppCompatActivity {
                     globalVariables.setCurrentPhase("Audio");
                     audio.playHexeS();
                     break;
-                case "Tag":
+                case "OpferTag":
                     globalVariables.setCurrentPhase("Audio");
                     audio.playTagS();
                     break;

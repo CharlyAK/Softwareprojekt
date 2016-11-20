@@ -59,10 +59,4 @@ public class LetsPlayActivity extends AppCompatActivity {
 
     }
 
-
-    //TODO: zum testen; später entfernen
-    public void letsPlay(View view){
-        //audio.stop();
-        //timer.onFinish();
-    }
 }
