@@ -31,9 +31,7 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:layout_marginTop="37dp"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true" />
+        android:layout_below="@+id/textView"/>
 
     <NumberPicker
         android:layout_width="wrap_content"
@@ -42,8 +40,8 @@
         android:divider="#3a1616"
         android:transitionGroup="false"
         android:onClick="calculateGame"
-        android:layout_alignTop="@+id/textView"
         android:layout_toEndOf="@+id/textView3"
+        android:orientation="horizontal"
         android:layout_toRightOf="@+id/textView3" />
 
     <TableLayout
@@ -53,7 +51,9 @@
         android:layout_alignStart="@+id/textView"
         android:layout_marginTop="46dp"
         android:id="@+id/tableLayout"
-        android:layout_alignLeft="@+id/textView">
+        android:layout_alignLeft="@+id/textView"
+        android:divider="@android:drawable/bottom_bar"
+        android:dividerPadding="@dimen/activity_vertical_margin">
 
         <TableRow
             android:layout_width="match_parent"
@@ -182,7 +182,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New Text"
                 android:id="@+id/numberDor"
                 android:layout_column="1" />
 
@@ -192,9 +191,9 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="50sp"
-        android:layout_below="@+id/tableLayout"
         android:text="@string/start_game"
-        android:id="@+id/startGame" />
+        android:id="@+id/startGame"
+        android:layout_alignParentBottom="true"/>
 
     <TextView
         android:layout_width="wrap_content"
