@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -38,6 +39,8 @@ public class LoginRegistrationActivity extends AppCompatActivity {
     databaseCon Con = new databaseCon();
     int playerID = 0;
 
+    MediaPlayer audio;
+
     GlobalVariables globalVariables = GlobalVariables.getInstance();
 
     @Override
@@ -60,6 +63,8 @@ public class LoginRegistrationActivity extends AppCompatActivity {
         bChooseImage = (Button) findViewById(R.id.buttonSelectImageStart);
 
         startLayout = findViewById(R.id.startLayout);
+        audio = MediaPlayer.create(this, R.raw.wolf_howling);
+        audio.start();
 
         // check if, PlayerID exists (if somebody is logged in)
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);

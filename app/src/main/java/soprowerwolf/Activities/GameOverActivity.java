@@ -46,11 +46,11 @@ public class GameOverActivity extends AppCompatActivity {
         if(globalVariables.isSpielleiter()){
             params.add(new BasicNameValuePair("gameID", String.valueOf(globalVariables.getGameID())));
             params.add(new BasicNameValuePair("playerID", String.valueOf(globalVariables.getOwnPlayerID())));
-            jsonParser.makeHttpRequest(url_exitGame, "POST", params);
+            jsonParser.makeHttpRequest(url_exitGame, "GET", params);
         }
         else{
             params.add(new BasicNameValuePair("playerID", String.valueOf(globalVariables.getOwnPlayerID())));
-            jsonParser.makeHttpRequest(url_exitGame, "POST", params);
+            jsonParser.makeHttpRequest(url_exitGame, "GET", params);
         }
 
         Intent intent = new Intent(GameOverActivity.this, MenuActivity.class);

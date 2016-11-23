@@ -44,22 +44,22 @@ public class LoverActivity extends AppCompatActivity {
 
         lover = (TextView) findViewById(R.id.loverInfo);
 
-        //TODO: change Audio
-        //audio = MediaPlayer.create(this, R.raw.first_night);
+        audio = MediaPlayer.create(this, R.raw.lover);
 
-        //lover.setText("(automatisch weiter in 5s)\nDu bist verliebt in " + Con.getLover() + " verliebt." );
+        lover.setText("Du bist in " + Con.getLover() + " verliebt." );
 
-        //let the phones of the players that are not in love vibrate
+        /*let the phones of the players that are not in love vibrate
         if (Con.getLover().equals("niemanden")){
             Vibrator vibrator = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
             vibrator.vibrate(20);
         }
+        */
 
         if(globalVariables.isSpielleiter()){
-           timer = new CountDownTimer(5000, 1000){
+           timer = new CountDownTimer(audio.getDuration(), 1000){
                @Override
                public void onTick(long millisUntilFinished) {
-                   //audio.start();
+                   audio.start();
                }
 
                @Override
