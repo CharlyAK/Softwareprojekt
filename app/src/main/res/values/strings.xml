@@ -87,6 +87,10 @@
         <item>5</item>
     </string-array>
 
+    QR-Code
+    <string name="joined">Bereits beigetreten:</string>
+    <string name="backToMenu">Bist du sicher, dass du zum Menu zurückkehren möchtest? Das von dir erstellte Spiel wird dabei gelöscht.</string>
+
     GetRole
     <string name="ready">bereit</string>
     <string name="yourRole">Deine Rolle ist...</string>

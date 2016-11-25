@@ -11,6 +11,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:fitsSystemWindows="true"
+    android:id="@+id/qrCode"
     tools:context=".Activities.QRCodeActivity">
 
     <ImageView
@@ -26,8 +27,7 @@
         android:text="[von allen gescanned]"
         android:id="@+id/buttonAllJoined"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="weiter"/>
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"

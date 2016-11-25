@@ -13,7 +13,14 @@ import android.util.Base64;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import soprowerwolf.Activities.LoginRegistrationActivity;
+import soprowerwolf.Activities.MenuActivity;
 import soprowerwolf.Activities.PhasesActivity.DiebActivity;
 import soprowerwolf.Database.HexeDB;
 import soprowerwolf.Database.JaegerDB;
@@ -143,6 +150,16 @@ public class popup {
                         Toast.makeText(context.getApplicationContext(), "delete Account failed", Toast.LENGTH_SHORT).show();
                 }
                 break;
+
+            case "back":
+                if(choice)
+                {
+                    //ToDo: dafür sorgen, dass nur eigenes game gelöscht wird
+                    Con.reset();
+
+                    Intent intent = new Intent(context, MenuActivity.class);
+                    context.startActivity(intent);
+                }
 
             case "Dieb":
                 if (choice) {

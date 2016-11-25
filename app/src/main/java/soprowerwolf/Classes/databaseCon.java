@@ -1,5 +1,6 @@
 package soprowerwolf.Classes;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -20,6 +21,10 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import soprowerwolf.Activities.GetRole;
+import soprowerwolf.Activities.LoginRegistrationActivity;
+import soprowerwolf.Activities.MenuActivity;
+
 /**
  * Created by Alex on 04.09.2016.
  */
@@ -39,6 +44,7 @@ public class databaseCon {
     private static final String url_create_new_player = "http://www-e.uni-magdeburg.de/jkloss/create_new_player.php";
     private static final String url_login = "http://www-e.uni-magdeburg.de/jkloss/login.php";
     private static final String url_delete_Account = "http://www-e.uni-magdeburg.de/jkloss/deleteAccount.php";
+    private static final String url_reset = "http://www-e.uni-magdeburg.de/jkloss/reset.php";
     private static final String url_save_image = "http://www-e.uni-magdeburg.de/jkloss/save_image.php";
     private static final String url_get_all_player = "http://www-e.uni-magdeburg.de/jkloss/get_all_player.php";
     private static final String url_get_game_details = "http://www-e.uni-magdeburg.de/jkloss/get_game_details.php";
@@ -236,6 +242,14 @@ public class databaseCon {
                     }
                 }
             }
+            else if(JOready.getInt("success") == 0)
+            {
+                GetRole getRole = new GetRole();
+                getRole.stop();
+                Intent intent = new Intent(globalVariables.getCurrentContext(), MenuActivity.class);
+                globalVariables.getCurrentContext().startActivity(intent);
+            }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -274,6 +288,16 @@ public class databaseCon {
             e.printStackTrace();
         }
         return numPlayersIn;
+    }
+
+    public void reset (){
+        JSONParser jsonParser = new JSONParser();
+
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+
+        params.add(new BasicNameValuePair("nothing", "nothing"));
+        jsonParser.makeHttpRequest(url_reset, "POST", params);
+
     }
 
     /**

@@ -134,6 +134,17 @@ public class GetRole extends AppCompatActivity {
 
     }
 
+    public void ready(View view) {
+        new setReadyDB().execute();
+
+        info = Snackbar.make(findViewById(R.id.activityGetRole), getString(R.string.gettingReady) + String.valueOf(ready) + "/" + String.valueOf(numPlayers) + " " + getString(R.string.PlayerReady), Snackbar.LENGTH_INDEFINITE);
+        info.show();
+
+
+        //check frequently who many players joined the game
+        start();
+    }
+
     private Handler timerHandler = new Handler();
     private Runnable timerRunnable = new Runnable() {
         @Override
@@ -150,16 +161,20 @@ public class GetRole extends AppCompatActivity {
         }
     };
 
-    public void ready(View view) {
-        new setReadyDB().execute();
+    public void stop() {
+        timerHandler.removeCallbacks(timerRunnable);
+    }
 
-        info = Snackbar.make(findViewById(R.id.activityGetRole), getString(R.string.gettingReady) + String.valueOf(ready) + "/" + String.valueOf(numPlayers) + " " + getString(R.string.PlayerReady), Snackbar.LENGTH_INDEFINITE);
-        info.show();
-
-
-        //check frequently who many players joined the game
+    public void start() {
         timerHandler.postDelayed(timerRunnable, 2000);
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        stop();
+    }
+
 
     /*
         todo:debug

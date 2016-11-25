@@ -3,6 +3,8 @@ package soprowerwolf.Activities;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,21 +14,32 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 
+import org.json.JSONException;
+
 import soprowerwolf.Classes.GlobalVariables;
+import soprowerwolf.Classes.databaseCon;
+import soprowerwolf.Classes.popup;
+import soprowerwolf.Database.setNextPhase;
 import soprowerwolf.R;
 
 public class QRCodeActivity extends AppCompatActivity {
 
     ImageView qrCodeImageview;
     String QRcode;
+    int numPlayersIn, numPlayers;
     public final static int WIDTH = 500;
     GlobalVariables globalVariables = GlobalVariables.getInstance();
+    databaseCon Con = new databaseCon();
+    Snackbar info;
+    popup popup = new popup();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qrcode);
+        numPlayers = globalVariables.getNumPlayers();
+        globalVariables.setCurrentContext(this);
         getID();
 
         // create thread to avoid ANR Exception
@@ -68,12 +81,10 @@ public class QRCodeActivity extends AppCompatActivity {
         });
         t.start();
 
-    }
+        info = Snackbar.make(findViewById(R.id.qrCode), getString(R.string.joined) + " " + String.valueOf(numPlayersIn) + "/" + String.valueOf(numPlayers), Snackbar.LENGTH_INDEFINITE);
+        info.show();
+        start();
 
-    //TODO: nicht weiter durch Button, sondern wenn alle gescannt haben
-    public void weiter(View view) {
-        Intent intent = new Intent(QRCodeActivity.this, GetRole.class);
-        startActivity(intent);
     }
 
     private void getID() {
@@ -104,9 +115,55 @@ public class QRCodeActivity extends AppCompatActivity {
         return bitmap;
     } /// end of this method
 
+    //this checks the database every second
+    private Handler handler = new Handler();
+
+    private Runnable runnable = new Runnable() {
+
+        @Override
+        public void run() {
+
+            info.setText(getString(R.string.joined) + " " + String.valueOf(numPlayersIn) + "/" + String.valueOf(numPlayers));
+            numPlayersIn = Con.getPlayerInGame();
+
+            //if all players in Game
+            if (numPlayersIn == numPlayers)
+            {
+                stop();
+                Intent intent = new Intent(QRCodeActivity.this, GetRole.class);
+                startActivity(intent);
+            }
+
+            else
+                handler.postDelayed(this, 2000);
+
+        }
+    };
+
+
+    public void stop() {
+        handler.removeCallbacks(runnable);
+    }
+
+    public void start() {
+        handler.postDelayed(runnable, 2000);
+    }
+
+    protected void onResume() {
+        super.onResume();
+        start();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        stop();
+    }
+
     @Override
     public void onBackPressed() {
         //TODO: game wieder löschen
+        popup.PopUpChoice(getString(R.string.backToMenu), "Wirklich zurückkehren?", "back", "").show();
     }
 
 }
