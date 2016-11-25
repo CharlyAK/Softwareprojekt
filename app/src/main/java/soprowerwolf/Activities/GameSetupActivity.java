@@ -186,7 +186,6 @@ public class GameSetupActivity extends AppCompatActivity {
                     }
 
                 }
-                cardsShuffled[0] = "Amor";
 
                 //set up the phases
                 String[] searchFor = {"Dieb", "Amor", "Werwolf", "Seherin", "Hexe"};

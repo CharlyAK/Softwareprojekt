@@ -54,9 +54,10 @@ public class databaseCon {
 
     /**
      * creats a new player, getting playerID
-     * @param name -> displayed name during the game
+     *
+     * @param name  -> displayed name during the game
      * @param email -> needed for next login
-     * @param pw -> needed for next login
+     * @param pw    -> needed for next login
      * @return true (if the registration was successful) or false (if the player already exists)
      */
     public boolean registration(String name, String email, String pw) {
@@ -97,9 +98,9 @@ public class databaseCon {
 
     /**
      * getting Playerinformation from database to login -> compare data
+     *
      * @param email
-     * @param pw
-     *     ==> combination needed for login
+     * @param pw    ==> combination needed for login
      * @return true(if login successful) or false (if login failed)
      */
     public boolean login(String email, String pw) {
@@ -128,6 +129,7 @@ public class databaseCon {
 
     /**
      * deletes the entry of a player
+     *
      * @return true(if player successfully deleted) or false (if delete failed)
      */
     public boolean deleteAccount() {
@@ -151,6 +153,7 @@ public class databaseCon {
 
     /**
      * Takes a bitmap which is encoded and saved in the database
+     *
      * @param bitmap to be saved
      */
     public void setImage(Bitmap bitmap) {
@@ -174,6 +177,7 @@ public class databaseCon {
     /**
      * Gets the blob object for a specific player from the database.
      * This is converted to a bitmap.
+     *
      * @return returns the created bitmap
      * @throws JSONException
      */
@@ -196,6 +200,7 @@ public class databaseCon {
     /**
      * This function gets the image of a player as a string.
      * It will be stored in the global variables
+     *
      * @param playerID of the player to get the image from
      * @return returns the String which contains the image information
      * @throws JSONException
@@ -212,6 +217,7 @@ public class databaseCon {
 
     /**
      * getting number auf players, who are ready to play
+     *
      * @return number of players, where "ready" is true (database)
      */
     public int getReady() {
@@ -237,8 +243,42 @@ public class databaseCon {
         return ready;
     }
 
+    public int getPlayerInGame() {
+        int numPlayersIn = 0;
+        boolean dieb = globalVariables.getDiebChoosen();
+
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+
+        params.add(new BasicNameValuePair("gameID", String.valueOf(globalVariables.getGameID())));
+
+        JSONObject JOAllPlayers = jsonParser.makeHttpRequest(url_get_all_player, "GET", params);
+        try {
+            if (JOAllPlayers.getInt("success") == 1) {
+                JSONArray JAAllPlayer = JOAllPlayers.getJSONArray("players");
+
+                if (dieb) {
+                    for (int i = 0; i < JAAllPlayer.length() - 2; i++) {
+                        if (JAAllPlayer.getJSONObject(i).getInt("playerID") != 0) {
+                            numPlayersIn++;
+                        }
+                    }
+                } else {
+                    for (int i = 0; i < JAAllPlayer.length(); i++) {
+                        if (JAAllPlayer.getJSONObject(i).getInt("playerID") != 0) {
+                            numPlayersIn++;
+                        }
+                    }
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return numPlayersIn;
+    }
+
     /**
      * getting number of Game players
+     *
      * @return number of players
      */
     public int getNumPlayers() {
@@ -272,6 +312,7 @@ public class databaseCon {
 
     /**
      * getting all playerIDs of Game players for playerIcons
+     *
      * @return array of playerIDs (playerID = 0 if player is dead)
      */
     public void getPlayerIDs() {
@@ -296,6 +337,7 @@ public class databaseCon {
 
     /**
      * getting all playernames of Game Players for playerIcons
+     *
      * @return array of playerNames
      */
     public void getPlayerNames() {
@@ -305,8 +347,7 @@ public class databaseCon {
         int[] playerIDs = globalVariables.getPlayerIDs();
 
         try {
-            for(int i = 0; i < globalVariables.getNumPlayers(); i++)
-            {
+            for (int i = 0; i < globalVariables.getNumPlayers(); i++) {
                 params.clear();
                 params.add(new BasicNameValuePair("playerID", String.valueOf(playerIDs[i])));
 
@@ -322,8 +363,7 @@ public class databaseCon {
         globalVariables.setPlayerNames(playerNames);
     }
 
-    public int[] getAlive()
-    {
+    public int[] getAlive() {
         int[] alive = new int[20];
         int numPlayersAlive = 0;
 
@@ -343,9 +383,8 @@ public class databaseCon {
             e.printStackTrace();
         }
 
-        for(int i=0; i < globalVariables.getNumPlayers(); i++)
-        {
-            if(alive[i] == 1)
+        for (int i = 0; i < globalVariables.getNumPlayers(); i++) {
+            if (alive[i] == 1)
                 numPlayersAlive++;
         }
 
@@ -355,18 +394,19 @@ public class databaseCon {
 
     /**
      * getting own name for displaying (settings/ menu)
+     *
      * @return String name
      */
-    public String getName(){
+    public String getName() {
         List<NameValuePair> params = new ArrayList<NameValuePair>();
 
         params.add(new BasicNameValuePair("playerID", String.valueOf(globalVariables.getOwnPlayerID())));
 
         try {
-        JSONObject name = jsonParser.makeHttpRequest(url_get_player_details, "GET", params);
+            JSONObject name = jsonParser.makeHttpRequest(url_get_player_details, "GET", params);
 
-        JSONArray AName = name.getJSONArray("player");
-        return AName.getJSONObject(0).getString("name");
+            JSONArray AName = name.getJSONArray("player");
+            return AName.getJSONObject(0).getString("name");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -375,6 +415,7 @@ public class databaseCon {
 
     /**
      * getting remaining roles from database
+     *
      * @return array with two roles (choices)
      */
     public String[] DiebGetRoles() {
@@ -402,6 +443,7 @@ public class databaseCon {
 
     /**
      * Sets the victim of the current phase
+     *
      * @param victimID playerID of the victim
      */
 
@@ -423,12 +465,13 @@ public class databaseCon {
 
     /**
      * Called during the Werwolf-phase
+     *
      * @param action: decides if you want to get an update on how many werewolves have voted
-     *              or if you want to submit your own choice
-     *              or if you want to get the number of werewolves alive
+     *                or if you want to submit your own choice
+     *                or if you want to get the number of werewolves alive
      * @return returns the playerIds and the votes
-     *          in the following pattern: {id1, votes1, id2, votes2, ...}
-     *          or the number of werewolves alive
+     * in the following pattern: {id1, votes1, id2, votes2, ...}
+     * or the number of werewolves alive
      * @throws JSONException
      */
 
@@ -483,6 +526,7 @@ public class databaseCon {
 
     /**
      * getting role of "victim" from database
+     *
      * @return if "ictim" is good or bad
      */
     public String Seherin(int playerID) {
@@ -512,7 +556,6 @@ public class databaseCon {
     }
 
     /**
-     *
      * @param magic: calls different functions (getVictimWer, ableToSave, ableToPoison, saveVictim, kill)
      * @return
      */
@@ -583,10 +626,11 @@ public class databaseCon {
 
     /**
      * Called during the day
+     *
      * @param action: choose if you want to get an update on how many players have voted
-     *              or if you want to submit your own choice to the database
+     *                or if you want to submit your own choice to the database
      * @return returns the playerIds and the votes
-     *          in the following pattern: {id1, votes1, id2, votes2, ...}
+     * in the following pattern: {id1, votes1, id2, votes2, ...}
      * @throws JSONException
      */
 
@@ -630,16 +674,16 @@ public class databaseCon {
     /*
             DEBUG
      */
-    public void debugStartGame(){
+    public void debugStartGame() {
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("gameID", String.valueOf(globalVariables.getGameID())));
         JSONObject jsonObject = jsonParser.makeHttpRequest(url_update_player_game, "POST", params);
     }
 
-    public String getLover(){
+    public String getLover() {
 
         List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("playerID",String.valueOf(globalVariables.getOwnPlayerID())));
+        params.add(new BasicNameValuePair("playerID", String.valueOf(globalVariables.getOwnPlayerID())));
         params.add(new BasicNameValuePair("gameID", String.valueOf(globalVariables.getGameID())));
         JSONObject JSONLover = jsonParser.makeHttpRequest(url_get_player_game_details, "GET", params);
 
@@ -648,7 +692,7 @@ public class databaseCon {
             JSONArray player = JSONLover.getJSONArray("player_game");
             int lover = player.getJSONObject(0).getInt("lover");
 
-            if(lover != 0){
+            if (lover != 0) {
                 params.clear();
                 params.add(new BasicNameValuePair("playerID", String.valueOf(lover)));
                 JSONObject JSON = jsonParser.makeHttpRequest(url_get_player_details, "GET", params);

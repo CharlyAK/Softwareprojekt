@@ -37,7 +37,8 @@ public class GetRole extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_role);
 
-        numPlayers = globalVariables.getNumPlayers();
+        numPlayers = Con.getNumPlayers();
+        globalVariables.setNumPlayers(numPlayers);
 
         globalVariables.setCurrentPhase("getRole");
         globalVariables.setCurrentContext(this);
@@ -50,7 +51,7 @@ public class GetRole extends AppCompatActivity {
         role.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            // first click: show role, second click: show roleInfo, third click: role disapears
+                // first click: show role, second click: show roleInfo, third click: role disapears
                 if (firstClick && !secondClick) {
                     switch (globalVariables.getOwnRole()) {
                         case "Dieb":
@@ -151,10 +152,10 @@ public class GetRole extends AppCompatActivity {
 
     public void ready(View view) {
         new setReadyDB().execute();
-        globalVariables.setNumPlayers(Con.getNumPlayers());
 
         info = Snackbar.make(findViewById(R.id.activityGetRole), getString(R.string.gettingReady) + String.valueOf(ready) + "/" + String.valueOf(numPlayers) + " " + getString(R.string.PlayerReady), Snackbar.LENGTH_INDEFINITE);
         info.show();
+
 
         //check frequently who many players joined the game
         timerHandler.postDelayed(timerRunnable, 2000);
@@ -164,7 +165,7 @@ public class GetRole extends AppCompatActivity {
         todo:debug
      */
 
-    public void debugStartGame(View view){
+    public void debugStartGame(View view) {
         Con.debugStartGame();
     }
 
