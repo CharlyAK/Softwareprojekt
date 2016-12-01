@@ -27,7 +27,8 @@
         android:text="[von allen gescanned]"
         android:id="@+id/buttonAllJoined"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible"/>
 
     <TextView
         android:layout_width="wrap_content"

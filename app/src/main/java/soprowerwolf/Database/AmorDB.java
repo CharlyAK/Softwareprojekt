@@ -26,7 +26,6 @@ public class AmorDB extends AsyncTask<String, String, String> {
     private GlobalVariables globalVariables = GlobalVariables.getInstance();
     private static final String url_set_lovers = "http://www-e.uni-magdeburg.de/jkloss/setLovers.php";
 
-
     @Override
     protected String doInBackground(String... params) {
         List<NameValuePair> paramsList = new ArrayList<NameValuePair>();

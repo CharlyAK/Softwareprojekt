@@ -59,7 +59,7 @@ public class showVictimActivity extends AppCompatActivity {
          * victims[6] = Lover; victim[7] = [Lover = good] or [Lover = bad]
          * victims[8] = victimJaeg; victim[9] = [victimJaeg = good] or [victimJaeg = bad]
          * victims[10] = LoverVictimJaeg; victim[11] = [LoverVictimJaeg = good] or [LoverVictimJaeg = bad]
-         * victim[12] = Lover of victim[6] --> easier for showing (see below)
+         * victims[12] = Lover of victim[6] --> easier for showing (see below)
          * victim[13] = number of victims --> for a better Text
          */
         switch (victims[13]) {
