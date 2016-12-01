@@ -2,12 +2,14 @@ package soprowerwolf.Activities.PhasesActivity;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 
 import soprowerwolf.Classes.Audio;
 import soprowerwolf.Database.getCurrentPhase;
+import soprowerwolf.Database.setNextPhase;
 import soprowerwolf.R;
 
 import soprowerwolf.Activities.GameActivity;
@@ -20,6 +22,10 @@ public class SeherinActivity extends AppCompatActivity {
     GlobalVariables globalVariables = GlobalVariables.getInstance();
     popup popup = new popup();
     Audio audio = new Audio();
+    databaseCon con = new databaseCon();
+    CountDownTimer timer;
+    Boolean alive = con.alive(globalVariables.getOwnPlayerID());
+
 
     private Handler timerHandler = new Handler();
     private Runnable timerRunnable = new Runnable() {
@@ -41,7 +47,7 @@ public class SeherinActivity extends AppCompatActivity {
         }
 
         //check, if own Role equals Phase -> yes: Activity is shown; no: black screen is shown (activity_wait)
-        if (globalVariables.getOwnRole().equals("Seherin")) {
+        if (globalVariables.getOwnRole().equals("Seherin") && alive) {
             setContentView(R.layout.activity_seherin);
             globalVariables.setCurrentContext(this);
 
@@ -58,7 +64,22 @@ public class SeherinActivity extends AppCompatActivity {
 
             popup.PopUpInfo(getString(R.string.AufforderungSeherin), "Seherin").show();
 
-        } else {
+            //this eventuates if the player is dead
+        } else if (globalVariables.getOwnRole().equals("Seherin") && !alive){
+            setContentView(R.layout.activity_wait);
+
+            timer = new CountDownTimer(3000, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {}
+
+                @Override
+                public void onFinish() {
+                    new setNextPhase().execute("audio");
+                }
+            }.start();
+        }
+
+        else {
             setContentView(R.layout.activity_wait);
 
             //check frequently if phase has been changed

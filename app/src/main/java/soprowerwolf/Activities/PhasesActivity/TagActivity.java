@@ -1,27 +1,17 @@
 package soprowerwolf.Activities.PhasesActivity;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import com.google.android.gms.games.Game;
+import android.widget.Toast;
 
 import org.json.JSONException;
-
-import java.util.Random;
-import java.util.TimerTask;
-
 import soprowerwolf.Classes.databaseCon;
 import soprowerwolf.Classes.popup;
-import soprowerwolf.Database.GameOverDB;
+import soprowerwolf.Database.getCurrentPhase;
 import soprowerwolf.Database.setNextPhase;
 import soprowerwolf.R;
 
@@ -34,8 +24,17 @@ public class TagActivity extends AppCompatActivity {
     databaseCon Con = new databaseCon();
     GlobalVariables globalVariables = GlobalVariables.getInstance();
     popup popup = new popup();
+    Boolean alive = Con.alive(globalVariables.getOwnPlayerID());
     int[] playerIDsAndVotes = new int[40];
 
+    private Handler timerHandler = new Handler();
+    private Runnable timerRunnable = new Runnable() {
+        @Override
+        public void run() {
+            new getCurrentPhase().execute("");
+            timerHandler.postDelayed(this, 3000);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +47,20 @@ public class TagActivity extends AppCompatActivity {
         //View settings: Fullscreen
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        //check for results
+        if (globalVariables.isSpielleiter())
+            start();
+        else//wait for next phase
+            timerHandler.postDelayed(timerRunnable, 3000);
+
+        if(!alive){
+            setContentView(R.layout.activity_wait);
+
+            //check frequently if phase has been changed
+            timerHandler.postDelayed(timerRunnable, 3000);
+            return;
+        }
 
         create.createObjects();
 
@@ -65,6 +78,8 @@ public class TagActivity extends AppCompatActivity {
                 GameActivity gameActivity = new GameActivity();
                 //makes all buttons unclickable
                 gameActivity.setUnclickable();
+                Toast.makeText(globalVariables.getCurrentContext(),
+                        "Deine Wahl wurde gespeichert", Toast.LENGTH_LONG).show();
                 try {
                     Con.Tag("submitChoice");
                 } catch (JSONException e) {
@@ -72,15 +87,10 @@ public class TagActivity extends AppCompatActivity {
                 }
             }
         });
-
-        if (globalVariables.isSpielleiter())
-            start();
-
     }
 
     //this checks the database every second
     private Handler handler = new Handler();
-
     private Runnable runnable = new Runnable() {
 
         @Override
@@ -133,13 +143,18 @@ public class TagActivity extends AppCompatActivity {
 
     protected void onResume() {
         super.onResume();
-        start();
+        if (globalVariables.isSpielleiter())
+            start();
+
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        stop();
+        timerHandler.removeCallbacks(timerRunnable);
+        if (globalVariables.isSpielleiter())
+            stop();
+
     }
 
     @Override

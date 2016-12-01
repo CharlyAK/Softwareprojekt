@@ -1,25 +1,14 @@
 package soprowerwolf.Activities;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Base64;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-
-import org.json.JSONException;
 
 import soprowerwolf.Classes.databaseCon;
 import soprowerwolf.Classes.popup;
@@ -67,7 +56,7 @@ public class GameActivity extends AppCompatActivity {
         Activity context = globalVariables.getCurrentContext();
         int[] playerIDs = globalVariables.getPlayerIDs();
         String[] playerNames = globalVariables.getPlayerNames();
-        int[] alive = Con.getAlive();
+        int[] alive = Con.getPlayerAlive();
 
         //create Linear Layouts in gameView
         LinearLayout row1 = (LinearLayout) context.findViewById(R.id.row1);

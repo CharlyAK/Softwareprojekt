@@ -22,6 +22,7 @@ public class AmorActivity extends AppCompatActivity {
 
     popup popup = new popup();
     GlobalVariables globalVariables = GlobalVariables.getInstance();
+    databaseCon con = new databaseCon();
     Audio audio = new Audio();
 
     private Handler timerHandler = new Handler();

@@ -17,10 +17,6 @@ import java.util.List;
 import soprowerwolf.Classes.GlobalVariables;
 import soprowerwolf.Classes.JSONParser;
 
-/**
- * Created by Gina on 21.09.2016.
- */
-
 @TargetApi(Build.VERSION_CODES.CUPCAKE)
 public class killDB extends AsyncTask<String, String, String> {
 

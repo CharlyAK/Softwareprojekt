@@ -2,6 +2,7 @@ package soprowerwolf.Activities.PhasesActivity;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -60,7 +61,7 @@ public class WerwolfActivity extends AppCompatActivity {
         }
 
         //check, if own Role equals Phase -> yes: Activity is shown; no: black screen is shown (activity_wait)
-        if (globalVariables.getOwnRole().equals("Werwolf")) {
+        if (globalVariables.getOwnRole().equals("Werwolf") && Con.alive(globalVariables.getOwnPlayerID())) {
             setContentView(R.layout.activity_werwolf);
             globalVariables.setCurrentContext(this);
 
@@ -94,8 +95,8 @@ public class WerwolfActivity extends AppCompatActivity {
                 }
             });
 
-
-        } else {
+        }
+        else {
             setContentView(R.layout.activity_wait);
 
             //check frequently if phase has been changed

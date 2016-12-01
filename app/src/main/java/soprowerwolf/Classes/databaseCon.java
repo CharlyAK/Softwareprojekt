@@ -387,7 +387,7 @@ public class databaseCon {
         globalVariables.setPlayerNames(playerNames);
     }
 
-    public int[] getAlive() {
+    public int[] getPlayerAlive() {
         int[] alive = new int[20];
         int numPlayersAlive = 0;
 
@@ -413,6 +413,24 @@ public class databaseCon {
         }
 
         globalVariables.setNumPlayersAlive(numPlayersAlive);
+        return alive;
+    }
+
+    public boolean alive(int playerID){
+        boolean alive = false;
+
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("playerID", String.valueOf(playerID)));
+        params.add(new BasicNameValuePair("gameID", String.valueOf(globalVariables.getGameID())));
+        JSONObject jsonObject = jsonParser.makeHttpRequest(url_get_player_game_details, "GET", params);
+
+        try {
+            JSONArray JRole = jsonObject.getJSONArray("player_game");
+            if (JRole.getJSONObject(0).getInt("alive") == 1 )
+                alive = true;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         return alive;
     }
 

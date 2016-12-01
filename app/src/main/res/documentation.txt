@@ -153,8 +153,8 @@ Anschließend wird die {@link LetsPlayActivity} aufgerufen.
 In dieser Activity kann der Spieler einen, auf einem anderen Handy erzeugten, QR-Code scannen.
 Anschließend wird {@link GetRole} aufgerufen. Die eigene Rolle wird aus der Datenbank angefragt
 und angezeigt.
-Sobald alle Spieler
-
+Sobald alle Spieler dem Spiel beigetreten sind, beginnt das Spiel automatisch.
+Es wird die GameActivity erstellt.
 
 = GameActivity =
 
