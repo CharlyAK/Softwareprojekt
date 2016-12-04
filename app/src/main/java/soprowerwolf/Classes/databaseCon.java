@@ -20,6 +20,7 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import soprowerwolf.Activities.GetRole;
 import soprowerwolf.Activities.LoginRegistrationActivity;
@@ -340,7 +341,7 @@ public class databaseCon {
      * @return array of playerIDs (playerID = 0 if player is dead)
      */
     public void getPlayerIDs() {
-        int[] playerIDs = new int[20];
+        int[] playerIDs = new int[22];
         List<NameValuePair> params = new ArrayList<NameValuePair>();
 
         params.add(new BasicNameValuePair("gameID", String.valueOf(globalVariables.getGameID())));
@@ -365,7 +366,7 @@ public class databaseCon {
      * @return array of playerNames
      */
     public void getPlayerNames() {
-        String[] playerNames = new String[20];
+        String[] playerNames = new String[22];
         List<NameValuePair> params = new ArrayList<NameValuePair>();
 
         int[] playerIDs = globalVariables.getPlayerIDs();
@@ -388,7 +389,7 @@ public class databaseCon {
     }
 
     public int[] getPlayerAlive() {
-        int[] alive = new int[20];
+        int[] alive = new int[22];
         int numPlayersAlive = 0;
 
         List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -534,7 +535,7 @@ public class databaseCon {
                 JSONArray jVotes = jsonObjectVotes.getJSONArray("votes");
 
                 //merging playerIDs with numOfVotes
-                int[] playerIDsAndVotes = new int[40];
+                int[] playerIDsAndVotes = new int[44];
                 //there is the playerID first and afterwards the numOfVotes
                 for (int i = 0, j = 0; i < playerIDs.length && i < jVotes.length(); i++, j++) {
                     playerIDsAndVotes[j] = playerIDs[i];
@@ -691,7 +692,7 @@ public class databaseCon {
                 JSONArray jVotes = jsonObjectVotes.getJSONArray("votes");
 
                 //merging playerIDs with numOfVotes
-                int[] playerIDsAndVotes = new int[40];
+                int[] playerIDsAndVotes = new int[44];
                 //there is the playerID first and afterwards the numOfVotes
                 for (int i = 0, j = 0; i < playerIDs.length && i < jVotes.length(); i++, j++) {
                     playerIDsAndVotes[j] = playerIDs[i];

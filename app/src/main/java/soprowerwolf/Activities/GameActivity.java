@@ -48,9 +48,10 @@ public class GameActivity extends AppCompatActivity {
     * This method creates all objects in the GameView.
     * Like rows, buttons, ...
     *
-     * The Tag of a playerButton represents the number if you simply count them through.
+     * The Tag of a playerButton represents the number - simply counted through.
      * The ID represents the correlated playerID.
     */
+
     public void createObjects() {
         int numOfPlayers = globalVariables.getNumPlayers();
         Activity context = globalVariables.getCurrentContext();
@@ -85,15 +86,6 @@ public class GameActivity extends AppCompatActivity {
                 }
             };
             button.setOnLongClickListener(onLongClickListener);
-
-
-            // TODO: playerImages
-            /*if (images[i] != null) {
-                byte[] decodedString = Base64.decode(images[i], Base64.DEFAULT);
-                bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                button.setBackground(new BitmapDrawable(context.getResources(), bitmap));
-            }
-            */
 
             if(alive[i] == 0) // player is dead and cannot be selected anymore
             {
@@ -135,13 +127,18 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /*
-    * >playerSelected<
     *
-    * This method is called if a playerButton gets selected.
-    * It toggles the background transparency and
-    * updates currentlySelectedPlayer.
     *
     */
+
+    /**
+     * >playerSelected<
+     *
+     * This method is called if a playerButton gets selected.
+     * It toggles the background transparency and
+     * updates currentlySelectedPlayer.
+     * @param view: calling button
+     */
 
     public void playerSelected(View view) {
         Button button = (Button) view;

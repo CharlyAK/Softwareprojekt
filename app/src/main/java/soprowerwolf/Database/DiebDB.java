@@ -45,7 +45,6 @@ public class DiebDB extends AsyncTask<String, String, String> {
         paramsList.add(new BasicNameValuePair("nothingChoosen", params[2]));
 
         jsonParser.makeHttpRequest(url_change_role, "POST", paramsList);
-        //ToDO: check for success
         return null;
     }
 

@@ -73,7 +73,7 @@ public class HexeActivity extends AppCompatActivity {
 
             info.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onClick(View v) { // TODO: 04.12.16 Da muss noch was rein 
                     popup.PopUpInfo(">Erklärung, was in Phase getan werden soll<", "Info").show();
                 }
             });

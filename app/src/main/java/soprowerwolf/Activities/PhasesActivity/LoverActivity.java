@@ -48,12 +48,6 @@ public class LoverActivity extends AppCompatActivity {
 
         lover.setText("Du bist in " + Con.getLover() + " verliebt." );
 
-        /*let the phones of the players that are not in love vibrate
-        if (Con.getLover().equals("niemanden")){
-            Vibrator vibrator = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
-            vibrator.vibrate(20);
-        }
-        */
 
         if(globalVariables.isSpielleiter()){
            timer = new CountDownTimer(audio.getDuration(), 1000){
