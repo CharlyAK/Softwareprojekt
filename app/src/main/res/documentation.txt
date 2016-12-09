@@ -135,8 +135,9 @@ Bei jeder Änderung erfolgt ein Aufruf der Funktion calculateGame. Diese berechn
 der Werwölfe und der Anzahl der Extrarollen die benötigte Anzahl an Dorfbewohnern für das Spiel
 und setzt diese automatisch.
 Alle teilnehmenden Rollen werden in das cards-Array geschrieben, welches anschließend gemischt wird
-und das cardsShuffled-Array entsteht.
-Die für das Spiel benötigten Phasen werden gesammelt und die createGameDB() wird ausgeführt.
+und das cardsShuffled-Array entsteht. Wurde der Dieb ausgewählt, so befinden sich zwei Rollen mehr im cardsShuffled-Array
+als es Spieler gibt.
+Die für das Spiel benötigten Phasen werden gesammelt und die {@link createGameDB()} wird ausgeführt.
 Nach erfolgreicher Erstellung des Spiels in der Datenbank wird die {@link QRCodeActivity}
 aufgerufen.
 Der spielerstellende Spieler ist der Spielleiter (sein Gerät fungiert als Spielleitergerät).
@@ -154,7 +155,7 @@ aufgerufen.
 
 = JoinGameActivity =
 
-In dieser Activity kann der Spieler einen, auf einem anderen Handy erzeugten, QR-Code scannen. Hierbei wird die joinGameDB() ausgeführt.
+In dieser Activity kann der Spieler einen, auf einem anderen Handy erzeugten, QR-Code scannen. Hierbei wird die {@link joinGameDB()} ausgeführt.
 Mit Hilfe dieser Methode wird der Spieler in die Datenbank (player_game - Tabelle) eingetragen und erhält seine Rolle, welche global
 gespeichert wird.
 Anschließend wird {@link GetRole} aufgerufen. 
@@ -169,14 +170,41 @@ Ist der Spieler bereit, so betätigt er des "Bereit" - Button. Sobald alle Spiel
 
 = LetsPlayActivity =
 
-Diese Activity dient als Überleitung zum eigentlichen Spiel. Hierbei wird ein Audio abgespielt, welches eine kurze Einleitung gibt und die
-Spieler auffordert die Augen zu schließen. 
+Diese Activity dient als Überleitung zum eigentlichen Spiel. Hierbei wird ein Audio von dem Spielleitergerät abgespielt, welches eine 
+kurze Einleitung gibt und die Spieler auffordert die Augen zu schließen. Außerdem werden durch die Aufrufe der Methoden getPlayerIDs, 
+getPlayerNames und getImagesAsString der Klasse {@link databaseCon} die im Spiel befindlichen PlayerIDs und zugehörigen Namen sowie 
+Bilder global gespeichert. Somit stehen diese zu späteren Zeitpunkten zur Verfügung und müssen nicht bei gebrauch von der Datenbank 
+abgefragt werden. 
 
 = GameActivity =
 
+
+
 = DiebActivity =
 
+Wird die DiebActivity aufgerufen, so wird zu Beginn geprüft, ob der Spieler diese Rolle hat oder nicht. Ist er der Dieb, so bekommt er zwei
+Rollen angezeigt. Diese werden mit Hilfe der Methode DiebGetRole der Klasse {@link databaseCon} aus der Datenbank abgefragt. Diese Rollen 
+werden mit Hilfe der Rollenkarten auf dem Display des Diebs dargestellt. Wählt er eine aus, so wird ihm die 
+Rollenbeschreibung in einem PopUpChoice - Fenster angezeigt, welches mit Hilfe der Klasse {@link popup} erstellt wurde und er kann wählen, 
+ob er sich für oder gegen diese Rolle entscheiden will. 
+Sind beide wählbaren Rollen Sonderrollen, so bekommt der Dieb auch die Möglichkeit durch einen Extrabutton, dass er ein einfacher Dorfbewohner 
+bleiben kann. Ist eine mögliche Wahl ein Werwolf, so hat der Dieb keine andere Wahl, als ein Werwolf zu werden. Es erscheint somit, 
+bevor der Dieb eine Wahl treffen kann, ein PopUp - Fenster der Klasse {@link popup}, welches ihm mitteilt, dass er von nun an als Werwolf 
+weiter spielen wird. Hat der Dieb seine Wahl getroffen oder das Werwolf-Info-PopUp geschlossen, so wird die {@link DiebDB()} ausgeführt. 
+
+Ist der Spieler nicht der Dieb, so wird ihm ein schwarzer Display angezeigt. Im Hintergrund ruft ein Runnable in konstanten Zeitabständen die 
+Klasse {@link getCurrentPhase} auf.
+
 = AmorActivity =
+
+Wird die AmorActivity aufgerufen, so wird zu Beginn geprüft, ob der Spieler diese Rolle hat, oder nicht. Ist er Amor, so wird er 
+durch ein PopUp-Info-Fenster der Klasse {@link popup} aufgefordert, zwei Spieler zu wählen, die sich in einander verlieben sollen. 
+Dabei werden ihm auf dem Display die Spieler dargestellt, welche mit Hilfe der Methode createObjects der Klasse {@link GameActivity} 
+erstellt werden. Der Spieler kann nun zwei Spieler (auch sich selbst) wählen. Seine Wahl bestätigt er mit Betätigung des 
+"Bestätigen" - Buttons. Damit wird die Klasse {@link AmorDB} aufgerufen.
+
+Ist der Spieler nicht Amor, so wird ihm ein schwarzer Display angezeigt. Im Hintergrund ruft ein Runnable in konstanten Zeitabständen die 
+Klasse {@link getCurrentPhase} auf.
 
 = LoverActivity =
 
@@ -184,9 +212,79 @@ Spieler auffordert die Augen zu schließen.
 
 = SeherinActivity =
 
+Wird die SeherinActivity aufgerufen, so wird zu Beginn geprüft, ob der Spieler diese Rolle hat, oder nicht. Ist der die Seherin, so wird er
+durch ein PopUp-Info-Fenster der Klasse {@link popup} aufgefordert, einen Spieler zu wählen, dessen Gesinnung er erfahren möchte. Die Wahl
+erfolgt über durch die Methode createObjects der Klasse {@link GameActivity} erstellte Spielericons. Wählt der Spieler einen anderen Spieler
+aus, so erscheint ein PopUp-Info-Fenster der Klasse {@link popup}, welches dem Spieler mitteilt, ob der von ihm gewählte Spieler 
+gut (Dorfbewohner oder Sonderrolle) oder böse (Werwolf) ist. Diese Informationen werden mit Hilfe der Methode getIdentity, welche die Methode
+Seherin der Klasse {@link databaseCon} aufruft, erhalten. Bestätigt der Spieler die Informationen mit Betätigung des "OK" - Buttons des 
+PopUp-Info-Fensters, so wird {@link setNextPhase} aufgerufen.
+
+Ist der Spieler nicht die Seherin, so wird ihm ein schwarzer Display angezeigt. Im Hintergrund ruft ein Runnable in konstanten Zeitabständen die 
+Klasse {@link getCurrentPhase} auf.
+
 = HexeActivity =
 
 = showVictimActivity =
 
 = TagActivity =
 
+
+== Beschreibung weiterer Klassen == 
+
+= Audio =
+
+= databaseCon =
+
+>DiebGetRole<
+Diese Methode startet einen Datenbankaufruf mit Hilfe des PHP-Files get_all_player.php, der Methode "GET" und den {@params gameID}.
+Dabei werden die letzten beiden Rollen der Datenbanktabelle "player_game" abgefragt, welche die entsprechende gameID haben, denen jedoch
+keine playerID zugeteilt wurde. 
+Sie gibt ein Array der Größe 2 mit den beiden besagten Rollen zurück {@return roles}.
+
+>Seherin<
+Diese Methode startet einen Datenbankaufruf mit Hilfe des PHP-Files get_player_game_details.php, der Methode "GET" und den 
+{@params gameID, playerID}.
+Somit wird die Rolle des gewählten Spielers ermittelt. Über eine if-Abfrage wird bestimmt, ob der Spieler gut oder böse ist.
+Die Methode gibt einen String "gut" oder "böse" zurück {@return String {gut, böse}}.
+
+= GlobalVariables =
+
+= JSONParser =
+
+= popup =
+
+= createGameDB =
+
+= joinGameDB =
+
+= setReadyDB =
+
+= getCurrentPhase =
+Diese Klasse wird als AsyncTask ausgeführt. 
+
+= setNextPhase = 
+
+= NextPhase =
+
+= DiebDB = 
+Diese Klasse wird als AsyncTask ausgeführt. Dabei wird ein httprequest mit den Parametern gameID, playerID, der neuen Rolle 
+(newRole -> aus params[0]), der Rolle, die nicht gewählt wurde (notChoosen -> aus params[1]) und, wenn der Dieb ein Dorfbewohner 
+bleiben möchte, die zweite Rolle, die nicht gewählt wurde (nothingChoosen -> aus params[2]), der Methode "POST" und unter der Nutzung 
+des PHP-Files "changeRole.php" an die Datenbank geschickt. Im Zuge dessen wird die Rolle des Diebs entsprechend seiner Wahl geädert,
+die überflüssigen Rollen werden aus der "player_game" - Tabelle gelöscht und, wenn nötig, wird die "_PHASES" - Datenbanktabelle geändert.
+Dies geschieht, wenn der Dieb sich gegen eine Sonderrolle entscheidet. Sollte dies der Fall sein, so wird die entsprechende Phase gelöscht.
+Nach Abschluss der Datenbankkommunikation wird die Klasse {@link setNextPhase} aufgerufen.
+
+= AmorDB =
+
+= HexeDB =
+
+= JaegerDB =
+
+= showVictimDB =
+>getVictims<
+
+= killDB = 
+
+= GameOverDB =

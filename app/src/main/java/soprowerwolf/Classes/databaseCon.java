@@ -582,7 +582,7 @@ public class databaseCon {
     /**
      * getting role of "victim" from database
      *
-     * @return if "ictim" is good or bad
+     * @return String {good, bad}
      */
     public String Seherin(int playerID) {
         String GoodOrBad = null;
