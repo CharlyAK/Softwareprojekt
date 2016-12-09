@@ -225,10 +225,13 @@ Klasse {@link getCurrentPhase} auf.
 
 = HexeActivity =
 
+= JaegerActivity =
+
 = showVictimActivity =
 
 = TagActivity =
 
+= GameOverActivity =
 
 == Beschreibung weiterer Klassen == 
 
@@ -249,6 +252,56 @@ Somit wird die Rolle des gewählten Spielers ermittelt. Über eine if-Abfrage wi
 Die Methode gibt einen String "gut" oder "böse" zurück {@return String {gut, böse}}.
 
 = GlobalVariables =
+Die Klasse GlobalVariables enthält diverse globale Variablen, sowie deren Getter und Setter, um eine Parameterübergabe zwischen Activitys
+und java-Klassen zu vereinfachen.
+
+>Global variables: Game<
+    ownPlayerID ==> speichert eigene PlayerID(für login, Rollenabfrage, Spiel)
+    ownRole ==> speichert eigene Rolle
+    gameID ==> speichert aktuelle GameID
+    numPlayers ==> speichert Spieleranzahl des aktuellen Spiels
+    numPlayersAlive ==> speichert aktuelle Anzahl an "lebenden" Spielern des aktuellen Spiels
+    PlayerIDs ==> Array aller PlayerIDs des Spiels
+    PlayerNames ==> Array aller Spielernamen des Spiels
+    cards ==> Array der gemischten Rollenkarten des aktuellen Spiels -> wird nur vom Spielleiter gebraucht -> nötig zur Spielerstellung 
+	(Einfügen des Spiels in die Datenbank)
+	currentlySelectedPlayer ==> Button des aktuell ausgewählten Spielers
+    Phases ==> Array, das alle spielrelevanten Phasen enthält -> wird nur vom Spielleiter gebraucht -> nötig zur Spielerstellung
+    currentPhase ==> String, der aktuelle Phase widergibt -> überwiegend zur Aktionsentscheidung in der popup-Klasse nötig
+    nextPhase ==> String, der nächste Phase widergibt -> nötig für Audios
+    currentContext ==> speichert aktuelle Activity -> ermöglicht den Aufruf einer Activity aus einer java-Klasse heraus
+    sharedPrefContext ==> speichert Activity, in der sharedPreferences angewandt wird (nötig für LogOut)
+    winner ==> String, der den Gewinner enthält
+    spielleiter ==> Boolean, welcher angibt, ob das Gerät Spielleitergerät ist, oder nicht -> nötig zum Abspielen der Audios/ Aufruf der 
+	killDB
+    images ==> Stringarray, welches die Base64-Strings der Bilder der Spieler des aktuellen Spiels speichert.
+
+ >Global variables: Dieb<
+    DiebChoosen ==> Boolean, welcher angibt, ob der Dieb als Sonderrolle ausgewählt wurde -> denn wenn ja, müssen zwei weitere Karten ins 
+	cardsArray aufgenommen werden + wenn der Dieb ausgewählt wurde und es nur einen Werwolf gibt, darf dieser beim Mischen nicht eine der 
+	beiden letzten Karten werden (@link GameSetupActivity -> calculateGame} + in der {@link QRCodeActivity} wird ermittelt, wie viele 
+	Spieler dem Spiel bereits beigetreten sind (mit der Hilfe der MEthode getPlayerInGame der Klasse {@link databaseCon}) somit muss 
+	bekannt sein, dass die letzten beiden Einträge frei bleiben werden.
+
+ >Global variables: Amor<
+    lover1 ==> speichert den Button des Spielers, welchen Amor als lover1 ausgewählt hat
+    lover2 ==> speichert den Button des Spielers, welchen Amor als lover2 ausgewählt hat 
+    OK ==> Button, welcher von Amor betätigt wird, wenn er seine Wahl getroffen hat -> global, da der Button erst auswählbar wird, wenn
+	Amor genau zwei Spieler ausgewählt hat. Die auf die Button angewendeten Methoden finden allerdings in der GameActivity statt.
+
+ >Global variables: Seherin<
+    PopUpSeherinIdentity ==> AlertDialog, welcher das PopUp-Info-Fenster darstellt, welches die Gesinnung eines Spielers zeigt. Da die 
+	Fenster nur in der OnCreate-Methode einer Activity erstellt werden können, es in diesem Fall jedoch in der getIdentity-Methode der
+	{@link SeherinActivity} erst den entsprechenden Text erhält, muss es global definiert werden.
+
+ >Global variables: Jäger<
+    JaegerDies ==> Boolean, welcher zu Beginn eines jeden Spiels auf "false" gesetzt wird. Er zeigt an, ob der Jäger ein Opfer der Nacht/
+	des Tages war -> ist dies der Fall, so wird in der {@link showVictimActivity} noch nicht die {@link killDB} nach ablaufen der für 
+	die Anzeige vorgesehnen Zeit aufgerufen, sondern erst die JaegerActivity aufgerufen. Des Weiteren wird die Variable erneut in der 
+	showVictimActivity gebraucht, um die Opfer der Nacht/ des Tages und das/die Opfer des Jägers entsprechend anzeigen zu können (es muss 
+	bekannt sein, welche Textfelder angezeigt werden sollen - so gibt es eines speziell für das/ die Jägeropfer)
+    victimJaeger ==> Boolean, der das Opfer des Jägers beinhaltet. Wird genutzt, damit die entsprechnde Aktion nur ausgeführt wird, wenn der
+	Jäger ein Opfer gewählt hat.
 
 = JSONParser =
 
@@ -277,6 +330,9 @@ Dies geschieht, wenn der Dieb sich gegen eine Sonderrolle entscheidet. Sollte di
 Nach Abschluss der Datenbankkommunikation wird die Klasse {@link setNextPhase} aufgerufen.
 
 = AmorDB =
+Diese Klasse wird als AsyncTask ausgeführt. Dabei wird eine Datenbankaktualisierung mit Hilfe des PHP-Files setLovers, der Methode "POST" und
+den {@params lover1(params[0]), lover2 (params[1])} durchgeführt. Im Zuge dessen werden in der "player_game" - Datenbanktabelle bei den 
+Spielern, deren playerIDs lover1 bzw. lover2 entsprechen, in der Spalte "lover" die PlayerID des jeweils andere eingetragen.
 
 = HexeDB =
 
