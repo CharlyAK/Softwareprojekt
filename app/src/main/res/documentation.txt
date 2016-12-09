@@ -48,14 +48,15 @@ erkennen. Die Werwölfe ihrerseits hingegen achten natürlich darauf, das Mädch
 es besteht also beim Blinzeln ein gewisses Risiko.
 
 Die <Seherin> erwacht in der Nacht alleine und zeigt auf einen Spieler.
-Der Spielleiter zeigt der Seherin nun die entsprechende Charakter-Karte der Person.
+Der Spielleiter zeigt der Seherin nun durch Gesten an, ob der entsprechende Spieler gut (Dorfbewohner oder Sonderrolle)
+oder böse (Werwolf) ist.
 Die Seherin weiß dadurch mehr als die übrigen Dorfbewohner, muss aber mit ihrem Wissen
 sorgfältig umgehen, um nicht von den Werwölfen enttarnt zu werden.
 
 Die <Hexe> erwacht immer nachem die Werwölfe ihr Opfer ausgesucht haben.
 Sie hat im Verlauf des gesamten Spiels einen Gift- und einen Heiltrank.
 Der Spielleiter zeigt auf die Person, die von den Werwölfen als Mordopfer gewählt wurde und die
-Hexe kann diese mit ihrem Heiltrank heilen (auch sich selbst), so dass es am nächsten Morgen keinen
+Hexe kann diese mit ihrem Heiltrank heilen (auch sich selbst), so dass es am nächsten Morgen keine
 Toten gibt. Sie kann aber auch den Gifttrank auf einen anderen Spieler anwenden -
 dann gibt es mehrere Tote.
 
@@ -103,7 +104,8 @@ angelegt.
 Die Registrierung erfolgt mithilfe die Klasse {@link databaseCon} über die Methode registration.
 
 Bereits registrierte User können sich einfach einloggen. Der Username und das Passwort werden
-mithilfe der Methode login verifiziert.
+mithilfe der Methode login verifiziert. Wird die App auf einem Gerät erneut gestartet, auf welchem scih bereits ein Spieler
+eingeloggt hat, wird nach Berührung des Startbildschirms automatisch die {@link MenuActivity} gestartet.
 
 Anschließend wird die {@link MenuActivity} gestartet.
 
@@ -119,7 +121,7 @@ Ebenfalls möglich ist das Betrachten der Regeln.
 
 In der SettingsActivity hat der Spieler die Möglichkeit sein Bild zu ändern. Die Änderung
 erfolgt mittels der Funktion setImage der Klasse {@link databaseCon}.
-Außerdem kann er seinen Account löschen.
+Außerdem kann er seinen Account löschen. Dabei wird die Funktion deleteAccount der Klasse {@link databaseCon} aufgerufen.
 
 = GameSetupActivy =
 
@@ -129,7 +131,7 @@ Außerdem existiert ein {@code Spinner}, der automatisch die benötigte Anzahl a
 der Funktion setRecommendedNumberOfWer(int players) berechnet. Es steht dem Spieler frei die
 Anzahl im Nachhinein zu verändern.
 Im Folgenden können die Extrarollen an- bzw. abgewählt werden.
-Bei jeder Änderung erfolgt ein Aufruf der Funktion calculateGame. Diese berechnet anhan der Anzahl
+Bei jeder Änderung erfolgt ein Aufruf der Funktion calculateGame. Diese berechnet anhand der Anzahl
 der Werwölfe und der Anzahl der Extrarollen die benötigte Anzahl an Dorfbewohnern für das Spiel
 und setzt diese automatisch.
 Alle teilnehmenden Rollen werden in das cards-Array geschrieben, welches anschließend gemischt wird
@@ -137,24 +139,38 @@ und das cardsShuffled-Array entsteht.
 Die für das Spiel benötigten Phasen werden gesammelt und die createGameDB() wird ausgeführt.
 Nach erfolgreicher Erstellung des Spiels in der Datenbank wird die {@link QRCodeActivity}
 aufgerufen.
-Der erstellende Spieler ist der Spielleiter.
+Der spielerstellende Spieler ist der Spielleiter (sein Gerät fungiert als Spielleitergerät).
 
 = QRCodeActivity =
 
 Diese Activity erzeugt aus der gameID des erstellten Spiels einen QR-Code der von anderen Spielern
-gescannt werden muss, um dem Spiel beizutreten.
-Anschließend wird die {@link LetsPlayActivity} aufgerufen.
-
-= LetsPlayActivity =
-
+gescannt werden muss, um dem Spiel beizutreten. Erst, wenn alle Spieler dem Spiel beigetreten sind, 
+wird die {@link LetsPlayActivity} auf dem Spielleitergerät aufgerufen. 
+Wird die "Zurücktaste" in dieser Activity betätigt, erscheint ein PopUp - Fenster (Aufruf {@link popup}) bei 
+welchem bestätigt werden muss, dass ins Menu zurückgekehrt werden soll. Wird diese Bestätigung vorgenommen, 
+so wird die Methode resetOneGame der Klasse {@link databaseCon} aufgerufen. Im Zuge dessen wird das bereits erstellte
+Spiel wieder aus der Datenbank gelöscht (aus den Tabellen "player_game", "_GAME" und "_PHASES") und die {@link MenuActivity} wird
+aufgerufen.
 
 = JoinGameActivity =
 
-In dieser Activity kann der Spieler einen, auf einem anderen Handy erzeugten, QR-Code scannen.
-Anschließend wird {@link GetRole} aufgerufen. Die eigene Rolle wird aus der Datenbank angefragt
-und angezeigt.
-Sobald alle Spieler dem Spiel beigetreten sind, beginnt das Spiel automatisch.
-Es wird die GameActivity erstellt.
+In dieser Activity kann der Spieler einen, auf einem anderen Handy erzeugten, QR-Code scannen. Hierbei wird die joinGameDB() ausgeführt.
+Mit Hilfe dieser Methode wird der Spieler in die Datenbank (player_game - Tabelle) eingetragen und erhält seine Rolle, welche global
+gespeichert wird.
+Anschließend wird {@link GetRole} aufgerufen. 
+
+= GetRole =
+
+Mit dem Aufruf dieser Activity wird die der Spielerrolle entsprechenden Karte geladen und kann durch eine Betätigung des Kartensymbols
+angezeigt werden. Bei einer weiteren Betätigung dieses wird dem Spieler die seiner Rolle entsprechenden Rollenbeschreibung angezeigt.
+Berührt er die Karte erneut, so wird wieder nur die Kartenrückseite angezeigt (die Rolle bleibt verborgen).
+
+Ist der Spieler bereit, so betätigt er des "Bereit" - Button. Sobald alle Spieler bereit sind, wird die {@link LetsPlayActivity} aufgerufen.
+
+= LetsPlayActivity =
+
+Diese Activity dient als Überleitung zum eigentlichen Spiel. Hierbei wird ein Audio abgespielt, welches eine kurze Einleitung gibt und die
+Spieler auffordert die Augen zu schließen. 
 
 = GameActivity =
 
