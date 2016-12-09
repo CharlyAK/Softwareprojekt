@@ -46,6 +46,7 @@ public class databaseCon {
     private static final String url_login = "http://www-e.uni-magdeburg.de/jkloss/login.php";
     private static final String url_delete_Account = "http://www-e.uni-magdeburg.de/jkloss/deleteAccount.php";
     private static final String url_reset = "http://www-e.uni-magdeburg.de/jkloss/reset.php";
+    private static final String url_resetOneGame = "http://www-e.uni-magdeburg.de/jkloss/exitGame.php";
     private static final String url_save_image = "http://www-e.uni-magdeburg.de/jkloss/save_image.php";
     private static final String url_get_all_player = "http://www-e.uni-magdeburg.de/jkloss/get_all_player.php";
     private static final String url_get_game_details = "http://www-e.uni-magdeburg.de/jkloss/get_game_details.php";
@@ -242,9 +243,7 @@ public class databaseCon {
                         ready++;
                     }
                 }
-            }
-            else if(JOready.getInt("success") == 0)
-            {
+            } else if (JOready.getInt("success") == 0) {
                 GetRole getRole = new GetRole();
                 getRole.stop();
                 Intent intent = new Intent(globalVariables.getCurrentContext(), MenuActivity.class);
@@ -291,7 +290,7 @@ public class databaseCon {
         return numPlayersIn;
     }
 
-    public void reset (){
+    public void reset() {
         JSONParser jsonParser = new JSONParser();
 
         List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -299,6 +298,19 @@ public class databaseCon {
         params.add(new BasicNameValuePair("nothing", "nothing"));
         jsonParser.makeHttpRequest(url_reset, "POST", params);
 
+    }
+
+    /**
+     * reset one Game -> press Back at "QRCodeActivity"
+     *
+     * getting gameID from globalVariables
+     */
+    public void resetOneGame() {
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+
+        params.add(new BasicNameValuePair("gameID", String.valueOf(globalVariables.getGameID())));
+
+        jsonParser.makeHttpRequest(url_resetOneGame, "POST", params);
     }
 
     /**
@@ -417,7 +429,7 @@ public class databaseCon {
         return alive;
     }
 
-    public boolean alive(int playerID){
+    public boolean alive(int playerID) {
         boolean alive = false;
 
         List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -427,7 +439,7 @@ public class databaseCon {
 
         try {
             JSONArray JRole = jsonObject.getJSONArray("player_game");
-            if (JRole.getJSONObject(0).getInt("alive") == 1 )
+            if (JRole.getJSONObject(0).getInt("alive") == 1)
                 alive = true;
         } catch (JSONException e) {
             e.printStackTrace();

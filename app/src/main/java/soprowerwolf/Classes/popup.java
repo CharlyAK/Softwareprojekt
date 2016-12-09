@@ -155,7 +155,7 @@ public class popup {
                 if(choice)
                 {
                     //ToDo: dafür sorgen, dass nur eigenes game gelöscht wird
-                    Con.reset();
+                    Con.resetOneGame();
 
                     Intent intent = new Intent(context, MenuActivity.class);
                     context.startActivity(intent);
