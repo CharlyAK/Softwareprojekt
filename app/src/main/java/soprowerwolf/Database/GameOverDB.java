@@ -11,6 +11,7 @@ import java.util.List;
 
 import soprowerwolf.Classes.GlobalVariables;
 import soprowerwolf.Classes.JSONParser;
+import soprowerwolf.Classes.databaseCon;
 
 /**
  * Created by Gina on 21.09.2016.
@@ -20,6 +21,7 @@ public class GameOverDB {
 
     private GlobalVariables globalVariables = GlobalVariables.getInstance();
     private JSONParser jsonParser = new JSONParser();
+    databaseCon Con = new databaseCon();
 
     private static final String url_get_all_player = "http://www-e.uni-magdeburg.de/jkloss/get_all_player.php";
 
@@ -42,7 +44,7 @@ public class GameOverDB {
 
                 int e = 0;
                 int g = 0;
-                for (int i = 0; i < player.length(); i++) {
+                for (int i = 0; i < globalVariables.getNumPlayers(); i++) {
 
                     if (player.getJSONObject(i).getInt("alive") == 1 && player.getJSONObject(i).getString("role").equals("Werwolf")) {
                         e++;
@@ -53,6 +55,16 @@ public class GameOverDB {
 
                 if (e == 0) { globalVariables.setWinner("Dorfbewohner"); }
                 if (g == 0) { globalVariables.setWinner("Werwölfe"); }
+
+                if (e+g == 2){
+                    String lover = "niemanden";
+                    for(int i = 0; i < player.length(); i++){
+                        if(player.getJSONObject(i).getInt("alive") == 1){
+                            lover = Con.getLover(player.getJSONObject(i).getInt("playerID"));
+                        }
+                    }
+                    if(!lover.equals("niemanden")){ globalVariables.setWinner("Liebenden"); }
+                }
             }
 
         } catch (JSONException e) {

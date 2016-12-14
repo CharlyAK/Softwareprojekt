@@ -60,6 +60,7 @@ public class databaseCon {
     private static final String url_update_player_game = "http://www-e.uni-magdeburg.de/jkloss/update_player_game.php";
 
 
+
     /**
      * creats a new player, getting playerID
      *
@@ -122,15 +123,20 @@ public class databaseCon {
             if (login.getInt("success") == 1) {
 
                 JSONArray JID = login.getJSONArray("playerID");
-                globalVariables.setOwnPlayerID(JID.getJSONObject(JID.length() - 1).getInt("playerID"));
 
-                return true;
+                if(isLogged(JID.getJSONObject(JID.length() - 1).getInt("playerID"))){
+                    return false;
+                }
+                else {
+                    globalVariables.setOwnPlayerID(JID.getJSONObject(JID.length() - 1).getInt("playerID"));
+                    return true;
+                }
+
             } else
                 return false;
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
 
         return false;
     }
@@ -735,10 +741,10 @@ public class databaseCon {
         JSONObject jsonObject = jsonParser.makeHttpRequest(url_update_player_game, "POST", params);
     }
 
-    public String getLover() {
+    public String getLover(int id) {
 
         List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("playerID", String.valueOf(globalVariables.getOwnPlayerID())));
+        params.add(new BasicNameValuePair("playerID", String.valueOf(id)));
         params.add(new BasicNameValuePair("gameID", String.valueOf(globalVariables.getGameID())));
         JSONObject JSONLover = jsonParser.makeHttpRequest(url_get_player_game_details, "GET", params);
 
@@ -764,6 +770,26 @@ public class databaseCon {
         }
 
         return "niemanden";
+    }
+
+
+    public boolean isLogged(int playerID){
+
+        if(globalVariables.getOwnPlayerID() != 0) {
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("playerID", String.valueOf(playerID)));
+
+            JSONObject JSONPlayer = jsonParser.makeHttpRequest(url_get_player_details, "GET", params);
+
+            try {
+                JSONArray details = JSONPlayer.getJSONArray("player");
+                return details.getJSONObject(0).getBoolean("login");
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
     }
 
 }

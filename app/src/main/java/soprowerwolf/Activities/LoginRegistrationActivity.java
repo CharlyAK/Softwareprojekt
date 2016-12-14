@@ -17,10 +17,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import soprowerwolf.Classes.GlobalVariables;
+import soprowerwolf.Classes.JSONParser;
 import soprowerwolf.Classes.databaseCon;
 import soprowerwolf.R;
 
@@ -40,6 +46,7 @@ public class LoginRegistrationActivity extends AppCompatActivity {
     int playerID = 0;
 
     MediaPlayer audio;
+    private static final String url_set_login = "http://www-e.uni-magdeburg.de/jkloss/setLoginState.php";
 
     GlobalVariables globalVariables = GlobalVariables.getInstance();
 
@@ -63,8 +70,6 @@ public class LoginRegistrationActivity extends AppCompatActivity {
         bChooseImage = (Button) findViewById(R.id.buttonSelectImageStart);
 
         startLayout = findViewById(R.id.startLayout);
-        audio = MediaPlayer.create(this, R.raw.wolf_howling);
-        audio.start();
 
         // check if, PlayerID exists (if somebody is logged in)
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -72,7 +77,6 @@ public class LoginRegistrationActivity extends AppCompatActivity {
         {
              playerID = preferences.getInt("PlayerID", -1);
         }
-
 
         assert bStartScreen != null;
         bStartScreen.setOnClickListener(new View.OnClickListener() {
@@ -152,7 +156,12 @@ public class LoginRegistrationActivity extends AppCompatActivity {
     }
 
     public void login(View view) {
-        if (Con.login(textEMail.getText().toString(), textPassword.getText().toString()) ) {
+        JSONParser jsonParser = new JSONParser();
+        if (Con.login(textEMail.getText().toString(), textPassword.getText().toString())) {
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("playerID", String.valueOf(globalVariables.getOwnPlayerID())));
+            params.add(new BasicNameValuePair("login", "1"));
+            jsonParser.makeHttpRequest(url_set_login, "POST", params);
             // if success -> save PlayerID in sharedPref
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
             SharedPreferences.Editor editor = preferences.edit();
@@ -171,6 +180,7 @@ public class LoginRegistrationActivity extends AppCompatActivity {
     }
 
     public void registration(View view) {
+        JSONParser jsonParser = new JSONParser();
         //ToDo: Registrierung
         String name = textUsername.getText().toString();
         String email = textEMail.getText().toString();
@@ -187,6 +197,11 @@ public class LoginRegistrationActivity extends AppCompatActivity {
             SharedPreferences.Editor editor = preferences.edit();
             editor.putInt("PlayerID", globalVariables.getOwnPlayerID());
             editor.apply();
+
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("playerID", String.valueOf(globalVariables.getOwnPlayerID())));
+            params.add(new BasicNameValuePair("login", "1"));
+            jsonParser.makeHttpRequest(url_set_login, "POST", params);
 
             Intent intent = new Intent(this, MenuActivity.class);
             startActivity(intent);

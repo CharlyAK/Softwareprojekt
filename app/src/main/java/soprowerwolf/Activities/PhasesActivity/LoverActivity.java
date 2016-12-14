@@ -46,7 +46,7 @@ public class LoverActivity extends AppCompatActivity {
 
         audio = MediaPlayer.create(this, R.raw.lover);
 
-        lover.setText("Du bist in " + Con.getLover() + " verliebt." );
+        lover.setText("Du bist in " + Con.getLover(globalVariables.getOwnPlayerID()) + " verliebt." );
 
 
         if(globalVariables.isSpielleiter()){

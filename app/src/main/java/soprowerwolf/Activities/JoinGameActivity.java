@@ -63,6 +63,7 @@ public class JoinGameActivity extends AppCompatActivity implements ZXingScannerV
 
         Intent intent = new Intent(this, GetRole.class);
         startActivity(intent);
+        finish();
     }
 
 }

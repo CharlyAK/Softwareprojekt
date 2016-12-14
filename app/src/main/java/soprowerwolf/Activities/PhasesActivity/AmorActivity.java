@@ -22,7 +22,6 @@ public class AmorActivity extends AppCompatActivity {
 
     popup popup = new popup();
     GlobalVariables globalVariables = GlobalVariables.getInstance();
-    databaseCon con = new databaseCon();
     Audio audio = new Audio();
 
     private Handler timerHandler = new Handler();
@@ -41,9 +40,7 @@ public class AmorActivity extends AppCompatActivity {
         globalVariables.setCurrentContext(this);
         globalVariables.setCurrentPhase("Amor");
 
-        if (globalVariables.isSpielleiter()) {
-            audio.playAmorW(AmorActivity.this);
-        }
+        if(globalVariables.isSpielleiter()){ audio.playAudioWakeup(); }
 
         //check, if own Role equals Phase -> yes: Activity is shown; no: black screen is shown (activity_wait)
         if (globalVariables.getOwnRole().equals("Amor")) {

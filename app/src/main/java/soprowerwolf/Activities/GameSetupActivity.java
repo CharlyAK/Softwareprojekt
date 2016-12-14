@@ -39,8 +39,6 @@ public class GameSetupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game_setup);
         globalVariables.setCurrentContext(this);
 
-        globalVariables.setWinner("");
-
         final NumberPicker players = (NumberPicker) findViewById(R.id.numberPicker);
         final Spinner spinnerWer = (Spinner) findViewById(R.id.spinnerWer);
 
@@ -140,6 +138,9 @@ public class GameSetupActivity extends AppCompatActivity {
             @TargetApi(Build.VERSION_CODES.HONEYCOMB)
             @Override
             public void onClick(View v) {
+
+                Toast.makeText(globalVariables.getCurrentContext(), "Spiel wird erstellt...", Toast.LENGTH_SHORT).show();
+
                 if(numberDor < 0){
                     Toast.makeText(globalVariables.getCurrentContext(),
                             "Diese Spieleinstellungen funktionieren nicht",Toast.LENGTH_LONG).show();
@@ -211,11 +212,13 @@ public class GameSetupActivity extends AppCompatActivity {
                 }
 
                 globalVariables.setPhases(phase);
+                globalVariables.setNextPhase(phase[0]);
                 globalVariables.setNumPlayers(((NumberPicker) findViewById(R.id.numberPicker)).getValue());
                 globalVariables.setCards(cardsShuffled);
                 globalVariables.setOwnRole(cardsShuffled[0]);
                 globalVariables.setSpielleiter(true);
 
+                globalVariables.setWinner("nobody");
                 new createGameDB().execute();
             }
 

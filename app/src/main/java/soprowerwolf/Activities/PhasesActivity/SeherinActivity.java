@@ -42,9 +42,7 @@ public class SeherinActivity extends AppCompatActivity {
         globalVariables.setCurrentPhase("Seherin");
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); // screen stays on
 
-        if (globalVariables.isSpielleiter()) {
-            audio.playSeherinW();
-        }
+        if(globalVariables.isSpielleiter()){ audio.playAudioWakeup(); }
 
         //check, if own Role equals Phase -> yes: Activity is shown; no: black screen is shown (activity_wait)
         if (globalVariables.getOwnRole().equals("Seherin") && alive) {

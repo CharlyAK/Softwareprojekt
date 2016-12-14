@@ -40,12 +40,102 @@
             android:layout_marginTop="30dp"
             android:text="@string/headline_characters"/>
 
+        //Dorfbewohner
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/cardDor"
+            android:id="@+id/_dor"
+            android:layout_below="@+id/headline_characters"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/description_dorfbewohner"
+            android:id="@+id/des_dor"
+            android:layout_below="@+id/_dor"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        //Werwölfe
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/cardWer"
+            android:id="@+id/_werwolf"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/des_dor"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/description_werwolf"
+            android:id="@+id/des_wolf"
+            android:layout_below="@+id/_werwolf"
+            android:layout_centerHorizontal="true" />
+
+        //Dieb
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/cardDie"
+            android:id="@+id/_dieb"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/des_wolf"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/description_dieb"
+            android:id="@+id/des_dieb"
+            android:layout_below="@+id/_dieb"
+            android:layout_centerHorizontal="true" />
+
+        //Amor
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/cardAmo"
+            android:id="@+id/_amor"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/des_dieb"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/description_amor"
+            android:id="@+id/des_amo"
+            android:layout_below="@+id/_amor"
+            android:layout_centerHorizontal="true" />
+
+        //Hexe
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/cardHex"
             android:id="@+id/_hexe"
-            android:layout_below="@+id/headline_characters"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/des_amo"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:textStyle="bold"/>
@@ -57,9 +147,53 @@
             android:text="@string/description_hexe"
             android:id="@+id/des_hexe"
             android:layout_below="@+id/_hexe"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_centerHorizontal="true" />
 
+        //Seherin
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/cardSeh"
+            android:id="@+id/_seherin"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/des_hexe"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/description_seherin"
+            android:id="@+id/des_seherin"
+            android:layout_below="@+id/_seherin"
+            android:layout_centerHorizontal="true" />
+
+        //Mädchen
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/cardMaed"
+            android:id="@+id/_maedchen"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/des_seherin"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/description_maedchen"
+            android:id="@+id/des_maedchen"
+            android:layout_below="@+id/_maedchen"
+            android:layout_centerHorizontal="true" />
+
+        //Jaeger
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -67,7 +201,7 @@
             android:text="@string/cardJaeg"
             android:id="@+id/_jaeger"
             android:layout_marginTop="20dp"
-            android:layout_below="@+id/des_hexe"
+            android:layout_below="@+id/des_maedchen"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:textStyle="bold"/>

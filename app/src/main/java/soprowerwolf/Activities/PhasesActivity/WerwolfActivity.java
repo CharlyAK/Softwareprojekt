@@ -1,8 +1,6 @@
 package soprowerwolf.Activities.PhasesActivity;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -45,9 +43,7 @@ public class WerwolfActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); // screen stays on
 
-        if (globalVariables.isSpielleiter()) {
-            audio.playWolfW();
-        }
+        if(globalVariables.isSpielleiter()){ audio.playAudioWakeup(); }
 
         try {
             numOfWer = Con.Werwolf("getNumOfWerAlive")[0];

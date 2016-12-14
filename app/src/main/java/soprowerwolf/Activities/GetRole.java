@@ -156,6 +156,7 @@ public class GetRole extends AppCompatActivity {
             if (ready == numPlayers || ready == numPlayers + 2) { // ToDo: ändern
                 Intent intent = new Intent(GetRole.this, LetsPlayActivity.class);
                 startActivity(intent);
+                finish();
             } else
                 timerHandler.postDelayed(this, 2000);
         }

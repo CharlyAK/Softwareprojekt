@@ -13,6 +13,7 @@ import java.util.List;
 
 import soprowerwolf.Classes.GlobalVariables;
 import soprowerwolf.Classes.JSONParser;
+import soprowerwolf.Classes.databaseCon;
 import soprowerwolf.Classes.popup;
 import soprowerwolf.R;
 
@@ -20,23 +21,54 @@ public class GameOverActivity extends AppCompatActivity {
 
     private static final String url_exitGame = "http://www-e.uni-magdeburg.de/jkloss/exitGame.php";
     private JSONParser jsonParser = new JSONParser();
+    databaseCon con = new databaseCon();
 
     GlobalVariables globalVariables = GlobalVariables.getInstance();
     popup popup = new popup();
 
+    GameActivity game = new GameActivity();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        game.finish();
         setContentView(R.layout.activity_game_over);
         globalVariables.setCurrentContext(this);
 
-        if((globalVariables.getOwnRole().equals("Werwolf") && globalVariables.getWinner().equals("Werwölfe")) ||
-                (!globalVariables.getOwnRole().equals("Werwolf") && globalVariables.getWinner().equals("Dorfbewohner"))){
-            popup.PopUpInfo("Die " + globalVariables.getWinner()+ " haben gewonnen! :)", "Glückwunsch!").show();
+        String role = globalVariables.getOwnRole();
+        String winner = globalVariables.getWinner();
+        String lover = con.getLover(globalVariables.getOwnPlayerID());
+
+        switch (winner){
+
+            case "Werwölfe":
+                if(role.equals("Werwolf")){
+                    popup.PopUpInfo("Die " + winner + " haben gewonnen.", "Glückwunsch! :)").show();
+                }
+                else {
+                    popup.PopUpInfo("Die " + winner + " haben euch leider ausgerottet.", "Dumm gelaufen! :(").show();
+                }
+                break;
+
+            case "Dorfbewohner":
+                if(!role.equals("Werwolf")){
+                    popup.PopUpInfo("Die " + winner + " haben gewonnen.", "Glückwunsch! :)").show();
+                }
+                else {
+                    popup.PopUpInfo("Die " + winner + " haben euch leider ausgerottet.", "Dumm gelaufen! :(").show();
+                }
+                break;
+
+            case "Liebenden":
+                if(lover.equals("niemanden")){
+                    popup.PopUpInfo("Die " + winner + " haben euch leider ausgerottet.", "Dumm gelaufen! :(").show();
+                }
+                else {
+                    popup.PopUpInfo("Die Liebe zwischen dir und " + lover + " hat euch das Leben gerettet. Ihr habt gewonnen.", "Glückwunsch! <3").show();
+                }
+                break;
         }
-        else {
-            popup.PopUpInfo("Die " + globalVariables.getWinner() + " haben euch leider ausgerottet.", "Dumm gelaufen!").show();
-        }
+
     }
 
     public void backToMenu(View view){
@@ -52,8 +84,8 @@ public class GameOverActivity extends AppCompatActivity {
             params.add(new BasicNameValuePair("playerID", String.valueOf(globalVariables.getOwnPlayerID())));
             jsonParser.makeHttpRequest(url_exitGame, "GET", params);
         }
-
         Intent intent = new Intent(GameOverActivity.this, MenuActivity.class);
         startActivity(intent);
     }
+
 }

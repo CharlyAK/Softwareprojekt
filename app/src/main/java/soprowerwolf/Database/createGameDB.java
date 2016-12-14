@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import soprowerwolf.Activities.GameSetupActivity;
 import soprowerwolf.Activities.QRCodeActivity;
 import soprowerwolf.Classes.GlobalVariables;
 import soprowerwolf.Classes.JSONParser;
@@ -29,7 +30,7 @@ public class createGameDB extends AsyncTask<String, String, String> {
     private JSONParser jsonParser = new JSONParser();
     private GlobalVariables globalVariables = GlobalVariables.getInstance();
     private static final String url_create_game = "http://www-e.uni-magdeburg.de/jkloss/create_new_game.php";
-    NextPhaseDB nextPhaseDB = new NextPhaseDB();
+    GameSetupActivity gsa = new GameSetupActivity();
 
     @Override
     protected String doInBackground(String... params) {
@@ -101,7 +102,6 @@ public class createGameDB extends AsyncTask<String, String, String> {
         paramsPhases.add(new BasicNameValuePair("gameID", gameID));
         jsonParser.makeHttpRequest(url_create_game, "POST", paramsPhases);
 
-        paramsPhases.clear();
         paramsPhases.add(new BasicNameValuePair("phase", "Audio"));
         paramsPhases.add(new BasicNameValuePair("nextPhase", "Audio"));
         paramsPhases.add(new BasicNameValuePair("gameID", gameID));
@@ -115,6 +115,7 @@ public class createGameDB extends AsyncTask<String, String, String> {
         super.onPostExecute(s);
 
         Intent intent = new Intent(globalVariables.getCurrentContext(), QRCodeActivity.class);
+        gsa.finish();
         globalVariables.getCurrentContext().startActivity(intent);
     }
 }

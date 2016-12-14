@@ -19,7 +19,6 @@ import soprowerwolf.R;
 public class showVictimActivity extends AppCompatActivity {
 
     showVictimDB showVictimDB = new showVictimDB();
-    Audio audio = new Audio();
     GlobalVariables globalVariables = GlobalVariables.getInstance();
 
     TextView InfoVictim, v1, v2;
@@ -47,9 +46,6 @@ public class showVictimActivity extends AppCompatActivity {
 
         tag = MediaPlayer.create(showVictimActivity.this, R.raw.tag_wakeup);
 
-        if (globalVariables.isSpielleiter() && globalVariables.getCurrentPhase().equals("OpferNacht") && !globalVariables.getJaegerDies()) {
-            audio.playTagW();
-        }
 
         String[] victims = showVictimDB.getVictims();
 
@@ -62,6 +58,7 @@ public class showVictimActivity extends AppCompatActivity {
          * victims[12] = Lover of victim[6] --> easier for showing (see below)
          * victims[13] = number of victims --> for a better Text
          */
+
         switch (victims[13]) {
             case "0": // no victim
                 if (globalVariables.getCurrentPhase().equals("OpferNacht")) {

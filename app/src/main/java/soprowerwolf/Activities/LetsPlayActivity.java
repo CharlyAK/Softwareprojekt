@@ -21,10 +21,12 @@ public class LetsPlayActivity extends AppCompatActivity {
     CountDownTimer timer;
     String[] images = new String[globalVariables.getNumPlayers()];
     databaseCon Con = new databaseCon();
+    GetRole getRole = new GetRole();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getRole.finish();
         setContentView(R.layout.activity_lets_play);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); // screen stays on
 
@@ -54,6 +56,7 @@ public class LetsPlayActivity extends AppCompatActivity {
             public void onFinish() {
                 Intent intent = new Intent(LetsPlayActivity.this, GameActivity.class);
                 startActivity(intent);
+                finish();
             }
         }.start();
 

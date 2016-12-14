@@ -12,7 +12,7 @@ public class GlobalVariables extends Application {
     private static GlobalVariables instance;
 
     // Global variables: Game
-    private int ownPlayerID;
+    private int ownPlayerID = 0;
     private String ownRole;
     private int gameID;
     private int numPlayers;
@@ -26,7 +26,7 @@ public class GlobalVariables extends Application {
     private String nextPhase;
     private Activity currentContext;
     private Activity sharedPrefContext;
-    private String winner = "";
+    private String winner = "nobody";
     private boolean spielleiter;
     private String[] images;
 
@@ -175,7 +175,6 @@ public class GlobalVariables extends Application {
     public String[] getImages() { return this.images; }
     public void setImages(String[] images) {this.images = images; }
 
-
     /*
      *   getter and setter for Dieb - Variables
      */
@@ -244,4 +243,5 @@ public class GlobalVariables extends Application {
     public boolean getVictimJaeger() {
         return this.victimJaeger;
     }
+
 }

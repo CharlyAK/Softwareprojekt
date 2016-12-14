@@ -34,23 +34,17 @@
 
     <string name="headline_characters">Charaktere\n</string>
 
-    <string name="description_dorfbewohner">Ich bin ein Dorfbewohner. Ich kann nix</string>
-    <string name="description_werwolf">Ich bin ein Werwolf. Ich kann töten!</string>
-    <string name="description_dieb">Ich bin der Dieb. Ich kann stehlen.</string>
-    <string name="description_amor">Amor wählt 2 Spieler, die sich ineinander verlieben.\n Stirbt einer von beiden, folgt ihm der andere in den Tod.</string>
-    <string name="description_seherin">Ich bin die Seherin. Ich hab gute Augen.</string>
+    <string name="description_dorfbewohner">Die Dorfbewohner haben das Ziel, die Werwölfe auszurotten. Zu diesem Zweck beraten sie sich jeden Tag, um einen Wolf zu hängen. Leider trifft es nicht immer einen Schuldigen.</string>
+    <string name="description_werwolf">Tagsüber tarnen sie sich als unschuldige Bürger und des Nachts zeigen sie ihr wahres Ich und rotten sich zusammen, um den Bürger zu verschlingen, der die größte Bedrohung für sie darstellt.
+Erst wenn kein Bürger mehr am Leben ist, ziehen sie zum nächsten Dorf.</string>
+    <string name="description_dieb">Ein Dorfbewohner bekommt ein verlockendes Angebot. Er kann sich eine neue Identität zulegen oder bleiben wie er ist.</string>
+    <string name="description_amor">Amor kommt einmal zur Erde geflogen, um 2 Bürger zu erwählen, die sich unsterblich ineinander verliebn und jeweils mit dem anderen sterben. Hat Amor seine Pfeile verschossen, wird er zu einem ganz normalen Dorfbewohner.</string>
+    <string name="description_seherin">Die Seherin befragt jede Nacht ihre Kristallkugel, um so zu erfahren, ob ein Bürger gut oder böse ist.</string>
     <string name="description_hexe">
-        Die Hexe erwacht immer direkt nachdem die Werwölfe ihr Opfer ausgesucht haben.
-        Sie hat im Verlauf des gesamten Spiels einen Gift- und einen Heiltrank.
-        Der Spielleiter zeigt auf die Person, die von den Werwölfen als Mordopfer gewählt wurde
-        und die Hexe kann diese mit ihrem Heiltrank heilen (auch sich selbst),
-        so dass es am nächsten Morgen keinen Toten gibt. Sie kann aber auch den Gifttrank
-        auf einen anderen Spieler anwenden; dann gibt es mehrere Tote.\n</string>
-    <string name="description_maedchen">Ich bin das Mädchen. Ich darf schmulen.</string>
+        Die Hexe hat in ihrem Häuschen 2 Tränke zusammengebraut. Mit dem Gifttrank kann sie einmal ein Leben nehmen und mit ihrem Heiltrank kann sie einmal ein Opfer der Werwölfe vor dem Tode bewahren.</string>
+    <string name="description_maedchen">Das Mädchen hat sich im Wald verlaufen und begegnet nachts den Werwölfen. Es muss vorsichtig sein und darf sich nicht erwischen lassen.</string>
     <string name="description_jaeger">
-        Scheidet der Jäger aus dem Spiel aus, feuert er in seinem letzten Atemzug noch einen Schuss ab,
-        mit dem er einen Spieler seiner Wahl mit in den Tod reißt,
-        d.h. er bestimmt einen Spieler, der mit ihm aus dem Spiel ausscheidet.\n</string>
+        Der Jäger verlässt das Haus nicht ohne sein Gewehr. Denn sollte er getötet werden, reißt er in seinem letzten Atemzug noch einen Bürger mit in den Tod.</string>
 
 
     Game Setup

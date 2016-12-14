@@ -53,6 +53,7 @@ if (isset($_GET['gameID']) && isset($_GET['playerID'])) {
         // echoing JSON response
         echo json_encode($response);
     }
+
 } else {
     // required field is missing
     $response["success"] = 0;

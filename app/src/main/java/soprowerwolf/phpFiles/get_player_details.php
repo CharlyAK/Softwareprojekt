@@ -35,6 +35,7 @@ if (isset($_GET["playerID"])) {
 			$player["name"] = $result["name"];
             $player["email"] = $result["email"];
 			$player["password"] = $result["password"];
+			$player["login"] = $result["login"];
 		
             // success
             $response["success"] = 1;

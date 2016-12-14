@@ -28,6 +28,7 @@ public class MenuActivity extends AppCompatActivity {
 
     GlobalVariables globalVariables = GlobalVariables.getInstance();
     private static final String url_reset = "http://www-e.uni-magdeburg.de/jkloss/reset.php";
+    private static final String url_set_login = "http://www-e.uni-magdeburg.de/jkloss/setLoginState.php";
     databaseCon Con = new databaseCon();
 
     @Override
@@ -73,6 +74,13 @@ public class MenuActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = preferences.edit();
         editor.remove("PlayerID");
         editor.apply();
+
+        //change login in DB
+        JSONParser jsonParser = new JSONParser();
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("playerID", String.valueOf(globalVariables.getOwnPlayerID())));
+        params.add(new BasicNameValuePair("login", "0"));
+        jsonParser.makeHttpRequest(url_set_login, "POST", params);
 
         Intent intent = new Intent(this, LoginRegistrationActivity.class);
         startActivity(intent);
