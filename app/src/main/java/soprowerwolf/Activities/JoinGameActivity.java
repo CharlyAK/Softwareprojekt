@@ -2,11 +2,13 @@ package soprowerwolf.Activities;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.zxing.Result;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
@@ -29,6 +31,8 @@ public class JoinGameActivity extends AppCompatActivity implements ZXingScannerV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join_game);
 
+        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/" + getString(R.string.app_font));
+
         scan = (Button) findViewById(R.id.scan);
         scan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,6 +40,8 @@ public class JoinGameActivity extends AppCompatActivity implements ZXingScannerV
                 QRScanner(v);
             }
         });
+        scan.setTypeface(font);
+        ((TextView) findViewById(R.id.scanCode)).setTypeface(font);
     }
 
     public void QRScanner(View v){

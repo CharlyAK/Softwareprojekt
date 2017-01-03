@@ -2,6 +2,7 @@ package soprowerwolf.Activities;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +40,11 @@ public class GameSetupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_setup);
         globalVariables.setCurrentContext(this);
+        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/" + getString(R.string.app_font));
+
+        ((TextView) findViewById(R.id.spieleinstellungen)).setTypeface(font);
+        ((TextView) findViewById(R.id.spielerzahl)).setTypeface(font);
+        ((TextView) findViewById(R.id.textView4)).setTypeface(font);
 
         final NumberPicker players = (NumberPicker) findViewById(R.id.numberPicker);
         final Spinner spinnerWer = (Spinner) findViewById(R.id.spinnerWer);

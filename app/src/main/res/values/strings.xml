@@ -1,6 +1,7 @@
 <resources>
 
-    <string name="app_name">Werwölfe von Düsterwald</string>
+    <string name="app_name">FINd die Werwölfe</string>
+    <string name="app_font">FFF_Tusj.ttf</string>
 
 
     LoginRegistration
@@ -71,7 +72,7 @@ Erst wenn kein Bürger mehr am Leben ist, ziehen sie zum nächsten Dorf.</string
 
 
     Join Game
-    <string name="scanCode">Scanne den Code, um dem Spiel beizutreten.</string>
+    <string name="scanCode">Um einem Spiel beizutreten musst du den Code vom Spielersteller scannen. Bitte stelle vorher sicher, dass die App berechtigt ist, deine Kamera zu verwenden.</string>
 
     <string-array name="numbers">
         <item>1</item>

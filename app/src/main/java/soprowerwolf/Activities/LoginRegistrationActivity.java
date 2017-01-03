@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ public class LoginRegistrationActivity extends AppCompatActivity {
 
     Button bStartLogin, bStartRegistration, bLogin, bRegistration, bChooseImage;
     EditText textUsername, textEMail, textPassword;
+    TextView welcome;
     Intent chooseImage;
     ImageButton bStartScreen;
     ImageView PlayerImage;
@@ -45,7 +47,6 @@ public class LoginRegistrationActivity extends AppCompatActivity {
     databaseCon Con = new databaseCon();
     int playerID = 0;
 
-    MediaPlayer audio;
     private static final String url_set_login = "http://www-e.uni-magdeburg.de/jkloss/setLoginState.php";
 
     GlobalVariables globalVariables = GlobalVariables.getInstance();
@@ -56,18 +57,26 @@ public class LoginRegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login_registration);
         globalVariables.setCurrentContext(this);
         globalVariables.setSharedPrefContext(this); // for sharedPref (staying logged in)
+        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/" + getString(R.string.app_font));
 
         bStartScreen = (ImageButton) findViewById(R.id.imageButtonStart);
 
         bStartLogin = (Button) findViewById(R.id.buttonStartLogin);
+        bStartLogin.setTypeface(font);
         bLogin = (Button) findViewById(R.id.buttonLogin);
+        bLogin.setTypeface(font);
         bRegistration = (Button) findViewById(R.id.buttonRegistration);
+        bRegistration.setTypeface(font);
         bStartRegistration = (Button) findViewById(R.id.buttonStartRegistration);
+        bStartRegistration.setTypeface(font);
         textEMail = (EditText) findViewById(R.id.TextEMail);
         textPassword = (EditText) findViewById(R.id.TextPassword);
         textUsername = (EditText) findViewById(R.id.TextUsername);
         PlayerImage = (ImageView) findViewById(R.id.imageViewPlayerImage);
         bChooseImage = (Button) findViewById(R.id.buttonSelectImageStart);
+        bChooseImage.setTypeface(font);
+        welcome = (TextView) findViewById(R.id.welcome);
+        welcome.setTypeface(font);
 
         startLayout = findViewById(R.id.startLayout);
 
@@ -88,10 +97,12 @@ public class LoginRegistrationActivity extends AppCompatActivity {
                     globalVariables.setOwnPlayerID(playerID);
                     Intent intent = new Intent(globalVariables.getCurrentContext(), MenuActivity.class);
                     startActivity(intent);
+                    welcome.setVisibility(View.INVISIBLE);
                 }
                 // else continue with login/ registration
                 else
                 {
+                    welcome.setVisibility(View.INVISIBLE);
                     bStartScreen.setVisibility(View.INVISIBLE);
                     startLayout.setVisibility(View.VISIBLE);
                     findViewById(R.id.login_registration).setBackground(getResources().getDrawable(R.drawable.start));
@@ -219,6 +230,7 @@ public class LoginRegistrationActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         bStartScreen.setVisibility(View.VISIBLE);
+        welcome.setVisibility(View.VISIBLE);
         findViewById(R.id.login_registration).setBackground(getResources().getDrawable(R.drawable.start));
         bLogin.setVisibility(View.INVISIBLE);
         bRegistration.setVisibility(View.INVISIBLE);

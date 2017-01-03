@@ -36,14 +36,17 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Philosopher-Regular.ttf");
+        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/" + getString(R.string.app_font));
         ((Button) findViewById(R.id.startGame)).setTypeface(font);
         ((Button) findViewById(R.id.joinGame)).setTypeface(font);
         ((Button) findViewById(R.id.settings)).setTypeface(font);
+        ((Button) findViewById(R.id.logout)).setTypeface(font);
+        ((Button) findViewById(R.id.rules)).setTypeface(font);
         ((TextView) findViewById(R.id.textViewPlayerName)).setTypeface(font);
+        ((TextView) findViewById(R.id.Heading)).setTypeface(font);
 
         TextView playerName = (TextView) findViewById(R.id.textViewPlayerName);
-        playerName.setText(playerName.getText() + " " + Con.getName());
+        playerName.setText(playerName.getText() + " " + Con.getName() + " :)");
     }
 
     public void startGameSetup(View view) {
@@ -67,7 +70,6 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void logout(View view) {
-        globalVariables.setOwnPlayerID(0);
 
         //remove PlayerID from sharedPref -> next time login necessary
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(globalVariables.getSharedPrefContext());
@@ -82,6 +84,8 @@ public class MenuActivity extends AppCompatActivity {
         params.add(new BasicNameValuePair("login", "0"));
         jsonParser.makeHttpRequest(url_set_login, "POST", params);
 
+        globalVariables.setOwnPlayerID(0);
+
         Intent intent = new Intent(this, LoginRegistrationActivity.class);
         startActivity(intent);
     }
@@ -93,6 +97,10 @@ public class MenuActivity extends AppCompatActivity {
 
         params.add(new BasicNameValuePair("nothing", "nothing"));
         jsonParser.makeHttpRequest(url_reset, "POST", params);
+    }
+
+    @Override
+    public void onBackPressed() {
 
     }
 }

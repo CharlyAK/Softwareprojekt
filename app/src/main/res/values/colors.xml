@@ -3,7 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#ff4040</color>
-    <color name="MainBackground">#b71c1c</color>
+    <color name="MainBackground">#393939</color>
+    <color name="Buttons">#8b0007</color>
 
     Background colors for GameActivity
     <color name="tag">#FFFFC107</color>

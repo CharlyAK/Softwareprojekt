@@ -11,12 +11,22 @@
 
 
     <Button
-        android:text="@string/scanCode"
+        android:text="Scan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="203dp"
         android:id="@+id/scan"/>
+
+    <TextView
+        android:text="@string/scanCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scanCode"
+        android:layout_above="@+id/scan"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="30dp" />
 
 </RelativeLayout>
