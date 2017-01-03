@@ -29,7 +29,7 @@ if (isset($_POST['gameID']) && !empty($_POST['gameID'])) {
 
 	$victimDor = mysql_query("SELECT victimDor FROM _GAME WHERE gameID = '$gameID'");
 
-	if(!empty($victimDor))
+	if($victimDor != 0)
 	{
 		mysql_query("UPDATE player_game p1,
 							(SELECT(sp.victimDor) AS victimDor FROM _GAME sp WHERE gameID = '$gameID') AS p2
@@ -43,7 +43,7 @@ if (isset($_POST['gameID']) && !empty($_POST['gameID'])) {
 
 	$victimWer = mysql_query("SELECT victimWer FROM _GAME WHERE gameID = '$gameID'");
 
-	if(!empty($victimWer))
+	if($victimWer != 0)
 	{
 		mysql_query("UPDATE player_game p1,
 							(SELECT(sp.victimWer) AS victimWer FROM _GAME sp WHERE gameID = '$gameID') AS p2
@@ -57,7 +57,7 @@ if (isset($_POST['gameID']) && !empty($_POST['gameID'])) {
 
 	$victimHex = mysql_query("SELECT victimHex FROM _GAME WHERE gameID = '$gameID'");
 
-	if(!empty($victimHex))
+	if($victimHex != 0)
 	{
 		mysql_query("UPDATE player_game p1,
 							(SELECT(sp.victimHex) AS victimHex FROM _GAME sp WHERE gameID = '$gameID') AS p2
@@ -71,7 +71,7 @@ if (isset($_POST['gameID']) && !empty($_POST['gameID'])) {
 
 	$victimJaeger = mysql_query("SELECT victimJaeger FROM _GAME WHERE gameID = '$gameID'");
 
-	if(!empty($victimJaeger))
+	if($victimJaeger != 0)
 	{
 		mysql_query("UPDATE player_game p1,
 							(SELECT(sp.victimJaeger) AS victimJaeger FROM _GAME sp WHERE gameID = '$gameID') AS p2
