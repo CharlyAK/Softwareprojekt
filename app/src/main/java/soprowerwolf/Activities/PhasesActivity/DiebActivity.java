@@ -252,6 +252,7 @@ public class DiebActivity extends AppCompatActivity {
                 choice1 = choices[0];
                 choice2 = choices[1];
 
+                //ToDo: wenn beide rollen zur wahl werwolf sind - werwolfphase nicht löschen!
                 if(choice1.equals("Werwolf"))
                 {
                     new DiebDB().execute("Werwolf", choice2, "");
