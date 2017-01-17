@@ -26,6 +26,7 @@ public class AudioActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wait);
         globalVariables.setCurrentContext(this);

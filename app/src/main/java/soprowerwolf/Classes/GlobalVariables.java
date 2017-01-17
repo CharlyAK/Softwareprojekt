@@ -3,6 +3,7 @@ package soprowerwolf.Classes;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Application;
+import android.graphics.Typeface;
 import android.widget.Button;
 
 /**
@@ -10,6 +11,7 @@ import android.widget.Button;
  */
 public class GlobalVariables extends Application {
     private static GlobalVariables instance;
+
 
     // Global variables: Game
     private int ownPlayerID = 0;

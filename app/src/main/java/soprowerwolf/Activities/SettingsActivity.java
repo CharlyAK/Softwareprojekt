@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -36,11 +37,13 @@ public class SettingsActivity extends AppCompatActivity {
     InputStream is;
 
     databaseCon Con = new databaseCon();
+    GlobalVariables globalVariables = GlobalVariables.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/" + getString(R.string.app_font));
 
         //Name auswählen
         playerName = (EditText) findViewById(R.id.SettingsUsername);
@@ -62,13 +65,15 @@ public class SettingsActivity extends AppCompatActivity {
 
             }
         });
+        Image_button.setTypeface(font);
 
         //Open SharedPref-File
         SharedPreferences mySPR_Name = getSharedPreferences("MySPFile", 0);
 
         playerName.setText(Con.getName());
 
-
+        ((Button) findViewById(R.id.deleteAccount)).setTypeface(font);
+        ((Button) findViewById(R.id.SettingsSaveUsername)).setTypeface(font);
     }
 
     // Wird ausgeführt, sobald von einem Intent in diese Activity gesendet wird
