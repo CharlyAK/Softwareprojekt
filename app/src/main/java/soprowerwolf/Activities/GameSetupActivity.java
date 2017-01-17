@@ -52,7 +52,7 @@ public class GameSetupActivity extends AppCompatActivity {
 
         //set values for NumberPicker
         assert players != null;
-        players.setMinValue(8);
+        players.setMinValue(4);
         players.setMaxValue(20);
 
         //if value of the NumberPicker changes
