@@ -33,6 +33,7 @@ public class killDB extends AsyncTask<String, String, String> {
         //alive ändern
         List<NameValuePair> paramsList = new ArrayList<NameValuePair>();
         paramsList.add(new BasicNameValuePair("gameID", String.valueOf(globalVariables.getGameID())));
+        paramsList.add(new BasicNameValuePair("victim", params[0]));
         jsonParser.makeHttpRequest(url_changeAlive, "POST", paramsList);
 
         return null;

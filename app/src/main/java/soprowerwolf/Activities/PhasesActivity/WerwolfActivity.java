@@ -37,6 +37,7 @@ public class WerwolfActivity extends AppCompatActivity {
     soprowerwolf.Classes.popup popup = new popup();
     int[] playerIDsAndVotes = new int[40];
     int numOfWer = 0;
+    Boolean alive = Con.alive(globalVariables.getOwnPlayerID());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,14 @@ public class WerwolfActivity extends AppCompatActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); // screen stays on
 
         if(globalVariables.isSpielleiter()){ audio.playAudioWakeup(); }
+
+        if(!alive){
+            setContentView(R.layout.activity_wait);
+
+            //check frequently if phase has been changed
+            timerHandler.postDelayed(timerRunnable, 3000);
+            return;
+        }
 
         try {
             numOfWer = Con.Werwolf("getNumOfWerAlive")[0];
