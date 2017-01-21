@@ -117,6 +117,26 @@ if (isset($_POST['gameID']) && !empty($_POST['gameID']) && isset($_POST['victim'
 						SET p1.alive = 0 WHERE gameID = '$gameID' AND lover = p2.victimJaeger");
 			break;
 
+		case "WerHex":
+		    // get victimWer and change "alive" --> if there is a lover - change alive, too
+            			mysql_query("UPDATE player_game p1,
+            								(SELECT(sp.victimWer) AS victimWer FROM _GAME sp WHERE gameID = '$gameID') AS p2
+            						SET p1.alive = 0 WHERE gameID = '$gameID' AND playerID = p2.victimWer");
+
+            			mysql_query("UPDATE player_game p1,
+            							(SELECT(sp.victimWer) AS victimWer FROM _GAME sp WHERE gameID = '$gameID') AS p2
+            						SET p1.alive = 0 WHERE gameID = '$gameID' AND lover = p2.victimWer");
+
+            // get victimHex and change "alive" --> if there is a lover - change alive, too
+            			mysql_query("UPDATE player_game p1,
+            								(SELECT(sp.victimHex) AS victimHex FROM _GAME sp WHERE gameID = '$gameID') AS p2
+            						SET p1.alive = 0 WHERE gameID = '$gameID' AND playerID = p2.victimHex");
+
+            			mysql_query("UPDATE player_game p1,
+            							(SELECT(sp.victimHex) AS victimHex FROM _GAME sp WHERE gameID = '$gameID') AS p2
+            						SET p1.alive = 0 WHERE gameID = '$gameID' AND lover = p2.victimHex");
+            break;
+
 		case "WerHexJae":
 			// get victimWer and change "alive" --> if there is a lover - change alive, too
 			mysql_query("UPDATE player_game p1,
