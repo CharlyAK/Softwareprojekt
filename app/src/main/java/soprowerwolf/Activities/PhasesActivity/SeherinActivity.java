@@ -1,6 +1,5 @@
 package soprowerwolf.Activities.PhasesActivity;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;

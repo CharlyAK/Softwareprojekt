@@ -68,7 +68,6 @@ public class GameOverActivity extends AppCompatActivity {
                 }
                 break;
         }
-
     }
 
     public void backToMenu(View view){

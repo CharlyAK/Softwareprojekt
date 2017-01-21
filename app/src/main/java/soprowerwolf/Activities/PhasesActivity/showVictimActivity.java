@@ -54,7 +54,6 @@ public class showVictimActivity extends AppCompatActivity {
 
         tag = MediaPlayer.create(showVictimActivity.this, R.raw.tag_wakeup);
 
-
         String[] victims = showVictimDB.getVictims();
 
         /* victims[0] = victimDor; victim[1] = [victimDor = good] or [victimDor = bad]
@@ -154,7 +153,7 @@ public class showVictimActivity extends AppCompatActivity {
         timer = new CountDownTimer(tag.getDuration() + 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-
+                tag.start();
             }
 
             @Override
