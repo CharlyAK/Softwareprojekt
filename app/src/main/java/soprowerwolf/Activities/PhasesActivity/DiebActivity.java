@@ -12,6 +12,7 @@ import soprowerwolf.Classes.GlobalVariables;
 import soprowerwolf.Classes.databaseCon;
 import soprowerwolf.Classes.popup;
 import soprowerwolf.Database.DiebDB;
+import soprowerwolf.Database.checkPhases;
 import soprowerwolf.Database.getCurrentPhase;
 import soprowerwolf.R;
 
@@ -21,13 +22,19 @@ public class DiebActivity extends AppCompatActivity {
     GlobalVariables globalVariables = GlobalVariables.getInstance();
     databaseCon Con = new databaseCon();
     Audio audio = new Audio();
+    checkPhases check = new checkPhases();
 
     private Handler timerHandler = new Handler();
     private Runnable timerRunnable = new Runnable() {
         @Override
         public void run() {
-            new getCurrentPhase().execute("");
-            timerHandler.postDelayed(this, 3000);
+            if(check.check()) {
+                onStop();
+                new getCurrentPhase().execute("");
+            }
+            else {
+                timerHandler.postDelayed(this, 3000);
+            }
         }
     };
 

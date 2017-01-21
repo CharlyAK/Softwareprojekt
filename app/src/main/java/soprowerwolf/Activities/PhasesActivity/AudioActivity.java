@@ -7,6 +7,7 @@ import android.os.Bundle;
 import soprowerwolf.Classes.Audio;
 import soprowerwolf.Classes.GlobalVariables;
 import soprowerwolf.Database.NextPhaseDB;
+import soprowerwolf.Database.checkPhases;
 import soprowerwolf.Database.getCurrentPhase;
 import soprowerwolf.R;
 
@@ -14,13 +15,19 @@ public class AudioActivity extends AppCompatActivity {
 
     GlobalVariables globalVariables = GlobalVariables.getInstance();
     Audio audio = new Audio();
+    checkPhases check = new checkPhases();
 
     private Handler timerHandler = new Handler();
     private Runnable timerRunnable = new Runnable() {
         @Override
         public void run() {
-            new getCurrentPhase().execute("");
-            timerHandler.postDelayed(this, 3000);
+            if(check.check()) {
+                onStop();
+                new getCurrentPhase().execute("");
+            }
+            else {
+                timerHandler.postDelayed(this, 3000);
+            }
         }
     };
 

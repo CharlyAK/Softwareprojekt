@@ -129,9 +129,10 @@ public class QRCodeActivity extends AppCompatActivity {
             //if all players in Game
             if (numPlayersIn == numPlayers)
             {
-                stop();
+                onStop();
                 Intent intent = new Intent(QRCodeActivity.this, GetRole.class);
                 startActivity(intent);
+                finish();
             }
 
             else

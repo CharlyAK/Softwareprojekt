@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import soprowerwolf.Classes.Audio;
 import soprowerwolf.Classes.GlobalVariables;
+import soprowerwolf.Database.checkPhases;
 import soprowerwolf.Database.getCurrentPhase;
 import soprowerwolf.Database.killDB;
 import soprowerwolf.Database.setNextPhase;
@@ -20,6 +21,7 @@ public class showVictimActivity extends AppCompatActivity {
 
     showVictimDB showVictimDB = new showVictimDB();
     GlobalVariables globalVariables = GlobalVariables.getInstance();
+    checkPhases check = new checkPhases();
 
     TextView InfoVictim, v1, v2;
     MediaPlayer tag;
@@ -30,8 +32,13 @@ public class showVictimActivity extends AppCompatActivity {
     private Runnable timerRunnable = new Runnable() {
         @Override
         public void run() {
-            new getCurrentPhase().execute();
-            timerHandler.postDelayed(this, 3000);
+            if(check.check()) { // if Phase has been changed -> stop timer + get next Phase
+                onStop();
+                new getCurrentPhase().execute("");
+            }
+            else {
+                timerHandler.postDelayed(this, 3000);
+            }
         }
     };
 
@@ -44,8 +51,6 @@ public class showVictimActivity extends AppCompatActivity {
         InfoVictim = (TextView) findViewById(R.id.victim);
         v1 = (TextView) findViewById(R.id.v1);
         v2 = (TextView) findViewById(R.id.v2);
-
-        int j = 0;
 
         tag = MediaPlayer.create(showVictimActivity.this, R.raw.tag_wakeup);
 

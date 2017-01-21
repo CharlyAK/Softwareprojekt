@@ -11,6 +11,7 @@ import android.widget.Toast;
 import org.json.JSONException;
 import soprowerwolf.Classes.databaseCon;
 import soprowerwolf.Classes.popup;
+import soprowerwolf.Database.checkPhases;
 import soprowerwolf.Database.getCurrentPhase;
 import soprowerwolf.Database.setNextPhase;
 import soprowerwolf.R;
@@ -24,6 +25,7 @@ public class TagActivity extends AppCompatActivity {
     databaseCon Con = new databaseCon();
     GlobalVariables globalVariables = GlobalVariables.getInstance();
     popup popup = new popup();
+    checkPhases check = new checkPhases();
     Boolean alive = Con.alive(globalVariables.getOwnPlayerID());
     int[] playerIDsAndVotes = new int[40];
 
@@ -31,8 +33,13 @@ public class TagActivity extends AppCompatActivity {
     private Runnable timerRunnable = new Runnable() {
         @Override
         public void run() {
-            new getCurrentPhase().execute("");
-            timerHandler.postDelayed(this, 3000);
+            if(check.check()) { // if Phase has been changed -> stop timer + get next Phase
+                onStop();
+                new getCurrentPhase().execute("");
+            }
+            else {
+                timerHandler.postDelayed(this, 3000);
+            }
         }
     };
 

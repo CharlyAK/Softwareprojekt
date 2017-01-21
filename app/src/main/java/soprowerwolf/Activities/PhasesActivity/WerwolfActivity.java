@@ -12,6 +12,7 @@ import org.json.JSONException;
 import soprowerwolf.Classes.Audio;
 import soprowerwolf.Classes.databaseCon;
 import soprowerwolf.Classes.popup;
+import soprowerwolf.Database.checkPhases;
 import soprowerwolf.Database.getCurrentPhase;
 import soprowerwolf.Database.setNextPhase;
 import soprowerwolf.R;
@@ -22,13 +23,19 @@ import soprowerwolf.Classes.GlobalVariables;
 public class WerwolfActivity extends AppCompatActivity {
 
     Audio audio = new Audio();
+    checkPhases check = new checkPhases();
 
     private Handler timerHandler = new Handler();
     private Runnable timerRunnable = new Runnable() {
         @Override
         public void run() {
-            new getCurrentPhase().execute();
-            timerHandler.postDelayed(this, 3000);
+            if(check.check()) { // if Phase has been changed -> stop timer + get next Phase
+                onStop();
+                new getCurrentPhase().execute("");
+            }
+            else {
+                timerHandler.postDelayed(this, 3000);
+            }
         }
     };
 
@@ -43,6 +50,7 @@ public class WerwolfActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); // screen stays on
+        globalVariables.setCurrentContext(this);
 
         if(globalVariables.isSpielleiter()){ audio.playAudioWakeup(); }
 
@@ -68,7 +76,7 @@ public class WerwolfActivity extends AppCompatActivity {
         //check, if own Role equals Phase -> yes: Activity is shown; no: black screen is shown (activity_wait)
         if (globalVariables.getOwnRole().equals("Werwolf") && Con.alive(globalVariables.getOwnPlayerID())) {
             setContentView(R.layout.activity_werwolf);
-            globalVariables.setCurrentContext(this);
+
 
 
             //View settings: Fullscreen

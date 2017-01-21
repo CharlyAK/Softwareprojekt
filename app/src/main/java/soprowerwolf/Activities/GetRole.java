@@ -154,6 +154,7 @@ public class GetRole extends AppCompatActivity {
             info.setText(getString(R.string.gettingReady) + String.valueOf(ready) + "/" + String.valueOf(numPlayers) + " " + getString(R.string.PlayerReady));
 
             if (ready == numPlayers || ready == numPlayers + 2) { // ToDo: ändern
+                onStop();
                 Intent intent = new Intent(GetRole.this, LetsPlayActivity.class);
                 startActivity(intent);
                 finish();

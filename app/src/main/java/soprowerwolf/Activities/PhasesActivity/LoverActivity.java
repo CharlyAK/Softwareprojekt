@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import soprowerwolf.Classes.GlobalVariables;
 import soprowerwolf.Classes.databaseCon;
+import soprowerwolf.Database.checkPhases;
 import soprowerwolf.Database.getCurrentPhase;
 import soprowerwolf.Database.setNextPhase;
 import soprowerwolf.R;
@@ -20,6 +21,7 @@ public class LoverActivity extends AppCompatActivity {
 
     databaseCon Con = new databaseCon();
     GlobalVariables globalVariables = GlobalVariables.getInstance();
+    checkPhases check = new checkPhases();
 
     TextView lover;
     MediaPlayer audio;
@@ -29,8 +31,13 @@ public class LoverActivity extends AppCompatActivity {
     private Runnable timerRunnable = new Runnable() {
         @Override
         public void run() {
-            new getCurrentPhase().execute("");
-            timerHandler.postDelayed(this, 2000);
+            if(check.check()) { // if Phase has been changed -> stop timer + get next Phase
+                onStop();
+                new getCurrentPhase().execute("");
+            }
+            else {
+                timerHandler.postDelayed(this, 3000);
+            }
         }
     };
 

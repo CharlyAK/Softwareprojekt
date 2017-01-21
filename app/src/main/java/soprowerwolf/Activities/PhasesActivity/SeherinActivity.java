@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 
 import soprowerwolf.Classes.Audio;
+import soprowerwolf.Database.checkPhases;
 import soprowerwolf.Database.getCurrentPhase;
 import soprowerwolf.Database.setNextPhase;
 import soprowerwolf.R;
@@ -25,14 +26,20 @@ public class SeherinActivity extends AppCompatActivity {
     databaseCon con = new databaseCon();
     CountDownTimer timer;
     Boolean alive = con.alive(globalVariables.getOwnPlayerID());
+    checkPhases check = new checkPhases();
 
 
     private Handler timerHandler = new Handler();
     private Runnable timerRunnable = new Runnable() {
         @Override
         public void run() {
-            new getCurrentPhase().execute("");
-            timerHandler.postDelayed(this, 3000);
+            if(check.check()) { // if Phase has been changed -> stop timer + get next Phase
+                onStop();
+                new getCurrentPhase().execute("");
+            }
+            else {
+                timerHandler.postDelayed(this, 3000);
+            }
         }
     };
 
@@ -41,13 +48,13 @@ public class SeherinActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         globalVariables.setCurrentPhase("Seherin");
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); // screen stays on
+        globalVariables.setCurrentContext(this);
 
         if(globalVariables.isSpielleiter()){ audio.playAudioWakeup(); }
 
         //check, if own Role equals Phase -> yes: Activity is shown; no: black screen is shown (activity_wait)
         if (globalVariables.getOwnRole().equals("Seherin") && alive) {
             setContentView(R.layout.activity_seherin);
-            globalVariables.setCurrentContext(this);
 
             //View settings: Fullscreen
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,

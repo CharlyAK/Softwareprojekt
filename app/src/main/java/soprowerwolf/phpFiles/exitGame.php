@@ -33,7 +33,7 @@ else if (!empty($_GET['playerID']) && isset($_GET['playerID'])){
 	    or die("Löschen des Spielers aus player_game fehlgeschlagen");
 }
 
-else if(!empty($_POST['gameID']) && isset($_POST['gameID'])
+else if(!empty($_POST['gameID']) && isset($_POST['gameID']))
 {
     $gameID = $_POST['gameID'];
 

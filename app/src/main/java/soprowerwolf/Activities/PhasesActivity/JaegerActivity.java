@@ -12,6 +12,7 @@ import soprowerwolf.Activities.GameActivity;
 import soprowerwolf.Classes.GlobalVariables;
 import soprowerwolf.Classes.popup;
 import soprowerwolf.Database.JaegerDB;
+import soprowerwolf.Database.checkPhases;
 import soprowerwolf.Database.getCurrentPhase;
 import soprowerwolf.R;
 
@@ -19,13 +20,19 @@ public class JaegerActivity extends AppCompatActivity {
 
     GlobalVariables globalVariables = GlobalVariables.getInstance();
     popup popup = new popup();
+    checkPhases check = new checkPhases();
 
     private Handler timerHandler = new Handler();
     private Runnable timerRunnable = new Runnable() {
         @Override
         public void run() {
-            new getCurrentPhase().execute("");
-            timerHandler.postDelayed(this, 2000);
+            if(check.check()) { // if Phase has been changed -> stop timer + get next Phase
+                onStop();
+                new getCurrentPhase().execute("");
+            }
+            else {
+                timerHandler.postDelayed(this, 3000);
+            }
         }
     };
 

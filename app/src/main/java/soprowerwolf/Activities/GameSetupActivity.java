@@ -96,6 +96,7 @@ public class GameSetupActivity extends AppCompatActivity {
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void calculateGame(View view) {
+        globalVariables.setDiebChoosen(false);
         i = 1;
         cards[0] = "Seherin"; //always a part of the game
         fillDor = ((NumberPicker) findViewById(R.id.numberPicker)).getValue();

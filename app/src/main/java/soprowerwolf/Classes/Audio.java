@@ -32,7 +32,7 @@ public class Audio {
             case "Seherin":
                 audio = MediaPlayer.create(globalVariables.getCurrentContext(), R.raw.seherin_sleep);
                 break;
-            case "Tag":
+            case "OpferTag":
                 audio = MediaPlayer.create(globalVariables.getCurrentContext(), R.raw.tag_sleep);
                 break;
             case "Werwolf":
