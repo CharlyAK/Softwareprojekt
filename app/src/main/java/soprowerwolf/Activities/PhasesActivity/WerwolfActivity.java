@@ -54,13 +54,11 @@ public class WerwolfActivity extends AppCompatActivity {
 
         if(globalVariables.isSpielleiter()){ audio.playAudioWakeup(); }
 
-        if(!alive){
-            setContentView(R.layout.activity_wait);
-
-            //check frequently if phase has been changed
-            timerHandler.postDelayed(timerRunnable, 3000);
-            return;
+        //the spielleiter checks for the votes
+        if (globalVariables.isSpielleiter()){
+            start();
         }
+
 
         try {
             numOfWer = Con.Werwolf("getNumOfWerAlive")[0];
@@ -68,10 +66,6 @@ public class WerwolfActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        //the spielleiter checks for the votes
-        if (globalVariables.isSpielleiter()){
-            start();
-        }
 
         //check, if own Role equals Phase -> yes: Activity is shown; no: black screen is shown (activity_wait)
         if (globalVariables.getOwnRole().equals("Werwolf") && Con.alive(globalVariables.getOwnPlayerID())) {

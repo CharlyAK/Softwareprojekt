@@ -23,6 +23,7 @@ public class showVictimActivity extends AppCompatActivity {
     GlobalVariables globalVariables = GlobalVariables.getInstance();
     checkPhases check = new checkPhases();
 
+    Audio audio = new Audio();
     TextView InfoVictim, v1, v2;
     MediaPlayer tag;
     CountDownTimer timer;
@@ -150,10 +151,13 @@ public class showVictimActivity extends AppCompatActivity {
                 break;
         }
 
+        if(globalVariables.isSpielleiter() && globalVariables.getCurrentPhase().equals("OpferNacht")){
+            audio.playAudioWakeup();
+        }
         timer = new CountDownTimer(tag.getDuration() + 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                tag.start();
+
             }
 
             @Override
